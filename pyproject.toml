@@ -1,0 +1,22 @@
+[project]
+name = "enterprise-knowledge-assistant"
+version = "0.1.0"
+description = "Hybrid vector + graph RAG with a bounded LangGraph agent, NeMo Guardrails and Langfuse."
+requires-python = ">=3.11,<3.12"
+
+[tool.ruff]
+line-length = 110
+target-version = "py311"
+extend-exclude = [".venv", "data", "eval/reports"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "BLE"]
+
+[tool.ruff.lint.per-file-ignores]
+# Phase 0 script kept close to the spec listing (compact one-liners, semicolons).
+"scripts/check_env.py" = ["E401", "E702", "E731", "I001", "B023"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "function"
+testpaths = ["tests"]

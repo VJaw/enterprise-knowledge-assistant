@@ -1,0 +1,50 @@
+# API
+fastapi
+uvicorn[standard]
+pydantic
+pydantic-settings
+python-dotenv
+slowapi
+sse-starlette
+httpx
+tenacity
+# LLM + orchestration
+openai
+langchain
+langchain-openai
+langchain-community<0.4  # cap: ragas 0.4.3 imports chat_models.vertexai, removed in 0.4 (see A5 D-005)
+langgraph
+langgraph-checkpoint-sqlite
+langchain-mcp-adapters
+# Retrieval
+qdrant-client
+sentence-transformers
+rank-bm25
+neo4j
+rapidfuzz
+sqlglot
+# Ingestion / data generation
+pypdf
+python-frontmatter
+pandas
+faker
+reportlab
+tiktoken
+# Guardrails
+nemoguardrails
+presidio-analyzer
+presidio-anonymizer
+llm-guard>=0.3.16  # floor: unpinned resolves to 0.0.2 (see A5 D-005)
+# Tools
+tavily-python
+# Observability + eval + deploy
+langfuse
+ragas
+datasets
+locust
+matplotlib
+huggingface_hub
+# Dev
+pytest
+pytest-asyncio
+ruff

@@ -1,0 +1,10 @@
+.env
+.venv/
+data/indexes/
+data/qdrant/
+*.db
+__pycache__/
+.promptfoo/
+.pytest_cache/
+.ruff_cache/
+.DS_Store
