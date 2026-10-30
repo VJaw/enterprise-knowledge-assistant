@@ -57,7 +57,7 @@ Read capstonespec.md in full. Execute Phase <N> only.
 | Phase | Name | Status | Date | Commit | Notes |
 |---|---|---|---|---|---|
 | 0 | Environment & key verification | ✅ | 2026-10-30 | n/a | ALL CHECKS PASSED; Langfuse trace confirmed in UI |
-| 1 | Project scaffold | ⬜ | | | |
+| 1 | Project scaffold | ✅ | 2026-10-30 | `c2d037b` | check-env 13/13, /health all ok, 5 tests, ruff clean; D-005, D-006 |
 | 2 | Synthetic data & ingestion | ⬜ | | | |
 | 3 | Vector index & walking skeleton (**M1**) | ⬜ | | | |
 | 4 | Knowledge graph on Neo4j Aura | ⬜ | | | |
@@ -96,7 +96,7 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done (gate passed) · ⚠️ 
 - Known issues / TODO: none. Note the $10 OpenAI limit is at the low end of the D3 estimate (≈ $5–12), so keep gpt-4o-mini as the default and watch spend in Phases 6, 10 and 11.
 - Notes for the next phase: Langfuse is SDK v5 — use `start_as_current_observation` / `@observe`, not the v2 `lf.trace(...)` or v3 `start_as_current_span` APIs. openai SDK is v3.x.
 
-**Phase 1 — Project scaffold (2026-10-30, commit `see A3`)**
+**Phase 1 — Project scaffold (2026-10-30, commit `c2d037b`)**
 - Built: `git init` (branch `main`), `.gitignore` (spec list + `.ruff_cache/`, `.DS_Store`); §B16 tree with `__init__.py` packages and `.gitkeep` in data/eval/docs dirs; `scripts/check_env.py` (moved), `requirements-phase0.txt` deleted; `requirements.txt` + `requirements.lock` (`uv pip compile`, 200+ pins, synced into `.venv`) + spaCy `en_core_web_lg`; `app/config.py` (pydantic-settings, secrets as `SecretStr`, all `.env.example` vars + feature flags); `app/core/types.py`; `app/main.py` (lifespan owns `AsyncOpenAI`, async Neo4j driver, `Langfuse`, `httpx.AsyncClient` on `app.state`); `app/api/health.py` (4 checks run with `asyncio.gather`, 8 s timeout each, 503 if any fail, errors report the exception type / HTTP status only); `Makefile` (all 13 targets + `lint`; uses `.venv/bin/*`, so no venv activation needed); `pyproject.toml` (ruff + pytest-asyncio auto mode); `tests/test_health.py` (5 tests, fake clients on `app.state`, `httpx.MockTransport` for Tavily, asserts the key never appears in the body); `README.md` stub.
 - Key pins: langchain 1.4.7 / langchain-core 1.7.3 / langgraph 1.2.19 / langchain-community 0.3.31, nemoguardrails 0.24.1, llm-guard 0.3.16, ragas 0.4.3, langfuse 5.1.0, openai 3.3.0, qdrant-client 1.20.0, sentence-transformers 5.7.0, transformers 4.51.3, torch 2.15.0, neo4j 6.4.1, fastapi 0.162.0, presidio 2.2.358.
 - Gate results: `make check-env` ALL CHECKS PASSED (13/13, Langfuse trace `5fefbc6826586e9522ade9288d7b9769`) · `curl localhost:7860/health` → `{"openai":"ok","neo4j":"ok","langfuse":"ok","tavily":"ok"}` HTTP 200 in 1.3 s · `make test` 5 passed · `ruff check .` clean.
