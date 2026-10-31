@@ -49,5 +49,5 @@ load:             ## Phase 11: Locust ramp test (API must be running)
 docker:
 	docker build -t eka .
 
-deploy:           ## Phase 12: push to the Hugging Face Space remote
-	git push hf main
+deploy:           ## Phase 12: upload git HEAD to the Hugging Face Space (D-029; see scripts/deploy_space.py)
+	$(PY) scripts/deploy_space.py push

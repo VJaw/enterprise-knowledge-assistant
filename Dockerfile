@@ -1,4 +1,5 @@
-# Phase 8: API + hybrid retrieval + agent + guardrails. Node (npx) and uv (uvx) run the MCP servers (§B4.5).
+# Final image for the Hugging Face Space (§B4.5): API + hybrid retrieval + agent + guardrails, models and indexes
+# baked in; the graph lives in Neo4j Aura. Node (npx) and uv (uvx) run the MCP servers. HF builds it for linux/amd64.
 FROM python:3.11-slim
 
 ENV PYTHONUNBUFFERED=1 \
