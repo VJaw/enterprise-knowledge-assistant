@@ -18,8 +18,8 @@ check-env:        ## verify tooling + every external credential
 data:             ## Phase 2: synthetic Acme corpus
 	$(PY) data/generate_synthetic.py
 
-ingest:           ## Phase 2/3: clean, metadata, SQLite, indexes
-	$(PY) -m ingestion.run
+ingest:           ## Phase 2/3: clean, metadata, SQLite, Qdrant + BM25 indexes
+	$(PY) -m ingestion.run --build-indexes
 
 graph:            ## Phase 4: constraints, CSV backbone, LLM extraction, MENTIONS
 	$(PY) -m ingestion.load_graph

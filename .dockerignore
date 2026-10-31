@@ -1,0 +1,16 @@
+.env
+.git
+.venv
+.vscode
+.DS_Store
+**/__pycache__
+.pytest_cache
+.ruff_cache
+.promptfoo
+# rebuilt inside the image
+data/qdrant
+data/indexes
+data/*.db
+# LLM generation cache: only `make data` needs it
+data/cache
+docs/screenshots

@@ -59,7 +59,7 @@ Read capstonespec.md in full. Execute Phase <N> only.
 | 0 | Environment & key verification | ✅ | 2026-10-30 | n/a | ALL CHECKS PASSED; Langfuse trace confirmed in UI |
 | 1 | Project scaffold | ✅ | 2026-10-30 | `c2d037b` | check-env 13/13, /health all ok, 5 tests, ruff clean; D-005, D-006 |
 | 2 | Synthetic data & ingestion | ✅ | 2026-10-30 | `4aea09e` | 94 docs (34 + 60 FAQ), SQLite 300/40, 18 ingestion tests; D-007, D-008, D-009 |
-| 3 | Vector index & walking skeleton (**M1**) | ⬜ | | | |
+| 3 | Vector index & walking skeleton (**M1**) | ✅ | 2026-10-30 | _pending_ | 278 chunks, dense R@5 1.000 / MRR@10 0.933, image 5.74 GB, 41 tests; D-010, D-011, D-012 |
 | 4 | Knowledge graph on Neo4j Aura | ⬜ | | | |
 | 5 | Hybrid retrieval & re-ranking | ⬜ | | | |
 | 6 | Golden set & baseline evaluation (**M2**) | ⬜ | | | |
@@ -122,6 +122,19 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done (gate passed) · ⚠️ 
 - Known issues / TODO: the FAQ has a few near-duplicate questions across categories (e.g. three MFA-reset variants). They are realistic and different enough to survive the exact-hash dedupe, but expect them to compete in dense retrieval. Policy PDF text keeps pypdf's soft line wraps inside paragraphs, so the Phase 3 chunker should treat single newlines as spaces. `ruff check .` skips `data/` (pyproject `extend-exclude`), so the generator is formatted with `ruff format` but not linted.
 - Notes for the next phase: chunk from `data/processed/docs.jsonl`. PDFs carry `pages[]`, so set `metadata.page` per chunk from it, and `section` from the Markdown heading path. Incident chunks split on the four `##` headings. `attributes.systems` lists the system names each doc covers (useful for `entities[]` in Phase 4). `data/fixtures.json` is the source of truth for fixture values in Phases 6, 8 and 10. The filesystem MCP server is rooted at `data/raw`, which does **not** contain the fixtures manifest, by design.
 
+**Phase 3 — Vector index & walking skeleton (2026-10-30, commit _pending_)**
+- Built: `ingestion/chunk.py` (§B6.1: header-aware Markdown split on `#`/`##`/`###` ignoring code fences, H1 left out of the heading path; incidents fall out as one chunk per `##` section; PDFs per page with soft wraps joined and numbered-heading tracking across pages for `section`; FAQ one chunk per pair; recursive split `\n\n` → `\n` → `. ` → ` ` at ≤ 480 bge tokens / 64 overlap; `chunk_id` = `<doc_id>::<nnn>`; `entities: []` until Phase 4). `index_text()` = `"<title> (<doc_id>) | <heading path>\n<text>"` is what gets embedded and BM25-indexed. `app/retrieval/embeddings.py` (bge-small singleton on CPU, normalised, query prefix on queries only). `app/retrieval/bm25.py` (tokeniser only: lower-case, stop words, ID tokens such as `sop-ops-014` kept whole). `ingestion/index.py` (recreates Qdrant `documents` + the 5 payload indexes, creates an empty `semantic_cache`, uuid5 point ids, batch upsert; `data/indexes/bm25.pkl` = `{chunk_ids, bm25}`; `data/indexes/chunks.jsonl`). `ingestion/run.py --build-indexes` + `make ingest` now builds them. `app/retrieval/dense.py` (`DenseRetriever`, filters on `doc_type/domain/sensitivity/doc_id/entities`, unknown keys → `ValueError` → 422, `@observe` retriever span). `app/api/schemas.py` (§B11.2 verbatim), `app/api/chat.py` (dense top 5 → §B8.5 context → gpt-4o-mini via `ChatOpenAI` → `[n]` citations in order of first use, usage + est. cost filled). `app/observability/langfuse.py` (`init_langfuse`, per-call `CallbackHandler`, `update_span` that no-ops when nothing is traced). `app/main.py` lifespan warms the embedder, opens Qdrant and rebuilds the index if the collection is missing (§B4.3). `app/bootstrap/download_models.py`, `Dockerfile` v0, `.dockerignore`, `docker/entrypoint.sh`. `scripts/validate_retrieval.py` → `eval/reports/retrieval_baseline.md`. Tests: `tests/retrieval/` (13) + `tests/api/test_chat.py` (5).
+- Index: **278 chunks** (faq 60, incident 40, manual 64, policy 24, sop 90). Max `index_text` length 487 bge tokens, median 101; none over 512. Build ≈ 11 s locally.
+- Gate results:
+  - `make ingest && make run` + gate curl → `"Customer application logs are retained for 13 months [1][2][3][5]."`, citations FAQ-030, FAQ-004, FAQ-046, **POL-COMP-001 p.1**. The policy is cited, but `.citations[0].doc_id` is `FAQ-030`: three near-duplicate FAQ answers outrank the policy page in dense search, and the model cites in context order. A prompt rule to cite policies first had no effect on gpt-4o-mini, so it was removed.
+  - Langfuse: trace `4dfa0fdee2b1d9e736786ad8ab6c7c0b` (and `52f88812…`) = `chat` span → `qdrant.dense` (RETRIEVER, 45 ms) + `synthesize` (GENERATION, `gpt-4o-mini-2024-07-18`, 738 in / 16 out tokens, $0.00012), session id set. Checked via the Langfuse API (`/api/public/v2/observations`), not by screenshot.
+  - Container: `docker build -t eka .` OK; `docker run --env-file .env eka` answers the same query with the same citations (trace `dadd33f79b946f243fd8158071afaec2`), serves the baked index (no rebuild at startup) and `/health` is all ok. **Image size 5.74 GB** (linux/arm64 build on the Mac; CPU torch).
+  - `python scripts/validate_retrieval.py`, dense only, 10 queries: **Recall@5 1.000 · MRR@10 0.933 · nDCG@10 0.933**. The only non-first hit is the ID lookup "What happened in INC-2025-012?" (relevant doc at rank 3).
+  - `pytest -q` 41 passed · `ruff check .` clean. A typical request takes 1.1–1.8 s end to end and costs ≈ $0.0001.
+- Deviations (also in A5): D-010 (Dockerfile build details), D-011 (chunk length counting / index text), D-012 (citation snippet = full chunk text).
+- Known issues / TODO: the dense baseline is at the ceiling on these 10 queries, so Phase 5's "hybrid + rerank beats dense on Recall@5" cannot show on this set. Grow it to the 20 queries of §B6.4 with harder ones (ID lookups, exact commands such as `ledgerctl promote`, paraphrases, multi-doc answers) before comparing. FAQ near-duplicates crowd the top 5 for some questions (see the gate query); the re-ranker or a per-doc cap in Phase 5 should help. A PDF chunk's `section` is the heading in force where the chunk *starts* (page 1 of POL-COMP-001 is labelled "1. Purpose" though it also holds §3.1). The Langfuse root span logs the raw user message until Phase 8's PII masking. The image is linux/arm64; Phase 12 must build for linux/amd64 (`docker build --platform linux/amd64`).
+- Notes for the next phase: embedded Qdrant takes a folder lock, so **stop the API before running `make ingest`, `scripts/validate_retrieval.py` or anything else that opens `data/qdrant`** (the script prints a clear message otherwise). Retrieval interfaces: `DenseRetriever(client).retrieve(query, filters, k)` returns `RetrievedChunk` with the flat Qdrant payload as `metadata` (`title, doc_type, domain, section, page, version, heading_path, entities, ...`). BM25 must tokenise queries with `app.retrieval.bm25.tokenize` and map hits through `chunk_ids` in the pickle; chunk texts are in `data/indexes/chunks.jsonl` or by Qdrant point id `uuid5(NAMESPACE_URL, chunk_id)` (`ingestion.index.point_id`). Phase 4 writes `entities[]` into Qdrant payloads with `set_payload` keyed by `point_id(chunk_id)`. `/chat` takes the retriever and LLM from `app.state.retriever` / `app.state.llm`, so swapping in `HybridRetriever` is one line in the lifespan. The re-ranker weights (`BAAI/bge-reranker-base`) are already baked into the image. The Langfuse public read API `GET /api/public/traces/{id}` returns 410 on this project; use `GET /api/public/v2/observations?traceId=…&fromStartTime=…&toStartTime=…`.
+
 ## A5. Decision Log
 
 | # | Date | Phase | Decision | Reason | Spec sections affected |
@@ -135,6 +148,9 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done (gate passed) · ⚠️ 
 | D-007 | 2026-10-30 | 2 | The generator also writes `policy_systems.csv` (Policy GOVERNS System, 31 rows) and `incident_systems.csv` (Incident AFFECTS System, 20 rows) to `data/raw/tables/`, plus a fixtures manifest `data/fixtures.json` outside `data/raw` | §B7.1 has no deterministic source for GOVERNS/AFFECTS, and §B7.3's policy/SEV1 query needs them to be reliable. The manifest lets Phases 6/8/10 assert on fixture values without re-parsing A4, and keeping it out of `data/raw` keeps it away from the filesystem MCP tool | B5.1, B7.1, B7.2 |
 | D-008 | 2026-10-30 | 2 | `docs.jsonl` has one record per document: `{metadata: DocMetadata, text, pages: [{page, text}] \| null, attributes, sha256}`. `metadata.page` and `metadata.section` stay null at document level and are set per chunk in Phase 3 | §B5.3 puts `page`/`section` on the metadata, but they only make sense per chunk. Keeping pages in the record preserves PDF page numbers for citations | B5.3, B6.1 |
 | D-009 | 2026-10-30 | 2 | No document body names a team or a manager (enforced by the generator's validator). System ownership exists only in the CSVs / graph | It makes the multi-hop fixtures strict and means "who owns / who manages" questions need the graph. Side effect: Phase 4 LLM extraction will not find OWNS/MANAGES in text, which is expected because those edges come from the CSV backbone | B5.1, B7.2 |
+| D-010 | 2026-10-30 | 3 | Dockerfile v0 differs from the §B4.5 outline in four details: it installs `requirements.lock` (not `requirements.txt`); it installs `torch==2.15.0` from the PyTorch CPU index first; it switches to `USER user` before the model download and index build (instead of at the end); and it sets `HF_HOME=/app/.cache/huggingface`. A `.dockerignore` keeps `.env`, `.venv`, `.git`, built indexes, `*.db` and `data/cache` out of the build context | The lock gives reproducible pins. The default Linux torch wheel pulls ~3 GB of CUDA libraries the CPU Space can't use. Running the bake steps as uid 1000 makes the baked models and Qdrant files writable at runtime without a `chown -R` layer that would duplicate the weights. `.env` must never enter the image | B4.5 |
+| D-011 | 2026-10-30 | 3 | Chunk length is counted with the bge tokenizer, with chunk text capped at 480 tokens (64 overlap), and each chunk is embedded and BM25-indexed as `"<title> (<doc_id>) \| <heading path>\n<text>"`. A PDF chunk's `section` is the numbered heading in force where it starts. `make ingest` passes `--build-indexes` | bge truncates at 512 wordpiece tokens, so counting in its own tokenizer (not tiktoken) guarantees nothing is cut, and 480 leaves room for the header line while staying within §B6.1's ≤ 512. The header line puts the doc title, ID and section into the vector and BM25 terms for short chunks. The gate runs `make ingest && make run`, so ingest must build the indexes | B6.1, B6.3 |
+| D-012 | 2026-10-30 | 3 | `Citation.snippet` carries the full chunk text, not a short excerpt. Citations list only ids the answer actually cites, in order of first use | Phase 6's `run_ragas.py` builds `retrieved_contexts` from citation snippets (§B14.2), so truncated snippets would understate context recall. Listing only cited sources keeps citations honest | B11.2, B14.2 |
 
 ---
 
@@ -1619,15 +1635,15 @@ docker build -t eka . && docker run --rm -p 7860:7860 --env-file .env eka   # sa
 python scripts/validate_retrieval.py
 ```
 
-- [ ] Correct answer citing the Data Retention Policy
-- [ ] Trace visible in Langfuse with retriever and generation spans
-- [ ] The container answers the same query
-- [ ] Dense Recall@5 / MRR recorded
+- [x] Correct answer citing the Data Retention Policy
+- [x] Trace visible in Langfuse with retriever and generation spans
+- [x] The container answers the same query
+- [x] Dense Recall@5 / MRR recorded
 
 ### Handoff checklist
 
-- [ ] Commit `feat(phase-3): vector index + walking skeleton (M1)`
-- [ ] A4: baseline Recall@5 / MRR, image size
+- [x] Commit `feat(phase-3): vector index + walking skeleton (M1)`
+- [x] A4: baseline Recall@5 / MRR, image size
 
 ---
 

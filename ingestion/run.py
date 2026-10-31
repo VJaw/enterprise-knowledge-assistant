@@ -1,7 +1,8 @@
-"""Ingestion orchestrator (§B5.2): raw -> clean -> metadata -> dedupe -> docs.jsonl, plus CSV -> SQLite.
+"""Ingestion orchestrator (§B5.2): raw -> clean -> metadata -> dedupe -> docs.jsonl, plus CSV -> SQLite,
+then (with `--build-indexes`) chunk -> Qdrant + BM25.
 
-Chunking/indexing arrive in Phase 3 and the graph load in Phase 4; their flags are accepted now so the
-Dockerfile command (`python -m ingestion.run --build-indexes --skip-graph`) stays stable.
+The graph load arrives in Phase 4; `--skip-graph` is accepted now so the Dockerfile command
+(`python -m ingestion.run --build-indexes --skip-graph`) stays stable.
 """
 from __future__ import annotations
 
@@ -12,10 +13,12 @@ from collections import Counter
 from pathlib import Path
 
 from app.config import get_settings
+from ingestion.chunk import chunk_documents
 from ingestion.clean import clean_doc
+from ingestion.index import build_indexes
 from ingestion.load_sql import build_sqlite
 from ingestion.loaders import load_raw_dir
-from ingestion.metadata import dedupe, load_documents_meta, to_processed
+from ingestion.metadata import ProcessedDoc, dedupe, load_documents_meta, to_processed
 
 RAW = Path("data/raw")
 PROCESSED = Path("data/processed")
@@ -40,9 +43,31 @@ def process_documents(raw_dir: Path = RAW, out_path: Path = PROCESSED / "docs.js
     return kept
 
 
+def load_processed(path: Path = PROCESSED / "docs.jsonl") -> list[ProcessedDoc]:
+    with open(path) as f:
+        return [ProcessedDoc.model_validate_json(line) for line in f if line.strip()]
+
+
+def index_documents(docs: list[ProcessedDoc], client=None) -> dict:
+    """Chunk + build Qdrant/BM25. Pass an open QdrantClient to reuse it (embedded Qdrant locks its folder)."""
+    from qdrant_client import QdrantClient
+
+    chunks = chunk_documents(docs)
+    owned = client is None
+    client = client or QdrantClient(path=get_settings().qdrant_path)
+    try:
+        stats = build_indexes(chunks, client)
+    finally:
+        if owned:
+            client.close()
+    by_type = Counter(c.metadata.doc_type for c in chunks)
+    stats["chunks_by_type"] = dict(sorted(by_type.items()))
+    return stats
+
+
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Run the ingestion pipeline.")
-    ap.add_argument("--build-indexes", action="store_true", help="chunk + Qdrant + BM25 (Phase 3)")
+    ap.add_argument("--build-indexes", action="store_true", help="chunk + Qdrant + BM25")
     ap.add_argument("--skip-graph", action="store_true", help="skip the Neo4j load (Phase 4)")
     args = ap.parse_args(argv)
 
@@ -56,7 +81,11 @@ def main(argv: list[str] | None = None) -> int:
     print(f"sqlite {db_path} (+ read-only copy): " + ", ".join(f"{k}={v}" for k, v in counts.items()))
 
     if args.build_indexes:
-        print("indexes: not built yet (Phase 3)")
+        t1 = time.perf_counter()
+        stats = index_documents(docs)
+        print(f"indexes: {stats['qdrant_points']} chunks in Qdrant + BM25 "
+              f"({', '.join(f'{k}={v}' for k, v in stats['chunks_by_type'].items())}) "
+              f"in {time.perf_counter() - t1:.1f}s")
     if not args.skip_graph:
         print("graph: not loaded yet (Phase 4, `make graph`)")
     print(f"done in {time.perf_counter() - t0:.1f}s")
