@@ -1,0 +1,35 @@
+doc_id,title,doc_type,domain,owner_team_id,version,effective_date,sensitivity
+POL-COMP-001,Data Retention Policy,policy,compliance,TEAM-06,3.0,2025-02-01,internal
+POL-COMP-002,Acceptable Use Policy,policy,compliance,TEAM-06,2.2,2025-01-15,internal
+POL-COMP-003,Incident Response Policy,policy,compliance,TEAM-06,4.1,2025-03-01,internal
+POL-COMP-004,Access Control Policy,policy,compliance,TEAM-06,3.3,2025-04-01,confidential
+POL-COMP-005,Encryption and Key Management Policy,policy,compliance,TEAM-06,2.0,2025-02-15,confidential
+POL-COMP-006,Change Management Policy,policy,compliance,TEAM-06,1.4,2025-05-01,internal
+POL-COMP-007,Business Continuity and Disaster Recovery Policy,policy,compliance,TEAM-06,2.5,2025-03-20,internal
+POL-COMP-008,Payment Card Data Handling Policy,policy,compliance,TEAM-06,3.1,2025-01-10,confidential
+MAN-ENG-001,Payment Gateway Runbook,manual,engineering,TEAM-01,5.2,2025-04-10,internal
+MAN-ENG-002,Auth Service Architecture,manual,engineering,TEAM-03,3.0,2025-02-20,internal
+MAN-ENG-003,Kafka Operations Guide,manual,engineering,TEAM-02,2.4,2025-03-05,internal
+MAN-ENG-004,Observability Handbook,manual,engineering,TEAM-04,1.8,2025-05-12,internal
+MAN-ENG-005,Customer Portal Developer Guide,manual,engineering,TEAM-03,2.1,2025-06-02,internal
+MAN-ENG-006,API Gateway Configuration Guide,manual,engineering,TEAM-04,4.0,2025-04-25,internal
+SOP-OPS-014,Database Failover,sop,operations,TEAM-04,2.1,2025-03-12,internal
+SOP-OPS-007,Kafka Broker Replacement,sop,operations,TEAM-04,1.3,2025-02-03,internal
+SOP-OPS-009,Secrets Rotation,sop,operations,TEAM-04,1.6,2025-01-28,internal
+SOP-OPS-011,Production Deployment and Rollback,sop,operations,TEAM-04,3.2,2025-04-02,internal
+SOP-OPS-018,TLS Certificate Renewal,sop,operations,TEAM-04,1.1,2025-06-30,internal
+SOP-OPS-021,On-call Escalation,sop,operations,TEAM-04,2.0,2025-03-03,internal
+SOP-OPS-022,Data Warehouse Backfill,sop,operations,TEAM-04,1.0,2025-07-30,internal
+SOP-SUP-003,Refund Escalation,sop,support,TEAM-05,2.3,2025-02-10,internal
+SOP-SUP-005,Customer MFA Reset,sop,support,TEAM-05,1.9,2025-03-18,internal
+SOP-SUP-008,Chargeback Handling,sop,support,TEAM-05,1.2,2025-05-20,internal
+INC-2025-003,Auth token validation failures,incident,engineering,TEAM-04,1.0,2025-01-14,internal
+INC-2025-008,Kafka consumer lag delays fraud scoring,incident,engineering,TEAM-04,1.0,2025-02-19,internal
+INC-2025-012,Ledger DB primary failure,incident,engineering,TEAM-04,1.0,2025-03-27,confidential
+INC-2025-017,Customer Portal outage,incident,operations,TEAM-04,1.0,2025-05-08,confidential
+INC-2025-022,Expired TLS certificate on API Gateway,incident,operations,TEAM-04,1.0,2025-06-16,internal
+INC-2025-026,Data Warehouse nightly load delay,incident,engineering,TEAM-04,1.0,2025-07-22,internal
+INC-2025-031,Payment latency spike,incident,engineering,TEAM-04,1.0,2025-08-11,confidential
+INC-2025-036,Notification delivery backlog,incident,operations,TEAM-04,1.0,2025-09-03,internal
+INC-2025-040,Fraud model false-positive surge,incident,engineering,TEAM-04,1.0,2025-10-09,internal
+INC-2025-044,Audit log ingestion gap,incident,engineering,TEAM-04,1.0,2025-11-18,confidential

@@ -1,0 +1,11 @@
+product_id,name,category,price,system_id
+PRD-01,Acme Pay,Payments,49.0,SYS-001
+PRD-02,Acme Checkout,Payments,29.0,SYS-001
+PRD-03,Acme Billing Pro,Billing,99.0,SYS-014
+PRD-04,Acme Invoicing,Billing,39.0,SYS-014
+PRD-05,Acme Ledger API,Data,149.0,SYS-002
+PRD-06,Acme Insights,Analytics,79.0,SYS-009
+PRD-07,Acme FraudShield,Risk,199.0,SYS-005
+PRD-08,Acme Account Portal,Platform,0.0,SYS-006
+PRD-09,Acme SSO,Identity,59.0,SYS-003
+PRD-10,Acme Notify,Messaging,19.0,SYS-007

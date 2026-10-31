@@ -1,0 +1,368 @@
+{
+  "owner": "TEAM-05",
+  "version": "1.0",
+  "effective_date": "2025-06-01",
+  "sensitivity": "public",
+  "items": [
+    {
+      "faq_id": "FAQ-001",
+      "category": "Account and Login",
+      "question": "How do I reset MFA?",
+      "answer": "MFA can be reset from the Customer Portal by navigating to Account > Security > Reset MFA. If you are locked out, please contact support to verify your identity using 2 of 3 factors, and a reset link will be sent to you, valid for 24 hours."
+    },
+    {
+      "faq_id": "FAQ-002",
+      "category": "Account and Login",
+      "question": "How do I change the email address on my account?",
+      "answer": "You can change your email address by logging into the Customer Portal, going to Account > Profile, and updating your email information."
+    },
+    {
+      "faq_id": "FAQ-003",
+      "category": "Account and Login",
+      "question": "What currencies does Acme Pay support?",
+      "answer": "Acme Pay supports transactions in USD, EUR, GBP, and INR."
+    },
+    {
+      "faq_id": "FAQ-004",
+      "category": "Account and Login",
+      "question": "How long are customer application logs kept?",
+      "answer": "Customer application logs are retained for 13 months."
+    },
+    {
+      "faq_id": "FAQ-005",
+      "category": "Account and Login",
+      "question": "How long are payment transaction records stored?",
+      "answer": "Payment transaction records are stored for a period of 7 years."
+    },
+    {
+      "faq_id": "FAQ-006",
+      "category": "Account and Login",
+      "question": "Does Acme store my full card number?",
+      "answer": "No, Acme never stores the full card number; all cards are tokenized by the Payment Gateway."
+    },
+    {
+      "faq_id": "FAQ-007",
+      "category": "Account and Login",
+      "question": "What happens if my session in the Customer Portal expires?",
+      "answer": "If your session expires after 15 minutes of inactivity, you will receive an error code CP-401 and will need to log in again."
+    },
+    {
+      "faq_id": "FAQ-008",
+      "category": "Account and Login",
+      "question": "How can I request a refund?",
+      "answer": "Refunds can be requested within 30 days of purchase. Once approved, they are issued within 2 business days, though your bank may take an additional 5-10 business days to process."
+    },
+    {
+      "faq_id": "FAQ-009",
+      "category": "Account and Login",
+      "question": "What notifications does Acme Notify send?",
+      "answer": "Acme Notify sends both email and SMS notifications to keep you informed about your account."
+    },
+    {
+      "faq_id": "FAQ-010",
+      "category": "Account and Login",
+      "question": "Can I access my transaction history?",
+      "answer": "Yes, you can access your transaction history through the Customer Portal under the Account section."
+    },
+    {
+      "faq_id": "FAQ-011",
+      "category": "Account and Login",
+      "question": "What should I do if I forget my password?",
+      "answer": "If you forget your password, you can reset it by clicking on the 'Forgot Password?' link on the login page and following the instructions."
+    },
+    {
+      "faq_id": "FAQ-012",
+      "category": "Account and Login",
+      "question": "Is there a mobile app for Acme products?",
+      "answer": "Currently, Acme does not offer a dedicated mobile app, but our services are accessible via mobile web browsers."
+    },
+    {
+      "faq_id": "FAQ-013",
+      "category": "Account and Login",
+      "question": "What is the process for changing my account password?",
+      "answer": "To change your password, log into the Customer Portal, go to Account > Security, and select 'Change Password'."
+    },
+    {
+      "faq_id": "FAQ-014",
+      "category": "Account and Login",
+      "question": "How can I update my payment method?",
+      "answer": "You can update your payment method in the Customer Portal under the Billing section."
+    },
+    {
+      "faq_id": "FAQ-015",
+      "category": "Account and Login",
+      "question": "What should I do if I suspect fraud on my account?",
+      "answer": "If you suspect any fraudulent activity, please contact support immediately to investigate and secure your account."
+    },
+    {
+      "faq_id": "FAQ-016",
+      "category": "Billing and Refunds",
+      "question": "What is the refund window?",
+      "answer": "Refunds can be requested within 30 days of purchase."
+    },
+    {
+      "faq_id": "FAQ-017",
+      "category": "Billing and Refunds",
+      "question": "How long does a refund take to arrive?",
+      "answer": "Refunds are issued within 2 business days of approval, but the bank may take an additional 5-10 business days to process the refund."
+    },
+    {
+      "faq_id": "FAQ-018",
+      "category": "Billing and Refunds",
+      "question": "Can I get a refund for Acme Pay transactions?",
+      "answer": "Yes, refunds for Acme Pay transactions can be requested within 30 days of the purchase."
+    },
+    {
+      "faq_id": "FAQ-019",
+      "category": "Billing and Refunds",
+      "question": "What payment methods does Acme Pay support?",
+      "answer": "Acme Pay supports payments in USD, EUR, GBP, and INR."
+    },
+    {
+      "faq_id": "FAQ-020",
+      "category": "Billing and Refunds",
+      "question": "How do I request a refund for Acme Billing Pro?",
+      "answer": "To request a refund for Acme Billing Pro, please submit your request through the Customer Portal within 30 days of purchase."
+    },
+    {
+      "faq_id": "FAQ-021",
+      "category": "Billing and Refunds",
+      "question": "Are there any fees associated with refunds?",
+      "answer": "No, there are no fees associated with processing refunds for any of our products."
+    },
+    {
+      "faq_id": "FAQ-022",
+      "category": "Billing and Refunds",
+      "question": "How can I check the status of my refund?",
+      "answer": "You can check the status of your refund in the Customer Portal under the Billing section."
+    },
+    {
+      "faq_id": "FAQ-023",
+      "category": "Billing and Refunds",
+      "question": "What happens if my refund is not processed?",
+      "answer": "If your refund is not processed within the expected timeframe, please reach out for assistance through the Customer Portal."
+    },
+    {
+      "faq_id": "FAQ-024",
+      "category": "Billing and Refunds",
+      "question": "How long are my payment transaction records kept?",
+      "answer": "Payment transaction records are kept for 7 years in accordance with regulatory requirements."
+    },
+    {
+      "faq_id": "FAQ-025",
+      "category": "Billing and Refunds",
+      "question": "What should I do if I'm locked out of my account?",
+      "answer": "If you are locked out, support will verify your identity using two of three factors and send a reset link that expires in 24 hours."
+    },
+    {
+      "faq_id": "FAQ-026",
+      "category": "Billing and Refunds",
+      "question": "Can I reset my MFA if I no longer have access to my device?",
+      "answer": "Yes, you can reset your MFA from the Customer Portal under Account > Security, or contact support for assistance."
+    },
+    {
+      "faq_id": "FAQ-027",
+      "category": "Billing and Refunds",
+      "question": "What is the session timeout for the Customer Portal?",
+      "answer": "Sessions in the Customer Portal expire after 15 minutes of inactivity."
+    },
+    {
+      "faq_id": "FAQ-028",
+      "category": "Billing and Refunds",
+      "question": "How do I receive notifications about my billing?",
+      "answer": "You can receive notifications via email and SMS through Acme Notify."
+    },
+    {
+      "faq_id": "FAQ-029",
+      "category": "Billing and Refunds",
+      "question": "Are my credit card details stored by Acme?",
+      "answer": "No, Acme never stores the full card number; all cards are tokenized by the Payment Gateway for security."
+    },
+    {
+      "faq_id": "FAQ-030",
+      "category": "Billing and Refunds",
+      "question": "How long are customer application logs retained?",
+      "answer": "Customer application logs are retained for 13 months."
+    },
+    {
+      "faq_id": "FAQ-031",
+      "category": "Payments and Checkout",
+      "question": "Which currencies does Acme Pay support?",
+      "answer": "Acme Pay supports USD, EUR, GBP, and INR."
+    },
+    {
+      "faq_id": "FAQ-032",
+      "category": "Payments and Checkout",
+      "question": "Why was my payment declined?",
+      "answer": "Payments may be declined due to insufficient funds, incorrect card details, or security checks by the payment processor. Please verify your information and try again."
+    },
+    {
+      "faq_id": "FAQ-033",
+      "category": "Payments and Checkout",
+      "question": "How can I request a refund?",
+      "answer": "Refunds can be requested within 30 days of purchase. Once approved, they will be issued within 2 business days, though it may take an additional 5-10 business days for your bank to process the refund."
+    },
+    {
+      "faq_id": "FAQ-034",
+      "category": "Payments and Checkout",
+      "question": "How do I reset my Multi-Factor Authentication (MFA)?",
+      "answer": "You can reset your MFA from the Customer Portal under Account > Security > Reset MFA. If you're locked out, support will verify your identity and send a reset link that expires in 24 hours."
+    },
+    {
+      "faq_id": "FAQ-035",
+      "category": "Payments and Checkout",
+      "question": "What payment transaction records does Acme retain?",
+      "answer": "Acme keeps payment transaction records for 7 years to ensure compliance and facilitate any necessary audits."
+    },
+    {
+      "faq_id": "FAQ-036",
+      "category": "Payments and Checkout",
+      "question": "Does Acme store my full card number?",
+      "answer": "No, Acme never stores the full card number. Instead, cards are tokenized by the Payment Gateway for enhanced security."
+    },
+    {
+      "faq_id": "FAQ-037",
+      "category": "Payments and Checkout",
+      "question": "What happens if I stay inactive in the Customer Portal?",
+      "answer": "Sessions in the Customer Portal will expire after 15 minutes of inactivity, and you will receive an error CP-401 if you attempt to perform actions after that."
+    },
+    {
+      "faq_id": "FAQ-038",
+      "category": "Payments and Checkout",
+      "question": "Can I receive notifications about my transactions?",
+      "answer": "Yes, Acme Notify can send you email and SMS notifications regarding your transactions and account activities."
+    },
+    {
+      "faq_id": "FAQ-039",
+      "category": "Payments and Checkout",
+      "question": "How do I access my transaction history?",
+      "answer": "You can view your transaction history through the Acme Account Portal under the relevant section for payments or billing."
+    },
+    {
+      "faq_id": "FAQ-040",
+      "category": "Payments and Checkout",
+      "question": "Is there a limit on my transactions?",
+      "answer": "Transaction limits may vary based on your account type and payment method. Please refer to your account settings for specific limits."
+    },
+    {
+      "faq_id": "FAQ-041",
+      "category": "Payments and Checkout",
+      "question": "What should I do if I forgot my password?",
+      "answer": "If you forgot your password, you can reset it through the login page by following the 'Forgot Password' instructions."
+    },
+    {
+      "faq_id": "FAQ-042",
+      "category": "Payments and Checkout",
+      "question": "How can I update my payment method?",
+      "answer": "You can update your payment method in the Acme Account Portal under the payment settings section."
+    },
+    {
+      "faq_id": "FAQ-043",
+      "category": "Payments and Checkout",
+      "question": "What is Acme Billing Pro?",
+      "answer": "Acme Billing Pro is a comprehensive tool that helps you manage invoices, recurring payments, and billing cycles efficiently."
+    },
+    {
+      "faq_id": "FAQ-044",
+      "category": "Payments and Checkout",
+      "question": "How does Acme FraudShield work?",
+      "answer": "Acme FraudShield uses advanced algorithms to detect and prevent fraudulent transactions, ensuring the security of your payments."
+    },
+    {
+      "faq_id": "FAQ-045",
+      "category": "Payments and Checkout",
+      "question": "Can I integrate Acme Ledger API with my existing systems?",
+      "answer": "Yes, Acme Ledger API is designed for easy integration with your existing systems, allowing for seamless financial management."
+    },
+    {
+      "faq_id": "FAQ-046",
+      "category": "Data and Privacy",
+      "question": "How long do you keep my logs?",
+      "answer": "Customer application logs are kept for 13 months, while payment transaction records are retained for 7 years."
+    },
+    {
+      "faq_id": "FAQ-047",
+      "category": "Data and Privacy",
+      "question": "Does Acme store my full card number?",
+      "answer": "No, Acme never stores the full card number. All card information is tokenized by the Payment Gateway to ensure security."
+    },
+    {
+      "faq_id": "FAQ-048",
+      "category": "Data and Privacy",
+      "question": "What types of currencies does Acme Pay support?",
+      "answer": "Acme Pay supports transactions in USD, EUR, GBP, and INR."
+    },
+    {
+      "faq_id": "FAQ-049",
+      "category": "Data and Privacy",
+      "question": "How can I reset my Multi-Factor Authentication (MFA)?",
+      "answer": "MFA can be reset from the Customer Portal under Account > Security > Reset MFA. If you're locked out, support will verify your identity and send a reset link valid for 24 hours."
+    },
+    {
+      "faq_id": "FAQ-050",
+      "category": "Data and Privacy",
+      "question": "What should I do if I am locked out of my account?",
+      "answer": "If you're locked out, contact support to verify your identity using two of three security factors, and they will send you a reset link."
+    },
+    {
+      "faq_id": "FAQ-051",
+      "category": "Data and Privacy",
+      "question": "How long does it take to process a refund?",
+      "answer": "Refunds can be requested within 30 days of purchase and are typically issued within 2 business days of approval. Please allow an additional 5-10 business days for your bank to process the refund."
+    },
+    {
+      "faq_id": "FAQ-052",
+      "category": "Data and Privacy",
+      "question": "What happens to my session if I am inactive in the Customer Portal?",
+      "answer": "Sessions in the Customer Portal expire after 15 minutes of inactivity. You will receive an error message (CP-401) if this occurs."
+    },
+    {
+      "faq_id": "FAQ-053",
+      "category": "Data and Privacy",
+      "question": "How does Acme Notify work?",
+      "answer": "Acme Notify provides email and SMS notifications to keep you informed about your account and transactions."
+    },
+    {
+      "faq_id": "FAQ-054",
+      "category": "Data and Privacy",
+      "question": "What security measures does Acme use to protect my payment information?",
+      "answer": "Acme uses tokenization for card information, ensuring that your full card number is never stored. Additionally, Multi-Factor Authentication (MFA) adds an extra layer of security."
+    },
+    {
+      "faq_id": "FAQ-055",
+      "category": "Data and Privacy",
+      "question": "Can I access my transaction history?",
+      "answer": "Yes, you can access your transaction history through the Acme Account Portal, where records are kept for 7 years."
+    },
+    {
+      "faq_id": "FAQ-056",
+      "category": "Data and Privacy",
+      "question": "Is my personal information shared with third parties?",
+      "answer": "Acme does not share your personal information with third parties without your consent, except as required by law or to provide services."
+    },
+    {
+      "faq_id": "FAQ-057",
+      "category": "Data and Privacy",
+      "question": "How can I ensure my account is secure?",
+      "answer": "To ensure your account security, use strong passwords, enable Multi-Factor Authentication, and regularly monitor your account activity."
+    },
+    {
+      "faq_id": "FAQ-058",
+      "category": "Data and Privacy",
+      "question": "What should I do if I notice unauthorized transactions?",
+      "answer": "If you notice unauthorized transactions, please report them immediately through the Customer Portal or contact support."
+    },
+    {
+      "faq_id": "FAQ-059",
+      "category": "Data and Privacy",
+      "question": "What data does Acme collect when I use its services?",
+      "answer": "Acme collects data necessary to provide our services, which may include personal information, transaction details, and usage logs."
+    },
+    {
+      "faq_id": "FAQ-060",
+      "category": "Data and Privacy",
+      "question": "How can I delete my account or personal data?",
+      "answer": "If you wish to delete your account or personal data, please contact support for assistance with the process."
+    }
+  ]
+}

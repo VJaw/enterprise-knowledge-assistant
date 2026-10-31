@@ -1,0 +1,45 @@
+---
+doc_id: "INC-2025-031"
+title: "Payment latency spike"
+doc_type: "incident"
+domain: "engineering"
+owner: "TEAM-04"
+version: "1.0"
+effective_date: "2025-08-11"
+sensitivity: "confidential"
+systems: ["Payment Gateway", "Ledger DB"]
+severity: "SEV1"
+incident_date: "2025-08-11"
+resolved_by: "EMP-42098"
+---
+
+# Payment latency spike
+
+## Summary  
+On August 11, 2025, Acme Corp experienced a significant latency spike in its Payment Gateway service. The p99 latency rose from 600 ms to 4.2 s for a duration of 47 minutes. This incident was categorized as a severity level 1 (SEV1) due to its impact on transaction processing and potential financial implications for customers. The root cause of the issue was traced to a configuration change that reduced the Ledger DB connection pool from 200 to 50 connections, ultimately exhausting the available connections and leading to the observed latency spike. The issue was resolved by rolling back the configuration change, restoring the connection pool to its original size. To prevent recurrence of similar issues, an alert will be added to monitor connection pool saturation.
+
+## Timeline  
+- 2025-08-11 14:00 UTC: Payment Gateway latency metrics indicate a significant increase.  
+- 2025-08-11 14:05 UTC: Initial investigation begins; the on-call engineer reviews logs and metrics.  
+- 2025-08-11 14:15 UTC: Latency reaches 4.2 s at p99.  
+- 2025-08-11 14:20 UTC: Incident Commander is notified, and incident is escalated to SEV1.  
+- 2025-08-11 14:30 UTC: Root cause identified as a configuration change affecting the Ledger DB connection pool.  
+- 2025-08-11 14:35 UTC: Configuration change is rolled back by Patricia Miller (Site Reliability Engineer).  
+- 2025-08-11 14:47 UTC: Payment Gateway latency returns to normal levels.  
+- 2025-08-11 15:00 UTC: Incident is marked as resolved.  
+- 2025-08-11 15:05 UTC: Post-incident review initiated.
+
+## RCA  
+The root cause analysis (RCA) revealed that a recent configuration change implemented on the Ledger DB reduced the connection pool from 200 to 50 connections. This drastic reduction resulted in an insufficient number of available connections for the Payment Gateway, leading to connection exhaustion. As a consequence, requests to the Payment Gateway began to queue, causing a notable increase in latency metrics. The incident was exacerbated by the lack of alerts for connection pool saturation, which delayed the response time in identifying and mitigating the issue. The rollback of the configuration change restored the connection pool, resulting in the normalization of latency metrics.
+
+The on-call engineer, Patricia Miller, was reached on their personal phone (827) 313-0730 and personal email carolynedwards@yahoo.com after the pager escalation failed. The first merchant report came from IP address 76.168.253.56.
+
+## Actions  
+- **Add an alert on connection pool saturation**: Ensure that an alert is implemented to notify the on-call engineer for any future instances of connection pool saturation.  
+  - **Due Date**: 2025-08-18  
+- **Review configuration change processes**: Assess current protocols for configuration changes to ensure that impact assessments are conducted prior to implementation.  
+  - **Due Date**: 2025-08-25  
+- **Conduct a post-incident review meeting**: Schedule a meeting to discuss the incident with involved parties and identify additional preventative measures.  
+  - **Due Date**: 2025-08-20  
+- **Update incident response documentation**: Incorporate lessons learned from this incident into relevant incident response documentation, particularly in relation to monitoring connection pool metrics.  
+  - **Due Date**: 2025-08-30

@@ -1,0 +1,41 @@
+emp_id,name,email,team_id,role,location
+EMP-93810,Priya Rao,priya.rao@acme.com,TEAM-01,Engineering Manager,Toronto
+EMP-24592,Danielle Johnson,danielle.johnson@acme.com,TEAM-01,Staff Engineer,Bangalore
+EMP-13278,Joshua Walker,joshua.walker@acme.com,TEAM-01,Software Engineer,Remote
+EMP-46048,Jill Rhodes,jill.rhodes@acme.com,TEAM-01,Software Engineer,Austin
+EMP-42098,Patricia Miller,patricia.miller@acme.com,TEAM-01,Site Reliability Engineer,Remote
+EMP-39256,Robert Johnson,robert.johnson@acme.com,TEAM-01,Staff Engineer,Toronto
+EMP-28289,Jeffery Wagner,jeffery.wagner@acme.com,TEAM-01,Staff Engineer,Remote
+EMP-23434,Anthony Gonzalez,anthony.gonzalez@acme.com,TEAM-02,Engineering Manager,Bangalore
+EMP-98696,Debra Gardner,debra.gardner@acme.com,TEAM-02,Software Engineer,Remote
+EMP-81482,Jeffrey Lawrence,jeffrey.lawrence@acme.com,TEAM-02,Senior Software Engineer,Austin
+EMP-21395,Lisa Smith,lisa.smith@acme.com,TEAM-02,Staff Engineer,Dublin
+EMP-87397,Linda Wolfe,linda.wolfe@acme.com,TEAM-02,Software Engineer,Austin
+EMP-65302,Matthew Moore,matthew.moore@acme.com,TEAM-02,Senior Software Engineer,Austin
+EMP-14165,Susan Rogers,susan.rogers@acme.com,TEAM-02,Site Reliability Engineer,Bangalore
+EMP-13905,Christopher Davis,christopher.davis@acme.com,TEAM-03,Engineering Manager,Toronto
+EMP-22280,Melanie Munoz,melanie.munoz@acme.com,TEAM-03,Software Engineer,Dublin
+EMP-38657,Lindsay Blair,lindsay.blair@acme.com,TEAM-03,Software Engineer,Bangalore
+EMP-40495,Amanda Dudley,amanda.dudley@acme.com,TEAM-03,Senior Software Engineer,Bangalore
+EMP-76237,Nicholas Arnold,nicholas.arnold@acme.com,TEAM-03,Staff Engineer,Remote
+EMP-88907,Maria Montgomery,maria.montgomery@acme.com,TEAM-03,Senior Software Engineer,Remote
+EMP-13478,Michelle Ray,michelle.ray@acme.com,TEAM-03,Senior Software Engineer,Dublin
+EMP-83563,Janet Williams,janet.williams@acme.com,TEAM-04,Operations Manager,Toronto
+EMP-36062,Jeremy Roberts,jeremy.roberts@acme.com,TEAM-04,Incident Manager,Bangalore
+EMP-95181,Christopher Hall,christopher.hall@acme.com,TEAM-04,Site Reliability Engineer,Bangalore
+EMP-81426,Craig Ramirez,craig.ramirez@acme.com,TEAM-04,Senior SRE,Dublin
+EMP-64987,Cynthia Diaz,cynthia.diaz@acme.com,TEAM-04,Senior SRE,Bangalore
+EMP-38893,Mitchell Clark,mitchell.clark@acme.com,TEAM-04,Incident Manager,Bangalore
+EMP-68878,Joseph Zuniga,joseph.zuniga@acme.com,TEAM-04,Senior SRE,Dublin
+EMP-87236,Deborah Lynch,deborah.lynch@acme.com,TEAM-05,Support Manager,Remote
+EMP-46463,George Daniel,george.daniel@acme.com,TEAM-05,Support Specialist,Dublin
+EMP-10851,Frank Gray,frank.gray@acme.com,TEAM-05,Customer Success Analyst,Toronto
+EMP-30926,Veronica Bowman,veronica.bowman@acme.com,TEAM-05,Customer Success Analyst,Dublin
+EMP-65392,Angela Cohen,angela.cohen@acme.com,TEAM-05,Support Specialist,Dublin
+EMP-54597,Megan Parsons,megan.parsons@acme.com,TEAM-05,Support Specialist,Remote
+EMP-46421,Jeremy Johnson,jeremy.johnson@acme.com,TEAM-06,Compliance Manager,Remote
+EMP-30379,Leslie Adams,leslie.adams@acme.com,TEAM-06,Risk Analyst,Remote
+EMP-38221,Jason Hahn,jason.hahn@acme.com,TEAM-06,Risk Analyst,Remote
+EMP-54118,Nancy Edwards,nancy.edwards@acme.com,TEAM-06,Risk Analyst,Bangalore
+EMP-23396,Diana Foster,diana.foster@acme.com,TEAM-06,Compliance Analyst,Dublin
+EMP-22156,Robin Ellis,robin.ellis@acme.com,TEAM-06,Security GRC Lead,Toronto

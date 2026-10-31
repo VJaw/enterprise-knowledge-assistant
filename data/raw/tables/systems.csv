@@ -1,0 +1,16 @@
+system_id,name,tier,owner_team_id,status
+SYS-001,Payment Gateway,1,TEAM-01,active
+SYS-002,Ledger DB,1,TEAM-02,active
+SYS-003,Auth Service,1,TEAM-03,active
+SYS-004,Kafka Cluster,1,TEAM-02,active
+SYS-005,Fraud Detection Engine,2,TEAM-01,active
+SYS-006,Customer Portal,2,TEAM-03,active
+SYS-007,Notification Service,2,TEAM-04,active
+SYS-008,Data Warehouse,2,TEAM-02,active
+SYS-009,Reporting Service,3,TEAM-02,deprecated
+SYS-010,Support Desk,2,TEAM-05,active
+SYS-011,Secrets Vault,1,TEAM-03,active
+SYS-012,Monitoring Stack,2,TEAM-04,active
+SYS-013,API Gateway,1,TEAM-04,active
+SYS-014,Billing Service,1,TEAM-01,active
+SYS-015,Audit Log Store,2,TEAM-06,active

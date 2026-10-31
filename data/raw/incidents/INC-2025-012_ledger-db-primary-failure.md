@@ -1,0 +1,45 @@
+---
+doc_id: "INC-2025-012"
+title: "Ledger DB primary failure"
+doc_type: "incident"
+domain: "engineering"
+owner: "TEAM-04"
+version: "1.0"
+effective_date: "2025-03-27"
+sensitivity: "confidential"
+systems: ["Ledger DB", "Billing Service"]
+severity: "SEV1"
+incident_date: "2025-03-27"
+resolved_by: "EMP-81482"
+---
+
+# Ledger DB primary failure
+
+## Summary
+
+On March 27, 2025, Acme Corp experienced a Severity 1 incident involving a primary failure of the Ledger DB. The Ledger DB crashed due to a failure in its storage controller. Although an automatic failover mechanism was in place, it did not activate because the health-check timeout was misconfigured. As a result, service disruption lasted for 34 minutes until the on-call engineer executed the manual promotion process as defined in SOP-OPS-014: Database Failover, restoring service to the Billing Service reliant on the Ledger DB. This incident highlighted gaps in our monitoring and failover configurations that require immediate attention.
+
+## Timeline
+
+- **2025-03-27T12:00:00Z** - Ledger DB primary crashed after a storage controller failure.
+- **2025-03-27T12:00:05Z** - Initial alert triggered for Ledger DB downtime.
+- **2025-03-27T12:01:00Z** - Automatic failover did not trigger due to misconfigured health-check timeout.
+- **2025-03-27T12:01:30Z** - Incident response team mobilized to assess the situation.
+- **2025-03-27T12:30:00Z** - Manual promotion executed by Jeffrey Lawrence as per SOP-OPS-014: Database Failover.
+- **2025-03-27T12:34:00Z** - Service restored; Ledger DB operational.
+
+## RCA
+
+The primary cause of the Ledger DB failure was the crash of its storage controller, which rendered the database inoperable. The inability of the automatic failover to trigger was a critical secondary failure. After review, it was determined that the health-check timeout configuration was not aligned with operational requirements, leading to the failure of the failover process. The incident response team followed established protocols but could not prevent the service disruption due to this oversight in system configuration. The restoration of service was achieved within 34 minutes through manual intervention, highlighting the importance of both automated and manual recovery processes.
+
+## Actions
+
+- **Review and Update Health-Check Configuration**: Conduct a thorough review of the health-check timeout settings for the Ledger DB and associated services to ensure they are configured correctly. Due Date: 2025-04-10.
+  
+- **Perform Root Cause Analysis on Storage Controller Failure**: Engage with the hardware vendor to analyze the storage controller failure that led to the Ledger DB crash, aiming to identify potential hardware issues or vulnerabilities. Due Date: 2025-04-15.
+
+- **Enhance Incident Response Training**: Schedule a training session for the incident response team focusing on failover processes and manual intervention techniques to improve response times in future incidents. Due Date: 2025-04-20.
+
+- **Audit Failover Protocols**: Review existing SOP-OPS-014: Database Failover and related failover protocols to identify areas for improvement and ensure they are well-documented and accessible. Due Date: 2025-04-22. 
+
+- **Update Business Continuity Plan**: Incorporate lessons learned from this incident into the Business Continuity and Disaster Recovery Policy (POL-COMP-007) to strengthen future resilience against similar failures. Due Date: 2025-04-30.

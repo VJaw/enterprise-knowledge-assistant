@@ -1,0 +1,7 @@
+team_id,name,domain,manager_emp_id
+TEAM-01,Payments-Core,engineering,EMP-93810
+TEAM-02,Data-Platform,engineering,EMP-23434
+TEAM-03,Identity-Access,engineering,EMP-13905
+TEAM-04,SRE-Operations,operations,EMP-83563
+TEAM-05,Customer-Support,support,EMP-87236
+TEAM-06,Compliance-Risk,compliance,EMP-46421
