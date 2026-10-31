@@ -15,7 +15,7 @@
   "langfuse": "ok",
   "tavily": "ok"
  },
- "chat_seconds": 61.3,
+ "chat_seconds": 60.7,
  "n_rows": 30,
  "rows": [
   {
@@ -35,13 +35,13 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 2546,
+   "latency_ms": 2978,
    "usage": {
     "prompt_tokens": 820,
     "completion_tokens": 25,
     "est_cost_usd": 0.000138
    },
-   "trace_id": "b765d9facf1250bf184c5fb9c5c35b0f",
+   "trace_id": "d76cb3a2bcc5e0fb825136d4903974d4",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
@@ -70,17 +70,17 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 1827,
+   "latency_ms": 2114,
    "usage": {
     "prompt_tokens": 1388,
     "completion_tokens": 35,
     "est_cost_usd": 0.000229
    },
-   "trace_id": "89dc79de54d364c179536a22fdf7d6ee",
+   "trace_id": "c30ddbc68de4ffd59ee44b449870b8d4",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
-    "answer_relevancy": 0.8398669664630263,
+    "answer_relevancy": 0.8399334231611005,
     "context_precision": 0.99999999995,
     "context_recall": 1.0
    }
@@ -102,19 +102,19 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 1871,
+   "latency_ms": 2088,
    "usage": {
     "prompt_tokens": 1509,
     "completion_tokens": 20,
     "est_cost_usd": 0.000238
    },
-   "trace_id": "ca10e165134358888f5eb951dc732f46",
+   "trace_id": "8525834954e5b4b2548b90a875755481",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
-    "answer_relevancy": 0.9163396456472602,
+    "answer_relevancy": 0.9163285187902511,
     "context_precision": 0.9999999999,
-    "context_recall": 1.0
+    "context_recall": 0.6666666666666666
    }
   },
   {
@@ -136,17 +136,17 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 2314,
+   "latency_ms": 2185,
    "usage": {
     "prompt_tokens": 1218,
     "completion_tokens": 23,
     "est_cost_usd": 0.000197
    },
-   "trace_id": "4ef5fe5d258b75f2622e4007114b921d",
+   "trace_id": "9c2210e25c9326b87f990654f660835b",
    "errors": [],
    "scores": {
     "faithfulness": 0.5,
-    "answer_relevancy": 0.9238626701937683,
+    "answer_relevancy": 0.9238571111723269,
     "context_precision": 0.99999999995,
     "context_recall": 0.5
    }
@@ -173,13 +173,13 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 2901,
+   "latency_ms": 3031,
    "usage": {
-    "prompt_tokens": 1033,
+    "prompt_tokens": 1309,
     "completion_tokens": 129,
-    "est_cost_usd": 0.000232
+    "est_cost_usd": 0.000274
    },
-   "trace_id": "f7c657e9c8cb237f547d2661ec6524ca",
+   "trace_id": "ad1743f0e05ba33d2e0f75fe37bb6306",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
@@ -197,24 +197,28 @@
    ],
    "query_type": "factual",
    "domain": "operations",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
+   "response": "An emergency secret rotation must happen within 1 hour if there is a suspicion of a compromise [1]. The old and new keys must overlap for a 24-hour dual-key window before the old key is revoked [1].",
+   "retrieved_contexts": [
+    "### 3.2 Emergency Secret Rotation\n1. **Identify Compromise**: If there is a suspicion of a compromise, an emergency rotation must happen within 1 hour.\n2. **Initiate Rotation**: Execute the command `vaultctl rotate --path <secret-path>` immediately to rotate the compromised secret.\n3. **Implement Dual-Key Window**: Ensure that the old and new keys overlap for a 24-hour dual-key window before the old key is revoked. This allows for a seamless transition and minimizes potential service disruptions.\n4. **Notify Incident Commander**: Inform the Incident Commander of the rotation and any relevant details regarding the suspected compromise.\n5. **Review Access Logs**: Conduct a thorough review of access logs to identify any unauthorized access that may have occurred prior to the rotation."
+   ],
+   "citations": [
+    "1"
+   ],
+   "abstained": false,
    "flags": [],
-   "latency_ms": 1907,
+   "latency_ms": 2396,
    "usage": {
-    "prompt_tokens": 189,
-    "completion_tokens": 9,
-    "est_cost_usd": 3.4e-05
+    "prompt_tokens": 1114,
+    "completion_tokens": 45,
+    "est_cost_usd": 0.000194
    },
-   "trace_id": "13e2f756456a28e68659ee9be0ec634e",
+   "trace_id": "78500699aaa8af12a95b5a63ebd5c3cb",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.7269177909883456,
+    "context_precision": 0.9999999999,
+    "context_recall": 0.6666666666666666
    }
   },
   {
@@ -234,13 +238,13 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 2072,
+   "latency_ms": 1850,
    "usage": {
     "prompt_tokens": 1219,
     "completion_tokens": 25,
     "est_cost_usd": 0.000198
    },
-   "trace_id": "30f1b8a16816124a514a171febe0bdc7",
+   "trace_id": "0c4d8406c61a42d36095654a38118c5b",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
@@ -258,24 +262,28 @@
    ],
    "query_type": "factual",
    "domain": "support",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
+   "response": "A refund exceeding $5,000 must be approved by both a Tier-2 Support Lead and the Finance department [1].",
+   "retrieved_contexts": [
+    "### 3.2 Approval Process\n1. For refund requests exceeding **$500**, the request must be approved by a **Tier-2 Support Lead**.\n2. For refund requests exceeding **$5,000**, approval must also be obtained from the Finance department in addition to the Tier-2 Support Lead.\n3. The support staff will notify the appropriate personnel for approvals, providing them with all relevant details from the refund request log.\n4. Once approvals are obtained, the request will move to the next stage for processing."
+   ],
+   "citations": [
+    "1"
+   ],
+   "abstained": false,
    "flags": [],
-   "latency_ms": 1780,
+   "latency_ms": 1813,
    "usage": {
-    "prompt_tokens": 177,
-    "completion_tokens": 9,
-    "est_cost_usd": 3.2e-05
+    "prompt_tokens": 911,
+    "completion_tokens": 25,
+    "est_cost_usd": 0.000152
    },
-   "trace_id": "6591519651a7a2cc200aabe891530408",
+   "trace_id": "be4058320d2015f0bbc3a3ca7358330d",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 0.5,
+    "answer_relevancy": 0.9651958402467419,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
    }
   },
   {
@@ -292,13 +300,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 2338,
+   "latency_ms": 2093,
    "usage": {
     "prompt_tokens": 1051,
     "completion_tokens": 9,
     "est_cost_usd": 0.000163
    },
-   "trace_id": "da011799c6e383625f11a6bf2c64e140",
+   "trace_id": "387bac21aa907fa53b6ee2f08c18ebb2",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -317,24 +325,30 @@
    ],
    "query_type": "factual",
    "domain": "engineering",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
+   "response": "The payment latency spike in incident report INC-2025-031 was caused by a configuration change that reduced the Ledger DB connection pool from 200 to 50 connections, leading to connection exhaustion. The spike lasted for a duration of 47 minutes, during which the p99 latency rose from 600 ms to 4.2 s [2][4].",
+   "retrieved_contexts": [
+    "## Summary\nOn August 11, 2025, Acme Corp experienced a significant latency spike in its Payment Gateway service. The p99 latency rose from 600 ms to 4.2 s for a duration of 47 minutes. This incident was categorized as a severity level 1 (SEV1) due to its impact on transaction processing and potential financial implications for customers. The root cause of the issue was traced to a configuration change that reduced the Ledger DB connection pool from 200 to 50 connections, ultimately exhausting the available connections and leading to the observed latency spike. The issue was resolved by rolling back the configuration change, restoring the connection pool to its original size. To prevent recurrence of similar issues, an alert will be added to monitor connection pool saturation.",
+    "## RCA\nThe root cause analysis (RCA) revealed that a recent configuration change implemented on the Ledger DB reduced the connection pool from 200 to 50 connections. This drastic reduction resulted in an insufficient number of available connections for the Payment Gateway, leading to connection exhaustion. As a consequence, requests to the Payment Gateway began to queue, causing a notable increase in latency metrics. The incident was exacerbated by the lack of alerts for connection pool saturation, which delayed the response time in identifying and mitigating the issue. The rollback of the configuration change restored the connection pool, resulting in the normalization of latency metrics.\n\nThe on-call engineer, Patricia Miller, was reached on their personal phone (827) 313-0730 and personal email carolynedwards@yahoo.com after the pager escalation failed. The first merchant report came from IP address 76.168.253.56."
+   ],
+   "citations": [
+    "2",
+    "4"
+   ],
+   "abstained": false,
    "flags": [],
-   "latency_ms": 2504,
+   "latency_ms": 2436,
    "usage": {
-    "prompt_tokens": 1282,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.000198
+    "prompt_tokens": 1376,
+    "completion_tokens": 72,
+    "est_cost_usd": 0.00025
    },
-   "trace_id": "4f746193e77808cc584345989168be3b",
+   "trace_id": "e7e2b78d00450ec33d1af90801334762",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 0.8,
+    "answer_relevancy": 0.8839314932994432,
+    "context_precision": 0.99999999995,
+    "context_recall": 1.0
    }
   },
   {
@@ -352,13 +366,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 2095,
+   "latency_ms": 2065,
    "usage": {
     "prompt_tokens": 831,
     "completion_tokens": 9,
     "est_cost_usd": 0.00013
    },
-   "trace_id": "d5c83cac63e08f6dd5af5ba5fd63e39b",
+   "trace_id": "a63053547f448d3ec8b22debfde19ce9",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -382,13 +396,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 2343,
+   "latency_ms": 2304,
    "usage": {
     "prompt_tokens": 947,
     "completion_tokens": 9,
     "est_cost_usd": 0.000147
    },
-   "trace_id": "b92815b6ce9c78107cd3565d2b5268e6",
+   "trace_id": "f263e104d3d784d9d9ab257e372a3715",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -412,13 +426,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 2052,
+   "latency_ms": 1979,
    "usage": {
     "prompt_tokens": 681,
     "completion_tokens": 9,
     "est_cost_usd": 0.000108
    },
-   "trace_id": "bdf653c85d2ef7bb033f8cb054c2c07f",
+   "trace_id": "135c3fd3ab7784d566496980d150be63",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -442,13 +456,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 2097,
+   "latency_ms": 2090,
    "usage": {
     "prompt_tokens": 944,
     "completion_tokens": 9,
     "est_cost_usd": 0.000147
    },
-   "trace_id": "b357e2b65d44b75344403ab6773f68ef",
+   "trace_id": "f4589a4a6f08699a5ae95849db0361cf",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -472,13 +486,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 2523,
+   "latency_ms": 2456,
    "usage": {
     "prompt_tokens": 742,
     "completion_tokens": 9,
     "est_cost_usd": 0.000117
    },
-   "trace_id": "ad6d6d8945c631bba9cc2d089477340f",
+   "trace_id": "f614788d134eadf3bba7720d2f54495c",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -513,13 +527,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 1949,
+   "latency_ms": 1743,
    "usage": {
     "prompt_tokens": 784,
     "completion_tokens": 9,
     "est_cost_usd": 0.000123
    },
-   "trace_id": "b8f56160f56f92bc17448e8dac77834e",
+   "trace_id": "4fe87e109fa269a4ad031524caa509d5",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -539,18 +553,18 @@
    ],
    "query_type": "multi_hop",
    "domain": "operations",
-   "response": "I don't know based on the available documents.",
+   "response": "The owning team for the system affected by incident report INC-2025-022 (the expired TLS certificate) is not explicitly mentioned in the provided context. Therefore, I don't know based on the available documents.",
    "retrieved_contexts": [],
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 2032,
+   "latency_ms": 2460,
    "usage": {
     "prompt_tokens": 1246,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.000192
+    "completion_tokens": 42,
+    "est_cost_usd": 0.000212
    },
-   "trace_id": "d6c98555ecdf944817c02e1ad36521d4",
+   "trace_id": "6b8706eaa3c7ebe205c81aa0645b496a",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -580,13 +594,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 2337,
+   "latency_ms": 2042,
    "usage": {
     "prompt_tokens": 1884,
     "completion_tokens": 9,
     "est_cost_usd": 0.000288
    },
-   "trace_id": "2459d2c6ebe0b8507149f034fe0edc26",
+   "trace_id": "8e63e2b55bb401a5afdf0258f8e3bb54",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -603,22 +617,28 @@
    ],
    "query_type": "structured",
    "domain": "operations",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
+   "response": "There are two SEV1 tickets in total: one for the \"Payment latency spike\" (INC-2025-031) and one for the \"Customer Portal outage\" (INC-2025-017) [1][3].",
+   "retrieved_contexts": [
+    "### Common Alerts and Troubleshooting\n\nThe Monitoring Stack is configured to detect and alert on several common issues. Below are examples of alerts along with potential troubleshooting steps:\n\n- **SEV1 Alerts**:\n  - **Payment latency spike** (INC-2025-031): Investigate service load and database performance.\n  - **Customer Portal outage** (INC-2025-017): Check service health and connectivity.\n\n- **SEV2 Alerts**:\n  - **Expired TLS certificate on API Gateway** (INC-2025-022): Follow procedures in **SOP-OPS-018: TLS Certificate Renewal**.\n  - **Audit log ingestion gap** (INC-2025-044): Verify log pipeline status and check for errors in Loki.",
+    "## Summary\n\nOn May 8, 2025, Acme Corp experienced a severe outage of the Customer Portal, classified as SEV1 (INC-2025-017). The outage lasted for 51 minutes and was caused by a deployment of a new route configuration in the API Gateway that contained a malformed rule. This incident impacted all users attempting to access the Customer Portal, preventing them from logging in and completing transactions. The change that caused the outage was rolled back immediately following the procedures outlined in SOP-OPS-011: Production Deployment and Rollback."
+   ],
+   "citations": [
+    "1",
+    "3"
+   ],
+   "abstained": false,
    "flags": [],
-   "latency_ms": 1578,
+   "latency_ms": 1893,
    "usage": {
-    "prompt_tokens": 174,
-    "completion_tokens": 9,
-    "est_cost_usd": 3.1e-05
+    "prompt_tokens": 1109,
+    "completion_tokens": 48,
+    "est_cost_usd": 0.000195
    },
-   "trace_id": "e97492fea1a159a9afe1a86eace7fcfa",
+   "trace_id": "e304fe6f32d68e115466b981ddffb360",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
+    "faithfulness": 0.6666666666666666,
+    "answer_relevancy": 0.8879927329812657,
     "context_precision": 0.0,
     "context_recall": 0.0
    }
@@ -636,13 +656,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 1658,
+   "latency_ms": 1787,
    "usage": {
-    "prompt_tokens": 682,
+    "prompt_tokens": 820,
     "completion_tokens": 9,
-    "est_cost_usd": 0.000108
+    "est_cost_usd": 0.000128
    },
-   "trace_id": "ec9956a43232724879fee7d15af89f2a",
+   "trace_id": "e18ae4c5535afe64e838e4724e2ac645",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -664,13 +684,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 2607,
+   "latency_ms": 1628,
    "usage": {
     "prompt_tokens": 946,
     "completion_tokens": 9,
     "est_cost_usd": 0.000147
    },
-   "trace_id": "d6541d702e19234c8684fa8cede9916c",
+   "trace_id": "6c91779582b09689c233c263339fb145",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -692,13 +712,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 1660,
+   "latency_ms": 1656,
    "usage": {
     "prompt_tokens": 882,
     "completion_tokens": 9,
     "est_cost_usd": 0.000138
    },
-   "trace_id": "dcbc2efe0954032e6c76af0bc270fe21",
+   "trace_id": "1396dbb09031d54245b8128ec67d9c26",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -720,13 +740,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 1618,
+   "latency_ms": 1607,
    "usage": {
     "prompt_tokens": 1097,
     "completion_tokens": 9,
     "est_cost_usd": 0.00017
    },
-   "trace_id": "26bcc84d6ce31b3291a47f2fb0b876aa",
+   "trace_id": "fafbd942678db098f98664a2a2da645b",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -757,17 +777,17 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 1835,
+   "latency_ms": 1873,
    "usage": {
     "prompt_tokens": 814,
     "completion_tokens": 19,
     "est_cost_usd": 0.000133
    },
-   "trace_id": "a323d1f033a9cc48213966d2a2c56e18",
+   "trace_id": "c63e11ee2d431181db4463ae2f53ba58",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
-    "answer_relevancy": 0.7913244046550694,
+    "answer_relevancy": 0.7862399236275129,
     "context_precision": 0.9999999999666667,
     "context_recall": 1.0
    }
@@ -795,13 +815,13 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 1905,
+   "latency_ms": 1582,
    "usage": {
     "prompt_tokens": 566,
     "completion_tokens": 21,
     "est_cost_usd": 9.7e-05
    },
-   "trace_id": "986161a04b0a291f40c893793fbd739d",
+   "trace_id": "0fa5cadf48cde1d4c2649ccecc64a27e",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
@@ -833,17 +853,17 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 1872,
+   "latency_ms": 1798,
    "usage": {
-    "prompt_tokens": 640,
+    "prompt_tokens": 679,
     "completion_tokens": 38,
-    "est_cost_usd": 0.000119
+    "est_cost_usd": 0.000125
    },
-   "trace_id": "04a29145a2e45b9382f0e5dfdaf2eaa2",
+   "trace_id": "5ed6b44ee633862dbb196baf3c6bd354",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
-    "answer_relevancy": 0.7606788284032308,
+    "answer_relevancy": 0.7077776889412107,
     "context_precision": 0.999999999975,
     "context_recall": 1.0
    }
@@ -856,27 +876,35 @@
    ],
    "query_type": "faq",
    "domain": "support",
-   "response": "No, Acme does not store the full card number (PAN) as it must never be written to logs, tickets, or chat, and card numbers are tokenized by the Payment Gateway before any other system sees them [1].",
+   "response": "No, Acme never stores the full card number; all cards are tokenized by the Payment Gateway for security [1][2][3][4][5].",
    "retrieved_contexts": [
-    "Payment Card Data Handling Policy POL-COMP-008 \u00b7 Version 3.1 \u00b7 Effective 2025-01-10\n1. Purpose\nThe purpose of the Payment Card Data Handling Policy (POL-COMP-008) is to establish a framework for the secure handling, processing, and storage of payment card data within Acme Corp. This policy aims to protect sensitive cardholder information and ensure compliance with industry standards, including the Payment Card Industry Data Security Standard (PCI DSS).\n2. Scope\nThis policy applies to all employees, contractors, and third-party service providers who have access to payment card data within Acme Corp. The systems involved in this policy include the Payment Gateway, Billing Service, Fraud Detection Engine, and Ledger DB.\n3. Policy Statements\n3.1 Data Handling\n- The full card number (PAN) must never be written to logs, tickets, or chat.\n- Card numbers are tokenized by the Payment Gateway before any other system sees them.\n- The cardholder data environment includes the Payment Gateway, Billing Service, and Fraud Detection Engine.\n3.2 Access Control\n- Access to cardholder data is restricted to authorized personnel only, as defined in the Access Control Policy (POL-COMP-004).\n- All users must authenticate themselves using strong credentials and adhere to the principle of least privilege.\n3.3 Data Retention\n- Cardholder data must be retained only as long as necessary to fulfill its intended purpose, in accordance with the Data Retention Policy (POL-COMP-001).\n- Once the data is no longer needed, it must be securely deleted or anonymized.\n3.4 Vulnerability Management\n- Vulnerability scans of the cardholder data environment will be conducted quarterly to identify and remediate security weaknesses."
+    "Q: Does Acme store my full card number?\nA: No, Acme never stores the full card number. All card information is tokenized by the Payment Gateway to ensure security.",
+    "Q: Does Acme store my full card number?\nA: No, Acme never stores the full card number. Instead, cards are tokenized by the Payment Gateway for enhanced security.",
+    "Q: Does Acme store my full card number?\nA: No, Acme never stores the full card number; all cards are tokenized by the Payment Gateway.",
+    "Q: Are my credit card details stored by Acme?\nA: No, Acme never stores the full card number; all cards are tokenized by the Payment Gateway for security.",
+    "Q: What security measures does Acme use to protect my payment information?\nA: Acme uses tokenization for card information, ensuring that your full card number is never stored. Additionally, Multi-Factor Authentication (MFA) adds an extra layer of security."
    ],
    "citations": [
-    "1"
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 1975,
+   "latency_ms": 1925,
    "usage": {
-    "prompt_tokens": 2076,
-    "completion_tokens": 47,
-    "est_cost_usd": 0.00034
+    "prompt_tokens": 602,
+    "completion_tokens": 33,
+    "est_cost_usd": 0.00011
    },
-   "trace_id": "000952f54f2bcb6d08f1bddd70628d3b",
+   "trace_id": "f9f70e9478aa1feebaeb5d2313234c0b",
    "errors": [],
    "scores": {
-    "faithfulness": 0.8,
-    "answer_relevancy": 0.8582926365134197,
-    "context_precision": 0.9999999999,
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9560583956396073,
+    "context_precision": 0.99999999998,
     "context_recall": 1.0
    }
   },
@@ -891,13 +919,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 1784,
+   "latency_ms": 1644,
    "usage": {
     "prompt_tokens": 2506,
     "completion_tokens": 9,
     "est_cost_usd": 0.000381
    },
-   "trace_id": "6ee941582728d72c847d8f046916e254",
+   "trace_id": "c03d2da69a9ec9ade6b32f831df133ba",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -917,13 +945,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 1476,
+   "latency_ms": 1460,
    "usage": {
-    "prompt_tokens": 176,
+    "prompt_tokens": 1017,
     "completion_tokens": 9,
-    "est_cost_usd": 3.2e-05
+    "est_cost_usd": 0.000158
    },
-   "trace_id": "a261dbd986b25429e2817a32571d36e0",
+   "trace_id": "b5fc4bdf3b54046b8a3d7b090c8b2cbc",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -943,13 +971,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 1764,
+   "latency_ms": 1648,
    "usage": {
     "prompt_tokens": 984,
     "completion_tokens": 9,
     "est_cost_usd": 0.000153
    },
-   "trace_id": "7cabd85d8cc6607aff1cc1d06a773e49",
+   "trace_id": "a3548369a5f7147f1382a3fcf65b30e7",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -962,23 +990,23 @@
  "summary": {
   "overall": {
    "n": 30,
-   "faithfulness": 0.93,
-   "answer_relevancy": 0.3280187263500167,
-   "context_precision": 0.37037037034506176,
-   "context_recall": 0.35185185185185186,
-   "false_abstention": 0.6296296296296297,
+   "faithfulness": 0.8904761904761905,
+   "answer_relevancy": 0.4577916066082401,
+   "context_precision": 0.4814814814498765,
+   "context_recall": 0.4382716049382716,
+   "false_abstention": 0.48148148148148145,
    "correct_abstention": 1.0,
-   "no_citations": 20
+   "no_citations": 16
   },
   "factual": {
    "n": 10,
-   "faithfulness": 0.9166666666666666,
-   "answer_relevancy": 0.5455078668422655,
-   "context_precision": 0.59999999995,
-   "context_recall": 0.55,
-   "false_abstention": 0.4,
+   "faithfulness": 0.8666666666666667,
+   "answer_relevancy": 0.8031173563776809,
+   "context_precision": 0.8999999999250001,
+   "context_recall": 0.7833333333333333,
+   "false_abstention": 0.1,
    "correct_abstention": NaN,
-   "no_citations": 4
+   "no_citations": 1
   },
   "multi_hop": {
    "n": 8,
@@ -992,19 +1020,19 @@
   },
   "structured": {
    "n": 5,
-   "faithfulness": NaN,
-   "answer_relevancy": 0.0,
+   "faithfulness": 0.6666666666666666,
+   "answer_relevancy": 0.17759854659625313,
    "context_precision": 0.0,
    "context_recall": 0.0,
-   "false_abstention": 1.0,
+   "false_abstention": 0.8,
    "correct_abstention": NaN,
-   "no_citations": 5
+   "no_citations": 4
   },
   "faq": {
    "n": 4,
-   "faithfulness": 0.95,
-   "answer_relevancy": 0.8503567357569489,
-   "context_precision": 0.9999999999541667,
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.8603017704161018,
+   "context_precision": 0.9999999999741667,
    "context_recall": 1.0,
    "false_abstention": 0.0,
    "correct_abstention": NaN,
@@ -1020,7 +1048,7 @@
    "correct_abstention": 1.0,
    "no_citations": 3
   },
-  "latency_ms_p50": 1962.0,
-  "cost_usd": 0.00476
+  "latency_ms_p50": 1952.0,
+  "cost_usd": 0.00524
  }
 }

@@ -15,7 +15,7 @@
   "langfuse": "ok",
   "tavily": "ok"
  },
- "chat_seconds": 90.0,
+ "chat_seconds": 94.1,
  "n_rows": 30,
  "rows": [
   {
@@ -35,13 +35,13 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 3346,
+   "latency_ms": 3352,
    "usage": {
     "prompt_tokens": 1472,
     "completion_tokens": 25,
     "est_cost_usd": 0.000236
    },
-   "trace_id": "17dd7ba7b96374893a81cded400c1b29",
+   "trace_id": "b00c87e9d6032cf08a83f488927d332d",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
@@ -70,13 +70,13 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 3134,
+   "latency_ms": 3528,
    "usage": {
     "prompt_tokens": 2093,
     "completion_tokens": 35,
     "est_cost_usd": 0.000335
    },
-   "trace_id": "8ec5cd43c32a1578f04252f5f0d41e66",
+   "trace_id": "1cd90febf6dac6dd05f08450c1cae4c0",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
@@ -102,17 +102,17 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 3433,
+   "latency_ms": 3051,
    "usage": {
     "prompt_tokens": 1017,
     "completion_tokens": 20,
     "est_cost_usd": 0.000165
    },
-   "trace_id": "8a28017d2c09714be7b6727486a80c1f",
+   "trace_id": "64af2bc82cb28214362f61ff51509e59",
    "errors": [],
    "scores": {
     "faithfulness": 0.0,
-    "answer_relevancy": 0.9163354372199377,
+    "answer_relevancy": 0.9163396456472602,
     "context_precision": 0.0,
     "context_recall": 0.0
    }
@@ -136,13 +136,13 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 3033,
+   "latency_ms": 2930,
    "usage": {
     "prompt_tokens": 1495,
     "completion_tokens": 23,
     "est_cost_usd": 0.000238
    },
-   "trace_id": "7d81e9015146126ab42a3a1183e8193f",
+   "trace_id": "f76c559bbd956a072566203417840ae2",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
@@ -173,17 +173,17 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 3781,
+   "latency_ms": 3679,
    "usage": {
-    "prompt_tokens": 1169,
+    "prompt_tokens": 1378,
     "completion_tokens": 129,
-    "est_cost_usd": 0.000253
+    "est_cost_usd": 0.000284
    },
-   "trace_id": "f725322faaf432bba757c7a01ba28314",
+   "trace_id": "6356ff1591965e7482ab7fa4dc79cd63",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
-    "answer_relevancy": 0.9999995947644167,
+    "answer_relevancy": 0.9999995356482759,
     "context_precision": 0.9999999999,
     "context_recall": 1.0
    }
@@ -197,24 +197,28 @@
    ],
    "query_type": "factual",
    "domain": "operations",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
+   "response": "An emergency secret rotation must happen within 1 hour [1]. The old and new keys must overlap for a 24-hour dual-key window before the old key is revoked [1].",
+   "retrieved_contexts": [
+    "### 3.2 Emergency Secret Rotation\n1. **Identify Compromise**: If there is a suspicion of a compromise, an emergency rotation must happen within 1 hour.\n2. **Initiate Rotation**: Execute the command `vaultctl rotate --path <secret-path>` immediately to rotate the compromised secret.\n3. **Implement Dual-Key Window**: Ensure that the old and new keys overlap for a 24-hour dual-key window before the old key is revoked. This allows for a seamless transition and minimizes potential service disruptions.\n4. **Notify Incident Commander**: Inform the Incident Commander of the rotation and any relevant details regarding the suspected compromise.\n5. **Review Access Logs**: Conduct a thorough review of access logs to identify any unauthorized access that may have occurred prior to the rotation."
+   ],
+   "citations": [
+    "1"
+   ],
+   "abstained": false,
    "flags": [],
-   "latency_ms": 2150,
+   "latency_ms": 3344,
    "usage": {
-    "prompt_tokens": 245,
-    "completion_tokens": 9,
-    "est_cost_usd": 4.2e-05
+    "prompt_tokens": 1162,
+    "completion_tokens": 37,
+    "est_cost_usd": 0.000196
    },
-   "trace_id": "51ae049c43ce35b12ddb56b7c6c98608",
+   "trace_id": "3fa8b4d815434ad345c9f97be46ac8b3",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 0.6666666666666666,
+    "answer_relevancy": 0.747202962279057,
+    "context_precision": 0.9999999999,
+    "context_recall": 0.6666666666666666
    }
   },
   {
@@ -236,13 +240,13 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 2797,
+   "latency_ms": 2973,
    "usage": {
     "prompt_tokens": 1496,
     "completion_tokens": 19,
     "est_cost_usd": 0.000236
    },
-   "trace_id": "b6c5a97f0e6800dff8c31aa0a5338331",
+   "trace_id": "f30ee05c5c2a8550c58d027bcbd9c33c",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
@@ -260,24 +264,28 @@
    ],
    "query_type": "factual",
    "domain": "support",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
+   "response": "A refund of more than $5,000 must be approved by a Tier-2 Support Lead and also requires approval from the Finance department [1].",
+   "retrieved_contexts": [
+    "### 3.2 Approval Process\n1. For refund requests exceeding **$500**, the request must be approved by a **Tier-2 Support Lead**.\n2. For refund requests exceeding **$5,000**, approval must also be obtained from the Finance department in addition to the Tier-2 Support Lead.\n3. The support staff will notify the appropriate personnel for approvals, providing them with all relevant details from the refund request log.\n4. Once approvals are obtained, the request will move to the next stage for processing."
+   ],
+   "citations": [
+    "1"
+   ],
+   "abstained": false,
    "flags": [],
-   "latency_ms": 1638,
+   "latency_ms": 2664,
    "usage": {
-    "prompt_tokens": 177,
-    "completion_tokens": 9,
-    "est_cost_usd": 3.2e-05
+    "prompt_tokens": 495,
+    "completion_tokens": 30,
+    "est_cost_usd": 9.2e-05
    },
-   "trace_id": "3993d2a00b71dc8f3e507b5dc531c272",
+   "trace_id": "763e0d468729c13784a8d60ae6686e21",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 0.5,
+    "answer_relevancy": 0.8609843027950387,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
    }
   },
   {
@@ -300,13 +308,13 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 3415,
+   "latency_ms": 3268,
    "usage": {
     "prompt_tokens": 875,
     "completion_tokens": 43,
     "est_cost_usd": 0.000157
    },
-   "trace_id": "e959a5d12262d7bea9773fa61ef7cb9f",
+   "trace_id": "9a28ededb3c68c47508d94e9c12d06c0",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
@@ -325,24 +333,30 @@
    ],
    "query_type": "factual",
    "domain": "engineering",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
+   "response": "The payment latency spike in incident report INC-2025-031 was caused by a configuration change that reduced the Ledger DB connection pool from 200 to 50 connections, leading to connection exhaustion. The spike lasted for a duration of 47 minutes [1][2].",
+   "retrieved_contexts": [
+    "## Summary\nOn August 11, 2025, Acme Corp experienced a significant latency spike in its Payment Gateway service. The p99 latency rose from 600 ms to 4.2 s for a duration of 47 minutes. This incident was categorized as a severity level 1 (SEV1) due to its impact on transaction processing and potential financial implications for customers. The root cause of the issue was traced to a configuration change that reduced the Ledger DB connection pool from 200 to 50 connections, ultimately exhausting the available connections and leading to the observed latency spike. The issue was resolved by rolling back the configuration change, restoring the connection pool to its original size. To prevent recurrence of similar issues, an alert will be added to monitor connection pool saturation.",
+    "## RCA\nThe root cause analysis (RCA) revealed that a recent configuration change implemented on the Ledger DB reduced the connection pool from 200 to 50 connections. This drastic reduction resulted in an insufficient number of available connections for the Payment Gateway, leading to connection exhaustion. As a consequence, requests to the Payment Gateway began to queue, causing a notable increase in latency metrics. The incident was exacerbated by the lack of alerts for connection pool saturation, which delayed the response time in identifying and mitigating the issue. The rollback of the configuration change restored the connection pool, resulting in the normalization of latency metrics.\n\nThe on-call engineer, Patricia Miller, was reached on their personal phone (827) 313-0730 and personal email carolynedwards@yahoo.com after the pager escalation failed. The first merchant report came from IP address 76.168.253.56."
+   ],
+   "citations": [
+    "1",
+    "2"
+   ],
+   "abstained": false,
    "flags": [],
-   "latency_ms": 2911,
+   "latency_ms": 4280,
    "usage": {
-    "prompt_tokens": 839,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.000131
+    "prompt_tokens": 1655,
+    "completion_tokens": 54,
+    "est_cost_usd": 0.000281
    },
-   "trace_id": "5677695528f47348b6ebc0e29af597b6",
+   "trace_id": "1e8f4e1025b070d4debc7ac27569ee79",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 0.75,
+    "answer_relevancy": 0.8839314932994432,
+    "context_precision": 0.99999999995,
+    "context_recall": 1.0
    }
   },
   {
@@ -364,13 +378,13 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 3404,
+   "latency_ms": 3310,
    "usage": {
     "prompt_tokens": 1797,
     "completion_tokens": 31,
     "est_cost_usd": 0.000288
    },
-   "trace_id": "8444c47fdd1cdc46741331c36d3d171a",
+   "trace_id": "f01bab139940de2948b8016271b3f958",
    "errors": [],
    "scores": {
     "faithfulness": 0.6666666666666666,
@@ -398,13 +412,13 @@
    ],
    "abstained": true,
    "flags": [],
-   "latency_ms": 3426,
+   "latency_ms": 3745,
    "usage": {
     "prompt_tokens": 1344,
     "completion_tokens": 47,
     "est_cost_usd": 0.00023
    },
-   "trace_id": "d49eac3adb3ede3680c74706a8c0fc78",
+   "trace_id": "6f255aea04e1bce28c6f2ec5b495e19b",
    "errors": [],
    "scores": {
     "faithfulness": 0.6666666666666666,
@@ -432,17 +446,17 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 3071,
+   "latency_ms": 3424,
    "usage": {
     "prompt_tokens": 1242,
     "completion_tokens": 18,
     "est_cost_usd": 0.000197
    },
-   "trace_id": "4f3fdea5e98466ccd61c2ffb7938a5bd",
+   "trace_id": "c2d35df62f9db8472d1744e566cb0dc9",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
-    "answer_relevancy": 0.7934691435826443,
+    "answer_relevancy": 0.7944442611591246,
     "context_precision": 0.9999999999,
     "context_recall": 1.0
    }
@@ -457,7 +471,7 @@
    ],
    "query_type": "multi_hop",
    "domain": "support",
-   "response": "The team that owns the Refund Escalation system covered by SOP-SUP-003 is managed by Priya Rao [G1].",
+   "response": "The team that owns the Billing Service, which is relevant to the Refund Escalation system covered by SOP-SUP-003, is managed by Priya Rao [G1].",
    "retrieved_contexts": [
     "Payments-Core team OWNS Billing Service; manager: Priya Rao"
    ],
@@ -466,17 +480,17 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 2863,
+   "latency_ms": 2815,
    "usage": {
     "prompt_tokens": 994,
-    "completion_tokens": 27,
-    "est_cost_usd": 0.000165
+    "completion_tokens": 36,
+    "est_cost_usd": 0.000171
    },
-   "trace_id": "d1a9e893007dd817d232bde18e3513f2",
+   "trace_id": "71f123ceacb5e84e0b2c4ce022d04939",
    "errors": [],
    "scores": {
-    "faithfulness": 0.0,
-    "answer_relevancy": 0.9671661676579927,
+    "faithfulness": 0.6666666666666666,
+    "answer_relevancy": 0.7800247981476843,
     "context_precision": 0.9999999999,
     "context_recall": 1.0
    }
@@ -500,13 +514,13 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 3636,
+   "latency_ms": 3547,
    "usage": {
     "prompt_tokens": 833,
     "completion_tokens": 40,
     "est_cost_usd": 0.000149
    },
-   "trace_id": "f61e1cade7a4c8793837dcc3f7676730",
+   "trace_id": "a9c881629449f8f26073cc03956ba1fd",
    "errors": [],
    "scores": {
     "faithfulness": 0.6666666666666666,
@@ -557,18 +571,18 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 3740,
+   "latency_ms": 3570,
    "usage": {
     "prompt_tokens": 1991,
     "completion_tokens": 100,
     "est_cost_usd": 0.000359
    },
-   "trace_id": "e24440c3968e28ec2210226ac9ab0d48",
+   "trace_id": "ae2cfcf15b6c44babf49660643330108",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
     "answer_relevancy": 0.9743123964285282,
-    "context_precision": 0.14285714284285714,
+    "context_precision": 0.0,
     "context_recall": 1.0
    }
   },
@@ -592,17 +606,17 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 3789,
+   "latency_ms": 3401,
    "usage": {
     "prompt_tokens": 1334,
     "completion_tokens": 34,
     "est_cost_usd": 0.00022
    },
-   "trace_id": "9a032df97d0c8dd2e81f7563e336ce73",
+   "trace_id": "4f519906c287d634a013abc7685eee15",
    "errors": [],
    "scores": {
     "faithfulness": 0.5,
-    "answer_relevancy": 0.5496361926988074,
+    "answer_relevancy": 0.5497336749924256,
     "context_precision": 0.9999999999,
     "context_recall": 1.0
    }
@@ -632,13 +646,13 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 4000,
+   "latency_ms": 3867,
    "usage": {
     "prompt_tokens": 1911,
     "completion_tokens": 41,
     "est_cost_usd": 0.000311
    },
-   "trace_id": "a772f21fb4bfb2f4e57a4f468bb5b149",
+   "trace_id": "4b439f550d5ec502eedc3ed762c8c8bc",
    "errors": [],
    "scores": {
     "faithfulness": 0.3333333333333333,
@@ -660,13 +674,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 1593,
+   "latency_ms": 2739,
    "usage": {
     "prompt_tokens": 174,
     "completion_tokens": 9,
     "est_cost_usd": 3.1e-05
    },
-   "trace_id": "6650e71284a860fade51f9d82fb76e60",
+   "trace_id": "6076a3ecdd639a8f8a1da64a51043127",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -687,14 +701,16 @@
    "retrieved_contexts": [],
    "citations": [],
    "abstained": true,
-   "flags": [],
-   "latency_ms": 1938,
+   "flags": [
+    "router_filters_relaxed"
+   ],
+   "latency_ms": 3154,
    "usage": {
     "prompt_tokens": 174,
     "completion_tokens": 9,
     "est_cost_usd": 3.1e-05
    },
-   "trace_id": "972ebb871e5dfaca8e42566392c50975",
+   "trace_id": "8c6508e46d1a9702a761a7ff464ccdf9",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -716,13 +732,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 2991,
+   "latency_ms": 2683,
    "usage": {
     "prompt_tokens": 575,
     "completion_tokens": 9,
     "est_cost_usd": 9.2e-05
    },
-   "trace_id": "21a6834b36e131d9e57816dfbe810994",
+   "trace_id": "322d3c322a4c3f1933cf1122a0343431",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -744,13 +760,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 2633,
+   "latency_ms": 2412,
    "usage": {
     "prompt_tokens": 174,
     "completion_tokens": 9,
     "est_cost_usd": 3.1e-05
    },
-   "trace_id": "f03ca4764cb87def0993ba469a523680",
+   "trace_id": "e000010701872631c67039f2fb1db8de",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -788,17 +804,17 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 3774,
+   "latency_ms": 3407,
    "usage": {
     "prompt_tokens": 420,
     "completion_tokens": 55,
     "est_cost_usd": 9.6e-05
    },
-   "trace_id": "4f6cd7565ccd110fcd6b1434498c69cc",
+   "trace_id": "f23fa4501cad9c19aefeefa919e462aa",
    "errors": [],
    "scores": {
     "faithfulness": 0.875,
-    "answer_relevancy": 0.9999997189996502,
+    "answer_relevancy": 0.9999995784994754,
     "context_precision": 0.0,
     "context_recall": 0.0
    }
@@ -825,17 +841,17 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 2464,
+   "latency_ms": 2360,
    "usage": {
     "prompt_tokens": 901,
     "completion_tokens": 19,
     "est_cost_usd": 0.000147
    },
-   "trace_id": "479c43f94ff3000a85d9327370e3e545",
+   "trace_id": "de2dd9144131830cc9ef471c1c298569",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
-    "answer_relevancy": 0.7887886785554162,
+    "answer_relevancy": 0.7862399236275129,
     "context_precision": 0.9999999999666667,
     "context_recall": 1.0
    }
@@ -863,13 +879,13 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 2745,
+   "latency_ms": 2619,
    "usage": {
     "prompt_tokens": 811,
     "completion_tokens": 21,
     "est_cost_usd": 0.000134
    },
-   "trace_id": "26fdf5df8a6de4c2c02ba113c475c082",
+   "trace_id": "ccfc59544690d828f4c6056320d94c9e",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
@@ -901,17 +917,17 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 2304,
+   "latency_ms": 2392,
    "usage": {
-    "prompt_tokens": 560,
+    "prompt_tokens": 679,
     "completion_tokens": 38,
-    "est_cost_usd": 0.000107
+    "est_cost_usd": 0.000125
    },
-   "trace_id": "7ceb868d94db5ef96abe53f1966a7d5f",
+   "trace_id": "04b3fa6e17d10f6d06cd2b7a370720a9",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
-    "answer_relevancy": 0.7255978903996664,
+    "answer_relevancy": 0.7223381875343327,
     "context_precision": 0.999999999975,
     "context_recall": 1.0
    }
@@ -941,17 +957,17 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 3028,
+   "latency_ms": 2900,
    "usage": {
     "prompt_tokens": 1241,
     "completion_tokens": 35,
     "est_cost_usd": 0.000207
    },
-   "trace_id": "6a7cbc36fcc445b23fe26880566f505d",
+   "trace_id": "97c9fa21899145c7e0c075a1342035a4",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
-    "answer_relevancy": 0.9560551158581164,
+    "answer_relevancy": 0.9560583956396073,
     "context_precision": 0.99999999998,
     "context_recall": 1.0
    }
@@ -967,13 +983,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 4359,
+   "latency_ms": 2985,
    "usage": {
     "prompt_tokens": 2320,
     "completion_tokens": 9,
     "est_cost_usd": 0.000353
    },
-   "trace_id": "73662509fb4e50efe1bee295c1bd2de2",
+   "trace_id": "7234eb48f0e04fe9cfe33f5ce87dfc07",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -993,13 +1009,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 1598,
+   "latency_ms": 2765,
    "usage": {
     "prompt_tokens": 176,
     "completion_tokens": 9,
     "est_cost_usd": 3.2e-05
    },
-   "trace_id": "afae4c42cf8549c861a2681a9f7e6f08",
+   "trace_id": "76a84fa2d3f5b72f3504f9cc6141b5c4",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -1019,13 +1035,13 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 2852,
+   "latency_ms": 2788,
    "usage": {
     "prompt_tokens": 1365,
     "completion_tokens": 9,
     "est_cost_usd": 0.00021
    },
-   "trace_id": "f54ede4b67a32209cbf39da3923731ab",
+   "trace_id": "51126e3bf77fdbb49bbfd5abadff80b2",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -1038,29 +1054,29 @@
  "summary": {
   "overall": {
    "n": 30,
-   "faithfulness": 0.7854166666666667,
-   "answer_relevancy": 0.5962465046280948,
-   "context_precision": 0.634920634875538,
-   "context_recall": 0.5987654320987654,
-   "false_abstention": 0.2962962962962963,
+   "faithfulness": 0.7952898550724639,
+   "answer_relevancy": 0.6814409053515241,
+   "context_precision": 0.7407407406869135,
+   "context_recall": 0.6975308641975309,
+   "false_abstention": 0.18518518518518517,
    "correct_abstention": 1.0,
-   "no_citations": 10
+   "no_citations": 7
   },
   "factual": {
    "n": 10,
-   "faithfulness": 0.8571428571428571,
-   "answer_relevancy": 0.6174082480867913,
-   "context_precision": 0.59999999996,
-   "context_recall": 0.5166666666666667,
-   "false_abstention": 0.3,
+   "faithfulness": 0.7916666666666667,
+   "answer_relevancy": 0.8666205388552634,
+   "context_precision": 0.8999999999349999,
+   "context_recall": 0.7833333333333333,
+   "false_abstention": 0.0,
    "correct_abstention": NaN,
-   "no_citations": 3
+   "no_citations": 0
   },
   "multi_hop": {
    "n": 8,
-   "faithfulness": 0.6041666666666666,
-   "answer_relevancy": 0.6828750833527153,
-   "context_precision": 0.8928571427678571,
+   "faithfulness": 0.6875,
+   "answer_relevancy": 0.6596164871476891,
+   "context_precision": 0.8749999999125,
    "context_recall": 0.875,
    "false_abstention": 0.125,
    "correct_abstention": NaN,
@@ -1069,7 +1085,7 @@
   "structured": {
    "n": 5,
    "faithfulness": 0.875,
-   "answer_relevancy": 0.19999994379993005,
+   "answer_relevancy": 0.1999999156998951,
    "context_precision": 0.0,
    "context_recall": 0.0,
    "false_abstention": 0.8,
@@ -1079,7 +1095,7 @@
   "faq": {
    "n": 4,
    "faithfulness": 1.0,
-   "answer_relevancy": 0.8653931895673188,
+   "answer_relevancy": 0.8639418950643822,
    "context_precision": 0.9999999999741667,
    "context_recall": 1.0,
    "false_abstention": 0.0,
@@ -1096,7 +1112,7 @@
    "correct_abstention": 1.0,
    "no_citations": 3
   },
-  "latency_ms_p50": 3030.5,
-  "cost_usd": 0.00522
+  "latency_ms_p50": 3102.5,
+  "cost_usd": 0.00563
  }
 }

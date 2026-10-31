@@ -2,11 +2,17 @@
 
 OpenAI strict structured output can't express a free-form `dict[str, str]`, so the model fills `_RouterOutput`
 (filters as two enumerated optional fields) and the result is converted to the §B8.1 `QueryPlan`.
+
+The model sets filters the user never asked for despite the prompt rule (12 of 30 golden questions, some of
+them impossible pairs such as policy + operations that match nothing), so a filter is kept only when the
+user's own message names that source type or domain, and a domain that no document of that type has is
+dropped (D-020).
 """
 from __future__ import annotations
 
 import csv
 import logging
+import re
 from pathlib import Path
 from typing import Literal
 
@@ -80,15 +86,51 @@ def load_known_entities(tables: Path = TABLES) -> list[str]:
     return names
 
 
+# What the user has to write for a router filter to be kept (D-020).
+DOC_TYPE_CUES = {
+    "policy": r"\bpolic(?:y|ies)\b|\bPOL-",
+    "sop": r"\bSOPs?\b|\bstandard operating procedures?\b",
+    "manual": r"\bmanuals?\b|\brunbooks?\b|\bguides?\b|\bMAN-",
+    "incident": r"\bincidents?\b|\bpostmortems?\b|\bINC-",
+    "faq": r"\bFAQs?\b|\bfrequently asked\b",
+}
+DOMAIN_CUES = {d: rf"\b{d}\b" for d in ("compliance", "engineering", "operations", "support")}
+
+
+def load_filter_pairs(tables: Path = TABLES) -> set[tuple[str, str]] | None:
+    """(doc_type, domain) pairs that at least one document has; None when the metadata table is missing."""
+    path = tables / "documents_meta.csv"
+    if not path.exists():
+        return None
+    with open(path, newline="") as f:
+        pairs = {(r["doc_type"], r["domain"]) for r in csv.DictReader(f)}
+    return pairs | {("faq", "support")}  # FAQ entries come from faq.json, not documents_meta
+
+
+def explicit_filters(message: str, doc_type: str | None, domain: str | None,
+                     pairs: set[tuple[str, str]] | None = None) -> dict[str, str]:
+    """Keep only the router filters the user's message asks for, and never an impossible combination."""
+    out: dict[str, str] = {}
+    if doc_type and re.search(DOC_TYPE_CUES[doc_type], message, re.I):
+        out["doc_type"] = doc_type
+    if domain and re.search(DOMAIN_CUES[domain], message, re.I):
+        out["domain"] = domain
+    if pairs is not None and len(out) == 2 and (out["doc_type"], out["domain"]) not in pairs:
+        del out["domain"]  # the source type is the more specific cue
+    return out
+
+
 def format_history(history: list[tuple[str, str]]) -> str:
     turns = history[-HISTORY_TURNS:]
     return "\n".join(f"User: {u}\nAssistant: {a}" for u, a in turns)
 
 
 class Router:
-    def __init__(self, llm, known_entities: list[str] | None = None):
+    def __init__(self, llm, known_entities: list[str] | None = None,
+                 filter_pairs: set[tuple[str, str]] | None = None):
         self.llm = llm.with_structured_output(_RouterOutput)
         self.system = PROMPT.format(known=", ".join(known_entities or []) or "(none)")
+        self.filter_pairs = filter_pairs
 
     async def plan(self, message: str, history: list[tuple[str, str]] | None = None) -> QueryPlan:
         human = f"Question: {message}"
@@ -101,7 +143,8 @@ class Router:
         except Exception as e:  # noqa: BLE001 - routing must never fail the request
             log.warning("router failed (%s): falling back to the raw message", type(e).__name__)
             return QueryPlan.fallback(message)
-        filters = {k: v for k, v in (("doc_type", out.doc_type), ("domain", out.domain)) if v}
+        # Checked against the user's message, not rewritten_query: the rewrite can add words of its own.
+        filters = explicit_filters(message, out.doc_type, out.domain, self.filter_pairs)
         return QueryPlan(intent=out.intent, complexity=out.complexity, entities=out.entities, filters=filters,
                          rewritten_query=out.rewritten_query.strip() or message,
                          sub_questions=out.sub_questions)

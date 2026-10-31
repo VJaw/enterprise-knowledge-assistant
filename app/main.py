@@ -19,7 +19,7 @@ from app.retrieval.embeddings import get_embedder
 from app.retrieval.graph import GraphRetriever
 from app.retrieval.hybrid import HybridRetriever
 from app.retrieval.rerank import CrossEncoderReranker, get_cross_encoder
-from app.retrieval.router import Router, load_known_entities
+from app.retrieval.router import Router, load_filter_pairs, load_known_entities
 
 log = logging.getLogger("uvicorn.error")
 
@@ -83,7 +83,7 @@ async def lifespan(app: FastAPI):
         graph_available=lambda: app.state.graph_available)
     app.state.llm = ChatOpenAI(model=s.model_fast, temperature=0, api_key=_secret(s.openai_api_key),
                                timeout=30, max_retries=2)
-    app.state.router = Router(app.state.llm, load_known_entities())
+    app.state.router = Router(app.state.llm, load_known_entities(), load_filter_pairs())
     app.state.sessions = {}
     try:
         yield

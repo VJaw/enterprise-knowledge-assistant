@@ -8,7 +8,7 @@ from app.core.types import RetrievedChunk
 from app.retrieval import graph as G
 from app.retrieval.graph import GraphResult, GraphRetriever, GraphUnavailable, anchor_filter, cues, pick_seed
 from app.retrieval.hybrid import HybridRetriever
-from app.retrieval.router import QueryPlan, Router, _RouterOutput
+from app.retrieval.router import QueryPlan, Router, _RouterOutput, explicit_filters, load_filter_pairs
 
 LINKS = {
     "Payment Gateway": [{"name": "Payment Gateway", "label": "System", "score": 3.39},
@@ -247,6 +247,29 @@ async def test_hybrid_filters_merge_and_validate():
         await h.search(PLAN, {"owner": "TEAM-01"})
 
 
+async def test_hybrid_relaxes_router_filters_that_match_nothing():
+    h = hybrid(use_graph=False)
+    calls = []
+
+    def empty_when_filtered(branch):
+        async def retrieve(query, filters=None, k=20):
+            calls.append(filters)
+            return [] if filters and "doc_type" in filters else branch.chunks
+        return retrieve
+    h.dense.retrieve, h.bm25.retrieve = empty_when_filtered(h.dense), empty_when_filtered(h.bm25)
+    plan = PLAN.model_copy(update={"filters": {"doc_type": "policy"}})
+
+    res = await h.search(plan, {"domain": "operations"})
+    assert res.flags == ["router_filters_relaxed"] and [c.chunk_id for c in res.chunks] == ["A::0", "B::0",
+                                                                                              "C::0"]
+    # first with the merged filters, then again with the request's filters only
+    assert calls == [{"doc_type": "policy", "domain": "operations"}] * 2 + [{"domain": "operations"}] * 2
+
+    calls.clear()  # request filters alone are never relaxed: an empty result stands
+    res = await h.search(PLAN, {"doc_type": "policy"})
+    assert res.chunks == [] and res.flags == [] and len(calls) == 2
+
+
 class FakeStructuredLLM:
     def __init__(self, out=None, error=None):
         self.out, self.error = out, error
@@ -268,13 +291,43 @@ async def test_router_plan_history_and_filters():
                         domain=None, rewritten_query="Who owns the Ledger DB?", sub_questions=["a", "b"])
     llm = FakeStructuredLLM(out)
     router = Router(llm, ["Ledger DB", "Payments-Core"])
-    plan = await router.plan("who owns it?", [("Tell me about the Ledger DB", "It stores transactions [1].")])
+    plan = await router.plan("who owns it, per the SOP?",
+                             [("Tell me about the Ledger DB", "It stores transactions [1].")])
     assert plan.filters == {"doc_type": "sop"} and plan.rewritten_query == "Who owns the Ledger DB?"
     assert plan.intent == "multi_hop" and plan.entities == ["Ledger DB"]
     system, human = llm.messages
     assert "Ledger DB, Payments-Core" in system.content
     assert isinstance(human, HumanMessage) and "User: Tell me about the Ledger DB" in human.content
-    assert human.content.endswith("Question: who owns it?")
+    assert human.content.endswith("Question: who owns it, per the SOP?")
+
+
+async def test_router_drops_filters_the_user_did_not_ask_for():
+    # Golden row 8: the model returned {policy, operations}, which matches no document.
+    out = _RouterOutput(intent="factual", complexity="simple", entities=[], doc_type="policy",
+                        domain="operations", rewritten_query="Who approves refunds over $5,000?",
+                        sub_questions=[])
+    plan = await Router(FakeStructuredLLM(out)).plan("Who has to approve a refund of more than $5,000?")
+    assert plan.filters == {}
+
+
+@pytest.mark.parametrize(("message", "doc_type", "domain", "expected"), [
+    ("How quickly must an emergency secret rotation happen?", "policy", "operations", {}),
+    ("What caused the spike in INC-2025-031?", "incident", "operations", {"doc_type": "incident"}),
+    ("What does the access control policy say about MFA?", "policy", None, {"doc_type": "policy"}),
+    ("Per POL-COMP-001, how long are logs kept?", "policy", "compliance", {"doc_type": "policy"}),
+    ("Which support SOPs cover refunds?", "sop", "support", {"doc_type": "sop", "domain": "support"}),
+    # no policy has the operations domain, so the domain goes
+    ("Which operations policies cover backups?", "policy", "operations", {"doc_type": "policy"}),
+    ("What does the FAQ say about refunds?", "faq", "support", {"doc_type": "faq"}),
+])
+def test_explicit_filters(message, doc_type, domain, expected):
+    assert explicit_filters(message, doc_type, domain, load_filter_pairs()) == expected
+
+
+def test_load_filter_pairs():
+    pairs = load_filter_pairs()
+    assert ("policy", "compliance") in pairs and ("faq", "support") in pairs
+    assert ("policy", "operations") not in pairs and ("incident", "support") not in pairs
 
 
 async def test_router_falls_back_on_error():

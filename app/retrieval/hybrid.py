@@ -66,15 +66,24 @@ class HybridRetriever:
 
     @observe(name="retrieval.hybrid", as_type="retriever", capture_output=False)
     async def search(self, plan: QueryPlan, filters: dict | None = None, k: int = TOP_K) -> HybridResult:
+        """Request filters win over the router's. If the router's filters leave nothing to return, the search
+        runs again with the request's filters only and the result carries `router_filters_relaxed` (D-020)."""
+        merged = {**plan.filters, **(filters or {})} or None
+        build_filter(merged)  # reject bad keys before any branch runs
+        res = await self._search(plan, merged, k)
+        if not res.chunks and merged != (filters or None):
+            res = await self._search(plan, filters or None, k, flags=["router_filters_relaxed"])
+        return res
+
+    async def _search(self, plan: QueryPlan, filters: dict | None, k: int,
+                      flags: list[str] | None = None) -> HybridResult:
         """Dense, BM25 and graph run concurrently. Re-ranking starts on the dense + BM25 candidates as soon as
         they are in, while the graph branch is still waiting on Aura; once it returns, only the graph-anchored
         newcomers to the fused top 30 are scored. Pair scores are independent, so the result is the same as
         re-ranking the final fused top 30 in one go."""
         q = plan.rewritten_query
-        filters = {**plan.filters, **(filters or {})} or None  # request filters win over the router's
-        build_filter(filters)  # reject bad keys before any branch runs
         timings: dict[str, int] = {}
-        flags: list[str] = []
+        flags = list(flags or [])
         t0 = time.perf_counter()
 
         graph_task = (asyncio.create_task(timed(timings, "graph", self._graph(plan, filters, flags)))
