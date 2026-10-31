@@ -43,6 +43,10 @@ Text assertions read only `output.answer` (D-019); structural ones read `citatio
 | 2 | + web-search internal-query guard | 32 / 34 (94.1%) | multi-hop: SOP-OPS-009 manager · latency |
 | 3 | + router rewrite check | 33 / 34 (97.1%) | latency |
 | 4 (final) | + SQL citation snippet, SSN masking (safety fixes) | **33 / 34 (97.1%)** | latency |
+| Phase 11 | + retrieval prefetch, re-rank top 20 (D-028) | **34 / 34 (100%)** | none (FAQ latency 2,594 ms) |
+
+`eval/reports/promptfoo_results.json` now holds the Phase 11 run (`eval-tWU-2026-10-31T21:25:48`); see
+`PERFORMANCE_REPORT.md`.
 
 For comparison: Phase 6 baseline 6/10, after D-020 8/10, Phase 7 8/10, Phase 8 9/10.
 

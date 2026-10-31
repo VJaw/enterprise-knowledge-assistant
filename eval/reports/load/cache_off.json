@@ -1,0 +1,71 @@
+{
+  "scenario": "cache_off",
+  "users": 3,
+  "duration_s": 122,
+  "requests": 67,
+  "failures": 0,
+  "error_rate": 0.0,
+  "rps": 0.55,
+  "rps_last_60s": 0.53,
+  "latency": {
+    "n": 67,
+    "p50": 2972,
+    "p95": 7270,
+    "max": 9056
+  },
+  "by_kind": {
+    "novel": {
+      "n": 19,
+      "p50": 3485,
+      "p95": 6931,
+      "max": 7657
+    },
+    "repeat": {
+      "n": 48,
+      "p50": 2856,
+      "p95": 7270,
+      "max": 9056
+    }
+  },
+  "cache_hits": 0,
+  "hit_rate": 0.0,
+  "hit_latency": {
+    "n": 0
+  },
+  "miss_latency": {
+    "n": 67,
+    "p50": 2972,
+    "p95": 7270,
+    "max": 9056
+  },
+  "models": {
+    "gpt-4o": 4,
+    "gpt-4o-mini": 63
+  },
+  "cost_usd": 0.172,
+  "memory_mb": {
+    "start": 1258,
+    "after_1min": 1047,
+    "end": 1441,
+    "max": 1560,
+    "growth_after_1min": 0.376
+  },
+  "stages": {
+    "n": 20,
+    "mean_ms": {
+      "input_rails": 114,
+      "router": 905,
+      "rerank": 761,
+      "graph": 60,
+      "agent_llm": 835,
+      "tools": 1,
+      "synthesize": 66,
+      "groundedness": 869,
+      "output_rails": 47,
+      "agent": 3008,
+      "total": 3173,
+      "retrieval": 1215,
+      "retrieval_exposed": 310
+    }
+  }
+}

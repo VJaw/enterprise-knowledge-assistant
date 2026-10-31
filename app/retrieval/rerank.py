@@ -1,4 +1,7 @@
-"""Cross-encoder re-ranking (§B8.4): bge-reranker-base over the top 30 fused chunks -> top 6, min score 0.1.
+"""Cross-encoder re-ranking (§B8.4): bge-reranker-base over the top 20 fused chunks -> top 6, min score 0.1.
+
+§B8.4 says top 30. Phase 11 measured top 20: the full pipeline's Recall@5 / MRR@10 / nDCG@10 on the 20
+labelled queries are unchanged (0.990 / 0.967 / 0.947) and re-ranking takes ~28% less time (D-028).
 
 The scored passage is the chunk's index text, `<title> (<doc_id>) | <heading path>` plus the chunk text, as
 embedded and BM25-indexed (D-011); without the doc id, ID lookups ("What happened in INC-2025-012?") are
@@ -17,7 +20,7 @@ from app.config import get_settings
 from app.core.types import RetrievedChunk
 from app.observability.langfuse import observe, update_span
 
-TOP_N = 30
+TOP_N = 20  # §B8.4: 30 (D-028)
 TOP_K = 6
 MIN_SCORE = 0.1
 BATCH = 8

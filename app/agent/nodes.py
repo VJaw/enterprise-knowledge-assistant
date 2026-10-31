@@ -1,8 +1,11 @@
 """Agent nodes (§B9.1): classify -> retrieve -> agent <-> tool_node -> synthesize -> grounding_check ->
 finalize.
 
-- classify: the Phase 5 query router (QueryPlan) plus the model choice (§B12.2).
-- retrieve: hybrid retrieval; its chunks and graph facts become the first citable contexts.
+- classify: the Phase 5 query router (QueryPlan) plus the model choice (§B12.2). On a first turn it also
+  starts the dense + BM25 + re-rank part of retrieval on the user's message, so it runs alongside the router
+  (D-028).
+- retrieve: hybrid retrieval (picking up that prefetch); its chunks and graph facts become the first citable
+  contexts.
 - agent: the routed model with the tools bound. A reply without tool calls is the draft answer.
 - tool_node: runs the calls concurrently, gives citable results their turn-wide ids, traces each as
   `tool.<name>`.
@@ -24,6 +27,7 @@ from pathlib import Path
 from typing import Protocol
 
 from langchain_core.messages import AIMessage, AnyMessage, HumanMessage, SystemMessage, ToolMessage
+from langchain_core.runnables import RunnableConfig
 from langchain_core.tools import BaseTool
 
 from app.agent.prompts import AGENT_PROMPT, CHAT_PROMPT, IDK, REGENERATE, SYNTH_PROMPT
@@ -98,8 +102,20 @@ class AgentNodes:
         self.tools = list(tools)
         self.judge = judge.with_structured_output(Judgement) if judge is not None else None
         self.max_steps = max_steps
+        # Retrieval started by `classify` for `retrieve` to use, keyed by (thread id, message). Tasks can't
+        # live in the checkpointed state.
+        self._prefetch: dict[tuple[str, str], object] = {}
 
     # ------------------------------------------------------------------ helpers
+
+    @staticmethod
+    def _prefetch_key(state: AgentState, config: RunnableConfig | None) -> tuple[str, str]:
+        thread = ((config or {}).get("configurable") or {}).get("thread_id", "")
+        return str(thread), text_of(state["messages"][-1].content)
+
+    def _drop_prefetch(self, key: tuple[str, str]) -> None:
+        if (pre := self._prefetch.pop(key, None)) is not None:
+            pre.cancel()
 
     def tools_for(self, state: AgentState) -> list[BaseTool]:
         return [t for t in self.tools if state.get("allow_web", True) or t.name != "web_search"]
@@ -123,13 +139,27 @@ class AgentNodes:
 
     # ------------------------------------------------------------------ nodes
 
-    async def classify(self, state: AgentState) -> dict:
+    async def classify(self, state: AgentState, config: RunnableConfig = None) -> dict:
         question = text_of(state["messages"][-1].content)
-        plan = await self.router.plan(question, history_pairs(state["messages"][:-1]))
+        history = history_pairs(state["messages"][:-1])
+        key = self._prefetch_key(state, config)
+        prefetch = getattr(self.retriever, "prefetch", None)
+        if prefetch is not None and not history:  # a follow-up needs the router's rewrite to search
+            self._drop_prefetch(key)
+            self._prefetch[key] = prefetch(question, state.get("filters"))
+        try:
+            plan = await self.router.plan(question, history)
+        except BaseException:
+            self._drop_prefetch(key)
+            raise
+        if plan.intent == "chit_chat":
+            self._drop_prefetch(key)
         return {"plan": plan, "model": self.models.choose(plan, 0)}
 
-    async def retrieve(self, state: AgentState) -> dict:
-        res = await self.retriever.search(state["plan"], state.get("filters"), k=TOP_K)
+    async def retrieve(self, state: AgentState, config: RunnableConfig = None) -> dict:
+        pre = self._prefetch.pop(self._prefetch_key(state, config), None)
+        kwargs = {"prefetched": pre} if pre is not None else {}
+        res = await self.retriever.search(state["plan"], state.get("filters"), k=TOP_K, **kwargs)
         chunks = res.chunks if self.guard is None else await self.guard.scan_chunks(res.chunks,
                                                                                     "untrusted.retrieved")
         contexts, _ = label([], [*chunks, *res.facts])

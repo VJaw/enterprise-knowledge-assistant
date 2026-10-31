@@ -292,6 +292,35 @@ async def test_hybrid_relaxes_router_filters_that_match_nothing():
     assert res.chunks == [] and res.flags == [] and len(calls) == 2
 
 
+async def test_prefetch_is_used_by_a_search_with_the_same_filters():
+    h = hybrid()
+    pre = h.prefetch("Which teams own what Payment Gateway depends on?")
+    res = await h.search(PLAN, prefetched=pre)
+    # the same chunks as without a prefetch, with no second dense / BM25 call
+    assert [c.chunk_id for c in res.chunks] == ["A::0", "B::0", "C::0", "D::0"]
+    assert h.dense.calls == 1 and h.bm25.calls == 1 and h.graph.calls == 1
+    assert h.reranker.scored == [["B::0", "A::0", "C::0"], ["D::0"]]
+
+
+async def test_prefetch_with_other_filters_is_ignored_and_cancelled():
+    h = hybrid()
+    calls = []
+
+    async def spy(query, filters=None, k=20):
+        calls.append((query, filters))
+        return [chunk("A::0")]
+    h.dense.retrieve = spy
+    pre = h.prefetch("raw question")
+    plan = PLAN.model_copy(update={"filters": {"doc_type": "sop"}})  # the router added a filter
+    await h.search(plan, prefetched=pre)
+    assert (PLAN.rewritten_query, {"doc_type": "sop"}) in calls
+    assert pre.task.done()
+    # bad request filters: the prefetch gives up quietly and search() raises as before
+    bad = h.prefetch("q", {"owner": "TEAM-01"})
+    with pytest.raises(ValueError):
+        await h.search(PLAN, {"owner": "TEAM-01"}, prefetched=bad)
+
+
 class FakeStructuredLLM:
     def __init__(self, out=None, error=None):
         self.out, self.error = out, error

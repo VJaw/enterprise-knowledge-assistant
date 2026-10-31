@@ -1,0 +1,84 @@
+{
+  "scenario": "soak",
+  "users": 5,
+  "duration_s": 303,
+  "requests": 498,
+  "failures": 0,
+  "error_rate": 0.0,
+  "rps": 1.64,
+  "rps_last_60s": 1.7,
+  "latency": {
+    "n": 498,
+    "p50": 82,
+    "p95": 6398,
+    "max": 10298
+  },
+  "by_kind": {
+    "complex": {
+      "n": 64,
+      "p50": 141,
+      "p95": 9223,
+      "max": 9574
+    },
+    "repeat": {
+      "n": 278,
+      "p50": 78,
+      "p95": 144,
+      "max": 6398
+    },
+    "simple": {
+      "n": 156,
+      "p50": 104,
+      "p95": 6714,
+      "max": 10298
+    }
+  },
+  "cache_hits": 412,
+  "hit_rate": 0.827,
+  "hit_latency": {
+    "n": 412,
+    "p50": 79,
+    "p95": 177,
+    "max": 799
+  },
+  "miss_latency": {
+    "n": 86,
+    "p50": 5155,
+    "p95": 9254,
+    "max": 10298
+  },
+  "models": {
+    "cache": 412,
+    "gpt-4o": 30,
+    "gpt-4o-mini": 56
+  },
+  "cost_usd": 0.6002,
+  "memory_mb": {
+    "start": 1743,
+    "after_1min": 1517,
+    "end": 1701,
+    "max": 2037,
+    "growth_after_1min": 0.121
+  },
+  "speedup_p50": 65.3,
+  "stages": {
+    "n": 20,
+    "mean_ms": {
+      "input_rails": 133,
+      "cache_lookup": 21,
+      "router": 1046,
+      "rerank": 1278,
+      "graph": 150,
+      "agent_llm": 1223,
+      "tools": 269,
+      "synthesize": 222,
+      "groundedness": 1376,
+      "output_rails": 75,
+      "cache_write": 14,
+      "agent": 4764,
+      "total": 5064,
+      "retrieval": 1658,
+      "retrieval_exposed": 611
+    }
+  }
+}

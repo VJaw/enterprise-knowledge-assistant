@@ -151,6 +151,46 @@ async def test_follow_up_in_the_same_session_sees_history_and_resets_working_sta
     assert router.calls[-1][1] == [] and len(other["messages"]) == 2
 
 
+class PrefetchingRetriever(FakeRetriever):
+    """Records the prefetches classify starts and the ones retrieve hands over."""
+
+    class Pre:
+        def __init__(self, query, filters):
+            self.query, self.filters, self.cancelled = query, filters, False
+
+        def cancel(self):
+            self.cancelled = True
+
+    def __init__(self):
+        super().__init__()
+        self.started, self.received = [], []
+
+    def prefetch(self, query, filters=None):
+        self.started.append(self.Pre(query, filters))
+        return self.started[-1]
+
+    async def search(self, plan, filters, k, prefetched=None):
+        self.received.append(prefetched)
+        return await super().search(plan, filters, k)
+
+
+async def test_first_turn_prefetches_retrieval_and_follow_ups_do_not():
+    retriever = PrefetchingRetriever()
+    script = Script(["Data-Platform owns Ledger DB [G1].", "Anthony Gonzalez manages it [G1]."])
+    agent = build_agent(script, retriever=retriever)
+    await ask(agent, "Who owns Ledger DB?", session="p1", filters={"domain": "engineering"})
+    assert [(p.query, p.filters) for p in retriever.started] == [("Who owns Ledger DB?",
+                                                                  {"domain": "engineering"})]
+    assert retriever.received == retriever.started  # retrieve picked up the same prefetch
+    await ask(agent, "and who manages that team?", session="p1")  # follow-up: needs the router's rewrite
+    assert len(retriever.started) == 1 and retriever.received[-1] is None
+
+    chat = PrefetchingRetriever()  # chit-chat never retrieves: the prefetch is cancelled
+    router = FakeRouter(lambda m: plan(m, intent="chit_chat"))
+    await ask(build_agent(Script(["Hello!"]), router=router, retriever=chat), "hi there", session="p2")
+    assert chat.started[0].cancelled and chat.received == []
+
+
 async def test_sqlite_checkpointer_keeps_the_session_across_restarts(tmp_path):
     db = tmp_path / "sessions.db"
     async with open_checkpointer(db) as saver:

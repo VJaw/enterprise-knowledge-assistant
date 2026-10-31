@@ -21,28 +21,10 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
-from eval.api_server import start_api, stop_api, tail, wait_ready  # noqa: E402
+from eval.api_server import clear_cache, start_api, stop_api, tail, wait_ready  # noqa: E402
 
 CONFIG = ROOT / "eval/promptfoo/promptfooconfig.yaml"
 PORT = 7860
-
-
-def clear_cache() -> int:
-    from qdrant_client import QdrantClient
-    from qdrant_client.models import Filter, FilterSelector
-
-    from app.cache.semantic_cache import COLLECTION
-    from app.config import get_settings
-
-    client = QdrantClient(path=get_settings().qdrant_path)
-    try:
-        if not client.collection_exists(COLLECTION):
-            return 0
-        n = client.count(COLLECTION, exact=True).count
-        client.delete(COLLECTION, points_selector=FilterSelector(filter=Filter()))
-        return n
-    finally:
-        client.close()
 
 
 def main() -> int:

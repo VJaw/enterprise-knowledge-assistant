@@ -67,7 +67,7 @@ Read capstonespec.md in full. Execute Phase <N> only.
 | 8 | Guardrails (**M3**) | ✅ | 2026-10-31 | `6648ab1` | NeMo native (3 `LLMRails`, 11 custom actions), Presidio + LLM Guard; injection blocked, PII masked (no raw email in trace), poisoned doc stripped; overhead p50 157 ms, 0/30 false blocks; Promptfoo 9/10; 261 tests; D-023, D-024, D-025 |
 | 9 | API hardening, cache & observability | ✅ | 2026-10-31 | `bf32645` | /chat, /sessions, /ingest, /health (degraded graph), /metrics, §B11.3 errors, 30/min rate limit; semantic cache hit 66 ms (0.92 + specifics guard: 0/10 false hits, 7/10 paraphrases); 5/5 traces complete, no PII; 6 screenshots; 294 tests; D-026 |
 | 10 | Full evaluation | ✅ | 2026-10-31 | `4037813` | Promptfoo 33/34 (97%); RAGAS A–D, D 0.919 / 0.803 / 0.975 / 0.932 (answer relevancy gap explained); safety 50/50 handled, 0/15 false positives; 4 defects fixed; 298 tests; D-027 |
-| 11 | Performance & load testing | ⬜ | | | |
+| 11 | Performance & load testing | ✅ | 2026-10-31 | see A4 | Simple p95 5.2 → 3.2 s (p50 4.1 → 2.6 s; 3 s SLO missed by ≤ 178 ms, mitigations documented), agentic p95 ≤ 11.7 s, cache hit 71 ms; cache hit rate 66%, 46× p50; ramp 1.87 req/s (3.28 at 10 users), 0 errors; soak +9.9% RSS; Promptfoo 34/34; 301 tests; D-028 |
 | 12 | Deploy & documentation (**M4**) | ⬜ | | | |
 
 Legend: ⬜ not started · 🟡 in progress · ✅ done (gate passed) · ⚠️ done with known gaps (see A4)
@@ -408,6 +408,46 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done (gate passed) · ⚠️ 
   - Phase 11 latency targets: the FAQ case breaks down as router (~1–1.6 s) + agent + groundedness judge (~1 s) + re-rank (~1 s CPU). Cache hits are 63–73 ms locally.
   - Spend this phase ≈ $2.5 (8 RAGAS config runs ≈ $1.7 plus judging, 5 Promptfoo runs ≈ $0.5, 2 safety runs ≈ $0.2, diagnostics).
 
+**Phase 11 — Performance & load testing (2026-10-31, commit: see A3)**
+- Built:
+  - `scripts/bench_latency.py`: own API (cache on, `RATE_LIMIT=1000/minute`, emptied cache), 10 sequential questions per intent type from `loadtest/queries.py` `BENCH` (simple, multi_hop, structured, analytical, external, chit_chat), then a cache-hit replay of the simple ones. Per-stage times come from Langfuse `/api/public/v2/observations` (with 429 back-off); rows are saved before the stage fetch. `--report-only`, `--stages-only`. Output `eval/reports/latency_<tag>.json`.
+  - `loadtest/locustfile.py`: `SimpleUser` / `ComplexUser` / `RepeatUser` (5:2:3) and `CacheMixUser` (70% repeated/paraphrased); fresh `session_id` per request; one JSONL row per request via `LOAD_LOG`. Imports only `loadtest/queries.py` (no app imports, gevent).
+  - `loadtest/run_load.py`: scenarios `cache_off`, `cache_on` (3 users, 2 min), `ramp` (1 → 10 users over 3 min + 1 min), `soak` (5 users, 5 min). Each empties the cache, starts its own API, samples RSS every 5 s (psutil), runs `locust` headless, and writes `eval/reports/load/<scenario>.json` (+ `.jsonl`, `.meta.json`, Locust CSVs); `--stages N` adds Langfuse stage means.
+  - `clear_cache()` moved from `run_promptfoo.py` to `eval/api_server.py` (shared by all harnesses).
+  - Optimisations (D-028): speculative retrieval prefetch alongside the router on first turns (`HybridRetriever.prefetch`, `AgentNodes.classify`/`retrieve`), and re-rank `TOP_N` 30 → 20. 3 new tests.
+  - `eval/reports/PERFORMANCE_REPORT.md`.
+- **p95 per intent type** (sequential, 10 each; before → after, ms):
+
+  | Type | SLO | p50 before → after | p95 before → after | Within SLO |
+  |---|---|---|---|---|
+  | simple | < 3,000 | 4,101 → **2,607** | 5,244 → **3,178** ❌ | 0/10 → 7/10 |
+  | chit-chat | < 3,000 | 2,503 → 2,346 | 2,998 → 2,761 ✅ | 10/10 |
+  | multi-hop | < 12,000 | 4,839 → 4,237 | 10,567 → 8,256 ✅ | 10/10 |
+  | structured | < 12,000 | 5,115 → 2,991 | 6,173 → 4,851 ✅ | 10/10 |
+  | analytical | < 12,000 | 8,599 → 5,900 | 11,506 → 11,536 ✅ | 10/10 |
+  | external | < 12,000 | 9,208 → 6,836 | 10,211 → 11,684 ✅ | 10/10 |
+  | cache hit (9 hits) | < 300 | 61 → 65 | 70 → **71** ✅ | 9/9 |
+
+  The 10th cache-replay question (break-glass) is never cached because it cites the confidential POL-COMP-004 (§B17).
+- **Cache speed-up:** cache on vs off with 70% repeated/paraphrased traffic: hit rate **66%**, hits p50 **76 ms** / p95 184 ms vs misses p50 3,496 ms = **46×**; repeated questions p50 2,856 → 77 ms; cost per request −75%. In the ramp and soak mixes: hit rate 79% / 83%, speed-up 53× / 65×.
+- Throughput: ramp **1.87 req/s** mean, 3.28 req/s in the last minute at 10 users, **0 / 455 errors**. Soak 1.64 req/s, 0 / 498 errors, RSS median +9.9% (2nd → last minute), trend −5 MB/min, peak 2.1 GB.
+- Top-2 latency contributors: (1) the three sequential gpt-4o-mini calls (router ~0.8–1.1 s, agent ~0.65–1.2 s, groundedness judge ~0.8–1.5 s), 85% of the simple p50; (2) the cross-encoder re-rank, 0.7 s sequential but 1.5 s mean at 10 users (CPU contention).
+- Promptfoo regression **34/34 (100%)**: the FAQ latency case passes (2,594 ms) for the first time since Phase 7.
+- Full suite **301 passed**, ruff clean.
+- Deviations (also in A5): D-028.
+- Known issues / TODO:
+  - **Simple p95 3,178 ms > 3 s** (3 of 10 over, by 75–178 ms). Mitigations documented in the report, not applied: groundedness judge on a local NLI model for single-source answers (~0.7 s), skipping the LLM router on simple first turns (~0.8 s), streaming. The judge is kept because it is the L5 control and replacing it needs a new RAGAS/safety evaluation.
+  - Under concurrency uncached latency roughly doubles (ramp simple misses p50 5.0 s; one complex request 12.6 s > 12 s).
+  - On chit-chat (and blocked / SQL-only questions) the prefetch's re-rank (~450 ms CPU) is wasted; it usually finishes before the router returns, so cancelling can't save it. Matters only under CPU saturation.
+  - All numbers are local (Apple Silicon). The HF 2-vCPU tier will be slower on the cross-encoder and local guardrail models.
+  - The cache-off scenario was bound by 3 users' think time (0.55 req/s); uncached capacity wasn't pushed to saturation.
+  - When OpenAI credit ran out mid-run, `/chat` returned `500 INTERNAL_ERROR`; `503 UPSTREAM_UNAVAILABLE` would be more accurate (§B11.3).
+  - `/health` reported `tavily: error: TimeoutError` once at startup when Tavily's usage endpoint took 7.4 s; web search itself worked.
+- Notes for the next phase:
+  - Run the Locust ramp against the deployed Space (`locust -f loadtest/locustfile.py --headless -u 10 -r 0.05 -t 4m --host https://<space>.hf.space SimpleUser ComplexUser RepeatUser`) and check the cache-hit p95 there. `run_load.py` and `bench_latency.py` start a local API, so use the `locust` CLI directly for the Space. The Space's rate limit is 30/min per session; Locust uses a new session per request.
+  - Stop `make run` before `bench_latency.py`, `run_load.py` or `make eval` (Qdrant lock).
+  - Spend this phase ≈ $5 in total: about $2.5 for the final measurements (benchmarks $0.87, load $1.47, Promptfoo) plus the first "after" attempt that ran out of credit.
+
 ## A5. Decision Log
 
 | # | Date | Phase | Decision | Reason | Spec sections affected |
@@ -439,6 +479,7 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done (gate passed) · ⚠️ 
 | D-025 | 2026-10-31 | 8 | PII handling: (1) a custom reversible masking action (Presidio analyzer + `PIIMap`, placeholders `<TYPE_n>`, same value → same placeholder) instead of NeMo's built-in `sensitive_data_detection`. (2) Recognisers added: `EMPLOYEE_ID` (`EMP-\d{5}`) and a US phone pattern. (3) PERSON hits on **directory names** are not masked, on input or output: employees, systems, teams, products. (4) Output masking covers PERSON (non-directory), IP_ADDRESS and EMPLOYEE_ID as well as §B10.3's list. (5) Retrieved passages and tool outputs are PII-masked before the LLM sees them, so citation snippets are masked too. (6) Only placeholders from the user's own message are restored in the response; the trace, session checkpoint and any later cache see masked text only | NeMo's built-in masks irreversibly (`<EMAIL_ADDRESS>`) and keeps no map, so §B10.4's user-only unmasking isn't possible with it. Presidio missed a bare "(463) 697-8333" and tagged "Kafka Cluster" as a PERSON. Masking employee names would break the ownership/manager questions the graph exists for (all fixture employees are directory entries); customer names (Henry Mcconnell, Katherine Shea) are still masked. Without (5), corpus PII (the 4 fixture docs) reached OpenAI and the API's citation snippets | B10.2, B10.3, B10.4, B11.2, B17 |
 | D-026 | 2026-10-31 | 9 | Semantic cache, API and tracing details: (1) the cache key is the masked, normalised message for a first turn and the router's `rewritten_query` when writing a follow-up. The lookup runs before the router, so it is skipped when the session has history and the message refers back to it (pronoun / "and …" regex). (2) A hit also needs the same **specifics** as the cached question (tokens containing digits, and the target of "depends on / relies on"); the threshold stays 0.92. (3) A hit skips the LLM `self check input` (the local input rails still run, and a DeBERTa-suspected message still gets the self-check first) and reuses the stored grounding result, so the groundedness backstop and the output self-check don't call the LLM. The other output rails run as usual, and the exchange is appended to the session. (4) `corpus_version` is a counter file in `data/indexes/`, bumped by every index build; `/ingest` also purges older entries. (5) The rate limit uses slowapi's `Limiter` storage from inside `/chat` (key = session id, or client IP without one), not the decorator. (6) `/health` body is `{status, openai, qdrant, sqlite, models, graph, langfuse, tavily, mcp}`; the `neo4j` key became `graph`; 503 only for a critical failure. (7) `/metrics` is a small in-process Prometheus text registry. (8) Error codes added to §B11.3: `UNAUTHORIZED` 401, `NOT_FOUND` 404, `CONFLICT` 409. (9) Trace layout: the router, retrieval and groundedness judge nest under one `agent` span (they are agent-graph nodes), not at the trace root or under `guardrails.output`. Trace tags are written on the root span at the end of the request; `user_id` is a hash of the client IP. (10) The graph watchdog also *disables* graph retrieval when a probe of a live connection fails. (11) `/chat/stream` not built (D5 cut 1) | (1) Running the router (≈ 1 s) in front of the cache would break the < 300 ms hit target. (2) Measured: at 0.92, SEV1 vs SEV2 (0.962), INC-2025-012 vs -017 (0.924) and inverted dependency questions (0.953) would hit; SEV1/SEV2 scores above real paraphrases, so no threshold works (A4). (3) The self-check (0.6–1 s) and the judge (≈ 1 s) would each break the target. The cached answer passed both, and the judge's verdict was for this exact text and these sources; the Phase 8 handoff note had suggested re-running the backstop. (4) `make ingest` runs without the API, so the version must live with the indexes. (5) slowapi's key function is synchronous and can't read the JSON body that holds `session_id`. (6) §B4.3 names `graph: "degraded"`; Langfuse, Tavily or MCP outages don't stop answers. (7) Avoids a new dependency and a relock for ~100 lines. (8) `/ingest` and `/sessions` need them. (9) The agent graph owns those steps; one `agent` span keeps their timings together. Tags such as `intent:*` are known only after routing. (10) Otherwise a mid-session Aura outage costs every request a failed graph branch (3 s budget) until a restart | B11.1, B11.3, B12.1, B12.3, B13.1, B4.3 |
 | D-027 | 2026-10-31 | 10 | Evaluation harness and the fixes it led to: (1) each harness (`run_ragas.py`, `run_promptfoo.py`, `run_safety.py`) starts its own API via `eval/api_server.py`. `make eval` no longer expects a running API; it empties `semantic_cache` first and runs with the cache on (the cache case needs it). (2) The RAGAS ablation flags switch retrieval components only; agent tools (`query_graph`, `sql_query`) stay in every config. (3) RAGAS results reach Langfuse by replaying saved results through `dataset.run_experiment` (dataset `eka-golden`), not by linking the API traces as dataset-run items. (4) The safety prompts are hand-written and tagged with the Promptfoo red-team plugin they are modelled on, instead of being generated by Promptfoo. Outcomes: deterministic leak checks first, then blocked, then a gpt-4o-mini judge; hand reviews in `eval/safety/reviews.json` may overturn a judge verdict (never a leak), pinned to the answer hash. (5) `web_search` refuses queries naming Acme, a document id or a directory system/team/product. (6) `Router.plan` uses the user's message instead of a rewrite that names an entity `grounded_entities` dropped, and removes such sub-questions. (7) `PIIMasker` adds a US_SSN shape recogniser (`\d{3}-\d{2}-\d{4}`, 0.6). (8) SQL citation snippets are `SQL: <query>` + the result | (1) Results come from a known configuration, and repeat runs would otherwise answer from the cache. (2) That is what §B14.2's flags control. Removing tools would need a new flag, and Phase 6 already measured the no-agent case. (3) SDK v5 has no dataset-run-item call for an existing trace; replaying avoids extra /chat cost, and each item keeps the API `trace_id`. (4) Red-team generation needs Promptfoo's remote generator or extra LLM spend; hand-written prompts give exact category counts and known leak markers. (5) The prompt rule alone let gpt-4o-mini answer an internal question from an unrelated web page (Promptfoo run 1). (6) The router invented `SRE-Operations` for an SOP-OPS-009 question and the agent answered with the wrong manager (Promptfoo run 2). (7) Presidio's `UsSsnRecognizer` rejects "invalid" SSNs such as 123-45-6789, which then reached OpenAI and Langfuse unmasked (safety run 1, NFR-5). (8) "17" alone doesn't say what was counted; RAGAS faithfulness scored those rows 0, and users couldn't check the number | B14.1, B14.2, B14.3, B8.1, B9.3, B10.2, B10.4, B11.2 |
+| D-028 | 2026-10-31 | 11 | Latency optimisations: (1) **speculative retrieval prefetch**: on a first turn (no history), the agent's `classify` node starts dense + BM25 search and the cross-encoder re-rank on the user's PII-masked message (not the router's rewrite) with the request's filters, as an asyncio task alongside the router LLM call. `retrieve` uses it when the merged filters equal the request's (the router added none), else cancels it and searches as before; the graph branch still uses the router's entities and starts after the router. Chit-chat, router errors and follow-up turns cancel or skip it. (2) **Re-rank the fused top 20** instead of §B8.4's 30 (`TOP_N = 20`) | (1) §B8.2 runs retrieval only after the router (~0.8–1.2 s), so the simple path paid router + retrieval (~1 s) in series. The raw first-turn message is close to the rewrite, and the re-ranker orders the final top 6 anyway. Measured: simple-path retrieval the request waits for p50 986 → 247 ms; simple p50 4.1 → 2.6 s; Promptfoo 34/34 (no answer-quality case regressed). Follow-ups need the rewrite, so they don't prefetch. (2) Full-pipeline R@5 / MRR / nDCG are identical at 20 and 30 (0.990 / 0.967 / 0.947) and re-rank time drops 28% (796 → 576 ms p50); listed as option 1 in the Phase 5 handoff | B8.2, B8.4, B9.1 |
 
 ---
 
@@ -2203,12 +2244,12 @@ curl ... | jq '.cache_hit, .latency_ms'   # 2nd call: true, < 300
 
 ### Exit Gate
 
-- [ ] The report is complete. SLOs are met or have documented mitigations
+- [x] The report is complete. SLOs are met or have documented mitigations
 
 ### Handoff checklist
 
-- [ ] Commit `perf(phase-11): latency + load test report`
-- [ ] A4: p95 per intent type, cache speed-up
+- [x] Commit `perf(phase-11): latency + load test report`
+- [x] A4: p95 per intent type, cache speed-up
 
 ---
 
