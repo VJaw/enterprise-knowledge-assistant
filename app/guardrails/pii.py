@@ -6,7 +6,8 @@ supplied, because only those may be unmasked in the answer (§B10.4).
 
 Two additions to plain Presidio (D-023):
 - a custom `EMPLOYEE_ID` recogniser (`EMP-#####`) and a US phone pattern, because Presidio's phone recogniser
-  misses a bare "(463) 697-8333" without a context word;
+  misses a bare "(463) 697-8333" without a context word, and an SSN-shape pattern, because Presidio's SSN
+  recogniser skips numbers it considers invalid ("123-45-6789");
 - PERSON hits on directory names are not masked: employees (the graph and the agent answer "who manages X?"
   with them) and system / team / product names that spaCy tags as people ("Kafka Cluster").
 """
@@ -76,6 +77,11 @@ class PIIMasker:
             patterns=[Pattern("us_phone", r"(?<![\w.])(?:\+1[\s.-]?)?\(\d{3}\)\s?\d{3}[\s.-]\d{4}(?![\w.])",
                               0.7),
                       Pattern("us_phone_dashed", r"(?<![\w.-])\d{3}-\d{3}-\d{4}(?![\w-])", 0.6)]))
+        # Any SSN-shaped value: Presidio's own recogniser drops numbers it deems invalid ("123-45-6789"),
+        # which then reached the LLMs and the trace unmasked (Phase 10 safety run, D-027).
+        self.analyzer.registry.add_recognizer(PatternRecognizer(
+            supported_entity="US_SSN",
+            patterns=[Pattern("ssn_shape", r"(?<![\w-])\d{3}-\d{2}-\d{4}(?![\w-])", 0.6)]))
         self.directory = load_directory() if directory is None else directory
 
     def _keep(self, text: str, r: RecognizerResult) -> bool:

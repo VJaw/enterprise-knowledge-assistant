@@ -6,16 +6,21 @@
   "USE_GRAPH": "false",
   "USE_RERANK": "false"
  },
- "date": "2026-10-30",
- "generator": "gpt-4o-mini",
+ "date": "2026-10-31",
+ "generator": "routed: gpt-4o 11, gpt-4o-mini 19",
  "evaluator": "gpt-4o-mini",
  "health": {
+  "status": "ok",
   "openai": "ok",
-  "neo4j": "ok",
+  "qdrant": "ok",
+  "sqlite": "ok",
+  "models": "ok",
   "langfuse": "ok",
-  "tavily": "ok"
+  "tavily": "ok",
+  "mcp": "ok",
+  "graph": "disabled"
  },
- "chat_seconds": 60.7,
+ "chat_seconds": 163.6,
  "n_rows": 30,
  "rows": [
   {
@@ -26,7 +31,7 @@
    ],
    "query_type": "factual",
    "domain": "compliance",
-   "response": "Audit logs in the Audit Log Store are retained for 7 years and are immutable, meaning they cannot be changed [4].",
+   "response": "Audit logs in the Audit Log Store are retained for 7 years and are immutable, meaning they cannot be changed once recorded [4].",
    "retrieved_contexts": [
     "Data Retention Policy POL-COMP-001 \u00b7 Version 3.0 \u00b7 Effective 2025-02-01\n1. Purpose\nThe purpose of this Data Retention Policy (POL-COMP-001, version 3.0) is to establish guidelines for the retention and deletion of data processed and stored by the systems used at Acme Corp. This policy is intended to ensure compliance with regulatory requirements, protect customer information, and preserve the integrity of business operations.\n2. Scope\nThis policy applies to all data generated, processed, or stored in the following systems:\n- Ledger DB\n- Data Warehouse\n- Audit Log Store\n- Kafka Cluster\n- Support Desk This policy encompasses all employees, contractors, and third-party service providers who interact with these systems.\n3. Policy Statements\n3.1 Data Retention Periods\n- Customer application logs are retained for 13 months and then permanently deleted.\n- Payment transaction records in the Ledger DB are retained for 7 years.\n- Audit logs in the Audit Log Store are retained for 7 years and are immutable.\n- Support tickets in the Support Desk are retained for 3 years after closure.\n- Messages in Kafka Cluster topics are retained for 7 days.\n3.2 Legal Holds\nIn situations where a legal hold is enacted, all scheduled deletion processes for the affected records will be suspended until the legal hold is lifted. This applies to any data across all systems mentioned in this policy.\n3.3 Secure Deletion"
    ],
@@ -35,13 +40,22 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 2978,
+   "latency_ms": 3603,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 820,
-    "completion_tokens": 25,
-    "est_cost_usd": 0.000138
+    "prompt_tokens": 5230,
+    "completion_tokens": 132,
+    "est_cost_usd": 0.000864,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 5230,
+      "completion_tokens": 132,
+      "est_cost_usd": 0.000864
+     }
+    },
+    "agent_steps": 1
    },
-   "trace_id": "d76cb3a2bcc5e0fb825136d4903974d4",
+   "trace_id": "b80f3a08e2663fcb88b3173d104d1339",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
@@ -59,7 +73,7 @@
    ],
    "query_type": "factual",
    "domain": "compliance",
-   "response": "The Recovery Time Objective (RTO) for the Ledger DB is 30 minutes, and the Recovery Point Objective (RPO) is 5 minutes [1][6].",
+   "response": "The Recovery Time Objective (RTO) for the Ledger DB is 30 minutes, and the Recovery Point Objective (RPO) is 5 minutes [1], [6].",
    "retrieved_contexts": [
     "## Scope\n\nThis SOP applies to the Ledger DB primary/replica cluster. It encompasses the actions required to initiate both automatic and manual failover processes, ensuring adherence to the target Recovery Time Objective (RTO) of 30 minutes and Recovery Point Objective (RPO) of 5 minutes. This document is relevant to incidents where the primary database instance is deemed unhealthy.",
     "Business Continuity and Disaster Recovery Policy POL-COMP-007 \u00b7 Version 2.5 \u00b7 Effective 2025-03-20\n1. Purpose\nThe purpose of this Business Continuity and Disaster Recovery Policy (POL-COMP-007, version 2.5) is to establish a framework for ensuring the availability of critical systems and data at Acme Corp in the event of a disruption. This document outlines the procedures and responsibilities for maintaining operations during and after a disaster, thereby minimizing potential impacts on business operations and customer services.\n2. Scope\nThis policy applies to all systems critical to Acme Corp's operations, including:\n- Ledger DB\n- Kafka Cluster\n- Payment Gateway\n- Auth Service It encompasses all employees, contractors, and third-party service providers who have access to, or operate on, these systems.\n3. Policy Statements\n3.1 Business Continuity Objectives\nAcme Corp aims to ensure that its critical services remain operational during a disruption. The specific goals include:\n- Tier-1 systems having a Recovery Time Objective (RTO) of 1 hour and a Recovery Point Objective (RPO) of 15 minutes.\n- The Ledger DB having a stricter RTO of 30 minutes and an RPO of 5 minutes.\n3.2 Disaster Recovery Testing\nDisaster recovery tests will be conducted twice a year to validate the effectiveness of this policy. These tests will simulate various disaster scenarios to assess the capability of the organization to recover its critical systems and data.\n3.3 Backup and Retention Procedures\nTo safeguard against data loss, backups will be taken daily for all critical systems. The backup data will be retained for a period of 35 days. The frequency and retention period are designed"
@@ -70,17 +84,26 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 2114,
+   "latency_ms": 5600,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 1388,
-    "completion_tokens": 35,
-    "est_cost_usd": 0.000229
+    "prompt_tokens": 6371,
+    "completion_tokens": 138,
+    "est_cost_usd": 0.001038,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 6371,
+      "completion_tokens": 138,
+      "est_cost_usd": 0.001038
+     }
+    },
+    "agent_steps": 1
    },
-   "trace_id": "c30ddbc68de4ffd59ee44b449870b8d4",
+   "trace_id": "3203a3f66ac8b62dd5d039f279812d1e",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
-    "answer_relevancy": 0.8399334231611005,
+    "answer_relevancy": 0.8399402659159795,
     "context_precision": 0.99999999995,
     "context_recall": 1.0
    }
@@ -93,7 +116,7 @@
    ],
    "query_type": "factual",
    "domain": "compliance",
-   "response": "Break-glass privileged access lasts for 4 hours and is issued from the Secrets Vault [1].",
+   "response": "Break-glass privileged access is issued from the Secrets Vault and lasts for a duration of 4 hours [1].",
    "retrieved_contexts": [
     "Access Control Policy POL-COMP-004 \u00b7 Version 3.3 \u00b7 Effective 2025-04-01\n1. Purpose\nThe purpose of this Access Control Policy is to define the requirements for managing access to Acme Corp\u2019s systems, specifically the Auth Service, Secrets Vault, Customer Portal, and API Gateway. This policy aims to ensure that access to sensitive information and systems is restricted to authorized individuals only, thereby safeguarding the integrity, confidentiality, and availability of Acme Corp's resources.\n2. Scope\nThis policy applies to all employees, contractors, and third-party service providers who require access to Acme Corp\u2019s production systems, including but not limited to the Auth Service, Secrets Vault, Customer Portal, and API Gateway. All access must comply with this policy and related documents.\n3. Policy Statements\n3.1 Principle of Least Privilege\nAccess to production systems follows the principle of least privilege. Individuals are granted the minimum level of access necessary to perform their job functions. This reduces the risk of unauthorized access to sensitive data and systems.\n3.2 Access Reviews\nAccess reviews for production systems are performed quarterly. The purpose of these reviews is to ensure that access rights remain appropriate and to identify any unauthorized access. The owning team is responsible for conducting these reviews and remediating any identified issues.\n3.3 Multi-Factor Authentication (MFA)\nMulti-Factor Authentication (MFA) through the Auth Service is required for all production access. Users must authenticate using at least two distinct factors to ensure that only authorized personnel can access sensitive systems. The MFA setup must comply with the standards outlined in the relevant documentation.\n3.4 Privileged Access\nBreak-glass privileged access is issued from the Secrets Vault for use in emergency situations where immediate access is required. This access is temporary and expires after 4 hours. The process for requesting and approving break-glass access must follow the"
    ],
@@ -101,20 +124,32 @@
     "1"
    ],
    "abstained": false,
-   "flags": [],
-   "latency_ms": 2088,
+   "flags": [
+    "injection_suspected",
+    "pii_masked_context"
+   ],
+   "latency_ms": 3665,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 1509,
-    "completion_tokens": 20,
-    "est_cost_usd": 0.000238
+    "prompt_tokens": 6607,
+    "completion_tokens": 117,
+    "est_cost_usd": 0.001061,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 6607,
+      "completion_tokens": 117,
+      "est_cost_usd": 0.001061
+     }
+    },
+    "agent_steps": 1
    },
-   "trace_id": "8525834954e5b4b2548b90a875755481",
+   "trace_id": "04abc07ded073dd853f929e20f556937",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
-    "answer_relevancy": 0.9163285187902511,
+    "answer_relevancy": 0.9163396456472602,
     "context_precision": 0.9999999999,
-    "context_recall": 0.6666666666666666
+    "context_recall": 1.0
    }
   },
   {
@@ -125,7 +160,7 @@
    ],
    "query_type": "factual",
    "domain": "engineering",
-   "response": "The Kafka Cluster should alert when consumer lag exceeds 50,000 messages for 10 minutes [1][2].",
+   "response": "The Kafka Cluster should alert when consumer lag exceeds 50,000 messages for 10 minutes [1], [2].",
    "retrieved_contexts": [
     "### Common Alerts\n\n- **Consumer Lag**: Alert when consumer lag exceeds 50,000 messages for 10 minutes.\n- **Schema Compatibility Issues**: Alerts when data does not comply with the schema in the Schema Registry.\n- **Broker Down**: Alerts when a broker becomes unresponsive.",
     "### Monitoring and Alerts\n\n- Set up alerts to notify when consumer lag exceeds 50,000 messages for 10 minutes.\n- Use the following command to check consumer lag:\n\n   ```bash\n   bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group <consumer_group>\n   ```"
@@ -136,17 +171,26 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 2185,
+   "latency_ms": 2840,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 1218,
-    "completion_tokens": 23,
-    "est_cost_usd": 0.000197
+    "prompt_tokens": 6016,
+    "completion_tokens": 102,
+    "est_cost_usd": 0.000964,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 6016,
+      "completion_tokens": 102,
+      "est_cost_usd": 0.000964
+     }
+    },
+    "agent_steps": 1
    },
-   "trace_id": "9c2210e25c9326b87f990654f660835b",
+   "trace_id": "0bcaa4d1e8e7a7db8f031b2dce6756df",
    "errors": [],
    "scores": {
     "faithfulness": 0.5,
-    "answer_relevancy": 0.9238571111723269,
+    "answer_relevancy": 0.9238626701937683,
     "context_precision": 0.99999999995,
     "context_recall": 0.5
    }
@@ -164,7 +208,7 @@
    ],
    "query_type": "factual",
    "domain": "operations",
-   "response": "The steps for manual promotion during a Ledger DB failover are as follows:\n\n1. Put the Payment Gateway and Billing Service into maintenance mode to freeze writes.\n2. Confirm that the replica lag is under 5 seconds.\n3. Run the command `ledgerctl promote --replica ledger-db-replica-1` to promote the designated replica as the new primary.\n4. Repoint the DNS record `ledger-db.internal` to the new primary.\n5. Run the ledger smoke test to validate the functionality and stability of the new primary.\n6. Take the Payment Gateway and Billing Service out of maintenance mode to resume normal operations [1].",
+   "response": "The steps for manual promotion during a Ledger DB failover are as follows:\n\n1. Put the Payment Gateway and Billing Service into maintenance mode to freeze writes, preventing any data inconsistency during the failover process.\n2. Confirm that the replica lag is under 5 seconds to ensure that the data on the new primary is sufficiently up-to-date.\n3. Run the command `ledgerctl promote --replica ledger-db-replica-1` to promote the designated replica as the new primary.\n4. Repoint the DNS record `ledger-db.internal` to the new primary to ensure services can access the updated database instance.\n5. Run the ledger smoke test to validate the functionality and stability of the new primary.\n6. Take the Payment Gateway and Billing Service out of maintenance mode to resume normal operations [1].",
    "retrieved_contexts": [
     "### 3.2 Manual Promotion\n\nIn scenarios where automatic failover does not occur or additional verification is required, manual promotion can be executed by following these steps:\n\n1. Put the Payment Gateway and Billing Service into maintenance mode to freeze writes. This prevents any data inconsistency during the failover process.\n2. Confirm that the replica lag is under 5 seconds. This ensures that the data on the new primary is sufficiently up-to-date.\n3. Run the command `ledgerctl promote --replica ledger-db-replica-1` to promote the designated replica as the new primary.\n4. Repoint the DNS record `ledger-db.internal` to the new primary to ensure services can access the updated database instance.\n5. Run the ledger smoke test to validate the functionality and stability of the new primary.\n6. Take the Payment Gateway and Billing Service out of maintenance mode to resume normal operations."
    ],
@@ -173,17 +217,26 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 3031,
+   "latency_ms": 7652,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 1309,
-    "completion_tokens": 129,
-    "est_cost_usd": 0.000274
+    "prompt_tokens": 6340,
+    "completion_tokens": 390,
+    "est_cost_usd": 0.001185,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 6340,
+      "completion_tokens": 390,
+      "est_cost_usd": 0.001185
+     }
+    },
+    "agent_steps": 1
    },
-   "trace_id": "ad1743f0e05ba33d2e0f75fe37bb6306",
+   "trace_id": "0239ce602c7280e0683885c0cdcce57c",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
-    "answer_relevancy": 0.9999995947644167,
+    "answer_relevancy": 0.9999997298429445,
     "context_precision": 0.9999999999,
     "context_recall": 1.0
    }
@@ -197,7 +250,7 @@
    ],
    "query_type": "factual",
    "domain": "operations",
-   "response": "An emergency secret rotation must happen within 1 hour if there is a suspicion of a compromise [1]. The old and new keys must overlap for a 24-hour dual-key window before the old key is revoked [1].",
+   "response": "An emergency secret rotation must happen within 1 hour of identifying a compromise. The old and new keys must overlap for a 24-hour dual-key window before the old key is revoked to ensure a seamless transition and minimize potential service disruptions [1].",
    "retrieved_contexts": [
     "### 3.2 Emergency Secret Rotation\n1. **Identify Compromise**: If there is a suspicion of a compromise, an emergency rotation must happen within 1 hour.\n2. **Initiate Rotation**: Execute the command `vaultctl rotate --path <secret-path>` immediately to rotate the compromised secret.\n3. **Implement Dual-Key Window**: Ensure that the old and new keys overlap for a 24-hour dual-key window before the old key is revoked. This allows for a seamless transition and minimizes potential service disruptions.\n4. **Notify Incident Commander**: Inform the Incident Commander of the rotation and any relevant details regarding the suspected compromise.\n5. **Review Access Logs**: Conduct a thorough review of access logs to identify any unauthorized access that may have occurred prior to the rotation."
    ],
@@ -205,18 +258,29 @@
     "1"
    ],
    "abstained": false,
-   "flags": [],
-   "latency_ms": 2396,
+   "flags": [
+    "injection_suspected"
+   ],
+   "latency_ms": 4370,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 1114,
-    "completion_tokens": 45,
-    "est_cost_usd": 0.000194
+    "prompt_tokens": 5720,
+    "completion_tokens": 183,
+    "est_cost_usd": 0.000968,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 5720,
+      "completion_tokens": 183,
+      "est_cost_usd": 0.000968
+     }
+    },
+    "agent_steps": 1
    },
-   "trace_id": "78500699aaa8af12a95b5a63ebd5c3cb",
+   "trace_id": "46751ec9c4d28eb92bd25e755171a07c",
    "errors": [],
    "scores": {
-    "faithfulness": 1.0,
-    "answer_relevancy": 0.7269177909883456,
+    "faithfulness": 0.5,
+    "answer_relevancy": 0.5477214689568066,
     "context_precision": 0.9999999999,
     "context_recall": 0.6666666666666666
    }
@@ -238,13 +302,22 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 1850,
+   "latency_ms": 3218,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 1219,
-    "completion_tokens": 25,
-    "est_cost_usd": 0.000198
+    "prompt_tokens": 6021,
+    "completion_tokens": 109,
+    "est_cost_usd": 0.000969,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 6021,
+      "completion_tokens": 109,
+      "est_cost_usd": 0.000969
+     }
+    },
+    "agent_steps": 1
    },
-   "trace_id": "0c4d8406c61a42d36095654a38118c5b",
+   "trace_id": "1c1cd3d0d1274abcca8022b2f6f0ab3d",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
@@ -262,7 +335,7 @@
    ],
    "query_type": "factual",
    "domain": "support",
-   "response": "A refund exceeding $5,000 must be approved by both a Tier-2 Support Lead and the Finance department [1].",
+   "response": "A refund request exceeding $5,000 must be approved by a **Tier-2 Support Lead** and also requires approval from the **Finance department** [1].",
    "retrieved_contexts": [
     "### 3.2 Approval Process\n1. For refund requests exceeding **$500**, the request must be approved by a **Tier-2 Support Lead**.\n2. For refund requests exceeding **$5,000**, approval must also be obtained from the Finance department in addition to the Tier-2 Support Lead.\n3. The support staff will notify the appropriate personnel for approvals, providing them with all relevant details from the refund request log.\n4. Once approvals are obtained, the request will move to the next stage for processing."
    ],
@@ -270,18 +343,29 @@
     "1"
    ],
    "abstained": false,
-   "flags": [],
-   "latency_ms": 1813,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 3295,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 911,
-    "completion_tokens": 25,
-    "est_cost_usd": 0.000152
+    "prompt_tokens": 5398,
+    "completion_tokens": 132,
+    "est_cost_usd": 0.000889,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 5398,
+      "completion_tokens": 132,
+      "est_cost_usd": 0.000889
+     }
+    },
+    "agent_steps": 1
    },
-   "trace_id": "be4058320d2015f0bbc3a3ca7358330d",
+   "trace_id": "346170880df11295dd26733e90503b95",
    "errors": [],
    "scores": {
     "faithfulness": 0.5,
-    "answer_relevancy": 0.9651958402467419,
+    "answer_relevancy": 0.9325665956596604,
     "context_precision": 0.9999999999,
     "context_recall": 1.0
    }
@@ -295,24 +379,44 @@
    ],
    "query_type": "factual",
    "domain": "support",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
+   "response": "I don't know based on the available documents. However, a fraud analyst needs to review a dispute when it involves amounts over $1,000 [3].",
+   "retrieved_contexts": [
+    "### 3.3 Review Process\n1. For disputes involving amounts over $1,000, conduct a thorough review involving a fraud analyst before proceeding with submission.\n2. The fraud analyst will evaluate the risk score and supporting evidence to determine the validity of the chargeback.\n3. Document the findings and recommendations from the fraud analyst in the internal tracking system."
+   ],
+   "citations": [
+    "3"
+   ],
    "abstained": true,
-   "flags": [],
-   "latency_ms": 2093,
+   "flags": [
+    "regenerated_ungrounded"
+   ],
+   "latency_ms": 4979,
+   "model_used": "gpt-4o",
    "usage": {
-    "prompt_tokens": 1051,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.000163
+    "prompt_tokens": 8316,
+    "completion_tokens": 301,
+    "est_cost_usd": 0.014106,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 3321,
+      "completion_tokens": 201,
+      "est_cost_usd": 0.000619
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 4995,
+      "completion_tokens": 100,
+      "est_cost_usd": 0.013487
+     }
+    },
+    "agent_steps": 1
    },
-   "trace_id": "387bac21aa907fa53b6ee2f08c18ebb2",
+   "trace_id": "69ec00fa171ad0fcd2b42a769ad0dc35",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
+    "faithfulness": 0.5,
     "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "context_precision": 0.9999999999,
+    "context_recall": 0.5
    }
   },
   {
@@ -325,27 +429,43 @@
    ],
    "query_type": "factual",
    "domain": "engineering",
-   "response": "The payment latency spike in incident report INC-2025-031 was caused by a configuration change that reduced the Ledger DB connection pool from 200 to 50 connections, leading to connection exhaustion. The spike lasted for a duration of 47 minutes, during which the p99 latency rose from 600 ms to 4.2 s [2][4].",
+   "response": "The payment latency spike in incident report INC-2025-031 was caused by a configuration change that reduced the Ledger DB connection pool from 200 to 50 connections. This reduction led to connection exhaustion, causing requests to the Payment Gateway to queue and resulting in a significant increase in latency metrics [2], [5].\n\nThe latency spike lasted for 47 minutes, during which the p99 latency rose from 600 ms to 4.2 seconds [2].",
    "retrieved_contexts": [
     "## Summary\nOn August 11, 2025, Acme Corp experienced a significant latency spike in its Payment Gateway service. The p99 latency rose from 600 ms to 4.2 s for a duration of 47 minutes. This incident was categorized as a severity level 1 (SEV1) due to its impact on transaction processing and potential financial implications for customers. The root cause of the issue was traced to a configuration change that reduced the Ledger DB connection pool from 200 to 50 connections, ultimately exhausting the available connections and leading to the observed latency spike. The issue was resolved by rolling back the configuration change, restoring the connection pool to its original size. To prevent recurrence of similar issues, an alert will be added to monitor connection pool saturation.",
-    "## RCA\nThe root cause analysis (RCA) revealed that a recent configuration change implemented on the Ledger DB reduced the connection pool from 200 to 50 connections. This drastic reduction resulted in an insufficient number of available connections for the Payment Gateway, leading to connection exhaustion. As a consequence, requests to the Payment Gateway began to queue, causing a notable increase in latency metrics. The incident was exacerbated by the lack of alerts for connection pool saturation, which delayed the response time in identifying and mitigating the issue. The rollback of the configuration change restored the connection pool, resulting in the normalization of latency metrics.\n\nThe on-call engineer, Patricia Miller, was reached on their personal phone (827) 313-0730 and personal email carolynedwards@yahoo.com after the pager escalation failed. The first merchant report came from IP address 76.168.253.56."
+    "## RCA\nThe root cause analysis (RCA) revealed that a recent configuration change implemented on the Ledger DB reduced the connection pool from 200 to 50 connections. This drastic reduction resulted in an insufficient number of available connections for the Payment Gateway, leading to connection exhaustion. As a consequence, requests to the Payment Gateway began to queue, causing a notable increase in latency metrics. The incident was exacerbated by the lack of alerts for connection pool saturation, which delayed the response time in identifying and mitigating the issue. The rollback of the configuration change restored the connection pool, resulting in the normalization of latency metrics.\n\nThe on-call engineer, Patricia Miller, was reached on their personal phone <PHONE_NUMBER_1> and personal email <EMAIL_ADDRESS_1> after the pager escalation failed. The first merchant report came from IP address <IP_ADDRESS_1>."
    ],
    "citations": [
     "2",
-    "4"
+    "5"
    ],
    "abstained": false,
-   "flags": [],
-   "latency_ms": 2436,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 13688,
+   "model_used": "gpt-4o",
    "usage": {
-    "prompt_tokens": 1376,
-    "completion_tokens": 72,
-    "est_cost_usd": 0.00025
+    "prompt_tokens": 6437,
+    "completion_tokens": 329,
+    "est_cost_usd": 0.01128,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 2508,
+      "completion_tokens": 235,
+      "est_cost_usd": 0.000517
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 3929,
+      "completion_tokens": 94,
+      "est_cost_usd": 0.010762
+     }
+    },
+    "agent_steps": 1
    },
-   "trace_id": "e7e2b78d00450ec33d1af90801334762",
+   "trace_id": "d85ecbafcee9b1e744105b01f72517fd",
    "errors": [],
    "scores": {
-    "faithfulness": 0.8,
+    "faithfulness": 1.0,
     "answer_relevancy": 0.8839314932994432,
     "context_precision": 0.99999999995,
     "context_recall": 1.0
@@ -361,24 +481,46 @@
    ],
    "query_type": "multi_hop",
    "domain": "operations",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
+   "response": "1. The system covered by SOP-OPS-014 is the Ledger DB [1].\n2. The Ledger DB is owned by the Data-Platform team [G2].\n3. The manager of the Data-Platform team, which owns the Ledger DB, is Anthony Gonzalez [G4].",
+   "retrieved_contexts": [
+    "## Purpose\n\nThe purpose of this Standard Operating Procedure (SOP) is to outline the steps for executing a database failover for the Ledger DB primary/replica cluster. This ensures minimal disruption to services reliant on the Ledger DB, such as the Payment Gateway and Billing Service, while maintaining data integrity and operational continuity during an outage.",
+    "Data-Platform team OWNS Ledger DB; manager: Anthony Gonzalez",
+    "Anthony Gonzalez MANAGES Data-Platform team; Data-Platform has 7 members and OWNS Data Warehouse, Kafka Cluster, Ledger DB, Reporting Service"
+   ],
+   "citations": [
+    "1",
+    "G2",
+    "G4"
+   ],
+   "abstained": false,
    "flags": [],
-   "latency_ms": 2065,
+   "latency_ms": 5419,
+   "model_used": "gpt-4o",
    "usage": {
-    "prompt_tokens": 831,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.00013
+    "prompt_tokens": 9142,
+    "completion_tokens": 283,
+    "est_cost_usd": 0.019248,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 2083,
+      "completion_tokens": 164,
+      "est_cost_usd": 0.000411
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 7059,
+      "completion_tokens": 119,
+      "est_cost_usd": 0.018838
+     }
+    },
+    "agent_steps": 2
    },
-   "trace_id": "a63053547f448d3ec8b22debfde19ce9",
+   "trace_id": "9e40ced7e3b8b84226ed9feaa021a32d",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.5486200564657786,
+    "context_precision": 0.5833333333041666,
+    "context_recall": 1.0
    }
   },
   {
@@ -391,24 +533,46 @@
    ],
    "query_type": "multi_hop",
    "domain": "operations",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
-   "flags": [],
-   "latency_ms": 2304,
+   "response": "1. SOP-OPS-009 covers the Secrets Vault system [G6].\n2. The Secrets Vault system is owned by the Identity-Access team, and the manager of that team is Christopher Davis [G11].",
+   "retrieved_contexts": [
+    "SOP-OPS-009 -[MENTIONS]-> Secrets Vault",
+    "Identity-Access team OWNS Secrets Vault; manager: Christopher Davis"
+   ],
+   "citations": [
+    "G6",
+    "G11"
+   ],
+   "abstained": false,
+   "flags": [
+    "injection_suspected"
+   ],
+   "latency_ms": 5450,
+   "model_used": "gpt-4o",
    "usage": {
-    "prompt_tokens": 947,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.000147
+    "prompt_tokens": 9961,
+    "completion_tokens": 276,
+    "est_cost_usd": 0.020519,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 2356,
+      "completion_tokens": 171,
+      "est_cost_usd": 0.000456
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 7605,
+      "completion_tokens": 105,
+      "est_cost_usd": 0.020063
+     }
+    },
+    "agent_steps": 2
    },
-   "trace_id": "f263e104d3d784d9d9ab257e372a3715",
+   "trace_id": "57aa4ff979cdb62f4b7b1b4deb91af8d",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.7459247325631339,
+    "context_precision": 0.49999999995,
+    "context_recall": 1.0
    }
   },
   {
@@ -421,24 +585,42 @@
    ],
    "query_type": "multi_hop",
    "domain": "operations",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
+   "response": "The Data-Platform team owns the Data Warehouse system, and the manager of that team is Anthony Gonzalez [G1].",
+   "retrieved_contexts": [
+    "Data-Platform team OWNS Data Warehouse; manager: Anthony Gonzalez"
+   ],
+   "citations": [
+    "G1"
+   ],
+   "abstained": false,
    "flags": [],
-   "latency_ms": 1979,
+   "latency_ms": 5160,
+   "model_used": "gpt-4o",
    "usage": {
-    "prompt_tokens": 681,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.000108
+    "prompt_tokens": 8568,
+    "completion_tokens": 206,
+    "est_cost_usd": 0.01796,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 1857,
+      "completion_tokens": 123,
+      "est_cost_usd": 0.000352
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 6711,
+      "completion_tokens": 83,
+      "est_cost_usd": 0.017608
+     }
+    },
+    "agent_steps": 2
    },
-   "trace_id": "135c3fd3ab7784d566496980d150be63",
+   "trace_id": "e952fca9a464917783de05fe102d8d2b",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.6830016908352209,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
    }
   },
   {
@@ -451,24 +633,48 @@
    ],
    "query_type": "multi_hop",
    "domain": "support",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
-   "flags": [],
-   "latency_ms": 2090,
+   "response": "1. The system covered by SOP-SUP-003 is the Billing Service [G4], [G7].\n2. The Billing Service is owned by the Payments-Core team [G11].\n3. The manager of the Payments-Core team, which owns the Billing Service, is Priya Rao [G11].",
+   "retrieved_contexts": [
+    "SOP-SUP-003 -[MENTIONS]-> Billing Service <-[GOVERNS]- POL-COMP-008",
+    "SOP-SUP-003 -[MENTIONS]-> Billing Service",
+    "Payments-Core team OWNS Billing Service; manager: Priya Rao"
+   ],
+   "citations": [
+    "G4",
+    "G7",
+    "G11"
+   ],
+   "abstained": false,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 5599,
+   "model_used": "gpt-4o",
    "usage": {
-    "prompt_tokens": 944,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.000147
+    "prompt_tokens": 10196,
+    "completion_tokens": 288,
+    "est_cost_usd": 0.021106,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 2435,
+      "completion_tokens": 164,
+      "est_cost_usd": 0.000464
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 7761,
+      "completion_tokens": 124,
+      "est_cost_usd": 0.020643
+     }
+    },
+    "agent_steps": 2
    },
-   "trace_id": "f4589a4a6f08699a5ae95849db0361cf",
+   "trace_id": "78ab3c9fdcfe10f210b92e6ec79a9f9b",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.4625308699314978,
+    "context_precision": 0.9999999999666667,
+    "context_recall": 1.0
    }
   },
   {
@@ -481,24 +687,44 @@
    ],
    "query_type": "multi_hop",
    "domain": "support",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
+   "response": "1. The system that provides the risk score required by SOP-SUP-008 is the Fraud Detection Engine [4].\n2. The Data-Platform team owns the Fraud Detection Engine [G6].\n3. Anthony Gonzalez manages the Data-Platform team [G6].",
+   "retrieved_contexts": [
+    "### 3.2 Gathering Evidence\n1. Collect all relevant documentation related to the transaction, including transaction ID, date, amount, and customer details.\n2. Retrieve the transaction's Fraud Detection Engine risk score associated with the chargeback.\n3. Compile evidence to support the dispute, including any communication with the customer, transaction history, and the Fraud Detection Engine risk score. This risk score must be attached to the dispute evidence.",
+    "Fraud Detection Engine DEPENDS_ON Kafka Cluster (tier 1); Data-Platform team OWNS Kafka Cluster; manager: Anthony Gonzalez"
+   ],
+   "citations": [
+    "4",
+    "G6"
+   ],
+   "abstained": false,
    "flags": [],
-   "latency_ms": 2456,
+   "latency_ms": 4923,
+   "model_used": "gpt-4o",
    "usage": {
-    "prompt_tokens": 742,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.000117
+    "prompt_tokens": 9469,
+    "completion_tokens": 252,
+    "est_cost_usd": 0.019363,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 2210,
+      "completion_tokens": 174,
+      "est_cost_usd": 0.000436
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 7259,
+      "completion_tokens": 78,
+      "est_cost_usd": 0.018927
+     }
+    },
+    "agent_steps": 2
    },
-   "trace_id": "f614788d134eadf3bba7720d2f54495c",
+   "trace_id": "bc5f10f912ee2af9e3e9c4e88c713ecc",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 0.6666666666666666,
+    "answer_relevancy": 0.669986823745719,
+    "context_precision": 0.9999999999,
+    "context_recall": 0.3333333333333333
    }
   },
   {
@@ -522,24 +748,54 @@
    ],
    "query_type": "multi_hop",
    "domain": "engineering",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
+   "response": "The systems that the Payment Gateway depends on and their respective owning teams are as follows:\n\n1. **Ledger DB**: Owned by the Data-Platform team, managed by Anthony Gonzalez [G1].\n2. **Auth Service**: Owned by the Identity-Access team, managed by Christopher Davis [G2].\n3. **Fraud Detection Engine**: Owned by the Payments-Core team, managed by Priya Rao [G3].\n4. **Kafka Cluster**: Owned by the Data-Platform team, managed by Anthony Gonzalez [G4].\n5. **API Gateway**: Owned by the SRE-Operations team, managed by Janet Williams [G5].\n6. **Secrets Vault**: Owned by the Identity-Access team, managed by Christopher Davis [G6].\n7. **Notification Service**: Owned by the SRE-Operations team, managed by Janet Williams [G7].",
+   "retrieved_contexts": [
+    "Data-Platform team OWNS Ledger DB; manager: Anthony Gonzalez",
+    "Identity-Access team OWNS Auth Service; manager: Christopher Davis",
+    "Payments-Core team OWNS Fraud Detection Engine; manager: Priya Rao",
+    "Data-Platform team OWNS Kafka Cluster; manager: Anthony Gonzalez",
+    "SRE-Operations team OWNS API Gateway; manager: Janet Williams",
+    "Identity-Access team OWNS Secrets Vault; manager: Christopher Davis",
+    "SRE-Operations team OWNS Notification Service; manager: Janet Williams"
+   ],
+   "citations": [
+    "G1",
+    "G2",
+    "G3",
+    "G4",
+    "G5",
+    "G6",
+    "G7"
+   ],
+   "abstained": false,
    "flags": [],
-   "latency_ms": 1743,
+   "latency_ms": 11069,
+   "model_used": "gpt-4o",
    "usage": {
-    "prompt_tokens": 784,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.000123
+    "prompt_tokens": 9377,
+    "completion_tokens": 734,
+    "est_cost_usd": 0.02185,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 2201,
+      "completion_tokens": 400,
+      "est_cost_usd": 0.00057
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 7176,
+      "completion_tokens": 334,
+      "est_cost_usd": 0.02128
+     }
+    },
+    "agent_steps": 2
    },
-   "trace_id": "4fe87e109fa269a4ad031524caa509d5",
+   "trace_id": "e034d1c23a2947d7f3d8b177ba6d8cb7",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
+    "faithfulness": 0.9333333333333333,
+    "answer_relevancy": 0.8431454858292368,
     "context_precision": 0.0,
-    "context_recall": 0.0
+    "context_recall": 1.0
    }
   },
   {
@@ -553,24 +809,46 @@
    ],
    "query_type": "multi_hop",
    "domain": "operations",
-   "response": "The owning team for the system affected by incident report INC-2025-022 (the expired TLS certificate) is not explicitly mentioned in the provided context. Therefore, I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
+   "response": "1. The system affected by incident report INC-2025-022 is the API Gateway [G1].\n2. The SRE-Operations team owns the API Gateway [G9].\n3. Janet Williams manages the SRE-Operations team [G11].",
+   "retrieved_contexts": [
+    "INC-2025-022 -[AFFECTS]-> API Gateway <-[MENTIONS]- MAN-ENG-001",
+    "INC-2025-022 -[AUTHORED_BY]-> SRE-Operations -[OWNS]-> API Gateway",
+    "SRE-Operations team OWNS API Gateway; manager: Janet Williams"
+   ],
+   "citations": [
+    "G1",
+    "G9",
+    "G11"
+   ],
+   "abstained": false,
    "flags": [],
-   "latency_ms": 2460,
+   "latency_ms": 5319,
+   "model_used": "gpt-4o",
    "usage": {
-    "prompt_tokens": 1246,
-    "completion_tokens": 42,
-    "est_cost_usd": 0.000212
+    "prompt_tokens": 11280,
+    "completion_tokens": 281,
+    "est_cost_usd": 0.022933,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 2769,
+      "completion_tokens": 167,
+      "est_cost_usd": 0.000516
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 8511,
+      "completion_tokens": 114,
+      "est_cost_usd": 0.022417
+     }
+    },
+    "agent_steps": 2
    },
-   "trace_id": "6b8706eaa3c7ebe205c81aa0645b496a",
+   "trace_id": "aaeea56cb83921da4bb4e10939e85b79",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.5572916733717983,
+    "context_precision": 0.9999999999666667,
+    "context_recall": 1.0
    }
   },
   {
@@ -589,24 +867,60 @@
    ],
    "query_type": "multi_hop",
    "domain": "compliance",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
-   "flags": [],
-   "latency_ms": 2042,
+   "response": "Incident INC-2025-012 affects the Billing Service and Ledger DB systems [G1], [G3].\n\nThe policies governing the Billing Service are:\n- POL-COMP-006: Change Management Policy [G4]\n- POL-COMP-008: Payment Card Data Handling Policy [G5]\n\nThe policies governing the Ledger DB are:\n- POL-COMP-001: Data Retention Policy [G6]\n- POL-COMP-003: Incident Response Policy [G7]\n- POL-COMP-005: Encryption and Key Management Policy [G8]\n- POL-COMP-007: Business Continuity and Disaster Recovery Policy [G9]\n- POL-COMP-008: Payment Card Data Handling Policy [G10]",
+   "retrieved_contexts": [
+    "INC-2025-012 (SEV1, 2025-03-27) AFFECTS Billing Service: Ledger DB primary failure",
+    "INC-2025-012 (SEV1, 2025-03-27) AFFECTS Ledger DB: Ledger DB primary failure",
+    "POL-COMP-006 \"Change Management Policy\" GOVERNS Billing Service",
+    "POL-COMP-008 \"Payment Card Data Handling Policy\" GOVERNS Billing Service",
+    "POL-COMP-001 \"Data Retention Policy\" GOVERNS Ledger DB",
+    "POL-COMP-003 \"Incident Response Policy\" GOVERNS Ledger DB",
+    "POL-COMP-005 \"Encryption and Key Management Policy\" GOVERNS Ledger DB",
+    "POL-COMP-007 \"Business Continuity and Disaster Recovery Policy\" GOVERNS Ledger DB",
+    "POL-COMP-008 \"Payment Card Data Handling Policy\" GOVERNS Ledger DB"
+   ],
+   "citations": [
+    "G1",
+    "G3",
+    "G4",
+    "G5",
+    "G6",
+    "G7",
+    "G8",
+    "G9",
+    "G10"
+   ],
+   "abstained": false,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 7194,
+   "model_used": "gpt-4o",
    "usage": {
-    "prompt_tokens": 1884,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.000288
+    "prompt_tokens": 17675,
+    "completion_tokens": 444,
+    "est_cost_usd": 0.038574,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 3418,
+      "completion_tokens": 215,
+      "est_cost_usd": 0.000642
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 14257,
+      "completion_tokens": 229,
+      "est_cost_usd": 0.037933
+     }
+    },
+    "agent_steps": 3
    },
-   "trace_id": "8e63e2b55bb401a5afdf0258f8e3bb54",
+   "trace_id": "42b43c4c49f5297d7f2628a0fb39609f",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.4439572189452412,
+    "context_precision": 0.8338789682435448,
+    "context_recall": 1.0
    }
   },
   {
@@ -617,30 +931,39 @@
    ],
    "query_type": "structured",
    "domain": "operations",
-   "response": "There are two SEV1 tickets in total: one for the \"Payment latency spike\" (INC-2025-031) and one for the \"Customer Portal outage\" (INC-2025-017) [1][3].",
+   "response": "There are a total of 17 SEV1 tickets. [SQL1]",
    "retrieved_contexts": [
-    "### Common Alerts and Troubleshooting\n\nThe Monitoring Stack is configured to detect and alert on several common issues. Below are examples of alerts along with potential troubleshooting steps:\n\n- **SEV1 Alerts**:\n  - **Payment latency spike** (INC-2025-031): Investigate service load and database performance.\n  - **Customer Portal outage** (INC-2025-017): Check service health and connectivity.\n\n- **SEV2 Alerts**:\n  - **Expired TLS certificate on API Gateway** (INC-2025-022): Follow procedures in **SOP-OPS-018: TLS Certificate Renewal**.\n  - **Audit log ingestion gap** (INC-2025-044): Verify log pipeline status and check for errors in Loki.",
-    "## Summary\n\nOn May 8, 2025, Acme Corp experienced a severe outage of the Customer Portal, classified as SEV1 (INC-2025-017). The outage lasted for 51 minutes and was caused by a deployment of a new route configuration in the API Gateway that contained a malformed rule. This incident impacted all users attempting to access the Customer Portal, preventing them from logging in and completing transactions. The change that caused the outage was rolled back immediately following the procedures outlined in SOP-OPS-011: Production Deployment and Rollback."
+    "SQL: SELECT COUNT(ticket_id) FROM tickets WHERE priority = 'SEV1'\nCOUNT(ticket_id)\n17\n(1 row)"
    ],
    "citations": [
-    "1",
-    "3"
+    "SQL1"
    ],
    "abstained": false,
-   "flags": [],
-   "latency_ms": 1893,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 4233,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 1109,
-    "completion_tokens": 48,
-    "est_cost_usd": 0.000195
+    "prompt_tokens": 9503,
+    "completion_tokens": 112,
+    "est_cost_usd": 0.001493,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 9503,
+      "completion_tokens": 112,
+      "est_cost_usd": 0.001493
+     }
+    },
+    "agent_steps": 2
    },
-   "trace_id": "e304fe6f32d68e115466b981ddffb360",
+   "trace_id": "9f9f1914a290aa151505ed1a7ba9883b",
    "errors": [],
    "scores": {
-    "faithfulness": 0.6666666666666666,
-    "answer_relevancy": 0.8879927329812657,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9838975529832045,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
    }
   },
   {
@@ -651,24 +974,39 @@
    ],
    "query_type": "structured",
    "domain": "operations",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
-   "flags": [],
-   "latency_ms": 1787,
+   "response": "There are currently 32 support tickets with the status 'open' [SQL1].",
+   "retrieved_contexts": [
+    "SQL: SELECT COUNT(*) FROM tickets WHERE status = 'open'\nCOUNT(*)\n32\n(1 row)"
+   ],
+   "citations": [
+    "SQL1"
+   ],
+   "abstained": false,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 3773,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 820,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.000128
+    "prompt_tokens": 8619,
+    "completion_tokens": 111,
+    "est_cost_usd": 0.001359,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 8619,
+      "completion_tokens": 111,
+      "est_cost_usd": 0.001359
+     }
+    },
+    "agent_steps": 2
    },
-   "trace_id": "e18ae4c5535afe64e838e4724e2ac645",
+   "trace_id": "edadfe3e39d8049835c3978419675de0",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9330730467597933,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
    }
   },
   {
@@ -679,24 +1017,42 @@
    ],
    "query_type": "structured",
    "domain": "operations",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
+   "response": "1. The counts of SEV1 tickets for each system are as follows:\n   - Auth Service: 1\n   - Customer Portal: 3\n   - Fraud Detection Engine: 3\n   - Ledger DB: 5\n   - Payment Gateway: 4\n   - Reporting Service: 1 [SQL1]\n\n2. The system with the highest count of SEV1 tickets is the Ledger DB. [SQL1]\n\n3. The Ledger DB has 5 SEV1 tickets. [SQL1]",
+   "retrieved_contexts": [
+    "SQL: SELECT systems.name, COUNT(tickets.ticket_id) AS sevi_count FROM tickets JOIN products ON tickets.product_id = products.product_id JOIN systems ON products.system_id = systems.system_id WHERE tickets.priority = 'SEV1' GROUP BY systems.name\nname | sevi_count\nAuth Service | 1\nCustomer Portal | 3\nFraud Detection Engine | 3\nLedger DB | 5\nPayment Gateway | 4\nReporting Service | 1\n(6 rows)"
+   ],
+   "citations": [
+    "SQL1"
+   ],
+   "abstained": false,
    "flags": [],
-   "latency_ms": 1628,
+   "latency_ms": 15109,
+   "model_used": "gpt-4o",
    "usage": {
-    "prompt_tokens": 946,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.000147
+    "prompt_tokens": 17338,
+    "completion_tokens": 548,
+    "est_cost_usd": 0.023304,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 9480,
+      "completion_tokens": 345,
+      "est_cost_usd": 0.001629
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 7858,
+      "completion_tokens": 203,
+      "est_cost_usd": 0.021675
+     }
+    },
+    "agent_steps": 4
    },
-   "trace_id": "6c91779582b09689c233c263339fb145",
+   "trace_id": "1a5ca95ca8ba35a0007897cf9db2fa31",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9048285684465885,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
    }
   },
   {
@@ -707,24 +1063,39 @@
    ],
    "query_type": "structured",
    "domain": "operations",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
-   "flags": [],
-   "latency_ms": 1656,
+   "response": "There were 311 transactions recorded in the EMEA region [SQL1].",
+   "retrieved_contexts": [
+    "SQL: SELECT COUNT(*) FROM transactions WHERE region = 'EMEA'\nCOUNT(*)\n311\n(1 row)"
+   ],
+   "citations": [
+    "SQL1"
+   ],
+   "abstained": false,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 4253,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 882,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.000138
+    "prompt_tokens": 8815,
+    "completion_tokens": 108,
+    "est_cost_usd": 0.001387,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 8815,
+      "completion_tokens": 108,
+      "est_cost_usd": 0.001387
+     }
+    },
+    "agent_steps": 2
    },
-   "trace_id": "1396dbb09031d54245b8128ec67d9c26",
+   "trace_id": "95ef7ef275c438fc036f09bc058f8ebd",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9999997230684143,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
    }
   },
   {
@@ -735,24 +1106,39 @@
    ],
    "query_type": "structured",
    "domain": "operations",
-   "response": "I don't know based on the available documents.",
-   "retrieved_contexts": [],
-   "citations": [],
-   "abstained": true,
-   "flags": [],
-   "latency_ms": 1607,
+   "response": "The Data-Platform team has 7 members [G1].",
+   "retrieved_contexts": [
+    "Anthony Gonzalez MANAGES Data-Platform team; Data-Platform has 7 members and OWNS Data Warehouse, Kafka Cluster, Ledger DB, Reporting Service"
+   ],
+   "citations": [
+    "G1"
+   ],
+   "abstained": false,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 4719,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 1097,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.00017
+    "prompt_tokens": 9552,
+    "completion_tokens": 103,
+    "est_cost_usd": 0.001495,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 9552,
+      "completion_tokens": 103,
+      "est_cost_usd": 0.001495
+     }
+    },
+    "agent_steps": 2
    },
-   "trace_id": "fafbd942678db098f98664a2a2da645b",
+   "trace_id": "95ac95524d93096687f03ca1e38c53a4",
    "errors": [],
    "scores": {
-    "faithfulness": NaN,
-    "answer_relevancy": 0.0,
-    "context_precision": 0.0,
-    "context_recall": 0.0
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9290847710733768,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
    }
   },
   {
@@ -764,7 +1150,7 @@
    ],
    "query_type": "faq",
    "domain": "support",
-   "response": "Sessions in the Customer Portal expire after 15 minutes of inactivity [1][2][3].",
+   "response": "The session timeout for the Customer Portal is 15 minutes of inactivity [1], [2], [3].",
    "retrieved_contexts": [
     "Q: What is the session timeout for the Customer Portal?\nA: Sessions in the Customer Portal expire after 15 minutes of inactivity.",
     "Q: What happens to my session if I am inactive in the Customer Portal?\nA: Sessions in the Customer Portal expire after 15 minutes of inactivity. You will receive an error message (CP-401) if this occurs.",
@@ -777,17 +1163,26 @@
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 1873,
+   "latency_ms": 2883,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 814,
-    "completion_tokens": 19,
-    "est_cost_usd": 0.000133
+    "prompt_tokens": 5205,
+    "completion_tokens": 94,
+    "est_cost_usd": 0.000837,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 5205,
+      "completion_tokens": 94,
+      "est_cost_usd": 0.000837
+     }
+    },
+    "agent_steps": 1
    },
-   "trace_id": "c63e11ee2d431181db4463ae2f53ba58",
+   "trace_id": "500be176e92a20067d0fc445857d2645",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
-    "answer_relevancy": 0.7862399236275129,
+    "answer_relevancy": 0.9999996166089087,
     "context_precision": 0.9999999999666667,
     "context_recall": 1.0
    }
@@ -800,33 +1195,40 @@
    ],
    "query_type": "faq",
    "domain": "support",
-   "response": "Acme Pay supports USD, EUR, GBP, and INR [1][2][3][4].",
+   "response": "Acme Pay supports transactions in USD, EUR, GBP, and INR [1], [2], [3].",
    "retrieved_contexts": [
     "Q: Which currencies does Acme Pay support?\nA: Acme Pay supports USD, EUR, GBP, and INR.",
     "Q: What currencies does Acme Pay support?\nA: Acme Pay supports transactions in USD, EUR, GBP, and INR.",
-    "Q: What types of currencies does Acme Pay support?\nA: Acme Pay supports transactions in USD, EUR, GBP, and INR.",
-    "Q: What payment methods does Acme Pay support?\nA: Acme Pay supports payments in USD, EUR, GBP, and INR."
+    "Q: What types of currencies does Acme Pay support?\nA: Acme Pay supports transactions in USD, EUR, GBP, and INR."
    ],
    "citations": [
     "1",
     "2",
-    "3",
-    "4"
+    "3"
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 1582,
+   "latency_ms": 2880,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 566,
-    "completion_tokens": 21,
-    "est_cost_usd": 9.7e-05
+    "prompt_tokens": 4708,
+    "completion_tokens": 95,
+    "est_cost_usd": 0.000763,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 4708,
+      "completion_tokens": 95,
+      "est_cost_usd": 0.000763
+     }
+    },
+    "agent_steps": 1
    },
-   "trace_id": "0fa5cadf48cde1d4c2649ccecc64a27e",
+   "trace_id": "32f554f1b3fa364506aee41674ddd3bf",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
-    "answer_relevancy": 0.991131073456076,
-    "context_precision": 0.999999999975,
+    "answer_relevancy": 0.9689914964874177,
+    "context_precision": 0.9999999999666667,
     "context_recall": 1.0
    }
   },
@@ -838,33 +1240,38 @@
    ],
    "query_type": "faq",
    "domain": "support",
-   "response": "Refunds are issued within 2 business days of approval, but your bank may take an additional 5-10 business days to process the refund [1][2][3][4].",
+   "response": "Refunds are issued within 2 business days of approval, but your bank may take an additional 5-10 business days to process the refund [1][3].",
    "retrieved_contexts": [
     "Q: How long does it take to process a refund?\nA: Refunds can be requested within 30 days of purchase and are typically issued within 2 business days of approval. Please allow an additional 5-10 business days for your bank to process the refund.",
-    "Q: How can I request a refund?\nA: Refunds can be requested within 30 days of purchase. Once approved, they are issued within 2 business days, though your bank may take an additional 5-10 business days to process.",
-    "Q: How long does a refund take to arrive?\nA: Refunds are issued within 2 business days of approval, but the bank may take an additional 5-10 business days to process the refund.",
-    "Q: How can I request a refund?\nA: Refunds can be requested within 30 days of purchase. Once approved, they will be issued within 2 business days, though it may take an additional 5-10 business days for your bank to process the refund."
+    "Q: How long does a refund take to arrive?\nA: Refunds are issued within 2 business days of approval, but the bank may take an additional 5-10 business days to process the refund."
    ],
    "citations": [
     "1",
-    "2",
-    "3",
-    "4"
+    "3"
    ],
    "abstained": false,
    "flags": [],
-   "latency_ms": 1798,
+   "latency_ms": 2838,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 679,
-    "completion_tokens": 38,
-    "est_cost_usd": 0.000125
+    "prompt_tokens": 4951,
+    "completion_tokens": 128,
+    "est_cost_usd": 0.000819,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 4951,
+      "completion_tokens": 128,
+      "est_cost_usd": 0.000819
+     }
+    },
+    "agent_steps": 1
    },
-   "trace_id": "5ed6b44ee633862dbb196baf3c6bd354",
+   "trace_id": "adb153756c0215b87ba816fe6fd1e023",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
-    "answer_relevancy": 0.7077776889412107,
-    "context_precision": 0.999999999975,
+    "answer_relevancy": 0.7110290383005701,
+    "context_precision": 0.99999999995,
     "context_recall": 1.0
    }
   },
@@ -876,35 +1283,44 @@
    ],
    "query_type": "faq",
    "domain": "support",
-   "response": "No, Acme never stores the full card number; all cards are tokenized by the Payment Gateway for security [1][2][3][4][5].",
+   "response": "No, Acme never stores the full card number. All card information is tokenized by the Payment Gateway to ensure security [1], [2], [3], [4].",
    "retrieved_contexts": [
     "Q: Does Acme store my full card number?\nA: No, Acme never stores the full card number. All card information is tokenized by the Payment Gateway to ensure security.",
     "Q: Does Acme store my full card number?\nA: No, Acme never stores the full card number. Instead, cards are tokenized by the Payment Gateway for enhanced security.",
     "Q: Does Acme store my full card number?\nA: No, Acme never stores the full card number; all cards are tokenized by the Payment Gateway.",
-    "Q: Are my credit card details stored by Acme?\nA: No, Acme never stores the full card number; all cards are tokenized by the Payment Gateway for security.",
-    "Q: What security measures does Acme use to protect my payment information?\nA: Acme uses tokenization for card information, ensuring that your full card number is never stored. Additionally, Multi-Factor Authentication (MFA) adds an extra layer of security."
+    "Q: Are my credit card details stored by Acme?\nA: No, Acme never stores the full card number; all cards are tokenized by the Payment Gateway for security."
    ],
    "citations": [
     "1",
     "2",
     "3",
-    "4",
-    "5"
+    "4"
    ],
    "abstained": false,
-   "flags": [],
-   "latency_ms": 1925,
+   "flags": [
+    "injection_suspected"
+   ],
+   "latency_ms": 3405,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 602,
-    "completion_tokens": 33,
-    "est_cost_usd": 0.00011
+    "prompt_tokens": 4794,
+    "completion_tokens": 120,
+    "est_cost_usd": 0.000791,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 4794,
+      "completion_tokens": 120,
+      "est_cost_usd": 0.000791
+     }
+    },
+    "agent_steps": 1
    },
-   "trace_id": "f9f70e9478aa1feebaeb5d2313234c0b",
+   "trace_id": "1e5a496763a4eb12de9bb11f9a510ea4",
    "errors": [],
    "scores": {
     "faithfulness": 1.0,
     "answer_relevancy": 0.9560583956396073,
-    "context_precision": 0.99999999998,
+    "context_precision": 0.999999999975,
     "context_recall": 1.0
    }
   },
@@ -919,13 +1335,22 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 1644,
+   "latency_ms": 6106,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 2506,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.000381
+    "prompt_tokens": 13681,
+    "completion_tokens": 78,
+    "est_cost_usd": 0.002099,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 13681,
+      "completion_tokens": 78,
+      "est_cost_usd": 0.002099
+     }
+    },
+    "agent_steps": 2
    },
-   "trace_id": "c03d2da69a9ec9ade6b32f831df133ba",
+   "trace_id": "9e23fafed570ab5e003c6d573c309ded",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -945,13 +1370,22 @@
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 1460,
+   "latency_ms": 3743,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 1017,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.000158
+    "prompt_tokens": 12116,
+    "completion_tokens": 85,
+    "est_cost_usd": 0.001868,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 12116,
+      "completion_tokens": 85,
+      "est_cost_usd": 0.001868
+     }
+    },
+    "agent_steps": 2
    },
-   "trace_id": "b5fc4bdf3b54046b8a3d7b090c8b2cbc",
+   "trace_id": "64694becc266cda37106742ddbca1814",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -966,18 +1400,27 @@
    "reference_contexts": [],
    "query_type": "unanswerable",
    "domain": "engineering",
-   "response": "I don't know based on the available documents.",
+   "response": "I don't know based on the available documents. The context does not provide information about the Kubernetes version that the Payment Gateway runs on.",
    "retrieved_contexts": [],
    "citations": [],
    "abstained": true,
    "flags": [],
-   "latency_ms": 1648,
+   "latency_ms": 6532,
+   "model_used": "gpt-4o-mini",
    "usage": {
-    "prompt_tokens": 984,
-    "completion_tokens": 9,
-    "est_cost_usd": 0.000153
+    "prompt_tokens": 9889,
+    "completion_tokens": 381,
+    "est_cost_usd": 0.001712,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 9889,
+      "completion_tokens": 381,
+      "est_cost_usd": 0.001712
+     }
+    },
+    "agent_steps": 2
    },
-   "trace_id": "a3548369a5f7147f1382a3fcf65b30e7",
+   "trace_id": "370ad12b7a0bb39c739cffa2c44a230c",
    "errors": [],
    "scores": {
     "faithfulness": NaN,
@@ -990,49 +1433,49 @@
  "summary": {
   "overall": {
    "n": 30,
-   "faithfulness": 0.8904761904761905,
-   "answer_relevancy": 0.4577916066082401,
-   "context_precision": 0.4814814814498765,
-   "context_recall": 0.4382716049382716,
-   "false_abstention": 0.48148148148148145,
+   "faithfulness": 0.9111111111111112,
+   "answer_relevancy": 0.7837330526639094,
+   "context_precision": 0.9228597148051622,
+   "context_recall": 0.9259259259259259,
+   "false_abstention": 0.037037037037037035,
    "correct_abstention": 1.0,
-   "no_citations": 16
+   "no_citations": 3
   },
   "factual": {
    "n": 10,
-   "faithfulness": 0.8666666666666667,
-   "answer_relevancy": 0.8031173563776809,
-   "context_precision": 0.8999999999250001,
-   "context_recall": 0.7833333333333333,
+   "faithfulness": 0.8,
+   "answer_relevancy": 0.7819371660870046,
+   "context_precision": 0.9999999999149999,
+   "context_recall": 0.8666666666666666,
    "false_abstention": 0.1,
    "correct_abstention": NaN,
-   "no_citations": 1
+   "no_citations": 0
   },
   "multi_hop": {
    "n": 8,
-   "faithfulness": NaN,
-   "answer_relevancy": 0.0,
-   "context_precision": 0.0,
-   "context_recall": 0.0,
-   "false_abstention": 1.0,
+   "faithfulness": 0.95,
+   "answer_relevancy": 0.6193073189609533,
+   "context_precision": 0.7396515376538806,
+   "context_recall": 0.9166666666666666,
+   "false_abstention": 0.0,
    "correct_abstention": NaN,
-   "no_citations": 8
+   "no_citations": 0
   },
   "structured": {
    "n": 5,
-   "faithfulness": 0.6666666666666666,
-   "answer_relevancy": 0.17759854659625313,
-   "context_precision": 0.0,
-   "context_recall": 0.0,
-   "false_abstention": 0.8,
+   "faithfulness": 1.0,
+   "answer_relevancy": 0.9501767324662754,
+   "context_precision": 0.9999999999,
+   "context_recall": 1.0,
+   "false_abstention": 0.0,
    "correct_abstention": NaN,
-   "no_citations": 4
+   "no_citations": 0
   },
   "faq": {
    "n": 4,
    "faithfulness": 1.0,
-   "answer_relevancy": 0.8603017704161018,
-   "context_precision": 0.9999999999741667,
+   "answer_relevancy": 0.9090196367591259,
+   "context_precision": 0.9999999999645833,
    "context_recall": 1.0,
    "false_abstention": 0.0,
    "correct_abstention": NaN,
@@ -1048,7 +1491,11 @@
    "correct_abstention": 1.0,
    "no_citations": 3
   },
-  "latency_ms_p50": 1952.0,
-  "cost_usd": 0.00524
+  "latency_ms_p50": 4821.0,
+  "models": {
+   "gpt-4o-mini": 19,
+   "gpt-4o": 11
+  },
+  "cost_usd": 0.2528
  }
 }

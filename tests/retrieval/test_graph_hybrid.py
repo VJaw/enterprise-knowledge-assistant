@@ -380,3 +380,17 @@ async def test_router_drops_entities_the_conversation_never_mentions():
     plan = await Router(FakeStructuredLLM(out)).plan("who owns it?",
                                                      [("Tell me about the Ledger DB", "OK [1].")])
     assert plan.entities == ["Ledger DB"]
+
+
+async def test_router_discards_a_rewrite_that_names_a_dropped_entity():
+    out = _RouterOutput(intent="multi_hop", complexity="complex",
+                        entities=["SOP-OPS-009", "Secrets Vault", "SRE-Operations"],
+                        doc_type=None, domain=None,
+                        rewritten_query="Who owns Secrets Vault and who manages the SRE-Operations team?",
+                        sub_questions=["What system does SOP-OPS-009 cover?", "Who owns the Secrets Vault?",
+                                       "Who manages the SRE-Operations team?"])
+    msg = "Which team owns the system that SOP-OPS-009 (Secrets Rotation) covers, and who manages that team?"
+    plan = await Router(FakeStructuredLLM(out)).plan(msg)
+    assert plan.entities == ["SOP-OPS-009", "Secrets Vault"]  # "Secrets" grounds it; the team is invented
+    assert plan.rewritten_query == msg
+    assert plan.sub_questions == ["What system does SOP-OPS-009 cover?", "Who owns the Secrets Vault?"]

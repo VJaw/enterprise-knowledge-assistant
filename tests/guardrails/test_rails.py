@@ -66,6 +66,14 @@ def test_directory_names_are_not_masked_but_customers_and_ids_are():
     assert "Henry Mcconnell" not in masked and "EMP-22280" not in masked and "<EMPLOYEE_ID_1>" in masked
 
 
+def test_any_ssn_shaped_value_is_masked():
+    # Presidio's own recogniser rejects "invalid" SSNs such as 123-45-6789; a user's must still be masked
+    msg = "I'm John Carter, SSN 123-45-6789. What is the refund window?"
+    masked, types = get_masker().mask(msg, PIIMap(), from_user=True)
+    assert "123-45-6789" not in masked and "<US_SSN_1>" in masked and "US_SSN" in types
+    assert get_masker().mask("Ticket INC-2025-031 at 10:15", PIIMap())[0] == "Ticket INC-2025-031 at 10:15"
+
+
 # ------------------------------------------------------------------ untrusted content (L2b + L7)
 
 

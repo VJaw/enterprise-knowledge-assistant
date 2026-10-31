@@ -34,13 +34,13 @@ test:
 lint:
 	$(VENV)/bin/ruff check .
 
-eval:             ## Phase 6/10: Promptfoo regression suite (API must be running)
-	npx promptfoo@latest eval -c eval/promptfoo/promptfooconfig.yaml
+eval:             ## Phase 10: Promptfoo regression suite (starts its own API on :7860; stop `make run` first)
+	$(PY) eval/promptfoo/run_promptfoo.py
 
 ragas:            ## Phase 6/10: make ragas CONFIG=A|B|C|D
 	$(PY) eval/ragas/run_ragas.py --config $(CONFIG)
 
-safety:           ## Phase 10: adversarial + benign safety run
+safety:           ## Phase 10: adversarial + benign safety run (starts its own API; stop `make run` first)
 	$(PY) eval/safety/run_safety.py
 
 load:             ## Phase 11: Locust ramp test (API must be running)

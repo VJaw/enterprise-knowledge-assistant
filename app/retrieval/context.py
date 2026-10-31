@@ -96,7 +96,9 @@ def citation(c: RetrievedChunk, cid: str) -> Citation:
     if c.source_type == "graph":
         return Citation(id=cid, source_type="graph", title=f"graph: {m.get('source')}", snippet=c.text)
     if c.source_type == "sql":
-        return Citation(id=cid, source_type="sql", title=f"sql: {m.get('query')}", snippet=c.text)
+        # The query goes in the snippet too: "17" alone doesn't say what was counted (Phase 10, D-027).
+        snippet = f"SQL: {m['query']}\n{c.text}" if m.get("query") else c.text
+        return Citation(id=cid, source_type="sql", title=f"sql: {m.get('query')}", snippet=snippet)
     if c.source_type == "web":
         return Citation(id=cid, source_type="web", title=m.get("title"), url=m.get("url"), snippet=c.text)
     # Full chunk text as the snippet: RAGAS (Phase 6) uses snippets as retrieved_contexts (D-012).

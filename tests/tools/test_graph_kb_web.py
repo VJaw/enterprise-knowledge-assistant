@@ -156,3 +156,16 @@ async def test_sql_ids_resolve_to_graph_nodes(graph_tool):
     assert "Data-Platform team OWNS SYS-002" not in content and "OWNS Ledger DB" in content
     assert (await call(tool, template="owners", entity="SYS-999"))[0] == \
         "error: no graph entity has the id 'SYS-999'"
+
+
+async def test_web_search_refuses_acme_internal_queries():
+    tavily = FakeTavily()
+    names = ["Payment Gateway", "Data-Platform", "Acme Pay"]
+    tool = make_web_search("key", client=tavily, internal_names=names)
+    for q in ("Payment Gateway Kubernetes version", "data-platform team on-call", "Acme parental leave",
+              "SOP-OPS-014 failover", "acme pay fees"):
+        content, artifact = await call(tool, query=q)
+        assert content.startswith("error: web_search is for public information only") and artifact == [], q
+    assert tavily.calls == []
+    content, artifact = await call(tool, query="PCI DSS requirements for payment gateways")
+    assert len(artifact) == 5 and len(tavily.calls) == 1

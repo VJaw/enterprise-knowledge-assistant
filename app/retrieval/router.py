@@ -169,6 +169,13 @@ class Router:
         filters = explicit_filters(message, out.doc_type, out.domain, self.filter_pairs)
         # Entities may come from the history too: a follow-up's "that team" resolves to a name said earlier.
         entities = grounded_entities(out.entities, f"{format_history(history or [])}\n{message}")
+        # A dropped entity that made it into the rewrite or a sub-question would steer the agent to the wrong
+        # node ("... and who manages the SRE-Operations team?" for an SOP-OPS-009 question, Phase 10): use the
+        # user's message instead, and drop those sub-questions.
+        dropped = [e.lower() for e in out.entities if e not in entities]
+        rewritten = out.rewritten_query.strip()
+        if not rewritten or any(e in rewritten.lower() for e in dropped):
+            rewritten = message
+        subs = [q for q in out.sub_questions if not any(e in q.lower() for e in dropped)]
         return QueryPlan(intent=out.intent, complexity=out.complexity, entities=entities, filters=filters,
-                         rewritten_query=out.rewritten_query.strip() or message,
-                         sub_questions=out.sub_questions)
+                         rewritten_query=rewritten, sub_questions=subs)

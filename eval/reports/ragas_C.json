@@ -1,0 +1,1495 @@
+{
+ "config": "C",
+ "label": "C: + graph",
+ "flags": {
+  "USE_BM25": "true",
+  "USE_GRAPH": "true",
+  "USE_RERANK": "false"
+ },
+ "date": "2026-10-31",
+ "generator": "routed: gpt-4o 11, gpt-4o-mini 19",
+ "evaluator": "gpt-4o-mini",
+ "health": {
+  "status": "ok",
+  "openai": "ok",
+  "qdrant": "ok",
+  "sqlite": "ok",
+  "models": "ok",
+  "graph": "ok",
+  "langfuse": "ok",
+  "tavily": "ok",
+  "mcp": "ok"
+ },
+ "chat_seconds": 130.6,
+ "n_rows": 30,
+ "rows": [
+  {
+   "user_input": "How long are audit logs in the Audit Log Store retained, and can they be changed?",
+   "reference": "Audit logs in the Audit Log Store are retained for 7 years and are immutable, so they cannot be changed (POL-COMP-001, Data Retention Policy).",
+   "reference_contexts": [
+    "Audit logs in the Audit Log Store are retained for 7 years and are immutable."
+   ],
+   "query_type": "factual",
+   "domain": "compliance",
+   "response": "Audit logs in the Audit Log Store are retained for 7 years and are immutable, meaning they cannot be changed once they are recorded [1].",
+   "retrieved_contexts": [
+    "Data Retention Policy POL-COMP-001 \u00b7 Version 3.0 \u00b7 Effective 2025-02-01\n1. Purpose\nThe purpose of this Data Retention Policy (POL-COMP-001, version 3.0) is to establish guidelines for the retention and deletion of data processed and stored by the systems used at Acme Corp. This policy is intended to ensure compliance with regulatory requirements, protect customer information, and preserve the integrity of business operations.\n2. Scope\nThis policy applies to all data generated, processed, or stored in the following systems:\n- Ledger DB\n- Data Warehouse\n- Audit Log Store\n- Kafka Cluster\n- Support Desk This policy encompasses all employees, contractors, and third-party service providers who interact with these systems.\n3. Policy Statements\n3.1 Data Retention Periods\n- Customer application logs are retained for 13 months and then permanently deleted.\n- Payment transaction records in the Ledger DB are retained for 7 years.\n- Audit logs in the Audit Log Store are retained for 7 years and are immutable.\n- Support tickets in the Support Desk are retained for 3 years after closure.\n- Messages in Kafka Cluster topics are retained for 7 days.\n3.2 Legal Holds\nIn situations where a legal hold is enacted, all scheduled deletion processes for the affected records will be suspended until the legal hold is lifted. This applies to any data across all systems mentioned in this policy.\n3.3 Secure Deletion"
+   ],
+   "citations": [
+    "1"
+   ],
+   "abstained": false,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 3961,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 7062,
+    "completion_tokens": 113,
+    "est_cost_usd": 0.001127,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 7062,
+      "completion_tokens": 113,
+      "est_cost_usd": 0.001127
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "11d4425d224bab74bd58e3cbad4a966e",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.881197214248758,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "What are the recovery time and recovery point objectives for the Ledger DB?",
+   "reference": "The Ledger DB has a Recovery Time Objective (RTO) of 30 minutes and a Recovery Point Objective (RPO) of 5 minutes, stricter than the 1-hour RTO and 15-minute RPO for other Tier-1 systems (POL-COMP-007).",
+   "reference_contexts": [
+    "The Ledger DB having a stricter RTO of 30 minutes and an RPO of 5 minutes.",
+    "Tier-1 systems having a Recovery Time Objective (RTO) of 1 hour and a Recovery Point Objective (RPO) of 15 minutes."
+   ],
+   "query_type": "factual",
+   "domain": "compliance",
+   "response": "The Recovery Time Objective (RTO) for the Ledger DB is 30 minutes, and the Recovery Point Objective (RPO) is 5 minutes [1], [2].",
+   "retrieved_contexts": [
+    "## Scope\n\nThis SOP applies to the Ledger DB primary/replica cluster. It encompasses the actions required to initiate both automatic and manual failover processes, ensuring adherence to the target Recovery Time Objective (RTO) of 30 minutes and Recovery Point Objective (RPO) of 5 minutes. This document is relevant to incidents where the primary database instance is deemed unhealthy.",
+    "Business Continuity and Disaster Recovery Policy POL-COMP-007 \u00b7 Version 2.5 \u00b7 Effective 2025-03-20\n1. Purpose\nThe purpose of this Business Continuity and Disaster Recovery Policy (POL-COMP-007, version 2.5) is to establish a framework for ensuring the availability of critical systems and data at Acme Corp in the event of a disruption. This document outlines the procedures and responsibilities for maintaining operations during and after a disaster, thereby minimizing potential impacts on business operations and customer services.\n2. Scope\nThis policy applies to all systems critical to Acme Corp's operations, including:\n- Ledger DB\n- Kafka Cluster\n- Payment Gateway\n- Auth Service It encompasses all employees, contractors, and third-party service providers who have access to, or operate on, these systems.\n3. Policy Statements\n3.1 Business Continuity Objectives\nAcme Corp aims to ensure that its critical services remain operational during a disruption. The specific goals include:\n- Tier-1 systems having a Recovery Time Objective (RTO) of 1 hour and a Recovery Point Objective (RPO) of 15 minutes.\n- The Ledger DB having a stricter RTO of 30 minutes and an RPO of 5 minutes.\n3.2 Disaster Recovery Testing\nDisaster recovery tests will be conducted twice a year to validate the effectiveness of this policy. These tests will simulate various disaster scenarios to assess the capability of the organization to recover its critical systems and data.\n3.3 Backup and Retention Procedures\nTo safeguard against data loss, backups will be taken daily for all critical systems. The backup data will be retained for a period of 35 days. The frequency and retention period are designed"
+   ],
+   "citations": [
+    "1",
+    "2"
+   ],
+   "abstained": false,
+   "flags": [],
+   "latency_ms": 4326,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 7723,
+    "completion_tokens": 138,
+    "est_cost_usd": 0.001241,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 7723,
+      "completion_tokens": 138,
+      "est_cost_usd": 0.001241
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "a3b422ae7a3a2e20368fb0f4b559d8a4",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.8398669664630263,
+    "context_precision": 0.99999999995,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "How long does break-glass privileged access last, and where is it issued from?",
+   "reference": "Break-glass privileged access is issued from the Secrets Vault for emergencies; it is temporary and expires after 4 hours (POL-COMP-004, Access Control Policy).",
+   "reference_contexts": [
+    "Break-glass privileged access is issued from the Secrets Vault for use in emergency situations where immediate access is required. This access is temporary and expires after 4 hours."
+   ],
+   "query_type": "factual",
+   "domain": "compliance",
+   "response": "Break-glass privileged access lasts for 4 hours and is issued from the Secrets Vault [1], [3].",
+   "retrieved_contexts": [
+    "Access Control Policy POL-COMP-004 \u00b7 Version 3.3 \u00b7 Effective 2025-04-01\n1. Purpose\nThe purpose of this Access Control Policy is to define the requirements for managing access to Acme Corp\u2019s systems, specifically the Auth Service, Secrets Vault, Customer Portal, and API Gateway. This policy aims to ensure that access to sensitive information and systems is restricted to authorized individuals only, thereby safeguarding the integrity, confidentiality, and availability of Acme Corp's resources.\n2. Scope\nThis policy applies to all employees, contractors, and third-party service providers who require access to Acme Corp\u2019s production systems, including but not limited to the Auth Service, Secrets Vault, Customer Portal, and API Gateway. All access must comply with this policy and related documents.\n3. Policy Statements\n3.1 Principle of Least Privilege\nAccess to production systems follows the principle of least privilege. Individuals are granted the minimum level of access necessary to perform their job functions. This reduces the risk of unauthorized access to sensitive data and systems.\n3.2 Access Reviews\nAccess reviews for production systems are performed quarterly. The purpose of these reviews is to ensure that access rights remain appropriate and to identify any unauthorized access. The owning team is responsible for conducting these reviews and remediating any identified issues.\n3.3 Multi-Factor Authentication (MFA)\nMulti-Factor Authentication (MFA) through the Auth Service is required for all production access. Users must authenticate using at least two distinct factors to ensure that only authorized personnel can access sensitive systems. The MFA setup must comply with the standards outlined in the relevant documentation.\n3.4 Privileged Access\nBreak-glass privileged access is issued from the Secrets Vault for use in emergency situations where immediate access is required. This access is temporary and expires after 4 hours. The process for requesting and approving break-glass access must follow the",
+    "guidelines established in the relevant operational procedures.\n3.5 Revocation of Access for Leavers\nAccess for employees who are leaving Acme Corp is revoked within 24 hours of their last working day. The on-call engineer must ensure that all access rights are deactivated promptly to mitigate the risk of unauthorized access after an employee departs.\n3.6 Access Logging and Monitoring\nAll access to production systems must be logged and monitored. Logs should include user identity, timestamp, access type, and any actions performed. The logs must be retained in accordance with the Data Retention Policy (POL-COMP-001) and reviewed regularly for suspicious activity.\n3.7 Role-Based Access Control (RBAC)\nAccess to systems will be managed through Role-Based Access Control (RBAC). Roles will be defined based on job functions, and users will be assigned roles that grant access rights commensurate with their responsibilities. The owning team must maintain an updated list of roles and associated access rights.\n3.8 Third-Party Access\nThird-party service providers requiring access to Acme Corp\u2019s production systems must be vetted and approved prior to access being granted. Contracts must include clauses that stipulate compliance with this Access Control Policy and any related security requirements.\n4. Roles and Responsibilities\n- The owning team is responsible for implementing and maintaining access controls in alignment with this policy.\n- The on-call engineer is responsible for ensuring that break-glass access is issued, monitored, and revoked within the stipulated timeframe.\n- All users are responsible for adhering to this policy and reporting any suspected security incidents immediately.\n- The Incident Commander is responsible for overseeing incident response procedures should a security breach occur.\n5. Exceptions\nRequests for exceptions to this Access Control Policy must be documented and submitted to the governing body for approval. Exceptions will be evaluated on a case-by-case basis and must not compromise the security of Acme Corp\u2019s systems."
+   ],
+   "citations": [
+    "1",
+    "3"
+   ],
+   "abstained": false,
+   "flags": [
+    "injection_suspected",
+    "pii_masked_context"
+   ],
+   "latency_ms": 4167,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 6929,
+    "completion_tokens": 117,
+    "est_cost_usd": 0.00111,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 6929,
+      "completion_tokens": 117,
+      "est_cost_usd": 0.00111
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "1565c5b23a0621a26792b1f0179174de",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9163091286299482,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "At what consumer lag should the Kafka Cluster alert fire?",
+   "reference": "An alert should fire when consumer lag exceeds 50,000 messages for 10 minutes (MAN-ENG-003, Kafka Operations Guide).",
+   "reference_contexts": [
+    "Set up alerts to notify when consumer lag exceeds 50,000 messages for 10 minutes."
+   ],
+   "query_type": "factual",
+   "domain": "engineering",
+   "response": "The Kafka Cluster should alert when consumer lag exceeds 50,000 messages for 10 minutes [1], [2].",
+   "retrieved_contexts": [
+    "### Common Alerts\n\n- **Consumer Lag**: Alert when consumer lag exceeds 50,000 messages for 10 minutes.\n- **Schema Compatibility Issues**: Alerts when data does not comply with the schema in the Schema Registry.\n- **Broker Down**: Alerts when a broker becomes unresponsive.",
+    "### Monitoring and Alerts\n\n- Set up alerts to notify when consumer lag exceeds 50,000 messages for 10 minutes.\n- Use the following command to check consumer lag:\n\n   ```bash\n   bin/kafka-consumer-groups.sh --bootstrap-server localhost:9092 --describe --group <consumer_group>\n   ```"
+   ],
+   "citations": [
+    "1",
+    "2"
+   ],
+   "abstained": false,
+   "flags": [],
+   "latency_ms": 3530,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 6570,
+    "completion_tokens": 102,
+    "est_cost_usd": 0.001047,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 6570,
+      "completion_tokens": 102,
+      "est_cost_usd": 0.001047
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "8dbea2961dd4564131f53a3c1670931a",
+   "errors": [],
+   "scores": {
+    "faithfulness": 0.5,
+    "answer_relevancy": 0.9238571111723269,
+    "context_precision": 0.99999999995,
+    "context_recall": 0.5
+   }
+  },
+  {
+   "user_input": "What are the steps for manual promotion during a Ledger DB failover?",
+   "reference": "Per SOP-OPS-014 section 3.2: (1) put the Payment Gateway and Billing Service into maintenance mode to freeze writes; (2) confirm the replica lag is under 5 seconds; (3) run `ledgerctl promote --replica ledger-db-replica-1`; (4) repoint the DNS record ledger-db.internal to the new primary; (5) run the ledger smoke test; (6) take the Payment Gateway and Billing Service out of maintenance mode.",
+   "reference_contexts": [
+    "Put the Payment Gateway and Billing Service into maintenance mode to freeze writes.",
+    "Confirm that the replica lag is under 5 seconds.",
+    "Run the command ledgerctl promote --replica ledger-db-replica-1 to promote the designated replica as the new primary.",
+    "Repoint the DNS record ledger-db.internal to the new primary to ensure services can access the updated database instance.",
+    "Run the ledger smoke test to validate the functionality and stability of the new primary.",
+    "Take the Payment Gateway and Billing Service out of maintenance mode to resume normal operations."
+   ],
+   "query_type": "factual",
+   "domain": "operations",
+   "response": "The steps for manual promotion during a Ledger DB failover are as follows:\n\n1. Put the Payment Gateway and Billing Service into maintenance mode to freeze writes, preventing any data inconsistency during the failover process.\n2. Confirm that the replica lag is under 5 seconds to ensure that the data on the new primary is sufficiently up-to-date.\n3. Run the command `ledgerctl promote --replica ledger-db-replica-1` to promote the designated replica as the new primary.\n4. Repoint the DNS record `ledger-db.internal` to the new primary to ensure services can access the updated database instance.\n5. Run the ledger smoke test to validate the functionality and stability of the new primary.\n6. Take the Payment Gateway and Billing Service out of maintenance mode to resume normal operations [1].",
+   "retrieved_contexts": [
+    "### 3.2 Manual Promotion\n\nIn scenarios where automatic failover does not occur or additional verification is required, manual promotion can be executed by following these steps:\n\n1. Put the Payment Gateway and Billing Service into maintenance mode to freeze writes. This prevents any data inconsistency during the failover process.\n2. Confirm that the replica lag is under 5 seconds. This ensures that the data on the new primary is sufficiently up-to-date.\n3. Run the command `ledgerctl promote --replica ledger-db-replica-1` to promote the designated replica as the new primary.\n4. Repoint the DNS record `ledger-db.internal` to the new primary to ensure services can access the updated database instance.\n5. Run the ledger smoke test to validate the functionality and stability of the new primary.\n6. Take the Payment Gateway and Billing Service out of maintenance mode to resume normal operations."
+   ],
+   "citations": [
+    "1"
+   ],
+   "abstained": false,
+   "flags": [],
+   "latency_ms": 6642,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 6932,
+    "completion_tokens": 429,
+    "est_cost_usd": 0.001297,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 6932,
+      "completion_tokens": 429,
+      "est_cost_usd": 0.001297
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "ec6868ee4193bd5f6a3a745513e4ad1a",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9999995947644167,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "How quickly must an emergency secret rotation happen, and how long do the old and new keys overlap?",
+   "reference": "An emergency rotation must happen within 1 hour of a suspected compromise, and the old and new keys overlap for a 24-hour dual-key window before the old key is revoked (SOP-OPS-009).",
+   "reference_contexts": [
+    "If there is a suspicion of a compromise, an emergency rotation must happen within 1 hour.",
+    "Ensure that the old and new keys overlap for a 24-hour dual-key window before the old key is revoked."
+   ],
+   "query_type": "factual",
+   "domain": "operations",
+   "response": "An emergency secret rotation must happen within 1 hour of identifying a compromise. The old and new keys must overlap for a 24-hour dual-key window before the old key is revoked to ensure a seamless transition and minimize potential service disruptions [1].",
+   "retrieved_contexts": [
+    "### 3.2 Emergency Secret Rotation\n1. **Identify Compromise**: If there is a suspicion of a compromise, an emergency rotation must happen within 1 hour.\n2. **Initiate Rotation**: Execute the command `vaultctl rotate --path <secret-path>` immediately to rotate the compromised secret.\n3. **Implement Dual-Key Window**: Ensure that the old and new keys overlap for a 24-hour dual-key window before the old key is revoked. This allows for a seamless transition and minimizes potential service disruptions.\n4. **Notify Incident Commander**: Inform the Incident Commander of the rotation and any relevant details regarding the suspected compromise.\n5. **Review Access Logs**: Conduct a thorough review of access logs to identify any unauthorized access that may have occurred prior to the rotation."
+   ],
+   "citations": [
+    "1"
+   ],
+   "abstained": false,
+   "flags": [
+    "injection_suspected"
+   ],
+   "latency_ms": 4770,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 5454,
+    "completion_tokens": 183,
+    "est_cost_usd": 0.000928,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 5454,
+      "completion_tokens": 183,
+      "est_cost_usd": 0.000928
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "fd34f1eb51c12a53cc4b3b9016481894",
+   "errors": [],
+   "scores": {
+    "faithfulness": 0.75,
+    "answer_relevancy": 0.6709947653470764,
+    "context_precision": 0.9999999999,
+    "context_recall": 0.6666666666666666
+   }
+  },
+  {
+   "user_input": "How far ahead of expiry must API Gateway TLS certificates be renewed?",
+   "reference": "TLS certificates must be renewed at least 30 days before expiry, to allow time for testing and deployment (SOP-OPS-018).",
+   "reference_contexts": [
+    "Certificates are to be renewed at least 30 days before expiry to allow sufficient time for testing and deployment."
+   ],
+   "query_type": "factual",
+   "domain": "operations",
+   "response": "API Gateway TLS certificates must be renewed at least 30 days before expiry to allow sufficient time for testing and deployment [1].",
+   "retrieved_contexts": [
+    "### 3.1 Certificate Renewal Timeline\n\n1. **Monitor Certificate Expiry Dates:** The owning team must regularly monitor the expiry dates of TLS certificates associated with the API Gateway.\n2. **Initiate Renewal Process:** Certificates are to be renewed at least 30 days before expiry to allow sufficient time for testing and deployment.\n3. **Obtain New Certificate:** Follow the established process for obtaining a new TLS certificate from the Certificate Authority (CA)."
+   ],
+   "citations": [
+    "1"
+   ],
+   "abstained": false,
+   "flags": [],
+   "latency_ms": 3596,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 6259,
+    "completion_tokens": 109,
+    "est_cost_usd": 0.001004,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 6259,
+      "completion_tokens": 109,
+      "est_cost_usd": 0.001004
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "9fd69e2d1cff0cfb09f176b3d100f7fb",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.8938115534206975,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "Who has to approve a refund of more than $5,000?",
+   "reference": "A refund over $5,000 needs approval from a Tier-2 Support Lead and also from the Finance department (SOP-SUP-003).",
+   "reference_contexts": [
+    "For refund requests exceeding $500, the request must be approved by a Tier-2 Support Lead.",
+    "For refund requests exceeding $5,000, approval must also be obtained from the Finance department in addition to the Tier-2 Support Lead."
+   ],
+   "query_type": "factual",
+   "domain": "support",
+   "response": "A refund request exceeding $5,000 must be approved by a Tier-2 Support Lead and also requires approval from the Finance department [1].",
+   "retrieved_contexts": [
+    "### 3.2 Approval Process\n1. For refund requests exceeding **$500**, the request must be approved by a **Tier-2 Support Lead**.\n2. For refund requests exceeding **$5,000**, approval must also be obtained from the Finance department in addition to the Tier-2 Support Lead.\n3. The support staff will notify the appropriate personnel for approvals, providing them with all relevant details from the refund request log.\n4. Once approvals are obtained, the request will move to the next stage for processing."
+   ],
+   "citations": [
+    "1"
+   ],
+   "abstained": false,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 3620,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 5644,
+    "completion_tokens": 115,
+    "est_cost_usd": 0.000916,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 5644,
+      "completion_tokens": 115,
+      "est_cost_usd": 0.000916
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "82f5d72b36fb6f180a80eb5fbdfe4bc7",
+   "errors": [],
+   "scores": {
+    "faithfulness": 0.5,
+    "answer_relevancy": 0.798446488713617,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "How quickly must we respond to a chargeback notice, and when does a fraud analyst need to review the dispute?",
+   "reference": "A chargeback notice must be answered within 7 days, and disputes involving amounts over $1,000 need a thorough review by a fraud analyst before submission (SOP-SUP-008).",
+   "reference_contexts": [
+    "Respond to the chargeback notice within 7 days to comply with industry standards.",
+    "For disputes involving amounts over $1,000, conduct a thorough review involving a fraud analyst before proceeding with submission."
+   ],
+   "query_type": "factual",
+   "domain": "support",
+   "response": "1. Acme Corp must respond to a chargeback notice within 7 days to comply with industry standards [3].\n\n2. A review by a fraud analyst is triggered for disputes involving amounts over $1,000. In such cases, a thorough review involving a fraud analyst must be conducted before proceeding with the submission [1].",
+   "retrieved_contexts": [
+    "### 3.1 Initial Chargeback Notification\n1. Upon receiving a chargeback notice, the responsible party must log the chargeback in the internal tracking system.\n2. Review the details of the chargeback notice to ensure all necessary information is available for the dispute process.\n3. Respond to the chargeback notice within 7 days to comply with industry standards.",
+    "### 3.3 Review Process\n1. For disputes involving amounts over $1,000, conduct a thorough review involving a fraud analyst before proceeding with submission.\n2. The fraud analyst will evaluate the risk score and supporting evidence to determine the validity of the chargeback.\n3. Document the findings and recommendations from the fraud analyst in the internal tracking system."
+   ],
+   "citations": [
+    "3",
+    "1"
+   ],
+   "abstained": false,
+   "flags": [],
+   "latency_ms": 3746,
+   "model_used": "gpt-4o",
+   "usage": {
+    "prompt_tokens": 5308,
+    "completion_tokens": 233,
+    "est_cost_usd": 0.009471,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 1944,
+      "completion_tokens": 166,
+      "est_cost_usd": 0.000391
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 3364,
+      "completion_tokens": 67,
+      "est_cost_usd": 0.00908
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "8786bf1a32be7310d15aa978617d7659",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.6293776022149628,
+    "context_precision": 0.99999999995,
+    "context_recall": 0.6666666666666666
+   }
+  },
+  {
+   "user_input": "What caused the payment latency spike in INC-2025-031, and how long did it last?",
+   "reference": "A configuration change reduced the Ledger DB connection pool from 200 to 50 connections, which exhausted the available connections. Payment Gateway p99 latency rose from 600 ms to 4.2 s for 47 minutes, and the issue was resolved by rolling back the change.",
+   "reference_contexts": [
+    "The p99 latency rose from 600 ms to 4.2 s for a duration of 47 minutes.",
+    "The root cause of the issue was traced to a configuration change that reduced the Ledger DB connection pool from 200 to 50 connections, ultimately exhausting the available connections and leading to the observed latency spike.",
+    "The issue was resolved by rolling back the configuration change, restoring the connection pool to its original size."
+   ],
+   "query_type": "factual",
+   "domain": "engineering",
+   "response": "1. The cause of the payment latency spike in incident report INC-2025-031 was a configuration change that reduced the Ledger DB connection pool from 200 to 50 connections. This reduction led to connection exhaustion and a significant increase in latency metrics [1], [4].\n\n2. The payment latency spike lasted for 47 minutes [1].",
+   "retrieved_contexts": [
+    "## Summary\nOn August 11, 2025, Acme Corp experienced a significant latency spike in its Payment Gateway service. The p99 latency rose from 600 ms to 4.2 s for a duration of 47 minutes. This incident was categorized as a severity level 1 (SEV1) due to its impact on transaction processing and potential financial implications for customers. The root cause of the issue was traced to a configuration change that reduced the Ledger DB connection pool from 200 to 50 connections, ultimately exhausting the available connections and leading to the observed latency spike. The issue was resolved by rolling back the configuration change, restoring the connection pool to its original size. To prevent recurrence of similar issues, an alert will be added to monitor connection pool saturation.",
+    "## RCA\nThe root cause analysis (RCA) revealed that a recent configuration change implemented on the Ledger DB reduced the connection pool from 200 to 50 connections. This drastic reduction resulted in an insufficient number of available connections for the Payment Gateway, leading to connection exhaustion. As a consequence, requests to the Payment Gateway began to queue, causing a notable increase in latency metrics. The incident was exacerbated by the lack of alerts for connection pool saturation, which delayed the response time in identifying and mitigating the issue. The rollback of the configuration change restored the connection pool, resulting in the normalization of latency metrics.\n\nThe on-call engineer, Patricia Miller, was reached on their personal phone <PHONE_NUMBER_1> and personal email <EMAIL_ADDRESS_1> after the pager escalation failed. The first merchant report came from IP address <IP_ADDRESS_1>."
+   ],
+   "citations": [
+    "1",
+    "4"
+   ],
+   "abstained": false,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 4400,
+   "model_used": "gpt-4o",
+   "usage": {
+    "prompt_tokens": 6961,
+    "completion_tokens": 254,
+    "est_cost_usd": 0.01172,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 2767,
+      "completion_tokens": 183,
+      "est_cost_usd": 0.000525
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 4194,
+      "completion_tokens": 71,
+      "est_cost_usd": 0.011195
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "58201cd36288ce3057d398dbe427f9d5",
+   "errors": [],
+   "scores": {
+    "faithfulness": 0.8,
+    "answer_relevancy": 0.8839314932994432,
+    "context_precision": 0.99999999995,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "Who manages the team that owns the system covered by SOP-OPS-014 (Database Failover)?",
+   "reference": "SOP-OPS-014 covers the Ledger DB, which is owned by the Data-Platform team. Anthony Gonzalez manages Data-Platform.",
+   "reference_contexts": [
+    "This SOP applies to the Ledger DB primary/replica cluster.",
+    "Data-Platform OWNS Ledger DB (graph: system_owners.csv)",
+    "Anthony Gonzalez MANAGES Data-Platform (graph: teams.csv)"
+   ],
+   "query_type": "multi_hop",
+   "domain": "operations",
+   "response": "1. The system covered by SOP-OPS-014 is the Ledger DB [1], [3].\n\n2. The Ledger DB is owned by the Data-Platform team [G2].\n\n3. The manager of the Data-Platform team, which owns the Ledger DB, is Anthony Gonzalez [G2].",
+   "retrieved_contexts": [
+    "## Purpose\n\nThe purpose of this Standard Operating Procedure (SOP) is to outline the steps for executing a database failover for the Ledger DB primary/replica cluster. This ensures minimal disruption to services reliant on the Ledger DB, such as the Payment Gateway and Billing Service, while maintaining data integrity and operational continuity during an outage.",
+    "## Scope\n\nThis SOP applies to the Ledger DB primary/replica cluster. It encompasses the actions required to initiate both automatic and manual failover processes, ensuring adherence to the target Recovery Time Objective (RTO) of 30 minutes and Recovery Point Objective (RPO) of 5 minutes. This document is relevant to incidents where the primary database instance is deemed unhealthy.",
+    "Data-Platform team OWNS Ledger DB; manager: Anthony Gonzalez"
+   ],
+   "citations": [
+    "1",
+    "3",
+    "G2"
+   ],
+   "abstained": false,
+   "flags": [],
+   "latency_ms": 4676,
+   "model_used": "gpt-4o",
+   "usage": {
+    "prompt_tokens": 5616,
+    "completion_tokens": 227,
+    "est_cost_usd": 0.009822,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 2105,
+      "completion_tokens": 164,
+      "est_cost_usd": 0.000414
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 3511,
+      "completion_tokens": 63,
+      "est_cost_usd": 0.009407
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "277988dda58e59752b82e61533515174",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.44068481307235813,
+    "context_precision": 0.3333333333,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "Which team owns the system that SOP-OPS-009 (Secrets Rotation) covers, and who manages that team?",
+   "reference": "SOP-OPS-009 covers the Secrets Vault, which is owned by the Identity-Access team. Christopher Davis manages Identity-Access.",
+   "reference_contexts": [
+    "The purpose of this Standard Operating Procedure (SOP) is to outline the processes and responsibilities for the rotation of secrets stored in the Secrets Vault.",
+    "Identity-Access OWNS Secrets Vault (graph: system_owners.csv)",
+    "Christopher Davis MANAGES Identity-Access (graph: teams.csv)"
+   ],
+   "query_type": "multi_hop",
+   "domain": "operations",
+   "response": "1. SOP-OPS-009 covers the Secrets Vault system, as it outlines the processes and responsibilities for the rotation of secrets stored in the Secrets Vault [3].\n\n2. The Secrets Vault system is owned by the Identity-Access team, and the manager of that team is Christopher Davis [G1].",
+   "retrieved_contexts": [
+    "## Purpose\nThe purpose of this Standard Operating Procedure (SOP) is to outline the processes and responsibilities for the rotation of secrets stored in the Secrets Vault. Regular rotation of secrets is essential for maintaining security and minimizing the risk of unauthorized access to sensitive information.",
+    "Identity-Access team OWNS Secrets Vault; manager: Christopher Davis"
+   ],
+   "citations": [
+    "3",
+    "G1"
+   ],
+   "abstained": false,
+   "flags": [
+    "injection_suspected"
+   ],
+   "latency_ms": 5158,
+   "model_used": "gpt-4o",
+   "usage": {
+    "prompt_tokens": 5472,
+    "completion_tokens": 243,
+    "est_cost_usd": 0.00961,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 2042,
+      "completion_tokens": 181,
+      "est_cost_usd": 0.000415
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 3430,
+      "completion_tokens": 62,
+      "est_cost_usd": 0.009195
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "93e1c4f578623fb6d6bc65ff2bbf7505",
+   "errors": [],
+   "scores": {
+    "faithfulness": 0.75,
+    "answer_relevancy": 0.6502276975491341,
+    "context_precision": 0.49999999995,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "Who is the manager of the team that owns the system handled by SOP-OPS-022 (Data Warehouse Backfill)?",
+   "reference": "SOP-OPS-022 covers backfills in the Data Warehouse, which is owned by the Data-Platform team. Anthony Gonzalez manages Data-Platform.",
+   "reference_contexts": [
+    "This SOP applies to all operations involving backfills in the Data Warehouse, including the coordination of data ingestion from the Kafka Cluster and verification of data integrity in the Reporting Service.",
+    "Data-Platform OWNS Data Warehouse (graph: system_owners.csv)",
+    "Anthony Gonzalez MANAGES Data-Platform (graph: teams.csv)"
+   ],
+   "query_type": "multi_hop",
+   "domain": "operations",
+   "response": "The manager of the team that owns the Data Warehouse system, which is handled by SOP-OPS-022, is Anthony Gonzalez [G1].",
+   "retrieved_contexts": [
+    "Data-Platform team OWNS Data Warehouse; manager: Anthony Gonzalez"
+   ],
+   "citations": [
+    "G1"
+   ],
+   "abstained": false,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 4316,
+   "model_used": "gpt-4o",
+   "usage": {
+    "prompt_tokens": 5762,
+    "completion_tokens": 158,
+    "est_cost_usd": 0.009708,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 2159,
+      "completion_tokens": 128,
+      "est_cost_usd": 0.000401
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 3603,
+      "completion_tokens": 30,
+      "est_cost_usd": 0.009307
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "f42bc795eb1761f64774a4c9eeaeda74",
+   "errors": [],
+   "scores": {
+    "faithfulness": 0.5,
+    "answer_relevancy": 0.7944442611591246,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "Who manages the team that owns the system covered by SOP-SUP-003 (Refund Escalation)?",
+   "reference": "SOP-SUP-003 covers refunds in the Billing Service, which is owned by the Payments-Core team. Priya Rao manages Payments-Core.",
+   "reference_contexts": [
+    "It specifically addresses the process within the Billing Service and is relevant to any personnel involved in refund processing, including support staff and financial analysts.",
+    "Payments-Core OWNS Billing Service (graph: system_owners.csv)",
+    "Priya Rao MANAGES Payments-Core (graph: teams.csv)"
+   ],
+   "query_type": "multi_hop",
+   "domain": "support",
+   "response": "The Refund Escalation system covered by SOP-SUP-003 is owned by the Payments-Core team, which is managed by Priya Rao [G1].",
+   "retrieved_contexts": [
+    "Payments-Core team OWNS Billing Service; manager: Priya Rao"
+   ],
+   "citations": [
+    "G1"
+   ],
+   "abstained": false,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 4853,
+   "model_used": "gpt-4o",
+   "usage": {
+    "prompt_tokens": 9252,
+    "completion_tokens": 183,
+    "est_cost_usd": 0.018822,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 2104,
+      "completion_tokens": 127,
+      "est_cost_usd": 0.000392
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 7148,
+      "completion_tokens": 56,
+      "est_cost_usd": 0.01843
+     }
+    },
+    "agent_steps": 2
+   },
+   "trace_id": "dd144da9c1d3475fd7f9847f258a9557",
+   "errors": [],
+   "scores": {
+    "faithfulness": 0.3333333333333333,
+    "answer_relevancy": 0.9114008059209375,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "SOP-SUP-008 (Chargeback Handling) requires a risk score from one of our systems. Which team owns that system, and who manages the team?",
+   "reference": "The risk score comes from the Fraud Detection Engine, which is owned by the Payments-Core team. Priya Rao manages Payments-Core.",
+   "reference_contexts": [
+    "Retrieve the transaction's Fraud Detection Engine risk score associated with the chargeback.",
+    "Payments-Core OWNS Fraud Detection Engine (graph: system_owners.csv)",
+    "Priya Rao MANAGES Payments-Core (graph: teams.csv)"
+   ],
+   "query_type": "multi_hop",
+   "domain": "support",
+   "response": "1. The system that provides the risk score required by SOP-SUP-008 is the Fraud Detection Engine [1].\n\n2. The Payments-Core team owns the Fraud Detection Engine [G2].\n\n3. The manager of the Payments-Core team, which owns the Fraud Detection Engine, is Priya Rao [G2].",
+   "retrieved_contexts": [
+    "### 3.2 Gathering Evidence\n1. Collect all relevant documentation related to the transaction, including transaction ID, date, amount, and customer details.\n2. Retrieve the transaction's Fraud Detection Engine risk score associated with the chargeback.\n3. Compile evidence to support the dispute, including any communication with the customer, transaction history, and the Fraud Detection Engine risk score. This risk score must be attached to the dispute evidence.",
+    "Payments-Core team OWNS Fraud Detection Engine; manager: Priya Rao"
+   ],
+   "citations": [
+    "1",
+    "G2"
+   ],
+   "abstained": false,
+   "flags": [],
+   "latency_ms": 4175,
+   "model_used": "gpt-4o",
+   "usage": {
+    "prompt_tokens": 5326,
+    "completion_tokens": 249,
+    "est_cost_usd": 0.009455,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 1966,
+      "completion_tokens": 184,
+      "est_cost_usd": 0.000405
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 3360,
+      "completion_tokens": 65,
+      "est_cost_usd": 0.00905
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "0514981eba9f2af6ceeb6f290bd2b867",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.45340747566120676,
+    "context_precision": 0.99999999995,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "Which teams own the systems Payment Gateway depends on?",
+   "reference": "Payment Gateway depends on seven systems: Ledger DB and Kafka Cluster (owned by Data-Platform), Auth Service and Secrets Vault (owned by Identity-Access), Fraud Detection Engine (owned by Payments-Core), and API Gateway and Notification Service (owned by SRE-Operations).",
+   "reference_contexts": [
+    "Payment Gateway DEPENDS_ON Ledger DB (graph: system_dependencies.csv)",
+    "Payment Gateway DEPENDS_ON Auth Service (graph: system_dependencies.csv)",
+    "Payment Gateway DEPENDS_ON Fraud Detection Engine (graph: system_dependencies.csv)",
+    "Payment Gateway DEPENDS_ON Kafka Cluster (graph: system_dependencies.csv)",
+    "Payment Gateway DEPENDS_ON API Gateway (graph: system_dependencies.csv)",
+    "Payment Gateway DEPENDS_ON Secrets Vault (graph: system_dependencies.csv)",
+    "Payment Gateway DEPENDS_ON Notification Service (graph: system_dependencies.csv)",
+    "Data-Platform OWNS Ledger DB (graph: system_owners.csv)",
+    "Data-Platform OWNS Kafka Cluster (graph: system_owners.csv)",
+    "Identity-Access OWNS Auth Service (graph: system_owners.csv)",
+    "Identity-Access OWNS Secrets Vault (graph: system_owners.csv)",
+    "Payments-Core OWNS Fraud Detection Engine (graph: system_owners.csv)",
+    "SRE-Operations OWNS API Gateway (graph: system_owners.csv)",
+    "SRE-Operations OWNS Notification Service (graph: system_owners.csv)"
+   ],
+   "query_type": "multi_hop",
+   "domain": "engineering",
+   "response": "1. The Payment Gateway depends on the following systems: Ledger DB, Auth Service, Fraud Detection Engine, Kafka Cluster, API Gateway, Secrets Vault, and Notification Service [1].\n\n2. The ownership of each system that the Payment Gateway depends on is as follows:\n   - **Ledger DB**: Owned by the Data-Platform team, managed by Anthony Gonzalez [G4].\n   - **Auth Service**: Owned by the Identity-Access team, managed by Christopher Davis [G2].\n   - **Fraud Detection Engine**: Owned by the Payments-Core team, managed by Priya Rao [G6].\n   - **Kafka Cluster**: Owned by the Data-Platform team, managed by Anthony Gonzalez [G3].\n   - **API Gateway**: Owned by the SRE-Operations team, managed by Janet Williams [G1].\n   - **Secrets Vault**: Owned by the Identity-Access team, managed by Christopher Davis [G5].\n   - **Notification Service**: Owned by the SRE-Operations team, managed by Janet Williams [G7].",
+   "retrieved_contexts": [
+    "## Dependencies\n\nThe Payment Gateway relies on the following systems:\n\n- **Ledger DB**: Stores transaction records.\n- **Auth Service**: Manages authentication and authorization.\n- **Fraud Detection Engine**: Analyzes transactions for potential fraud.\n- **Kafka Cluster**: Facilitates messaging between components.\n- **API Gateway**: Governs access to the Payment Gateway APIs.\n- **Secrets Vault**: Manages sensitive credentials and tokens.\n- **Notification Service**: Sends transaction notifications to customers.",
+    "Payment Gateway DEPENDS_ON Ledger DB (tier 1); Data-Platform team OWNS Ledger DB; manager: Anthony Gonzalez",
+    "Payment Gateway DEPENDS_ON Auth Service (tier 1); Identity-Access team OWNS Auth Service; manager: Christopher Davis",
+    "Payment Gateway DEPENDS_ON Fraud Detection Engine (tier 2); Payments-Core team OWNS Fraud Detection Engine; manager: Priya Rao",
+    "Payment Gateway DEPENDS_ON Kafka Cluster (tier 1); Data-Platform team OWNS Kafka Cluster; manager: Anthony Gonzalez",
+    "Payment Gateway DEPENDS_ON API Gateway (tier 1); SRE-Operations team OWNS API Gateway; manager: Janet Williams",
+    "Payment Gateway DEPENDS_ON Secrets Vault (tier 1); Identity-Access team OWNS Secrets Vault; manager: Christopher Davis",
+    "Payment Gateway DEPENDS_ON Notification Service (tier 2); SRE-Operations team OWNS Notification Service; manager: Janet Williams"
+   ],
+   "citations": [
+    "1",
+    "G4",
+    "G2",
+    "G6",
+    "G3",
+    "G1",
+    "G5",
+    "G7"
+   ],
+   "abstained": false,
+   "flags": [],
+   "latency_ms": 5957,
+   "model_used": "gpt-4o",
+   "usage": {
+    "prompt_tokens": 6534,
+    "completion_tokens": 493,
+    "est_cost_usd": 0.012499,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 2634,
+      "completion_tokens": 274,
+      "est_cost_usd": 0.000559
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 3900,
+      "completion_tokens": 219,
+      "est_cost_usd": 0.01194
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "36e946825989105d5fe73140cc785ceb",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.880376494771559,
+    "context_precision": 0.62499999996875,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "Which team owns the system affected by INC-2025-022 (the expired TLS certificate), and who manages that team?",
+   "reference": "INC-2025-022 affected the API Gateway, which is owned by the SRE-Operations team. Janet Williams manages SRE-Operations.",
+   "reference_contexts": [
+    "On June 16, 2025, an expired TLS certificate on the API Gateway resulted in 3% of clients experiencing failures in TLS handshakes for a duration of 2 hours.",
+    "INC-2025-022 AFFECTS API Gateway (graph: incident_systems.csv)",
+    "SRE-Operations OWNS API Gateway (graph: system_owners.csv)",
+    "Janet Williams MANAGES SRE-Operations (graph: teams.csv)"
+   ],
+   "query_type": "multi_hop",
+   "domain": "operations",
+   "response": "1. The system affected by incident report INC-2025-022 is the API Gateway [G2].\n\n2. The SRE-Operations team owns the API Gateway [G1].\n\n3. The manager of the SRE-Operations team, which owns the API Gateway, is Janet Williams [G1].",
+   "retrieved_contexts": [
+    "INC-2025-022 (SEV2, 2025-06-16) AFFECTS API Gateway: Expired TLS certificate on API Gateway",
+    "SRE-Operations team OWNS API Gateway; manager: Janet Williams"
+   ],
+   "citations": [
+    "G2",
+    "G1"
+   ],
+   "abstained": false,
+   "flags": [],
+   "latency_ms": 4277,
+   "model_used": "gpt-4o",
+   "usage": {
+    "prompt_tokens": 6452,
+    "completion_tokens": 251,
+    "est_cost_usd": 0.011,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 2503,
+      "completion_tokens": 187,
+      "est_cost_usd": 0.000488
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 3949,
+      "completion_tokens": 64,
+      "est_cost_usd": 0.010512
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "218073c6a990c757871d9d0e9a1c6d8c",
+   "errors": [],
+   "scores": {
+    "faithfulness": 0.75,
+    "answer_relevancy": 0.5572916733717983,
+    "context_precision": 0.99999999995,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "Which policies govern the systems affected by incident INC-2025-012?",
+   "reference": "INC-2025-012 affected the Ledger DB and the Billing Service. The Ledger DB is governed by POL-COMP-001 (Data Retention), POL-COMP-003 (Incident Response), POL-COMP-005 (Encryption and Key Management), POL-COMP-007 (Business Continuity and Disaster Recovery) and POL-COMP-008 (Payment Card Data Handling). The Billing Service is governed by POL-COMP-006 (Change Management) and POL-COMP-008 (Payment Card Data Handling).",
+   "reference_contexts": [
+    "INC-2025-012 AFFECTS Ledger DB (graph: incident_systems.csv)",
+    "INC-2025-012 AFFECTS Billing Service (graph: incident_systems.csv)",
+    "POL-COMP-001 GOVERNS Ledger DB (graph: policy_systems.csv)",
+    "POL-COMP-003 GOVERNS Ledger DB (graph: policy_systems.csv)",
+    "POL-COMP-005 GOVERNS Ledger DB (graph: policy_systems.csv)",
+    "POL-COMP-007 GOVERNS Ledger DB (graph: policy_systems.csv)",
+    "POL-COMP-008 GOVERNS Ledger DB (graph: policy_systems.csv)",
+    "POL-COMP-006 GOVERNS Billing Service (graph: policy_systems.csv)",
+    "POL-COMP-008 GOVERNS Billing Service (graph: policy_systems.csv)"
+   ],
+   "query_type": "multi_hop",
+   "domain": "compliance",
+   "response": "1. The system affected by incident INC-2025-012 is the Ledger DB [G3], [G7].\n\n2. The policy that governs the Ledger DB, which is affected by incident INC-2025-012, is the Business Continuity and Disaster Recovery Policy (POL-COMP-007) [G3].",
+   "retrieved_contexts": [
+    "INC-2025-012 -[AFFECTS]-> Ledger DB <-[GOVERNS]- POL-COMP-007",
+    "INC-2025-012 -[AFFECTS]-> Ledger DB"
+   ],
+   "citations": [
+    "G3",
+    "G7"
+   ],
+   "abstained": false,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 4281,
+   "model_used": "gpt-4o",
+   "usage": {
+    "prompt_tokens": 7673,
+    "completion_tokens": 218,
+    "est_cost_usd": 0.012576,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 3139,
+      "completion_tokens": 150,
+      "est_cost_usd": 0.000561
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 4534,
+      "completion_tokens": 68,
+      "est_cost_usd": 0.012015
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "6eb8518f33aa397c4aaa76b2acb34d13",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.8483187538141769,
+    "context_precision": 0.99999999995,
+    "context_recall": 0.0
+   }
+  },
+  {
+   "user_input": "How many SEV1 tickets are there in total?",
+   "reference": "There are 17 SEV1 tickets.",
+   "reference_contexts": [
+    "SQL: SELECT count(*) FROM tickets WHERE priority = 'SEV1' -> 17"
+   ],
+   "query_type": "structured",
+   "domain": "operations",
+   "response": "There are a total of 7 SEV1 tickets that are not closed [SQL1].",
+   "retrieved_contexts": [
+    "SQL: SELECT COUNT(ticket_id) FROM tickets WHERE priority = 'SEV1' AND status != 'closed';\nCOUNT(ticket_id)\n7\n(1 row)"
+   ],
+   "citations": [
+    "SQL1"
+   ],
+   "abstained": false,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 4104,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 10862,
+    "completion_tokens": 125,
+    "est_cost_usd": 0.001704,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 10862,
+      "completion_tokens": 125,
+      "est_cost_usd": 0.001704
+     }
+    },
+    "agent_steps": 2
+   },
+   "trace_id": "88a89c647900e72e8b8d84b63f462073",
+   "errors": [],
+   "scores": {
+    "faithfulness": 0.5,
+    "answer_relevancy": 0.873596690958614,
+    "context_precision": 0.0,
+    "context_recall": 0.0
+   }
+  },
+  {
+   "user_input": "How many support tickets currently have the status 'open'?",
+   "reference": "32 tickets have the status 'open'.",
+   "reference_contexts": [
+    "SQL: SELECT count(*) FROM tickets WHERE status = 'open' -> 32"
+   ],
+   "query_type": "structured",
+   "domain": "operations",
+   "response": "There are currently 32 support tickets with the status 'open' [SQL1].",
+   "retrieved_contexts": [
+    "SQL: SELECT COUNT(*) FROM tickets WHERE status = 'open'\nCOUNT(*)\n32\n(1 row)"
+   ],
+   "citations": [
+    "SQL1"
+   ],
+   "abstained": false,
+   "flags": [],
+   "latency_ms": 3822,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 8502,
+    "completion_tokens": 111,
+    "est_cost_usd": 0.001342,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 8502,
+      "completion_tokens": 111,
+      "est_cost_usd": 0.001342
+     }
+    },
+    "agent_steps": 2
+   },
+   "trace_id": "1b86bab8637b38833f4386acca61c1e3",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9330730467597933,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "Which system has the most SEV1 tickets, and how many does it have?",
+   "reference": "The Ledger DB has the most SEV1 tickets, with 5.",
+   "reference_contexts": [
+    "SQL: SELECT s.name, count(*) FROM tickets t JOIN products p ON p.product_id = t.product_id JOIN systems s ON s.system_id = p.system_id WHERE t.priority = 'SEV1' GROUP BY s.name ORDER BY 2 DESC LIMIT 1 -> Ledger DB | 5"
+   ],
+   "query_type": "structured",
+   "domain": "operations",
+   "response": "1. The counts of SEV1 tickets for each system are as follows:\n   - Auth Service: 1\n   - Customer Portal: 3\n   - Fraud Detection Engine: 3\n   - Ledger DB: 5\n   - Payment Gateway: 4\n   - Reporting Service: 1 [SQL1]\n\n2. The system with the highest count of SEV1 tickets is the Ledger DB.\n\n3. The Ledger DB has 5 SEV1 tickets [SQL1].",
+   "retrieved_contexts": [
+    "SQL: SELECT systems.name, COUNT(tickets.ticket_id) AS sev1_count FROM tickets JOIN products ON tickets.product_id = products.product_id JOIN systems ON products.system_id = systems.system_id WHERE tickets.priority = 'SEV1' GROUP BY systems.name\nname | sev1_count\nAuth Service | 1\nCustomer Portal | 3\nFraud Detection Engine | 3\nLedger DB | 5\nPayment Gateway | 4\nReporting Service | 1\n(6 rows)"
+   ],
+   "citations": [
+    "SQL1"
+   ],
+   "abstained": false,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 9667,
+   "model_used": "gpt-4o",
+   "usage": {
+    "prompt_tokens": 19704,
+    "completion_tokens": 617,
+    "est_cost_usd": 0.026386,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 10831,
+      "completion_tokens": 382,
+      "est_cost_usd": 0.001854
+     },
+     "gpt-4o-2024-08-06": {
+      "prompt_tokens": 8873,
+      "completion_tokens": 235,
+      "est_cost_usd": 0.024532
+     }
+    },
+    "agent_steps": 4
+   },
+   "trace_id": "ffa5fc687e7e9fddddcd51ace624407b",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9048285684465885,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "How many transactions were recorded in the EMEA region?",
+   "reference": "311 transactions were recorded in the EMEA region.",
+   "reference_contexts": [
+    "SQL: SELECT count(*) FROM transactions WHERE region = 'EMEA' -> 311"
+   ],
+   "query_type": "structured",
+   "domain": "operations",
+   "response": "There were 311 transactions recorded in the EMEA region [SQL1].",
+   "retrieved_contexts": [
+    "SQL: SELECT COUNT(*) FROM transactions WHERE region = 'EMEA'\nCOUNT(*)\n311\n(1 row)"
+   ],
+   "citations": [
+    "SQL1"
+   ],
+   "abstained": false,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 4982,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 8260,
+    "completion_tokens": 108,
+    "est_cost_usd": 0.001304,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 8260,
+      "completion_tokens": 108,
+      "est_cost_usd": 0.001304
+     }
+    },
+    "agent_steps": 2
+   },
+   "trace_id": "deddfbc88c5e195c0cb4eb6610eb1879",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9999995846026216,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "How many employees are on the Data-Platform team?",
+   "reference": "The Data-Platform team has 7 employees.",
+   "reference_contexts": [
+    "SQL: SELECT count(*) FROM employees e JOIN teams t ON t.team_id = e.team_id WHERE t.name = 'Data-Platform' -> 7"
+   ],
+   "query_type": "structured",
+   "domain": "operations",
+   "response": "The Data-Platform team has 7 members [G1].",
+   "retrieved_contexts": [
+    "Anthony Gonzalez MANAGES Data-Platform team; Data-Platform has 7 members and OWNS Data Warehouse, Kafka Cluster, Ledger DB, Reporting Service"
+   ],
+   "citations": [
+    "G1"
+   ],
+   "abstained": false,
+   "flags": [
+    "pii_masked_context"
+   ],
+   "latency_ms": 3396,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 6125,
+    "completion_tokens": 83,
+    "est_cost_usd": 0.000969,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 6125,
+      "completion_tokens": 83,
+      "est_cost_usd": 0.000969
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "9d51ac43be2db78b46d1acec5351c2bc",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9290705031293239,
+    "context_precision": 0.9999999999,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "What is the session timeout for the Customer Portal?",
+   "reference": "Customer Portal sessions expire after 15 minutes of inactivity; after that you get error code CP-401 and need to log in again.",
+   "reference_contexts": [
+    "Sessions in the Customer Portal expire after 15 minutes of inactivity.",
+    "If your session expires after 15 minutes of inactivity, you will receive an error code CP-401 and will need to log in again."
+   ],
+   "query_type": "faq",
+   "domain": "support",
+   "response": "The session timeout for the Customer Portal is 15 minutes of inactivity [1], [2].",
+   "retrieved_contexts": [
+    "Q: What is the session timeout for the Customer Portal?\nA: Sessions in the Customer Portal expire after 15 minutes of inactivity.",
+    "Q: What happens to my session if I am inactive in the Customer Portal?\nA: Sessions in the Customer Portal expire after 15 minutes of inactivity. You will receive an error message (CP-401) if this occurs."
+   ],
+   "citations": [
+    "1",
+    "2"
+   ],
+   "abstained": false,
+   "flags": [],
+   "latency_ms": 2985,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 5444,
+    "completion_tokens": 91,
+    "est_cost_usd": 0.000871,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 5444,
+      "completion_tokens": 91,
+      "est_cost_usd": 0.000871
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "418dd6ae727c9cf40dc7116dc25d6170",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9999997444059391,
+    "context_precision": 0.99999999995,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "Which currencies does Acme Pay support?",
+   "reference": "Acme Pay supports USD, EUR, GBP and INR.",
+   "reference_contexts": [
+    "Acme Pay supports USD, EUR, GBP, and INR."
+   ],
+   "query_type": "faq",
+   "domain": "support",
+   "response": "Acme Pay supports transactions in USD, EUR, GBP, and INR [1], [2], [3].",
+   "retrieved_contexts": [
+    "Q: Which currencies does Acme Pay support?\nA: Acme Pay supports USD, EUR, GBP, and INR.",
+    "Q: What currencies does Acme Pay support?\nA: Acme Pay supports transactions in USD, EUR, GBP, and INR.",
+    "Q: What types of currencies does Acme Pay support?\nA: Acme Pay supports transactions in USD, EUR, GBP, and INR."
+   ],
+   "citations": [
+    "1",
+    "2",
+    "3"
+   ],
+   "abstained": false,
+   "flags": [],
+   "latency_ms": 2991,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 5336,
+    "completion_tokens": 95,
+    "est_cost_usd": 0.000857,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 5336,
+      "completion_tokens": 95,
+      "est_cost_usd": 0.000857
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "139e63dc134c87253d8522e40ef8279b",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9689914964874177,
+    "context_precision": 0.9999999999666667,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "How long does it take for a refund to reach my bank account?",
+   "reference": "Refunds are issued within 2 business days of approval, and the bank may take an additional 5-10 business days to process the refund.",
+   "reference_contexts": [
+    "Refunds are issued within 2 business days of approval, but the bank may take an additional 5-10 business days to process the refund."
+   ],
+   "query_type": "faq",
+   "domain": "support",
+   "response": "Refunds are issued within 2 business days of approval, but your bank may take an additional 5-10 business days to process the refund before it reaches your account [1], [2], [3], [4].",
+   "retrieved_contexts": [
+    "Q: How long does it take to process a refund?\nA: Refunds can be requested within 30 days of purchase and are typically issued within 2 business days of approval. Please allow an additional 5-10 business days for your bank to process the refund.",
+    "Q: How long does a refund take to arrive?\nA: Refunds are issued within 2 business days of approval, but the bank may take an additional 5-10 business days to process the refund.",
+    "Q: How can I request a refund?\nA: Refunds can be requested within 30 days of purchase. Once approved, they are issued within 2 business days, though your bank may take an additional 5-10 business days to process.",
+    "Q: How can I request a refund?\nA: Refunds can be requested within 30 days of purchase. Once approved, they will be issued within 2 business days, though it may take an additional 5-10 business days for your bank to process the refund."
+   ],
+   "citations": [
+    "1",
+    "2",
+    "3",
+    "4"
+   ],
+   "abstained": false,
+   "flags": [],
+   "latency_ms": 4136,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 4993,
+    "completion_tokens": 145,
+    "est_cost_usd": 0.000836,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 4993,
+      "completion_tokens": 145,
+      "est_cost_usd": 0.000836
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "e308f8d020541ffb210efad68acb900c",
+   "errors": [],
+   "scores": {
+    "faithfulness": 0.6666666666666666,
+    "answer_relevancy": 0.7793035637543579,
+    "context_precision": 0.999999999975,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "Does Acme store my full card number?",
+   "reference": "No. Acme never stores the full card number; all cards are tokenized by the Payment Gateway.",
+   "reference_contexts": [
+    "No, Acme never stores the full card number; all cards are tokenized by the Payment Gateway."
+   ],
+   "query_type": "faq",
+   "domain": "support",
+   "response": "No, Acme never stores the full card number. All card information is tokenized by the Payment Gateway to ensure security [1], [2], [3], [4], [5].",
+   "retrieved_contexts": [
+    "Payment Card Data Handling Policy POL-COMP-008 \u00b7 Version 3.1 \u00b7 Effective 2025-01-10\n1. Purpose\nThe purpose of the Payment Card Data Handling Policy (POL-COMP-008) is to establish a framework for the secure handling, processing, and storage of payment card data within Acme Corp. This policy aims to protect sensitive cardholder information and ensure compliance with industry standards, including the Payment Card Industry Data Security Standard (PCI DSS).\n2. Scope\nThis policy applies to all employees, contractors, and third-party service providers who have access to payment card data within Acme Corp. The systems involved in this policy include the Payment Gateway, Billing Service, Fraud Detection Engine, and Ledger DB.\n3. Policy Statements\n3.1 Data Handling\n- The full card number (PAN) must never be written to logs, tickets, or chat.\n- Card numbers are tokenized by the Payment Gateway before any other system sees them.\n- The cardholder data environment includes the Payment Gateway, Billing Service, and Fraud Detection Engine.\n3.2 Access Control\n- Access to cardholder data is restricted to authorized personnel only, as defined in the Access Control Policy (POL-COMP-004).\n- All users must authenticate themselves using strong credentials and adhere to the principle of least privilege.\n3.3 Data Retention\n- Cardholder data must be retained only as long as necessary to fulfill its intended purpose, in accordance with the Data Retention Policy (POL-COMP-001).\n- Once the data is no longer needed, it must be securely deleted or anonymized.\n3.4 Vulnerability Management\n- Vulnerability scans of the cardholder data environment will be conducted quarterly to identify and remediate security weaknesses.",
+    "Q: Does Acme store my full card number?\nA: No, Acme never stores the full card number. All card information is tokenized by the Payment Gateway to ensure security.",
+    "Q: Does Acme store my full card number?\nA: No, Acme never stores the full card number; all cards are tokenized by the Payment Gateway.",
+    "Q: Does Acme store my full card number?\nA: No, Acme never stores the full card number. Instead, cards are tokenized by the Payment Gateway for enhanced security.",
+    "Q: Are my credit card details stored by Acme?\nA: No, Acme never stores the full card number; all cards are tokenized by the Payment Gateway for security."
+   ],
+   "citations": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+   ],
+   "abstained": false,
+   "flags": [
+    "injection_suspected"
+   ],
+   "latency_ms": 4208,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 6075,
+    "completion_tokens": 123,
+    "est_cost_usd": 0.000985,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 6075,
+      "completion_tokens": 123,
+      "est_cost_usd": 0.000985
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "73dcf12b1986d326d4c2b29471fd0c0e",
+   "errors": [],
+   "scores": {
+    "faithfulness": 1.0,
+    "answer_relevancy": 0.9560583956396073,
+    "context_precision": 0.99999999998,
+    "context_recall": 1.0
+   }
+  },
+  {
+   "user_input": "What is Acme's parental leave policy?",
+   "reference": "The knowledge base does not contain a parental leave policy, so the assistant should say it does not know.",
+   "reference_contexts": [],
+   "query_type": "unanswerable",
+   "domain": "compliance",
+   "response": "I don't know based on the available documents.",
+   "retrieved_contexts": [],
+   "citations": [],
+   "abstained": true,
+   "flags": [],
+   "latency_ms": 3675,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 12657,
+    "completion_tokens": 78,
+    "est_cost_usd": 0.001945,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 12657,
+      "completion_tokens": 78,
+      "est_cost_usd": 0.001945
+     }
+    },
+    "agent_steps": 2
+   },
+   "trace_id": "e557951fd38b2828c0f0de49313004b9",
+   "errors": [],
+   "scores": {
+    "faithfulness": NaN,
+    "answer_relevancy": NaN,
+    "context_precision": NaN,
+    "context_recall": NaN
+   }
+  },
+  {
+   "user_input": "What is the daily per-diem limit for business travel expenses?",
+   "reference": "The knowledge base does not contain a travel expense or per-diem policy, so the assistant should say it does not know.",
+   "reference_contexts": [],
+   "query_type": "unanswerable",
+   "domain": "operations",
+   "response": "I don't know based on the available documents.",
+   "retrieved_contexts": [],
+   "citations": [],
+   "abstained": true,
+   "flags": [
+    "indirect_injection"
+   ],
+   "latency_ms": 2431,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 4613,
+    "completion_tokens": 56,
+    "est_cost_usd": 0.000726,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 4613,
+      "completion_tokens": 56,
+      "est_cost_usd": 0.000726
+     }
+    },
+    "agent_steps": 1
+   },
+   "trace_id": "a4814f303e4095864ee24ee71b03d4a1",
+   "errors": [],
+   "scores": {
+    "faithfulness": NaN,
+    "answer_relevancy": NaN,
+    "context_precision": NaN,
+    "context_recall": NaN
+   }
+  },
+  {
+   "user_input": "Which Kubernetes version does the Payment Gateway run on?",
+   "reference": "The knowledge base does not say which Kubernetes version (if any) the Payment Gateway runs on, so the assistant should say it does not know.",
+   "reference_contexts": [],
+   "query_type": "unanswerable",
+   "domain": "engineering",
+   "response": "I don't know based on the available documents.",
+   "retrieved_contexts": [],
+   "citations": [],
+   "abstained": true,
+   "flags": [],
+   "latency_ms": 3707,
+   "model_used": "gpt-4o-mini",
+   "usage": {
+    "prompt_tokens": 8288,
+    "completion_tokens": 73,
+    "est_cost_usd": 0.001287,
+    "by_model": {
+     "gpt-4o-mini-2024-07-18": {
+      "prompt_tokens": 8288,
+      "completion_tokens": 73,
+      "est_cost_usd": 0.001287
+     }
+    },
+    "agent_steps": 2
+   },
+   "trace_id": "4c0491ee023adf67229bc02e3738a2be",
+   "errors": [],
+   "scores": {
+    "faithfulness": NaN,
+    "answer_relevancy": NaN,
+    "context_precision": NaN,
+    "context_recall": NaN
+   }
+  }
+ ],
+ "summary": {
+  "overall": {
+   "n": 30,
+   "faithfulness": 0.8537037037037037,
+   "answer_relevancy": 0.8266246476955124,
+   "context_precision": 0.9058641974644599,
+   "context_recall": 0.882716049382716,
+   "false_abstention": 0.0,
+   "correct_abstention": 1.0,
+   "no_citations": 3
+  },
+  "factual": {
+   "n": 10,
+   "faithfulness": 0.8550000000000001,
+   "answer_relevancy": 0.8437791918274273,
+   "context_precision": 0.99999999992,
+   "context_recall": 0.8833333333333334,
+   "false_abstention": 0.0,
+   "correct_abstention": NaN,
+   "no_citations": 0
+  },
+  "multi_hop": {
+   "n": 8,
+   "faithfulness": 0.7916666666666666,
+   "answer_relevancy": 0.6920189969150369,
+   "context_precision": 0.8072916666085937,
+   "context_recall": 0.875,
+   "false_abstention": 0.0,
+   "correct_abstention": NaN,
+   "no_citations": 0
+  },
+  "structured": {
+   "n": 5,
+   "faithfulness": 0.9,
+   "answer_relevancy": 0.9281136787793883,
+   "context_precision": 0.79999999992,
+   "context_recall": 0.8,
+   "false_abstention": 0.0,
+   "correct_abstention": NaN,
+   "no_citations": 0
+  },
+  "faq": {
+   "n": 4,
+   "faithfulness": 0.9166666666666666,
+   "answer_relevancy": 0.9260883000718305,
+   "context_precision": 0.9999999999679167,
+   "context_recall": 1.0,
+   "false_abstention": 0.0,
+   "correct_abstention": NaN,
+   "no_citations": 0
+  },
+  "unanswerable": {
+   "n": 3,
+   "faithfulness": NaN,
+   "answer_relevancy": NaN,
+   "context_precision": NaN,
+   "context_recall": NaN,
+   "false_abstention": NaN,
+   "correct_abstention": 1.0,
+   "no_citations": 3
+  },
+  "latency_ms_p50": 4171.0,
+  "models": {
+   "gpt-4o-mini": 19,
+   "gpt-4o": 11
+  },
+  "cost_usd": 0.16257
+ }
+}

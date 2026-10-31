@@ -1,7 +1,8 @@
 """RAGAS evaluation (§B14.2): golden set -> /chat -> faithfulness, answer relevancy, context precision/recall.
 
     python eval/ragas/run_ragas.py --config A     # A dense | B +BM25 | C +graph | D full (+rerank)
-    python eval/ragas/run_ragas.py --report-only  # rebuild RAGAS_REPORT.md from the saved results
+    python eval/ragas/run_ragas.py --report-only  # rebuild RAGAS_REPORT.md + ragas_ablation.png
+    python eval/ragas/run_ragas.py --report-only --push-langfuse   # + Langfuse dataset runs
 
 Each run starts its own API process (`uvicorn app.main:app`) with the config's feature flags in the
 environment, calls `/chat` once per golden row (a fresh session per row, so no history leaks between
@@ -24,10 +25,7 @@ import argparse
 import asyncio
 import json
 import math
-import os
 import re
-import signal
-import socket
 import statistics
 import subprocess
 import sys
@@ -43,10 +41,13 @@ ROOT = Path(__file__).resolve().parents[2]
 sys.path.insert(0, str(ROOT))
 
 from app.config import get_settings  # noqa: E402
+from eval.api_server import free_port, start_api, stop_api, tail, wait_ready  # noqa: E402
 
 GOLDEN = ROOT / "eval/datasets/golden.jsonl"
 REPORTS = ROOT / "eval/reports"
 REPORT = REPORTS / "RAGAS_REPORT.md"
+CHART = REPORTS / "ragas_ablation.png"
+DATASET = "eka-golden"  # Langfuse dataset holding the golden set
 BEGIN, END = "<!-- BEGIN GENERATED (run_ragas.py) -->", "<!-- END GENERATED -->"
 
 CONFIGS = {  # §B14.2 ablations
@@ -64,38 +65,10 @@ NAN = float("nan")
 
 # --------------------------------------------------------------------------- API process
 
-def free_port() -> int:
-    with socket.socket() as s:
-        s.bind(("127.0.0.1", 0))
-        return s.getsockname()[1]
-
-
-def start_api(config: str, port: int, log) -> subprocess.Popen:
+def start_config_api(config: str, port: int, log) -> subprocess.Popen:
     flags = {k: v for k, v in CONFIGS[config].items() if k.startswith("USE_")}
-    env = os.environ | flags | {"USE_CACHE": "false"}  # measure retrieval + generation, never a cache hit
-    cmd = [sys.executable, "-m", "uvicorn", "app.main:app", "--port", str(port), "--log-level", "warning"]
-    return subprocess.Popen(cmd, cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT)
-
-
-def wait_ready(proc: subprocess.Popen, base: str, timeout_s: float = 300) -> dict:
-    deadline = time.monotonic() + timeout_s
-    while time.monotonic() < deadline:
-        if proc.poll() is not None:
-            raise RuntimeError(f"API exited with code {proc.returncode} during startup")
-        try:
-            return httpx.get(f"{base}/health", timeout=15).json()  # 503 still means it is up
-        except httpx.HTTPError:
-            time.sleep(2)
-    raise RuntimeError("API did not start in time")
-
-
-def stop_api(proc: subprocess.Popen) -> None:
-    if proc.poll() is None:
-        proc.send_signal(signal.SIGINT)  # graceful: the lifespan flushes Langfuse
-        try:
-            proc.wait(timeout=30)
-        except subprocess.TimeoutExpired:
-            proc.kill()
+    # measure retrieval + generation, never a cache hit
+    return start_api(flags | {"USE_CACHE": "false"}, port, log)
 
 
 def ask_all(rows: list[dict], base: str, config: str) -> list[dict]:
@@ -108,6 +81,7 @@ def ask_all(rows: list[dict], base: str, config: str) -> list[dict]:
             body = r.json()
             out.append({"answer": body["answer"], "citations": body["citations"],
                         "flags": body["guardrail_flags"], "latency_ms": body["latency_ms"],
+                        "model_used": body["model_used"],
                         "usage": body["usage"], "trace_id": body["trace_id"]})
             print(f"  {i:>2}/{len(rows)} {row['query_type']:<12} {body['latency_ms']:>5} ms "
                   f"{len(body['citations'])} cit  {body['answer'][:70]!r}")
@@ -202,6 +176,11 @@ def summarise(rows: list[dict]) -> dict:
     for t in TYPES:
         out[t] = block([r for r in rows if r["query_type"] == t])
     out["latency_ms_p50"] = statistics.median(r["latency_ms"] for r in rows)
+    models: dict[str, int] = {}
+    for r in rows:
+        if "model_used" in r:
+            models[r["model_used"]] = models.get(r["model_used"], 0) + 1
+    out["models"] = models
     out["cost_usd"] = round(sum(r["usage"].get("est_cost_usd", 0.0) for r in rows), 5)
     return out
 
@@ -221,18 +200,22 @@ def generated_section(results: dict[str, dict]) -> str:
              f"_Generated {date.today().isoformat()} by `eval/ragas/run_ragas.py` from "
              f"{', '.join(f'`ragas_{c}.json`' for c in cfgs)}. Golden set: {first['n_rows']} rows "
              f"(`eval/datasets/golden.jsonl`). Evaluator `{first['evaluator']}`; answer relevancy embeddings "
-             f"`text-embedding-3-small`. Generator `{first['generator']}`._", "",
+             f"`text-embedding-3-small`. Generator: the routed agent (§B12.2), answers per model in the "
+             f"last column._", "",
+             f"![RAGAS ablation]({CHART.name})", "",
              "### Overall", "",
-             "| Config | Faithfulness | Answer relevancy | Context precision | Context recall "
+             "| Config | Run date | Faithfulness | Answer relevancy | Context precision | Context recall "
              "| Correct abstention (unanswerable) | False abstention (answerable) | p50 latency "
-             "| /chat cost |",
-             "|---|---|---|---|---|---|---|---|---|",
-             "| *Target (§B14.2)* | *≥ 0.85* | *≥ 0.85* | *≥ 0.75* | *≥ 0.80* | | | | |"]
+             "| /chat cost | Answered by |",
+             "|---|---|---|---|---|---|---|---|---|---|---|",
+             "| *Target (§B14.2)* | | *≥ 0.85* | *≥ 0.85* | *≥ 0.75* | *≥ 0.80* | | | | | |"]
     for c, res in results.items():
         o = res["summary"]["overall"]
-        lines.append(f"| {CONFIGS[c]['label']} | " + " | ".join(fmt(o[k]) for k in METRICS)
+        models = ", ".join(f"{m} {n}" for m, n in sorted(res["summary"].get("models", {}).items())) or "n/a"
+        lines.append(f"| {CONFIGS[c]['label']} | {res['date']} | " + " | ".join(fmt(o[k]) for k in METRICS)
                      + f" | {fmt(o['correct_abstention'])} | {fmt(o['false_abstention'])} "
-                     f"| {res['summary']['latency_ms_p50']:.0f} ms | ${res['summary']['cost_usd']:.4f} |")
+                     f"| {res['summary']['latency_ms_p50']:.0f} ms | ${res['summary']['cost_usd']:.4f} "
+                     f"| {models} |")
     lines += ["", "### By query type", "",
               "Each cell lists the configs in order (" + " / ".join(cfgs) + "). Context metrics and answer "
               "relevancy are n/a for unanswerable rows, which are scored on abstention instead.", "",
@@ -254,7 +237,7 @@ def generated_section(results: dict[str, dict]) -> str:
         a = results["A"]["summary"]["multi_hop"]["context_recall"]
         d = results["D"]["summary"]["multi_hop"]["context_recall"]
         ok = not math.isnan(d) and (math.isnan(a) or d >= a)
-        lines += ["", f"**Gate (Phase 6): D ≥ A on multi-hop context recall: {fmt(d)} vs {fmt(a)} "
+        lines += ["", f"**Phase 6 check: D ≥ A on multi-hop context recall: {fmt(d)} vs {fmt(a)} "
                       f"{'✅' if ok else '❌'}**"]
 
     lines += ["", "### Per row", "",
@@ -275,7 +258,82 @@ def generated_section(results: dict[str, dict]) -> str:
     return "\n".join(lines)
 
 
+def write_chart(results: dict[str, dict]) -> None:
+    """Grouped bars: one group per metric, one bar per config, overall means, with the §B14.2 targets."""
+    import matplotlib
+
+    matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+
+    names = {"faithfulness": "Faithfulness", "answer_relevancy": "Answer relevancy",
+             "context_precision": "Context precision", "context_recall": "Context recall"}
+    colors = {"A": "#9aa5b1", "B": "#6c8ebf", "C": "#3d6fb6", "D": "#1f3f80"}
+    fig, ax = plt.subplots(figsize=(9, 4.6), dpi=150)
+    width = 0.8 / len(results)
+    for i, (c, res) in enumerate(results.items()):
+        vals = [res["summary"]["overall"][k] for k in METRICS]
+        xs = [m + (i - (len(results) - 1) / 2) * width for m in range(len(METRICS))]
+        bars = ax.bar(xs, [0 if math.isnan(v) else v for v in vals], width * 0.92, color=colors[c],
+                      label=CONFIGS[c]["label"])
+        for b, v in zip(bars, vals, strict=True):
+            ax.text(b.get_x() + b.get_width() / 2, b.get_height() + 0.01, fmt(v)[1:] if v < 1 else "1.0",
+                    ha="center", va="bottom", fontsize=7)
+    for m, k in enumerate(METRICS):
+        ax.plot([m - 0.45, m + 0.45], [TARGETS[k]] * 2, color="#c0392b", lw=1.2, ls="--",
+                label="target (§B14.2)" if m == 0 else None)
+    ax.set_xticks(range(len(METRICS)), [names[k] for k in METRICS])
+    ax.set_ylim(0, 1.22)
+    ax.set_ylabel("mean score (30 golden rows)")
+    ax.set_title("RAGAS ablation: dense → + BM25 → + graph → + re-rank")
+    ax.spines[["top", "right"]].set_visible(False)
+    ax.legend(fontsize=7, loc="upper left", ncols=5, frameon=False)
+    fig.tight_layout()
+    fig.savefig(CHART)
+    plt.close(fig)
+
+
+def push_langfuse(results: dict[str, dict]) -> None:
+    """The golden set as the Langfuse dataset `eka-golden`, and one dataset run per config holding each row's
+    answer, the API trace id and its RAGAS scores. The saved results are replayed: no /chat or judge calls."""
+    from langfuse import Evaluation
+
+    from app.observability.langfuse import init_langfuse
+
+    lf = init_langfuse(get_settings())
+    rows = [json.loads(line) for line in GOLDEN.read_text().splitlines() if line.strip()]
+    lf.create_dataset(name=DATASET, description="Golden set (eval/datasets/golden.jsonl), §B14.2",
+                      metadata={"rows": len(rows)})
+    for i, row in enumerate(rows, 1):  # stable ids, so re-pushing updates instead of duplicating
+        lf.create_dataset_item(dataset_name=DATASET, id=f"golden-{i:02d}",
+                               input={"question": row["user_input"]},
+                               expected_output={"reference": row["reference"]},
+                               metadata={"query_type": row["query_type"], "domain": row["domain"], "row": i})
+    dataset = lf.get_dataset(DATASET)
+    for c, res in results.items():
+        by_q = {r["user_input"]: r for r in res["rows"]}
+
+        def task(*, item, by_q=by_q, **_):
+            r = by_q[item.input["question"]]
+            return {"answer": r["response"], "citations": r["citations"], "api_trace_id": r["trace_id"]}
+
+        def scores(*, input, by_q=by_q, **_):  # noqa: A002 - Langfuse's evaluator signature
+            r = by_q[input["question"]]
+            out = [Evaluation(name=f"ragas_{k}", value=r["scores"][k]) for k in METRICS
+                   if not math.isnan(r["scores"][k])]
+            return out + [Evaluation(name="abstained", value=float(r["abstained"]))]
+
+        run_name = f"ragas-{c}-{res['date']}"
+        dataset.run_experiment(name=f"RAGAS {CONFIGS[c]['label']}", run_name=run_name, task=task,
+                               evaluators=[scores], max_concurrency=5,
+                               description=f"{CONFIGS[c]['label']}; flags {res['flags']}; generator "
+                                           f"{res['generator']}; judge {res['evaluator']}",
+                               metadata={"config": c, **res["flags"]})
+        print(f"  langfuse: dataset {DATASET} run {run_name} ({len(res['rows'])} items)")
+    lf.flush()
+
+
 def write_report(results: dict[str, dict]) -> None:
+    write_chart(results)
     section = generated_section(results)
     if REPORT.exists() and BEGIN in (text := REPORT.read_text()) and END in text:
         head, rest = text.split(BEGIN, 1)
@@ -292,7 +350,7 @@ def run(config: str, limit: int | None) -> dict:
     port = free_port()
     base = f"http://127.0.0.1:{port}"
     with tempfile.NamedTemporaryFile("w+", prefix=f"ragas_api_{config}_", suffix=".log", delete=False) as log:
-        proc = start_api(config, port, log)
+        proc = start_config_api(config, port, log)
         try:
             print(f"config {config} ({CONFIGS[config]['label']}): starting API on :{port} (log {log.name})")
             health = wait_ready(proc, base)
@@ -301,9 +359,7 @@ def run(config: str, limit: int | None) -> dict:
             answers = ask_all(rows, base, config)
             chat_s = time.perf_counter() - t0
         except Exception:
-            log.flush()
-            log.seek(0)
-            print("".join(log.readlines()[-25:]), file=sys.stderr)
+            print(tail(log), file=sys.stderr)
             print("If Qdrant is locked, stop the running API (`make run`) and retry.", file=sys.stderr)
             raise
         finally:
@@ -312,16 +368,18 @@ def run(config: str, limit: int | None) -> dict:
     results = [{**row, "response": a["answer"], "retrieved_contexts": [c["snippet"] for c in a["citations"]],
                 "citations": [c["id"] for c in a["citations"]],
                 "abstained": bool(ABSTAIN.search(a["answer"])),
-                **{k: a[k] for k in ("flags", "latency_ms", "usage", "trace_id")}}
+                **{k: a[k] for k in ("flags", "latency_ms", "model_used", "usage", "trace_id")}}
                for row, a in zip(rows, answers, strict=True)]
     print(f"  scoring {len(results)} rows with RAGAS ...")
     asyncio.run(score_all(rows, results))
     s = get_settings()
+    summary = summarise(results)
+    generator = "routed: " + ", ".join(f"{m} {n}" for m, n in sorted(summary["models"].items()))
     out = {"config": config, "label": CONFIGS[config]["label"],
            "flags": {k: v for k, v in CONFIGS[config].items() if k.startswith("USE_")},
-           "date": date.today().isoformat(), "generator": s.model_fast, "evaluator": s.model_fast,
+           "date": date.today().isoformat(), "generator": generator, "evaluator": s.model_fast,
            "health": health, "chat_seconds": round(chat_s, 1), "n_rows": len(results),
-           "rows": results, "summary": summarise(results)}
+           "rows": results, "summary": summary}
     REPORTS.mkdir(parents=True, exist_ok=True)
     # smoke runs (--limit) are saved separately and stay out of the report
     name = f"ragas_{config}_smoke.json" if limit else f"ragas_{config}.json"
@@ -335,6 +393,8 @@ def main() -> int:
     ap.add_argument("--limit", type=int, help="only the first N golden rows (smoke test, saved as "
                                               "ragas_<config>_smoke.json and left out of the report)")
     ap.add_argument("--report-only", action="store_true", help="rebuild RAGAS_REPORT.md from saved results")
+    ap.add_argument("--push-langfuse", action="store_true",
+                    help="push the golden set and every saved config as Langfuse dataset runs")
     args = ap.parse_args()
     if not args.report_only:
         if not args.config:
@@ -346,7 +406,9 @@ def main() -> int:
     results = load_results()
     if results:
         write_report(results)
-        print(f"report -> {REPORT.relative_to(ROOT)}")
+        print(f"report -> {REPORT.relative_to(ROOT)}, chart -> {CHART.relative_to(ROOT)}")
+        if args.push_langfuse:
+            push_langfuse(results)
     return 0
 
 

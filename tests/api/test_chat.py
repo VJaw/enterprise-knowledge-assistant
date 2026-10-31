@@ -80,3 +80,13 @@ def test_citation_helpers_ignore_out_of_range_ids():
     assert [c.id for c in build_citations("x [1] y [7] z [G1] [G4]", CHUNKS, FACTS)] == ["1", "G1"]
     assert "p.1" in format_context(CHUNKS)
     assert format_context(CHUNKS, FACTS).endswith("(graph: system_owners.csv)")
+
+
+def test_sql_citation_snippet_carries_the_query():
+    from app.core.types import RetrievedChunk
+    from app.retrieval.context import citation
+
+    q = "SELECT COUNT(*) FROM tickets WHERE priority='SEV1'"
+    chunk = RetrievedChunk(chunk_id="sql:x", doc_id="sql", text="COUNT(*)\n17\n(1 row)", score=1.0,
+                           source_type="sql", metadata={"query": q})
+    assert citation(chunk, "SQL1").snippet == f"SQL: {q}\nCOUNT(*)\n17\n(1 row)"
