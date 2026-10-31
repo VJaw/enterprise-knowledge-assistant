@@ -62,7 +62,7 @@ Read capstonespec.md in full. Execute Phase <N> only.
 | 3 | Vector index & walking skeleton (**M1**) | ✅ | 2026-10-30 | `7854f4c` | 278 chunks, dense R@5 1.000 / MRR@10 0.933, image 5.74 GB, 41 tests; D-010, D-011, D-012 |
 | 4 | Knowledge graph on Neo4j Aura | ✅ | 2026-10-30 | `2d56939` | 136 nodes / 542 rels, spot check 14/15 (93%), idempotent, 64 tests; D-013, D-014 |
 | 5 | Hybrid retrieval & re-ranking | ✅ | 2026-10-30 | `367e117` | hybrid+rerank R@5 0.990 / MRR 0.967 vs dense 0.983 / 0.942 (20 q), retrieval p95 1.12–1.20 s, 88 tests; D-015, D-016, D-017 |
-| 6 | Golden set & baseline evaluation (**M2**) | ✅ | 2026-10-30 | `11bb331` | 30-row golden set (verified by 6 tests), RAGAS A vs D, multi-hop context recall 0.000 → 0.875, Promptfoo 6/10, 94 tests; D-018, D-019 |
+| 6 | Golden set & baseline evaluation (**M2**) | ✅ | 2026-10-30 | `11bb331` | 30-row golden set (verified by 6 tests), RAGAS A vs D, multi-hop context recall 0.000 → 0.875, Promptfoo 6/10, 94 tests; D-018, D-019. Router-filter fix `d124faf` (D-020): Promptfoo 8/10, 104 tests |
 | 7 | LangGraph agent & tools | ⬜ | | | |
 | 8 | Guardrails (**M3**) | ⬜ | | | |
 | 9 | API hardening, cache & observability | ⬜ | | | |
@@ -205,7 +205,7 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done (gate passed) · ⚠️ 
   - RAGAS context precision is harsh on several one-line graph facts (row 16: 0.143 with 7 correct facts).
 - Notes for the next phase: re-run `python eval/ragas/run_ragas.py --config D` after the agent is wired (stop `make run` first; the script starts its own API on a free port), and expect the structured rows to move. `make eval` needs the API on :7860. Promptfoo 0.125 loads `.env` for the grader key; `PROMPTFOO_DISABLE_TELEMETRY=1` turns off its telemetry. Phase 7 should make Promptfoo case 6 pass (`tool_calls` includes `sql_query`, answer contains 17) and golden rows 19–23 answerable; the SQL ground truths are the `SQL:` lines in `golden.jsonl`. Spend this phase ≈ $0.10 (2 × 30 `/chat` ≈ $0.01, RAGAS judging a few cents, Promptfoo grading < $0.01, diagnostics < $0.01).
 
-**Fix after Phase 6 — router filters (2026-10-30, commit `<hash>`)**
+**Fix after Phase 6 — router filters (2026-10-30, commit `d124faf`)**
 - Built: `app/retrieval/router.py` `explicit_filters()` + `load_filter_pairs()`. `Router(llm, known, filter_pairs)` keeps only filters the message asks for and drops impossible doc_type/domain pairs. `app/retrieval/hybrid.py`: `search()` merges and validates filters, then calls the new `_search()`; if that returns no chunks and the router added filters, it reruns with the request's filters and flags `router_filters_relaxed`. `app/main.py` passes `load_filter_pairs()`. Tests: 10 new in `tests/retrieval/test_graph_hybrid.py` (golden row 8's `{policy, operations}` dropped; 7 cue/pair cases; pair loading; relax-and-retry, and request filters never relaxed). The existing router test now asks "per the SOP". Full suite **104 passed**, ruff clean.
 - Results (re-run right after the fix; the generated block of `RAGAS_REPORT.md` and `ragas_{A,D}.json` now hold these, and the report's interpretation keeps the baseline for comparison):
 
