@@ -1,0 +1,23 @@
+{
+ "chunk_id": "SOP-SUP-003::004",
+ "prompt_sha256": "9dc537017ee3caeb82fe355f056002e54c16f897f40b9120d527f8b0bbcd6963",
+ "result": {
+  "entities": [
+   {
+    "name": "Billing Service refund console",
+    "label": "Component",
+    "type": "other"
+   }
+  ],
+  "relations": [
+   {
+    "src": "Billing Service refund console",
+    "src_label": "Component",
+    "rel": "HAS_COMPONENT",
+    "dst": "Billing Service",
+    "dst_label": "System",
+    "evidence": "Approved refunds are issued from the **Billing Service refund console**."
+   }
+  ]
+ }
+}

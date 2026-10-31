@@ -1,0 +1,41 @@
+{
+ "chunk_id": "SOP-OPS-018::007",
+ "prompt_sha256": "63b829d8570a8cdc681f7f1f29811abdf570c730a483a3b9ec2541bf0824bcce",
+ "result": {
+  "entities": [
+   {
+    "name": "INC-2025-022",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-022",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "the one documented in INC-2025-022: Expired TLS certificate on API Gateway"
+   },
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "defined in the POL-COMP-003: Incident Response Policy"
+   }
+  ]
+ }
+}

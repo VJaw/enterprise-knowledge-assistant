@@ -1,0 +1,41 @@
+{
+ "chunk_id": "INC-2025-040::000",
+ "prompt_sha256": "db6199f3e446e38d0712497e5f5ec77b1d4588677927a7fcc063daab77405400",
+ "result": {
+  "entities": [
+   {
+    "name": "Fraud Detection Engine",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-040",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-040",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Payment Gateway",
+    "dst_label": "System",
+    "evidence": "This incident impacted the Payment Gateway."
+   },
+   {
+    "src": "Fraud Detection Engine",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Fraud Detection Engine",
+    "dst_label": "System",
+    "evidence": "caused by a new version of the Fraud Detection Engine model."
+   }
+  ]
+ }
+}

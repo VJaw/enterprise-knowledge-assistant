@@ -1,0 +1,86 @@
+{
+ "chunk_id": "MAN-ENG-002::005",
+ "prompt_sha256": "b8775263d7fba3320611319a0e05dbe2c789d288b6092314c1803d9af1b4e988",
+ "result": {
+  "entities": [
+   {
+    "name": "Auth Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Secrets Vault",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Database Services",
+    "label": "Component",
+    "type": "other"
+   }
+  ],
+  "relations": [
+   {
+    "src": "Auth Service",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Kafka Cluster",
+    "dst_label": "System",
+    "evidence": "The Auth Service relies on several external and internal systems: - **Kafka Cluster**: For event publishing and messaging."
+   },
+   {
+    "src": "Auth Service",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Secrets Vault",
+    "dst_label": "System",
+    "evidence": "The Auth Service relies on several external and internal systems: - **Secrets Vault**: For secure storage and management of sensitive keys."
+   },
+   {
+    "src": "Auth Service",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Database Services",
+    "dst_label": "Component",
+    "evidence": "The Auth Service relies on several external and internal systems: - **Database Services**: For session and user data storage."
+   },
+   {
+    "src": "POL-COMP-004",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "adherence to the policies outlined in the following documents: - POL-COMP-004: Access Control Policy"
+   },
+   {
+    "src": "POL-COMP-005",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "adherence to the policies outlined in the following documents: - POL-COMP-005: Encryption and Key Management Policy"
+   },
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "adherence to the policies outlined in the following documents: - POL-COMP-003: Incident Response Policy"
+   },
+   {
+    "src": "POL-COMP-007",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "adherence to the policies outlined in the following documents: - POL-COMP-007: Business Continuity and Disaster Recovery Policy"
+   }
+  ]
+ }
+}

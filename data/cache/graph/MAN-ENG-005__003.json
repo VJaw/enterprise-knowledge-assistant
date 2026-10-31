@@ -1,0 +1,80 @@
+{
+ "chunk_id": "MAN-ENG-005::003",
+ "prompt_sha256": "09a7ef7d6b904533c0a7a3ccae42e495fa122b3ca41c84ac36edd5c27649a3f3",
+ "result": {
+  "entities": [
+   {
+    "name": "Customer Portal",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Auth Service",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "API Gateway",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "Billing Service",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "Notification Service",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "Support Desk",
+    "label": "Component",
+    "type": "service"
+   }
+  ],
+  "relations": [
+   {
+    "src": "Customer Portal",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Auth Service",
+    "dst_label": "Component",
+    "evidence": "The Customer Portal relies on several critical services to function correctly: - **Auth Service**: Responsible for user authentication and authorization."
+   },
+   {
+    "src": "Customer Portal",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "API Gateway",
+    "dst_label": "Component",
+    "evidence": "The Customer Portal relies on several critical services to function correctly: - **API Gateway**: Manages API requests and routing."
+   },
+   {
+    "src": "Customer Portal",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Billing Service",
+    "dst_label": "Component",
+    "evidence": "The Customer Portal relies on several critical services to function correctly: - **Billing Service**: Handles payment processing and billing information."
+   },
+   {
+    "src": "Customer Portal",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Notification Service",
+    "dst_label": "Component",
+    "evidence": "The Customer Portal relies on several critical services to function correctly: - **Notification Service**: Manages notifications sent to users."
+   },
+   {
+    "src": "Customer Portal",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Support Desk",
+    "dst_label": "Component",
+    "evidence": "The Customer Portal relies on several critical services to function correctly: - **Support Desk**: Provides customer support functionalities."
+   }
+  ]
+ }
+}

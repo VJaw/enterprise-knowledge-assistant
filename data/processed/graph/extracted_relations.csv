@@ -1,0 +1,177 @@
+src_label,src,rel,dst_label,dst,source_doc_id,chunk_id,status,evidence
+Incident,INC-2025-003,AFFECTS,System,Auth Service,INC-2025-003,INC-2025-003::000,backbone,an incident occurred involving the Auth Service and Secrets Vault resulting in authentication token validation failures.
+Incident,INC-2025-003,AFFECTS,System,Secrets Vault,INC-2025-003,INC-2025-003::000,backbone,an incident occurred involving the Auth Service and Secrets Vault resulting in authentication token validation failures.
+System,Secrets Vault,DEPENDS_ON,System,Auth Service,INC-2025-003,INC-2025-003::000,conflict,The issue arose from a signing-key rotation in the Secrets Vault that was not properly propagated to all Token Issuer replicas.
+Incident,INC-2025-003,RESOLVED_BY,Person,Michelle Ray,INC-2025-003,INC-2025-003::001,backbone,Michelle Ray resolves the issue by manually propagating the signing key to all Token Issuer replicas.
+Incident,INC-2025-003,AFFECTS,System,Auth Service,INC-2025-003,INC-2025-003::002,backbone,the need for improved observability in the Auth Service and Secrets Vault systems.
+Incident,INC-2025-003,AFFECTS,System,Secrets Vault,INC-2025-003,INC-2025-003::002,backbone,the need for improved observability in the Auth Service and Secrets Vault systems.
+Policy,POL-COMP-002,GOVERNS,System,Auth Service,INC-2025-003,INC-2025-003::002,conflict,"adhering to established policies, such as POL-COMP-002: Acceptable Use Policy."
+Policy,POL-COMP-006,GOVERNS,System,Auth Service,INC-2025-003,INC-2025-003::002,conflict,"adhering to established policies, such as POL-COMP-006: Change Management Policy."
+Policy,POL-COMP-002,GOVERNS,System,Secrets Vault,INC-2025-003,INC-2025-003::002,conflict,"adhering to established policies, such as POL-COMP-002: Acceptable Use Policy."
+Policy,POL-COMP-006,GOVERNS,System,Secrets Vault,INC-2025-003,INC-2025-003::002,conflict,"adhering to established policies, such as POL-COMP-006: Change Management Policy."
+System,Secrets Vault,HAS_COMPONENT,Component,Token Issuer,INC-2025-003,INC-2025-003::003,new,Review and enhance the key propagation mechanism within the Secrets Vault to ensure reliable updates across all Token Issuer replicas.
+Policy,POL-COMP-003,GOVERNS,System,Secrets Vault,INC-2025-003,INC-2025-003::003,conflict,referencing POL-COMP-003: Incident Response Policy.
+Incident,INC-2025-003,AFFECTS,System,Secrets Vault,INC-2025-003,INC-2025-003::003,backbone,Review and enhance the key propagation mechanism within the Secrets Vault to ensure reliable updates across all Token Issuer replicas.
+System,Kafka Cluster,DEPENDS_ON,System,Fraud Detection Engine,INC-2025-008,INC-2025-008::000,conflict,The Kafka Cluster is a critical component of the Fraud Detection Engine.
+Incident,INC-2025-008,AFFECTS,System,Fraud Detection Engine,INC-2025-008,INC-2025-008::000,backbone,The delays caused by the consumer lag directly affected the scoring of transactions for potential fraud.
+Incident,INC-2025-008,RESOLVED_BY,Person,Matthew Moore,INC-2025-008,INC-2025-008::001,backbone,Matthew Moore identifies the cause as a filled broker disk.
+System,Kafka Cluster,HAS_COMPONENT,Component,broker disk,INC-2025-008,INC-2025-008::002,new,The primary cause of the incident was the filling of a broker disk within the Kafka Cluster.
+System,Ledger DB,DEPENDS_ON,System,Billing Service,INC-2025-012,INC-2025-012::000,conflict,"service disruption lasted for 34 minutes until the on-call engineer executed the manual promotion process as defined in SOP-OPS-014: Database Failover, restoring service to the Billing Service reliant"
+Incident,INC-2025-012,AFFECTS,System,Ledger DB,INC-2025-012,INC-2025-012::001,backbone,Initial alert triggered for Ledger DB downtime.
+Incident,INC-2025-012,AFFECTS,System,Ledger DB,INC-2025-012,INC-2025-012::002,backbone,"The primary cause of the Ledger DB failure was the crash of its storage controller, which rendered the database inoperable."
+Incident,INC-2025-012,AFFECTS,System,Ledger DB,INC-2025-012,INC-2025-012::003,backbone,...that led to the Ledger DB crash...
+Incident,INC-2025-017,AFFECTS,System,Customer Portal,INC-2025-017,INC-2025-017::000,backbone,The outage impacted all users attempting to access the Customer Portal.
+System,API Gateway,DEPENDS_ON,System,Customer Portal,INC-2025-017,INC-2025-017::000,conflict,caused by a deployment of a new route configuration in the API Gateway that contained a malformed rule.
+Incident,INC-2025-017,AFFECTS,System,Customer Portal,INC-2025-017,INC-2025-017::001,backbone,Reports of Customer Portal unavailability begin to surface.
+Incident,INC-2025-017,RESOLVED_BY,Person,Michelle Ray,INC-2025-017,INC-2025-017::001,backbone,Incident resolved by Michelle Ray (Senior Software Engineer).
+Incident,INC-2025-017,AFFECTS,System,Customer Portal,INC-2025-017,INC-2025-017::002,backbone,The severity of this incident was heightened due to the critical nature of the Customer Portal in facilitating customer transactions and interactions.
+Incident,INC-2025-017,AFFECTS,System,API Gateway,INC-2025-017,INC-2025-017::003,backbone,**Update API Gateway configuration guidelines to include stricter testing protocols**
+Incident,INC-2025-022,AFFECTS,System,API Gateway,INC-2025-022,INC-2025-022::000,backbone,an expired TLS certificate on the API Gateway resulted in 3% of clients experiencing failures in TLS handshakes
+Incident,INC-2025-022,AFFECTS,System,API Gateway,INC-2025-022,INC-2025-022::001,backbone,Expired TLS certificate detected on API Gateway.
+Incident,INC-2025-022,RESOLVED_BY,Person,Cynthia Diaz,INC-2025-022,INC-2025-022::001,backbone,Cynthia Diaz (Senior SRE) manually renews the expired TLS certificate.
+Incident,INC-2025-022,AFFECTS,System,API Gateway,INC-2025-022,INC-2025-022::002,backbone,resulting in a disruption of service for approximately 3% of clients due to TLS handshake failures.
+Incident,INC-2025-026,AFFECTS,System,Reporting Service,INC-2025-026,INC-2025-026::000,backbone,...which subsequently affected the Reporting Service.
+System,Data Warehouse,HAS_COMPONENT,Component,Kafka topic,INC-2025-026,INC-2025-026::000,new,...due to a schema change in an upstream Kafka topic that was not communicated in advance.
+Incident,INC-2025-026,AFFECTS,System,Data Warehouse,INC-2025-026,INC-2025-026::001,backbone,Scheduled nightly load begins for the Data Warehouse.
+Incident,INC-2025-026,RESOLVED_BY,Person,Linda Wolfe,INC-2025-026,INC-2025-026::001,backbone,"Linda Wolfe, the on-call engineer, implements a backfill of the missing data per SOP-OPS-022: Data Warehouse Backfill."
+System,Reporting Service,DEPENDS_ON,System,Data Warehouse,INC-2025-026,INC-2025-026::002,backbone,"The delay impacted the Reporting Service, which relies on timely and accurate data from the Data Warehouse."
+Policy,POL-COMP-006,GOVERNS,System,Data Warehouse,INC-2025-026,INC-2025-026::002,conflict,"As per company policies, particularly POL-COMP-006: Change Management Policy, all changes to upstream systems must be documented and communicated effectively to prevent similar disruptions."
+System,Ledger DB,DEPENDS_ON,System,Payment Gateway,INC-2025-031,INC-2025-031::000,conflict,the root cause of the issue was traced to a configuration change that reduced the Ledger DB connection pool.
+Incident,INC-2025-031,RESOLVED_BY,Person,Patricia Miller,INC-2025-031,INC-2025-031::001,backbone,Configuration change is rolled back by Patricia Miller (Site Reliability Engineer).
+System,Ledger DB,HAS_COMPONENT,Component,connection pool,INC-2025-031,INC-2025-031::002,new,a recent configuration change implemented on the Ledger DB reduced the connection pool from 200 to 50 connections
+Incident,INC-2025-031,RESOLVED_BY,Person,Patricia Miller,INC-2025-031,INC-2025-031::002,backbone,"The on-call engineer, Patricia Miller, was reached on their personal phone after the pager escalation failed."
+System,Notification Service,DEPENDS_ON,System,Kafka Cluster,INC-2025-036,INC-2025-036::000,backbone,The Notification Service relies on the Kafka Cluster for message processing.
+Incident,INC-2025-036,AFFECTS,System,Notification Service,INC-2025-036,INC-2025-036::000,backbone,"This incident led to the accumulation of approximately 1.2 million email and SMS notifications, causing a delivery delay of up to 3 hours."
+Incident,INC-2025-036,RESOLVED_BY,Person,Jeremy Roberts,INC-2025-036,INC-2025-036::001,backbone,Incident Manager Jeremy Roberts assumes oversight of resolution efforts.
+System,Kafka Cluster,DEPENDS_ON,System,Notification Service,INC-2025-036,INC-2025-036::002,conflict,"the Kafka Cluster, utilized for processing these notifications"
+Incident,INC-2025-040,AFFECTS,System,Payment Gateway,INC-2025-040,INC-2025-040::000,backbone,This incident impacted the Payment Gateway.
+Incident,INC-2025-040,RESOLVED_BY,Person,Jill Rhodes,INC-2025-040,INC-2025-040::001,backbone,Incident resolved by Jill Rhodes (Software Engineer).
+Incident,INC-2025-040,AFFECTS,System,Fraud Detection Engine,INC-2025-040,INC-2025-040::002,backbone,"The spike in false positives led to a significant operational impact, as legitimate transactions were declined, affecting customer experience and potentially jeopardizing revenue."
+Incident,INC-2025-040,AFFECTS,System,Fraud Detection Engine,INC-2025-040,INC-2025-040::003,backbone,Conduct a post-incident review meeting to discuss the false-positive surge and gather insights for improving future model deployments.
+Incident,INC-2025-044,AFFECTS,System,Audit Log Store,INC-2025-044,INC-2025-044::000,backbone,the Auth Service audit events not being ingested into the Audit Log Store
+Incident,INC-2025-044,AFFECTS,System,Auth Service,INC-2025-044,INC-2025-044::000,backbone,the Auth Service audit events not being ingested into the Audit Log Store
+Incident,INC-2025-044,AFFECTS,System,Kafka Cluster,INC-2025-044,INC-2025-044::000,backbone,the missing events were successfully replayed from the Kafka Cluster
+Policy,POL-COMP-004,GOVERNS,System,Auth Service,INC-2025-044,INC-2025-044::000,backbone,ensuring that all access controls are monitored and updated in accordance with the policies outlined in POL-COMP-004: Access Control Policy
+System,Auth Service,DEPENDS_ON,System,Kafka Cluster,INC-2025-044,INC-2025-044::001,backbone,the Kafka ACL for the Auth Service had expired.
+System,Kafka Cluster,DEPENDS_ON,System,Audit Log Store,INC-2025-044,INC-2025-044::001,conflict,the missing audit events were replayed from the Kafka Cluster to the Audit Log Store.
+Incident,INC-2025-044,RESOLVED_BY,Person,Robin Ellis,INC-2025-044,INC-2025-044::001,backbone,Incident Commander Robin Ellis confirmed that the ingestion gap was resolved.
+Incident,INC-2025-044,AFFECTS,System,Audit Log Store,INC-2025-044,INC-2025-044::002,backbone,the successful ingestion of audit events into the Audit Log Store.
+Policy,POL-COMP-004,GOVERNS,System,Auth Service,INC-2025-044,INC-2025-044::002,backbone,The importance of proactive management of access controls is emphasized in POL-COMP-004: Access Control Policy.
+Policy,POL-COMP-006,GOVERNS,System,Auth Service,INC-2025-044,INC-2025-044::002,conflict,adherence to the guidelines set forth in POL-COMP-006: Change Management Policy.
+System,Payment Gateway,HAS_COMPONENT,Component,Checkout API,MAN-ENG-001,MAN-ENG-001::001,new,The Payment Gateway consists of the following key components: - **Checkout API**: Handles incoming payment requests from customers.
+System,Payment Gateway,HAS_COMPONENT,Component,Tokenization Service,MAN-ENG-001,MAN-ENG-001::001,new,The Payment Gateway consists of the following key components: - **Tokenization Service**: Secures sensitive payment information by converting it into a token.
+System,Payment Gateway,HAS_COMPONENT,Component,Payment Router,MAN-ENG-001,MAN-ENG-001::001,new,The Payment Gateway consists of the following key components: - **Payment Router**: Directs payment requests to the appropriate processing entities.
+System,Payment Gateway,HAS_COMPONENT,Component,Settlement Batch Job,MAN-ENG-001,MAN-ENG-001::001,new,The Payment Gateway consists of the following key components: - **Settlement Batch Job**: Executes daily settlement processes for completed transactions.
+System,Payment Gateway,DEPENDS_ON,System,Ledger DB,MAN-ENG-001,MAN-ENG-001::002,backbone,The Payment Gateway relies on the following systems: - **Ledger DB**: Stores transaction records.
+System,Payment Gateway,DEPENDS_ON,System,Auth Service,MAN-ENG-001,MAN-ENG-001::002,backbone,The Payment Gateway relies on the following systems: - **Auth Service**: Manages authentication and authorization.
+System,Payment Gateway,DEPENDS_ON,System,Fraud Detection Engine,MAN-ENG-001,MAN-ENG-001::002,backbone,The Payment Gateway relies on the following systems: - **Fraud Detection Engine**: Analyzes transactions for potential fraud.
+System,Payment Gateway,DEPENDS_ON,System,Kafka Cluster,MAN-ENG-001,MAN-ENG-001::002,backbone,The Payment Gateway relies on the following systems: - **Kafka Cluster**: Facilitates messaging between components.
+System,Payment Gateway,DEPENDS_ON,System,API Gateway,MAN-ENG-001,MAN-ENG-001::002,backbone,The Payment Gateway relies on the following systems: - **API Gateway**: Governs access to the Payment Gateway APIs.
+System,Payment Gateway,DEPENDS_ON,System,Secrets Vault,MAN-ENG-001,MAN-ENG-001::002,backbone,The Payment Gateway relies on the following systems: - **Secrets Vault**: Manages sensitive credentials and tokens.
+System,Payment Gateway,DEPENDS_ON,System,Notification Service,MAN-ENG-001,MAN-ENG-001::002,backbone,The Payment Gateway relies on the following systems: - **Notification Service**: Sends transaction notifications to customers.
+System,Payment Gateway,DEPENDS_ON,System,Ledger DB,MAN-ENG-001,MAN-ENG-001::004,backbone,PGW-503: Indicates an upstream Ledger DB timeout.
+System,Auth Service,HAS_COMPONENT,Component,Token Issuer,MAN-ENG-002,MAN-ENG-002::001,new,The primary components of the Auth Service include: - **Token Issuer**: Responsible for creating and signing access and refresh tokens used for user authentication.
+System,Auth Service,HAS_COMPONENT,Component,Session Store (Redis),MAN-ENG-002,MAN-ENG-002::001,new,The primary components of the Auth Service include: - **Session Store (Redis)**: Used to manage user sessions and store state information.
+System,Auth Service,HAS_COMPONENT,Component,MFA Verifier,MAN-ENG-002,MAN-ENG-002::001,new,The primary components of the Auth Service include: - **MFA Verifier**: Facilitates multi-factor authentication to enhance security during the login process.
+System,Auth Service,HAS_COMPONENT,Component,OIDC Provider,MAN-ENG-002,MAN-ENG-002::001,new,The primary components of the Auth Service include: - **OIDC Provider**: Implements OpenID Connect to support authentication and information exchange protocols.
+System,Secrets Vault,HAS_COMPONENT,Component,Token signing keys,MAN-ENG-002,MAN-ENG-002::003,new,Token signing keys are sourced from the Secrets Vault
+System,Kafka Cluster,DEPENDS_ON,System,Audit Log Store,MAN-ENG-002,MAN-ENG-002::004,conflict,Authentication audit events are published to the Kafka Cluster and stored in the Audit Log Store.
+System,Auth Service,DEPENDS_ON,System,Kafka Cluster,MAN-ENG-002,MAN-ENG-002::005,backbone,The Auth Service relies on several external and internal systems: - **Kafka Cluster**: For event publishing and messaging.
+System,Auth Service,DEPENDS_ON,System,Secrets Vault,MAN-ENG-002,MAN-ENG-002::005,backbone,The Auth Service relies on several external and internal systems: - **Secrets Vault**: For secure storage and management of sensitive keys.
+Policy,POL-COMP-004,GOVERNS,System,Auth Service,MAN-ENG-002,MAN-ENG-002::005,backbone,adherence to the policies outlined in the following documents: - POL-COMP-004: Access Control Policy
+Policy,POL-COMP-005,GOVERNS,System,Auth Service,MAN-ENG-002,MAN-ENG-002::005,conflict,adherence to the policies outlined in the following documents: - POL-COMP-005: Encryption and Key Management Policy
+Policy,POL-COMP-003,GOVERNS,System,Auth Service,MAN-ENG-002,MAN-ENG-002::005,backbone,adherence to the policies outlined in the following documents: - POL-COMP-003: Incident Response Policy
+Policy,POL-COMP-007,GOVERNS,System,Auth Service,MAN-ENG-002,MAN-ENG-002::005,backbone,adherence to the policies outlined in the following documents: - POL-COMP-007: Business Continuity and Disaster Recovery Policy
+System,Auth Service,HAS_COMPONENT,Component,deploy-auth-service.sh,MAN-ENG-002,MAN-ENG-002::006,new,"Executing deployment commands:
+   ```bash
+   ./deploy-auth-service.sh
+   ```"
+Incident,INC-2025-003,AFFECTS,System,Auth Service,MAN-ENG-002,MAN-ENG-002::008,backbone,Auth token validation failures
+Incident,INC-2025-008,AFFECTS,System,Auth Service,MAN-ENG-002,MAN-ENG-002::008,conflict,Kafka consumer lag delays fraud scoring
+Incident,INC-2025-022,AFFECTS,System,Auth Service,MAN-ENG-002,MAN-ENG-002::008,conflict,Expired TLS certificate on API Gateway
+Incident,INC-2025-040,AFFECTS,System,Auth Service,MAN-ENG-002,MAN-ENG-002::008,conflict,Fraud model false-positive surge
+System,Kafka Cluster,HAS_COMPONENT,Component,Brokers,MAN-ENG-003,MAN-ENG-003::001,new,The Kafka Cluster consists of the following key components: - **6 Brokers**: These are responsible for storing and serving messages.
+System,Kafka Cluster,HAS_COMPONENT,Component,KRaft Controllers,MAN-ENG-003,MAN-ENG-003::001,new,The Kafka Cluster consists of the following key components: - **KRaft Controllers**: Manages the metadata and the cluster state.
+System,Kafka Cluster,HAS_COMPONENT,Component,Schema Registry,MAN-ENG-003,MAN-ENG-003::001,new,The Kafka Cluster consists of the following key components: - **Schema Registry**: Ensures that the data written to topics complies with the defined schemas.
+System,Kafka Cluster,HAS_COMPONENT,Component,MirrorMaker 2,MAN-ENG-003,MAN-ENG-003::001,new,The Kafka Cluster consists of the following key components: - **MirrorMaker 2**: Used for replicating topics across different Kafka clusters.
+System,Monitoring Stack,HAS_COMPONENT,Component,Prometheus,MAN-ENG-004,MAN-ENG-004::000,new,"The primary focus is on the Monitoring Stack, which is composed of Prometheus."
+System,Monitoring Stack,HAS_COMPONENT,Component,Grafana,MAN-ENG-004,MAN-ENG-004::000,new,"The primary focus is on the Monitoring Stack, which is composed of Grafana."
+System,Monitoring Stack,HAS_COMPONENT,Component,Alertmanager,MAN-ENG-004,MAN-ENG-004::000,new,"The primary focus is on the Monitoring Stack, which is composed of Alertmanager."
+System,Monitoring Stack,HAS_COMPONENT,Component,Loki,MAN-ENG-004,MAN-ENG-004::000,new,"The primary focus is on the Monitoring Stack, which is composed of Loki."
+System,Monitoring Stack,HAS_COMPONENT,Component,Prometheus,MAN-ENG-004,MAN-ENG-004::001,new,The Monitoring Stack consists of four main components: - **Prometheus**: A time-series database that collects metrics from configured targets at specified intervals.
+System,Monitoring Stack,HAS_COMPONENT,Component,Grafana,MAN-ENG-004,MAN-ENG-004::001,new,The Monitoring Stack consists of four main components: - **Grafana**: A visualization tool that displays metrics collected by Prometheus in customizable dashboards.
+System,Monitoring Stack,HAS_COMPONENT,Component,Alertmanager,MAN-ENG-004,MAN-ENG-004::001,new,"The Monitoring Stack consists of four main components: - **Alertmanager**: A component responsible for managing alerts sent by Prometheus, routing them based on severity levels."
+System,Monitoring Stack,HAS_COMPONENT,Component,Loki,MAN-ENG-004,MAN-ENG-004::001,new,"The Monitoring Stack consists of four main components: - **Loki**: A log aggregation system designed to work seamlessly with Prometheus, allowing for the querying of logs based on labels."
+Policy,POL-COMP-006,GOVERNS,System,Monitoring Stack,MAN-ENG-004,MAN-ENG-004::004,conflict,It is essential that any changes to service configurations or infrastructure adhere to the guidelines outlined in the POL-COMP-006: Change Management Policy.
+System,Customer Portal,HAS_COMPONENT,Component,Web Frontend,MAN-ENG-005,MAN-ENG-005::001,new,comprising the following key components: - **Web Frontend**: The user interface that interacts with customers.
+System,Customer Portal,HAS_COMPONENT,Component,BFF,MAN-ENG-005,MAN-ENG-005::001,new,"comprising the following key components: - **BFF (Backend-for-Frontend)**: Acts as an intermediary between the Web Frontend and backend services, optimizing data retrieval and presentation."
+System,Customer Portal,HAS_COMPONENT,Component,Session Manager,MAN-ENG-005,MAN-ENG-005::001,new,"comprising the following key components: - **Session Manager**: Handles user sessions, including session creation, validation, and expiration."
+Policy,POL-COMP-006,GOVERNS,System,Customer Portal,MAN-ENG-005,MAN-ENG-005::005,conflict,Ensure that any changes comply with the Change Management Policy (POL-COMP-006) before deployment.
+Incident,INC-2025-017,AFFECTS,System,Customer Portal,MAN-ENG-005,MAN-ENG-005::006,backbone,**INC-2025-017**: Customer Portal outage.
+Incident,INC-2025-031,AFFECTS,System,Customer Portal,MAN-ENG-005,MAN-ENG-005::006,conflict,**INC-2025-031**: Payment latency spike.
+Incident,INC-2025-036,AFFECTS,System,Customer Portal,MAN-ENG-005,MAN-ENG-005::006,conflict,**INC-2025-036**: Notification delivery backlog.
+System,API Gateway,DEPENDS_ON,System,Auth Service,MAN-ENG-005,MAN-ENG-005::007,backbone,"Verify the status of dependencies (Auth Service, API Gateway, etc.)"
+Policy,POL-COMP-004,GOVERNS,System,API Gateway,MAN-ENG-005,MAN-ENG-005::007,backbone,align with the Access Control Policy (POL-COMP-004)
+System,API Gateway,HAS_COMPONENT,Component,Route Config,MAN-ENG-006,MAN-ENG-006::001,new,The API Gateway comprises several key components that work together to manage incoming API traffic effectively.
+System,API Gateway,HAS_COMPONENT,Component,Rate Limiter,MAN-ENG-006,MAN-ENG-006::001,new,These components include: - Rate Limiter: Controls the frequency of requests from clients to prevent abuse and ensure fair resource distribution.
+System,API Gateway,HAS_COMPONENT,Component,WAF,MAN-ENG-006,MAN-ENG-006::001,new,These components include: - WAF (Web Application Firewall): Provides protection against common web vulnerabilities by filtering and monitoring HTTP traffic between the API Gateway and clients.
+System,API Gateway,HAS_COMPONENT,Component,TLS Terminator,MAN-ENG-006,MAN-ENG-006::001,new,"These components include: - TLS Terminator: Handles SSL/TLS termination, ensuring secure communication between clients and the API Gateway."
+Incident,INC-2025-022,AFFECTS,System,API Gateway,MAN-ENG-006,MAN-ENG-006::006,backbone,Expired TLS certificate on API Gateway – immediate action is required to renew the certificate.
+Incident,INC-2025-012,AFFECTS,System,Ledger DB,MAN-ENG-006,MAN-ENG-006::006,backbone,Ledger DB primary failure – assess the database and initiate failover procedures as necessary.
+Policy,POL-COMP-007,GOVERNS,System,API Gateway,MAN-ENG-006,MAN-ENG-006::007,conflict,recovery steps should align with the guidelines in **POL-COMP-007: Business Continuity and Disaster Recovery Policy**.
+Policy,POL-COMP-003,GOVERNS,System,API Gateway,MAN-ENG-006,MAN-ENG-006::007,backbone,Following the incident response procedures as outlined in **POL-COMP-003: Incident Response Policy** to ensure timely and effective resolution.
+Policy,POL-COMP-001,GOVERNS,System,API Gateway,MAN-ENG-006,MAN-ENG-006::008,conflict,Understand the retention requirements for logs and data processed by the API Gateway.
+Policy,POL-COMP-004,GOVERNS,System,API Gateway,MAN-ENG-006,MAN-ENG-006::008,backbone,Ensure that access to the API Gateway is compliant with internal access control measures.
+Policy,POL-COMP-001,GOVERNS,System,Ledger DB,POL-COMP-001,POL-COMP-001::000,backbone,"This policy applies to all data generated, processed, or stored in the following systems: - Ledger DB"
+Policy,POL-COMP-001,GOVERNS,System,Data Warehouse,POL-COMP-001,POL-COMP-001::000,backbone,"This policy applies to all data generated, processed, or stored in the following systems: - Data Warehouse"
+Policy,POL-COMP-001,GOVERNS,System,Audit Log Store,POL-COMP-001,POL-COMP-001::000,backbone,"This policy applies to all data generated, processed, or stored in the following systems: - Audit Log Store"
+Policy,POL-COMP-001,GOVERNS,System,Kafka Cluster,POL-COMP-001,POL-COMP-001::000,backbone,"This policy applies to all data generated, processed, or stored in the following systems: - Kafka Cluster"
+Policy,POL-COMP-001,GOVERNS,System,Support Desk,POL-COMP-001,POL-COMP-001::000,backbone,"This policy applies to all data generated, processed, or stored in the following systems: - Support Desk"
+Policy,POL-COMP-002,GOVERNS,System,Customer Portal,POL-COMP-002,POL-COMP-002::000,backbone,"the acceptable use of Acme Corp’s technology resources, specifically regarding the Customer Portal and Support Desk systems."
+Policy,POL-COMP-002,GOVERNS,System,Support Desk,POL-COMP-002,POL-COMP-002::000,backbone,"the acceptable use of Acme Corp’s technology resources, specifically regarding the Customer Portal and Support Desk systems."
+Policy,POL-COMP-002,GOVERNS,System,Customer Portal,POL-COMP-002,POL-COMP-002::001,backbone,"Users must ensure that access to the Customer Portal and Support Desk systems is limited to authorized personnel only, in accordance with POL-COMP-004: Access Control Policy."
+Policy,POL-COMP-002,GOVERNS,System,Support Desk,POL-COMP-002,POL-COMP-002::001,backbone,"Users must ensure that access to the Customer Portal and Support Desk systems is limited to authorized personnel only, in accordance with POL-COMP-004: Access Control Policy."
+Policy,POL-COMP-003,GOVERNS,System,Payment Gateway,POL-COMP-003,POL-COMP-003::000,backbone,"this Incident Response Policy (POL-COMP-003, version 4.1) is to establish a clear framework for detecting, responding to, and recovering from incidents that may affect the operational integrity, avail"
+Policy,POL-COMP-003,GOVERNS,System,Auth Service,POL-COMP-003,POL-COMP-003::000,backbone,"this Incident Response Policy (POL-COMP-003, version 4.1) is to establish a clear framework for detecting, responding to, and recovering from incidents that may affect the operational integrity, avail"
+Policy,POL-COMP-003,GOVERNS,System,Ledger DB,POL-COMP-003,POL-COMP-003::000,backbone,"this Incident Response Policy (POL-COMP-003, version 4.1) is to establish a clear framework for detecting, responding to, and recovering from incidents that may affect the operational integrity, avail"
+Policy,POL-COMP-003,GOVERNS,System,API Gateway,POL-COMP-003,POL-COMP-003::000,backbone,"this Incident Response Policy (POL-COMP-003, version 4.1) is to establish a clear framework for detecting, responding to, and recovering from incidents that may affect the operational integrity, avail"
+Policy,POL-COMP-003,GOVERNS,System,Monitoring Stack,POL-COMP-003,POL-COMP-003::000,backbone,"this Incident Response Policy (POL-COMP-003, version 4.1) is to establish a clear framework for detecting, responding to, and recovering from incidents that may affect the operational integrity, avail"
+Policy,POL-COMP-004,GOVERNS,System,Auth Service,POL-COMP-004,POL-COMP-004::000,backbone,"""...requirements for managing access to Acme Corp’s systems, specifically the Auth Service..."""
+Policy,POL-COMP-004,GOVERNS,System,Secrets Vault,POL-COMP-004,POL-COMP-004::000,backbone,"""...requirements for managing access to Acme Corp’s systems, specifically the Secrets Vault..."""
+Policy,POL-COMP-004,GOVERNS,System,Customer Portal,POL-COMP-004,POL-COMP-004::000,backbone,"""...requirements for managing access to Acme Corp’s systems, specifically the Customer Portal..."""
+Policy,POL-COMP-004,GOVERNS,System,API Gateway,POL-COMP-004,POL-COMP-004::000,backbone,"""...requirements for managing access to Acme Corp’s systems, specifically the API Gateway..."""
+Policy,POL-COMP-005,GOVERNS,System,Secrets Vault,POL-COMP-005,POL-COMP-005::000,backbone,"""...the company's systems, particularly the Secrets Vault, Ledger DB, and Payment Gateway."""
+Policy,POL-COMP-005,GOVERNS,System,Ledger DB,POL-COMP-005,POL-COMP-005::000,backbone,"""...the company's systems, particularly the Secrets Vault, Ledger DB, and Payment Gateway."""
+Policy,POL-COMP-005,GOVERNS,System,Payment Gateway,POL-COMP-005,POL-COMP-005::000,backbone,"""...the company's systems, particularly the Secrets Vault, Ledger DB, and Payment Gateway."""
+Policy,POL-COMP-006,GOVERNS,System,API Gateway,POL-COMP-006,POL-COMP-006::000,backbone,"""...for managing changes to Acme Corp's systems, including the API Gateway..."""
+Policy,POL-COMP-006,GOVERNS,System,Payment Gateway,POL-COMP-006,POL-COMP-006::000,backbone,"""...for managing changes to Acme Corp's systems, including the Payment Gateway..."""
+Policy,POL-COMP-006,GOVERNS,System,Billing Service,POL-COMP-006,POL-COMP-006::000,backbone,"""...for managing changes to Acme Corp's systems, including the Billing Service..."""
+Policy,POL-COMP-006,GOVERNS,System,Kafka Cluster,POL-COMP-006,POL-COMP-006::000,backbone,"""...for managing changes to Acme Corp's systems, including the Kafka Cluster..."""
+Policy,POL-COMP-007,GOVERNS,System,Ledger DB,POL-COMP-007,POL-COMP-007::000,backbone,"This policy applies to all systems critical to Acme Corp's operations, including: - Ledger DB"
+Policy,POL-COMP-007,GOVERNS,System,Kafka Cluster,POL-COMP-007,POL-COMP-007::000,backbone,"This policy applies to all systems critical to Acme Corp's operations, including: - Kafka Cluster"
+Policy,POL-COMP-007,GOVERNS,System,Payment Gateway,POL-COMP-007,POL-COMP-007::000,backbone,"This policy applies to all systems critical to Acme Corp's operations, including: - Payment Gateway"
+Policy,POL-COMP-007,GOVERNS,System,Auth Service,POL-COMP-007,POL-COMP-007::000,backbone,"This policy applies to all systems critical to Acme Corp's operations, including: - Auth Service"
+Policy,POL-COMP-007,GOVERNS,System,Ledger DB,POL-COMP-007,POL-COMP-007::001,backbone,the Ledger DB recovery procedures outlined in SOP-OPS-014: Database Failover must be followed to restore services
+Policy,POL-COMP-007,GOVERNS,System,Kafka Cluster,POL-COMP-007,POL-COMP-007::001,backbone,"For incidents involving the Kafka Cluster, such as Kafka consumer lag delays fraud scoring (INC-2025-008), the necessary steps from the Kafka Operations Guide (MAN-ENG-003) should be implemented"
+Policy,POL-COMP-007,GOVERNS,System,Payment Gateway,POL-COMP-007,POL-COMP-007::001,backbone,"The procedures for recovery of the Payment Gateway, including handling payment latency spikes (INC-2025-031), will be based on the guidelines provided in the Payment Gateway Runbook (MAN-ENG-001)"
+Policy,POL-COMP-007,GOVERNS,System,Auth Service,POL-COMP-007,POL-COMP-007::001,backbone,"In case of incidents affecting the Auth Service, such as auth token validation failures (INC-2025-003), recovery actions must adhere to the architecture protocols set forth in the Auth Service Archite"
+Policy,POL-COMP-008,GOVERNS,System,Payment Gateway,POL-COMP-008,POL-COMP-008::000,backbone,"The systems involved in this policy include the Payment Gateway, Billing Service, Fraud Detection Engine, and Ledger DB."
+Policy,POL-COMP-008,GOVERNS,System,Billing Service,POL-COMP-008,POL-COMP-008::000,backbone,"The systems involved in this policy include the Payment Gateway, Billing Service, Fraud Detection Engine, and Ledger DB."
+Policy,POL-COMP-008,GOVERNS,System,Fraud Detection Engine,POL-COMP-008,POL-COMP-008::000,backbone,"The systems involved in this policy include the Payment Gateway, Billing Service, Fraud Detection Engine, and Ledger DB."
+Policy,POL-COMP-008,GOVERNS,System,Ledger DB,POL-COMP-008,POL-COMP-008::000,backbone,"The systems involved in this policy include the Payment Gateway, Billing Service, Fraud Detection Engine, and Ledger DB."
+System,Payment Gateway,DEPENDS_ON,System,Billing Service,POL-COMP-008,POL-COMP-008::000,conflict,Card numbers are tokenized by the Payment Gateway before any other system sees them.
+System,Payment Gateway,DEPENDS_ON,System,Fraud Detection Engine,POL-COMP-008,POL-COMP-008::000,backbone,"The cardholder data environment includes the Payment Gateway, Billing Service, and Fraud Detection Engine."
+System,Billing Service,DEPENDS_ON,System,Fraud Detection Engine,POL-COMP-008,POL-COMP-008::000,conflict,"The cardholder data environment includes the Payment Gateway, Billing Service, and Fraud Detection Engine."
+System,Kafka Cluster,HAS_COMPONENT,Component,Brokers,SOP-OPS-007,SOP-OPS-007::002,new,"""all brokers are functioning normally"""
+System,Kafka Cluster,HAS_COMPONENT,Component,Brokers,SOP-OPS-007,SOP-OPS-007::004,new,"""decommission the broker from the Kafka Cluster."""
+Policy,POL-COMP-006,GOVERNS,System,API Gateway,SOP-OPS-011,SOP-OPS-011::002,backbone,as defined in POL-COMP-006: Change Management Policy.
+Incident,INC-2025-026,AFFECTS,System,Data Warehouse,SOP-OPS-011,SOP-OPS-011::006,backbone,including but not limited to INC-2025-026: Data Warehouse nightly load delay.
+System,Ledger DB,HAS_COMPONENT,Component,primary instance,SOP-OPS-014,SOP-OPS-014::002,new,The system continuously monitors the health of the Ledger DB primary instance.
+System,Ledger DB,HAS_COMPONENT,Component,replica instance,SOP-OPS-014,SOP-OPS-014::002,new,The system promotes the replica instance to primary status without manual intervention.
+System,Payment Gateway,DEPENDS_ON,System,Ledger DB,SOP-OPS-014,SOP-OPS-014::002,backbone,The Payment Gateway and Billing Service will automatically redirect to the new primary.
+System,Billing Service,DEPENDS_ON,System,Ledger DB,SOP-OPS-014,SOP-OPS-014::002,backbone,The Payment Gateway and Billing Service will automatically redirect to the new primary.
+System,Payment Gateway,DEPENDS_ON,System,Billing Service,SOP-OPS-014,SOP-OPS-014::003,conflict,"""Put the Payment Gateway and Billing Service into maintenance mode to freeze writes."""
+System,API Gateway,HAS_COMPONENT,Component,Certificate Chain,SOP-OPS-018,SOP-OPS-018::004,new,"""verify the new certificate chain from outside the network"""
+Incident,INC-2025-022,AFFECTS,System,API Gateway,SOP-OPS-018,SOP-OPS-018::007,backbone,the one documented in INC-2025-022: Expired TLS certificate on API Gateway
+Policy,POL-COMP-003,GOVERNS,System,API Gateway,SOP-OPS-018,SOP-OPS-018::007,backbone,defined in the POL-COMP-003: Incident Response Policy
+System,Fraud Detection Engine,DEPENDS_ON,System,Billing Service,SOP-SUP-008,SOP-SUP-008::001,conflict,It encompasses interactions with the Fraud Detection Engine and the Billing Service.

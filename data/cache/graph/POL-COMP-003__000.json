@@ -1,0 +1,80 @@
+{
+ "chunk_id": "POL-COMP-003::000",
+ "prompt_sha256": "6f116d42babec4618074dc6acdedd571d49641267788ea4f95d4fde603f86e49",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Auth Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Monitoring Stack",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Payment Gateway",
+    "dst_label": "System",
+    "evidence": "this Incident Response Policy (POL-COMP-003, version 4.1) is to establish a clear framework for detecting, responding to, and recovering from incidents that may affect the operational integrity, availability, and security of Acme Corp\u2019s systems, specifically the Payment Gateway"
+   },
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "this Incident Response Policy (POL-COMP-003, version 4.1) is to establish a clear framework for detecting, responding to, and recovering from incidents that may affect the operational integrity, availability, and security of Acme Corp\u2019s systems, specifically the Auth Service"
+   },
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "this Incident Response Policy (POL-COMP-003, version 4.1) is to establish a clear framework for detecting, responding to, and recovering from incidents that may affect the operational integrity, availability, and security of Acme Corp\u2019s systems, specifically the Ledger DB"
+   },
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "this Incident Response Policy (POL-COMP-003, version 4.1) is to establish a clear framework for detecting, responding to, and recovering from incidents that may affect the operational integrity, availability, and security of Acme Corp\u2019s systems, specifically the API Gateway"
+   },
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Monitoring Stack",
+    "dst_label": "System",
+    "evidence": "this Incident Response Policy (POL-COMP-003, version 4.1) is to establish a clear framework for detecting, responding to, and recovering from incidents that may affect the operational integrity, availability, and security of Acme Corp\u2019s systems, specifically the Monitoring Stack"
+   }
+  ]
+ }
+}

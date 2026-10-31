@@ -1,0 +1,41 @@
+{
+ "chunk_id": "MAN-ENG-006::007",
+ "prompt_sha256": "07b57d3fd920f10db9bed6f616ec8b1f513b136dfb59844a2fd50eea3f93d999",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-007",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-007",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "recovery steps should align with the guidelines in **POL-COMP-007: Business Continuity and Disaster Recovery Policy**."
+   },
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "Following the incident response procedures as outlined in **POL-COMP-003: Incident Response Policy** to ensure timely and effective resolution."
+   }
+  ]
+ }
+}

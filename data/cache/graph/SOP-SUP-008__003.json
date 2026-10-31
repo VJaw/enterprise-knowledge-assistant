@@ -1,0 +1,23 @@
+{
+ "chunk_id": "SOP-SUP-008::003",
+ "prompt_sha256": "0e3811ebb59a64d71774522067d06c82a4915f354d5a79da035d206cd9101123",
+ "result": {
+  "entities": [
+   {
+    "name": "Fraud Detection Engine",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Fraud Detection Engine",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Fraud Detection Engine risk score",
+    "dst_label": "Component",
+    "evidence": "Retrieve the transaction's Fraud Detection Engine risk score associated with the chargeback."
+   }
+  ]
+ }
+}

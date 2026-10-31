@@ -1,0 +1,14 @@
+{
+ "chunk_id": "SOP-OPS-021::002",
+ "prompt_sha256": "b838d16309936c68fb388b1cb01c9f251c95b22150fba997b139b704fba41f94",
+ "result": {
+  "entities": [
+   {
+    "name": "Monitoring Stack",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": []
+ }
+}

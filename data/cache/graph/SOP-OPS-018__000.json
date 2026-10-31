@@ -1,0 +1,23 @@
+{
+ "chunk_id": "SOP-OPS-018::000",
+ "prompt_sha256": "4114c78b54877ea3e882fc0acb39da219ca31ce4a9c83e2c0084641aadb00f04",
+ "result": {
+  "entities": [
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "\"...for the timely renewal of TLS certificates for the API Gateway...\""
+   }
+  ]
+ }
+}

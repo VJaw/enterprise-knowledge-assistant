@@ -1,0 +1,28 @@
+{
+ "chunk_id": "SOP-OPS-021::001",
+ "prompt_sha256": "7a76af6d886013c820bd89e2166544ef82fd9541ffd866e947306a0088add83a",
+ "result": {
+  "entities": [
+   {
+    "name": "Monitoring Stack",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "SOP-OPS-021",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "SOP-OPS-021",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Monitoring Stack",
+    "dst_label": "System",
+    "evidence": "This SOP applies to all incidents that arise within the Monitoring Stack."
+   }
+  ]
+ }
+}

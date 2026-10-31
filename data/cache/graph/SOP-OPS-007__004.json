@@ -1,0 +1,17 @@
+{
+ "chunk_id": "SOP-OPS-007::004",
+ "prompt_sha256": "88d5d586a70bbd1713695ea84712775b9f3842af85039c4908ffcdb3f27529ef",
+ "result": {
+  "entities": [],
+  "relations": [
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "broker",
+    "dst_label": "Component",
+    "evidence": "\"decommission the broker from the Kafka Cluster.\""
+   }
+  ]
+ }
+}

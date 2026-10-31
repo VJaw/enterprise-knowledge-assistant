@@ -1,0 +1,23 @@
+{
+ "chunk_id": "MAN-ENG-001::005",
+ "prompt_sha256": "8a70532ee9de50bcc9a89b92c37614bf195d8dfcf47ffb8dbf62915ab6848c4a",
+ "result": {
+  "entities": [
+   {
+    "name": "Settlement Batch Job",
+    "label": "Component",
+    "type": "job"
+   }
+  ],
+  "relations": [
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Settlement Batch Job",
+    "dst_label": "Component",
+    "evidence": "The Settlement Batch Job runs daily at 02:00 UTC."
+   }
+  ]
+ }
+}

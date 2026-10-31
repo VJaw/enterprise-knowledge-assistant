@@ -1,8 +1,8 @@
 """Ingestion orchestrator (§B5.2): raw -> clean -> metadata -> dedupe -> docs.jsonl, plus CSV -> SQLite,
 then (with `--build-indexes`) chunk -> Qdrant + BM25.
 
-The graph load arrives in Phase 4; `--skip-graph` is accepted now so the Dockerfile command
-(`python -m ingestion.run --build-indexes --skip-graph`) stays stable.
+Unless `--skip-graph`, the Neo4j graph is (re)loaded from the committed CSVs (no LLM calls; idempotent).
+The Docker build passes `--skip-graph` because the graph lives in Aura (§B4.5).
 """
 from __future__ import annotations
 
@@ -68,7 +68,7 @@ def index_documents(docs: list[ProcessedDoc], client=None) -> dict:
 def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser(description="Run the ingestion pipeline.")
     ap.add_argument("--build-indexes", action="store_true", help="chunk + Qdrant + BM25")
-    ap.add_argument("--skip-graph", action="store_true", help="skip the Neo4j load (Phase 4)")
+    ap.add_argument("--skip-graph", action="store_true", help="skip the Neo4j load")
     args = ap.parse_args(argv)
 
     t0 = time.perf_counter()
@@ -87,7 +87,12 @@ def main(argv: list[str] | None = None) -> int:
               f"({', '.join(f'{k}={v}' for k, v in stats['chunks_by_type'].items())}) "
               f"in {time.perf_counter() - t1:.1f}s")
     if not args.skip_graph:
-        print("graph: not loaded yet (Phase 4, `make graph`)")
+        from ingestion.load_graph import load_all
+        try:
+            nodes, rels = load_all()
+            print(f"graph: {nodes} nodes, {rels} relationships in Neo4j")
+        except Exception as e:  # noqa: BLE001 - Aura paused/unreachable must not fail the local ingest
+            print(f"graph: not loaded ({type(e).__name__}); run `make graph` once Aura is reachable")
     print(f"done in {time.perf_counter() - t0:.1f}s")
     return 0
 

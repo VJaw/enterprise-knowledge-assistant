@@ -1,0 +1,67 @@
+{
+ "chunk_id": "MAN-ENG-004::000",
+ "prompt_sha256": "92affc424d98b45c0954ee12c82bcbc7ed572918ef7c654335c03ffce5ac4a83",
+ "result": {
+  "entities": [
+   {
+    "name": "Monitoring Stack",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Prometheus",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "Grafana",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "Alertmanager",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "Loki",
+    "label": "Component",
+    "type": "service"
+   }
+  ],
+  "relations": [
+   {
+    "src": "Monitoring Stack",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Prometheus",
+    "dst_label": "Component",
+    "evidence": "The primary focus is on the Monitoring Stack, which is composed of Prometheus."
+   },
+   {
+    "src": "Monitoring Stack",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Grafana",
+    "dst_label": "Component",
+    "evidence": "The primary focus is on the Monitoring Stack, which is composed of Grafana."
+   },
+   {
+    "src": "Monitoring Stack",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Alertmanager",
+    "dst_label": "Component",
+    "evidence": "The primary focus is on the Monitoring Stack, which is composed of Alertmanager."
+   },
+   {
+    "src": "Monitoring Stack",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Loki",
+    "dst_label": "Component",
+    "evidence": "The primary focus is on the Monitoring Stack, which is composed of Loki."
+   }
+  ]
+ }
+}

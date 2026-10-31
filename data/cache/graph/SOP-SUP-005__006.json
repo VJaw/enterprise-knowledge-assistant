@@ -1,0 +1,23 @@
+{
+ "chunk_id": "SOP-SUP-005::006",
+ "prompt_sha256": "9a1229c354b8005357eb8af2b203d9efe4d35d627d4fb73227c5238501475799",
+ "result": {
+  "entities": [
+   {
+    "name": "INC-2025-031",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-031",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Customer Portal",
+    "dst_label": "System",
+    "evidence": "any relevant incident numbers (e.g., INC-2025-031: Payment latency spike) that may assist in diagnosing the issue."
+   }
+  ]
+ }
+}

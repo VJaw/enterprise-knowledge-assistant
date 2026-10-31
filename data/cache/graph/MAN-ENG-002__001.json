@@ -1,0 +1,67 @@
+{
+ "chunk_id": "MAN-ENG-002::001",
+ "prompt_sha256": "a7fb22f6da7f728c1a77796242e034032908dde41b882893d97f0f7ad173351e",
+ "result": {
+  "entities": [
+   {
+    "name": "Auth Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Token Issuer",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "Session Store (Redis)",
+    "label": "Component",
+    "type": "other"
+   },
+   {
+    "name": "MFA Verifier",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "OIDC Provider",
+    "label": "Component",
+    "type": "service"
+   }
+  ],
+  "relations": [
+   {
+    "src": "Auth Service",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Token Issuer",
+    "dst_label": "Component",
+    "evidence": "The primary components of the Auth Service include: - **Token Issuer**: Responsible for creating and signing access and refresh tokens used for user authentication."
+   },
+   {
+    "src": "Auth Service",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Session Store (Redis)",
+    "dst_label": "Component",
+    "evidence": "The primary components of the Auth Service include: - **Session Store (Redis)**: Used to manage user sessions and store state information."
+   },
+   {
+    "src": "Auth Service",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "MFA Verifier",
+    "dst_label": "Component",
+    "evidence": "The primary components of the Auth Service include: - **MFA Verifier**: Facilitates multi-factor authentication to enhance security during the login process."
+   },
+   {
+    "src": "Auth Service",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "OIDC Provider",
+    "dst_label": "Component",
+    "evidence": "The primary components of the Auth Service include: - **OIDC Provider**: Implements OpenID Connect to support authentication and information exchange protocols."
+   }
+  ]
+ }
+}

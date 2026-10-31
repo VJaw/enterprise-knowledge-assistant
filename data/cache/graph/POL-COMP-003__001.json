@@ -1,0 +1,23 @@
+{
+ "chunk_id": "POL-COMP-003::001",
+ "prompt_sha256": "428ab748a004f10f93549e37166d96c1aef4c5ccab06ef88252c51cf297fc523",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "System",
+    "dst_label": "System",
+    "evidence": "In the event of a confirmed personal data breach, regulators will be notified within 72 hours as required by applicable laws and regulations."
+   }
+  ]
+ }
+}

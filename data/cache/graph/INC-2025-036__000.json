@@ -1,0 +1,41 @@
+{
+ "chunk_id": "INC-2025-036::000",
+ "prompt_sha256": "575d34c0d32082d046c122df40dbf917568d9ffcda306f80ba20a904b0532725",
+ "result": {
+  "entities": [
+   {
+    "name": "Notification Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-036",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Notification Service",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Kafka Cluster",
+    "dst_label": "System",
+    "evidence": "The Notification Service relies on the Kafka Cluster for message processing."
+   },
+   {
+    "src": "INC-2025-036",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Notification Service",
+    "dst_label": "System",
+    "evidence": "This incident led to the accumulation of approximately 1.2 million email and SMS notifications, causing a delivery delay of up to 3 hours."
+   }
+  ]
+ }
+}

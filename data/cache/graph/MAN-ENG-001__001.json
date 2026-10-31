@@ -1,0 +1,67 @@
+{
+ "chunk_id": "MAN-ENG-001::001",
+ "prompt_sha256": "ff9f2e163e20e4e7d8f38ba1f4bfce110211f8f6396e86414423505c6a6dc317",
+ "result": {
+  "entities": [
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Checkout API",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "Tokenization Service",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "Payment Router",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "Settlement Batch Job",
+    "label": "Component",
+    "type": "job"
+   }
+  ],
+  "relations": [
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Checkout API",
+    "dst_label": "Component",
+    "evidence": "The Payment Gateway consists of the following key components: - **Checkout API**: Handles incoming payment requests from customers."
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Tokenization Service",
+    "dst_label": "Component",
+    "evidence": "The Payment Gateway consists of the following key components: - **Tokenization Service**: Secures sensitive payment information by converting it into a token."
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Payment Router",
+    "dst_label": "Component",
+    "evidence": "The Payment Gateway consists of the following key components: - **Payment Router**: Directs payment requests to the appropriate processing entities."
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Settlement Batch Job",
+    "dst_label": "Component",
+    "evidence": "The Payment Gateway consists of the following key components: - **Settlement Batch Job**: Executes daily settlement processes for completed transactions."
+   }
+  ]
+ }
+}

@@ -1,0 +1,14 @@
+{
+ "chunk_id": "MAN-ENG-001::000",
+ "prompt_sha256": "d8df2dd8c498f88851c5f61ec13851da7effb69438cb4a53114dce73a095d50b",
+ "result": {
+  "entities": [
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": []
+ }
+}

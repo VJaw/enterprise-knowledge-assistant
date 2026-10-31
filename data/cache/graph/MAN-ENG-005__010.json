@@ -1,0 +1,34 @@
+{
+ "chunk_id": "MAN-ENG-005::010",
+ "prompt_sha256": "972522666bca5d12914e609629118052dba5a8ee1e757afdc4e553ba25efdf4e",
+ "result": {
+  "entities": [
+   {
+    "name": "Customer Portal",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-006",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-004",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "MAN-ENG-002",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": []
+ }
+}

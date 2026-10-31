@@ -1,0 +1,41 @@
+{
+ "chunk_id": "INC-2025-036::002",
+ "prompt_sha256": "f4e95578310faf4b630323a3fc135423161dab20081b1affa82f1fcb22a28315",
+ "result": {
+  "entities": [
+   {
+    "name": "Notification Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-036",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Notification Service",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Kafka Cluster",
+    "dst_label": "System",
+    "evidence": "the Kafka Cluster, utilized for processing these notifications"
+   },
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Notification Service",
+    "dst_label": "System",
+    "evidence": "the Kafka Cluster, utilized for processing these notifications"
+   }
+  ]
+ }
+}

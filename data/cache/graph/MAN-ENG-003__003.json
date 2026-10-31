@@ -1,0 +1,67 @@
+{
+ "chunk_id": "MAN-ENG-003::003",
+ "prompt_sha256": "44cb3f47988856cba23597338446e91ebbd9a0e547a9b875eb90902064effecc",
+ "result": {
+  "entities": [
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Zookeeper",
+    "label": "Component",
+    "type": "other"
+   },
+   {
+    "name": "Monitoring Tools",
+    "label": "Component",
+    "type": "other"
+   },
+   {
+    "name": "Data Producers and Consumers",
+    "label": "Component",
+    "type": "other"
+   },
+   {
+    "name": "Network Infrastructure",
+    "label": "Component",
+    "type": "other"
+   }
+  ],
+  "relations": [
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Zookeeper",
+    "dst_label": "Component",
+    "evidence": "The Kafka Cluster relies on several internal and external systems for its operations: Zookeeper."
+   },
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Monitoring Tools",
+    "dst_label": "Component",
+    "evidence": "The Kafka Cluster relies on several internal and external systems for its operations: Monitoring Tools."
+   },
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Data Producers and Consumers",
+    "dst_label": "Component",
+    "evidence": "The Kafka Cluster relies on several internal and external systems for its operations: Data Producers and Consumers."
+   },
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Network Infrastructure",
+    "dst_label": "Component",
+    "evidence": "The Kafka Cluster relies on several internal and external systems for its operations: Network Infrastructure."
+   }
+  ]
+ }
+}

@@ -1,0 +1,41 @@
+{
+ "chunk_id": "INC-2025-026::000",
+ "prompt_sha256": "38989b99fff6c8c8021f9eaa90f4689576e11296d16d53683573548480707483",
+ "result": {
+  "entities": [
+   {
+    "name": "Data Warehouse",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Reporting Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-026",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-026",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Reporting Service",
+    "dst_label": "System",
+    "evidence": "...which subsequently affected the Reporting Service."
+   },
+   {
+    "src": "Data Warehouse",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Kafka topic",
+    "dst_label": "Component",
+    "evidence": "...due to a schema change in an upstream Kafka topic that was not communicated in advance."
+   }
+  ]
+ }
+}

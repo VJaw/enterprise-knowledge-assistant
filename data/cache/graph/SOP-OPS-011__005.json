@@ -1,0 +1,23 @@
+{
+ "chunk_id": "SOP-OPS-011::005",
+ "prompt_sha256": "3e9a2e08a1aed27c2e779aa64ee949894884d39e7b042a3c19042182f97f3cc0",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "INC-2025-003",
+    "dst_label": "Incident",
+    "evidence": "the procedures outlined in POL-COMP-003: Incident Response Policy to manage the incident effectively."
+   }
+  ]
+ }
+}

@@ -1,0 +1,41 @@
+{
+ "chunk_id": "INC-2025-017::001",
+ "prompt_sha256": "23eb5c2f712549bae0bae6ac609644690ccf12b647635bdf2528fac4957214dc",
+ "result": {
+  "entities": [
+   {
+    "name": "Customer Portal",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Michelle Ray",
+    "label": "Person",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-017",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Customer Portal",
+    "dst_label": "System",
+    "evidence": "Reports of Customer Portal unavailability begin to surface."
+   },
+   {
+    "src": "INC-2025-017",
+    "src_label": "Incident",
+    "rel": "RESOLVED_BY",
+    "dst": "Michelle Ray",
+    "dst_label": "Person",
+    "evidence": "Incident resolved by Michelle Ray (Senior Software Engineer)."
+   }
+  ]
+ }
+}

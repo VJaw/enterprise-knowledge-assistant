@@ -1,0 +1,36 @@
+{
+ "chunk_id": "INC-2025-008::000",
+ "prompt_sha256": "66e3b840906d191699a6f34c487a470ecd9e6fda6127bf99c755141ff0dd94e4",
+ "result": {
+  "entities": [
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Fraud Detection Engine",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Fraud Detection Engine",
+    "dst_label": "System",
+    "evidence": "The Kafka Cluster is a critical component of the Fraud Detection Engine."
+   },
+   {
+    "src": "INC-2025-008",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Fraud Detection Engine",
+    "dst_label": "System",
+    "evidence": "The delays caused by the consumer lag directly affected the scoring of transactions for potential fraud."
+   }
+  ]
+ }
+}

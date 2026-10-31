@@ -1,0 +1,326 @@
+chunk_id,doc_id,label,name,method
+FAQ-001::000,FAQ-001,System,Customer Portal,exact
+FAQ-002::000,FAQ-002,System,Customer Portal,exact
+FAQ-003::000,FAQ-003,Product,Acme Pay,exact
+FAQ-006::000,FAQ-006,System,Payment Gateway,exact
+FAQ-007::000,FAQ-007,System,Customer Portal,exact
+FAQ-009::000,FAQ-009,Product,Acme Notify,exact
+FAQ-010::000,FAQ-010,System,Customer Portal,exact
+FAQ-013::000,FAQ-013,System,Customer Portal,exact
+FAQ-014::000,FAQ-014,System,Customer Portal,exact
+FAQ-018::000,FAQ-018,Product,Acme Pay,exact
+FAQ-019::000,FAQ-019,Product,Acme Pay,exact
+FAQ-020::000,FAQ-020,System,Customer Portal,exact
+FAQ-020::000,FAQ-020,Product,Acme Billing Pro,exact
+FAQ-022::000,FAQ-022,System,Customer Portal,exact
+FAQ-023::000,FAQ-023,System,Customer Portal,exact
+FAQ-026::000,FAQ-026,System,Customer Portal,exact
+FAQ-027::000,FAQ-027,System,Customer Portal,exact
+FAQ-028::000,FAQ-028,Product,Acme Notify,exact
+FAQ-029::000,FAQ-029,System,Payment Gateway,exact
+FAQ-031::000,FAQ-031,Product,Acme Pay,exact
+FAQ-034::000,FAQ-034,System,Customer Portal,exact
+FAQ-036::000,FAQ-036,System,Payment Gateway,exact
+FAQ-037::000,FAQ-037,System,Customer Portal,exact
+FAQ-038::000,FAQ-038,Product,Acme Notify,exact
+FAQ-039::000,FAQ-039,Product,Acme Account Portal,exact
+FAQ-042::000,FAQ-042,Product,Acme Account Portal,exact
+FAQ-043::000,FAQ-043,Product,Acme Billing Pro,exact
+FAQ-044::000,FAQ-044,Product,Acme FraudShield,exact
+FAQ-045::000,FAQ-045,Product,Acme Ledger API,exact
+FAQ-047::000,FAQ-047,System,Payment Gateway,exact
+FAQ-048::000,FAQ-048,Product,Acme Pay,exact
+FAQ-049::000,FAQ-049,System,Customer Portal,exact
+FAQ-052::000,FAQ-052,System,Customer Portal,exact
+FAQ-053::000,FAQ-053,Product,Acme Notify,exact
+FAQ-055::000,FAQ-055,Product,Acme Account Portal,exact
+FAQ-058::000,FAQ-058,System,Customer Portal,exact
+INC-2025-003::000,INC-2025-003,System,Auth Service,both
+INC-2025-003::000,INC-2025-003,System,Secrets Vault,both
+INC-2025-003::001,INC-2025-003,System,Secrets Vault,both
+INC-2025-003::001,INC-2025-003,Person,Michelle Ray,both
+INC-2025-003::002,INC-2025-003,System,Secrets Vault,both
+INC-2025-003::002,INC-2025-003,System,Auth Service,both
+INC-2025-003::003,INC-2025-003,System,Secrets Vault,both
+INC-2025-003::003,INC-2025-003,Component,Token Issuer,llm
+INC-2025-008::000,INC-2025-008,System,Kafka Cluster,both
+INC-2025-008::000,INC-2025-008,System,Fraud Detection Engine,both
+INC-2025-008::001,INC-2025-008,System,Kafka Cluster,both
+INC-2025-008::001,INC-2025-008,Person,Matthew Moore,both
+INC-2025-008::002,INC-2025-008,System,Kafka Cluster,both
+INC-2025-008::002,INC-2025-008,Component,broker disk,llm
+INC-2025-008::003,INC-2025-008,System,Kafka Cluster,both
+INC-2025-012::000,INC-2025-012,System,Ledger DB,both
+INC-2025-012::000,INC-2025-012,System,Billing Service,both
+INC-2025-012::001,INC-2025-012,System,Ledger DB,both
+INC-2025-012::001,INC-2025-012,Person,Jeffrey Lawrence,both
+INC-2025-012::002,INC-2025-012,System,Ledger DB,both
+INC-2025-012::003,INC-2025-012,System,Ledger DB,both
+INC-2025-017::000,INC-2025-017,System,Customer Portal,both
+INC-2025-017::000,INC-2025-017,System,API Gateway,both
+INC-2025-017::001,INC-2025-017,System,Customer Portal,both
+INC-2025-017::001,INC-2025-017,System,API Gateway,both
+INC-2025-017::001,INC-2025-017,Person,Michelle Ray,both
+INC-2025-017::002,INC-2025-017,System,Customer Portal,both
+INC-2025-017::002,INC-2025-017,System,API Gateway,both
+INC-2025-017::003,INC-2025-017,System,API Gateway,both
+INC-2025-022::000,INC-2025-022,System,API Gateway,both
+INC-2025-022::001,INC-2025-022,System,API Gateway,both
+INC-2025-022::001,INC-2025-022,Person,Cynthia Diaz,both
+INC-2025-022::002,INC-2025-022,System,API Gateway,both
+INC-2025-026::000,INC-2025-026,System,Data Warehouse,both
+INC-2025-026::000,INC-2025-026,System,Reporting Service,both
+INC-2025-026::000,INC-2025-026,Component,Kafka topic,llm
+INC-2025-026::001,INC-2025-026,System,Data Warehouse,both
+INC-2025-026::001,INC-2025-026,Person,Linda Wolfe,both
+INC-2025-026::002,INC-2025-026,System,Data Warehouse,both
+INC-2025-026::002,INC-2025-026,System,Reporting Service,both
+INC-2025-026::002,INC-2025-026,System,Kafka Cluster,llm
+INC-2025-026::003,INC-2025-026,System,Data Warehouse,exact
+INC-2025-031::000,INC-2025-031,System,Payment Gateway,both
+INC-2025-031::000,INC-2025-031,System,Ledger DB,both
+INC-2025-031::001,INC-2025-031,System,Payment Gateway,both
+INC-2025-031::001,INC-2025-031,System,Ledger DB,both
+INC-2025-031::001,INC-2025-031,Person,Patricia Miller,both
+INC-2025-031::002,INC-2025-031,System,Ledger DB,both
+INC-2025-031::002,INC-2025-031,System,Payment Gateway,both
+INC-2025-031::002,INC-2025-031,Person,Patricia Miller,both
+INC-2025-031::002,INC-2025-031,Component,connection pool,llm
+INC-2025-036::000,INC-2025-036,System,Notification Service,both
+INC-2025-036::000,INC-2025-036,System,Kafka Cluster,both
+INC-2025-036::001,INC-2025-036,System,Notification Service,both
+INC-2025-036::001,INC-2025-036,Person,Jeremy Roberts,both
+INC-2025-036::002,INC-2025-036,System,Notification Service,both
+INC-2025-036::002,INC-2025-036,System,Kafka Cluster,both
+INC-2025-040::000,INC-2025-040,System,Fraud Detection Engine,both
+INC-2025-040::000,INC-2025-040,System,Payment Gateway,both
+INC-2025-040::001,INC-2025-040,System,Fraud Detection Engine,both
+INC-2025-040::001,INC-2025-040,Person,Jill Rhodes,both
+INC-2025-040::002,INC-2025-040,System,Fraud Detection Engine,both
+INC-2025-040::003,INC-2025-040,System,Fraud Detection Engine,both
+INC-2025-044::000,INC-2025-044,System,Auth Service,both
+INC-2025-044::000,INC-2025-044,System,Audit Log Store,both
+INC-2025-044::000,INC-2025-044,System,Kafka Cluster,both
+INC-2025-044::001,INC-2025-044,System,Audit Log Store,both
+INC-2025-044::001,INC-2025-044,System,Auth Service,both
+INC-2025-044::001,INC-2025-044,System,Kafka Cluster,both
+INC-2025-044::001,INC-2025-044,Person,Robin Ellis,both
+INC-2025-044::002,INC-2025-044,System,Audit Log Store,both
+INC-2025-044::002,INC-2025-044,System,Auth Service,both
+INC-2025-044::002,INC-2025-044,System,Kafka Cluster,llm
+INC-2025-044::003,INC-2025-044,System,Kafka Cluster,both
+MAN-ENG-001::000,MAN-ENG-001,System,Payment Gateway,both
+MAN-ENG-001::001,MAN-ENG-001,System,Payment Gateway,both
+MAN-ENG-001::001,MAN-ENG-001,Component,Checkout API,llm
+MAN-ENG-001::001,MAN-ENG-001,Component,Tokenization Service,llm
+MAN-ENG-001::001,MAN-ENG-001,Component,Payment Router,llm
+MAN-ENG-001::001,MAN-ENG-001,Component,Settlement Batch Job,llm
+MAN-ENG-001::002,MAN-ENG-001,System,Payment Gateway,both
+MAN-ENG-001::002,MAN-ENG-001,System,Ledger DB,both
+MAN-ENG-001::002,MAN-ENG-001,System,Auth Service,both
+MAN-ENG-001::002,MAN-ENG-001,System,Fraud Detection Engine,both
+MAN-ENG-001::002,MAN-ENG-001,System,Kafka Cluster,both
+MAN-ENG-001::002,MAN-ENG-001,System,API Gateway,both
+MAN-ENG-001::002,MAN-ENG-001,System,Secrets Vault,both
+MAN-ENG-001::002,MAN-ENG-001,System,Notification Service,both
+MAN-ENG-001::003,MAN-ENG-001,System,Payment Gateway,both
+MAN-ENG-001::004,MAN-ENG-001,System,Payment Gateway,both
+MAN-ENG-001::004,MAN-ENG-001,System,Ledger DB,both
+MAN-ENG-001::005,MAN-ENG-001,Component,Settlement Batch Job,llm
+MAN-ENG-001::006,MAN-ENG-001,System,Payment Gateway,both
+MAN-ENG-001::007,MAN-ENG-001,System,Notification Service,both
+MAN-ENG-001::007,MAN-ENG-001,System,API Gateway,exact
+MAN-ENG-001::008,MAN-ENG-001,System,Ledger DB,both
+MAN-ENG-001::008,MAN-ENG-001,System,Auth Service,both
+MAN-ENG-001::010,MAN-ENG-001,System,Payment Gateway,both
+MAN-ENG-002::000,MAN-ENG-002,System,Auth Service,both
+MAN-ENG-002::001,MAN-ENG-002,System,Auth Service,both
+MAN-ENG-002::001,MAN-ENG-002,Component,Token Issuer,llm
+MAN-ENG-002::001,MAN-ENG-002,Component,Session Store (Redis),llm
+MAN-ENG-002::001,MAN-ENG-002,Component,MFA Verifier,llm
+MAN-ENG-002::001,MAN-ENG-002,Component,OIDC Provider,llm
+MAN-ENG-002::003,MAN-ENG-002,System,Secrets Vault,both
+MAN-ENG-002::003,MAN-ENG-002,Component,Token signing keys,llm
+MAN-ENG-002::004,MAN-ENG-002,System,Kafka Cluster,both
+MAN-ENG-002::004,MAN-ENG-002,System,Audit Log Store,both
+MAN-ENG-002::005,MAN-ENG-002,System,Auth Service,both
+MAN-ENG-002::005,MAN-ENG-002,System,Kafka Cluster,both
+MAN-ENG-002::005,MAN-ENG-002,System,Secrets Vault,both
+MAN-ENG-002::006,MAN-ENG-002,System,Auth Service,both
+MAN-ENG-002::006,MAN-ENG-002,Component,deploy-auth-service.sh,llm
+MAN-ENG-002::008,MAN-ENG-002,System,Auth Service,both
+MAN-ENG-002::008,MAN-ENG-002,System,API Gateway,exact
+MAN-ENG-002::009,MAN-ENG-002,System,API Gateway,exact
+MAN-ENG-002::009,MAN-ENG-002,System,Kafka Cluster,exact
+MAN-ENG-002::010,MAN-ENG-002,Person,Melanie Munoz,both
+MAN-ENG-002::011,MAN-ENG-002,System,Payment Gateway,exact
+MAN-ENG-003::000,MAN-ENG-003,System,Kafka Cluster,both
+MAN-ENG-003::001,MAN-ENG-003,System,Kafka Cluster,both
+MAN-ENG-003::001,MAN-ENG-003,Component,Brokers,llm
+MAN-ENG-003::001,MAN-ENG-003,Component,KRaft Controllers,llm
+MAN-ENG-003::001,MAN-ENG-003,Component,Schema Registry,llm
+MAN-ENG-003::001,MAN-ENG-003,Component,MirrorMaker 2,llm
+MAN-ENG-003::003,MAN-ENG-003,System,Kafka Cluster,both
+MAN-ENG-003::004,MAN-ENG-003,System,Kafka Cluster,exact
+MAN-ENG-003::010,MAN-ENG-003,System,Kafka Cluster,both
+MAN-ENG-004::000,MAN-ENG-004,System,Monitoring Stack,both
+MAN-ENG-004::000,MAN-ENG-004,Component,Prometheus,llm
+MAN-ENG-004::000,MAN-ENG-004,Component,Grafana,llm
+MAN-ENG-004::000,MAN-ENG-004,Component,Alertmanager,llm
+MAN-ENG-004::000,MAN-ENG-004,Component,Loki,llm
+MAN-ENG-004::001,MAN-ENG-004,System,Monitoring Stack,both
+MAN-ENG-004::001,MAN-ENG-004,Component,Prometheus,llm
+MAN-ENG-004::001,MAN-ENG-004,Component,Grafana,llm
+MAN-ENG-004::001,MAN-ENG-004,Component,Alertmanager,llm
+MAN-ENG-004::001,MAN-ENG-004,Component,Loki,llm
+MAN-ENG-004::004,MAN-ENG-004,System,Monitoring Stack,both
+MAN-ENG-004::005,MAN-ENG-004,System,Monitoring Stack,both
+MAN-ENG-004::005,MAN-ENG-004,Component,Prometheus,llm
+MAN-ENG-004::005,MAN-ENG-004,Component,Grafana,llm
+MAN-ENG-004::005,MAN-ENG-004,Component,Alertmanager,llm
+MAN-ENG-004::005,MAN-ENG-004,Component,Loki,llm
+MAN-ENG-004::006,MAN-ENG-004,System,Monitoring Stack,both
+MAN-ENG-004::006,MAN-ENG-004,System,API Gateway,exact
+MAN-ENG-004::006,MAN-ENG-004,System,Customer Portal,exact
+MAN-ENG-004::008,MAN-ENG-004,System,Monitoring Stack,both
+MAN-ENG-004::008,MAN-ENG-004,System,Ledger DB,exact
+MAN-ENG-004::009,MAN-ENG-004,System,Payment Gateway,exact
+MAN-ENG-005::000,MAN-ENG-005,System,Customer Portal,both
+MAN-ENG-005::001,MAN-ENG-005,System,Customer Portal,both
+MAN-ENG-005::001,MAN-ENG-005,Component,Web Frontend,llm
+MAN-ENG-005::001,MAN-ENG-005,Component,BFF,llm
+MAN-ENG-005::001,MAN-ENG-005,Component,Session Manager,llm
+MAN-ENG-005::002,MAN-ENG-005,System,Customer Portal,exact
+MAN-ENG-005::003,MAN-ENG-005,System,Customer Portal,both
+MAN-ENG-005::003,MAN-ENG-005,System,Auth Service,both
+MAN-ENG-005::003,MAN-ENG-005,System,API Gateway,both
+MAN-ENG-005::003,MAN-ENG-005,System,Billing Service,both
+MAN-ENG-005::003,MAN-ENG-005,System,Notification Service,both
+MAN-ENG-005::003,MAN-ENG-005,System,Support Desk,both
+MAN-ENG-005::004,MAN-ENG-005,System,Customer Portal,exact
+MAN-ENG-005::005,MAN-ENG-005,System,Customer Portal,both
+MAN-ENG-005::006,MAN-ENG-005,System,Customer Portal,both
+MAN-ENG-005::007,MAN-ENG-005,System,Auth Service,both
+MAN-ENG-005::007,MAN-ENG-005,System,API Gateway,both
+MAN-ENG-005::010,MAN-ENG-005,System,Customer Portal,both
+MAN-ENG-005::010,MAN-ENG-005,System,Auth Service,exact
+MAN-ENG-006::000,MAN-ENG-006,System,API Gateway,both
+MAN-ENG-006::001,MAN-ENG-006,System,API Gateway,both
+MAN-ENG-006::001,MAN-ENG-006,Component,Route Config,llm
+MAN-ENG-006::001,MAN-ENG-006,Component,Rate Limiter,llm
+MAN-ENG-006::001,MAN-ENG-006,Component,WAF,llm
+MAN-ENG-006::001,MAN-ENG-006,Component,TLS Terminator,llm
+MAN-ENG-006::002,MAN-ENG-006,System,API Gateway,both
+MAN-ENG-006::003,MAN-ENG-006,System,API Gateway,exact
+MAN-ENG-006::006,MAN-ENG-006,System,API Gateway,both
+MAN-ENG-006::006,MAN-ENG-006,System,Ledger DB,both
+MAN-ENG-006::007,MAN-ENG-006,System,API Gateway,both
+MAN-ENG-006::008,MAN-ENG-006,System,API Gateway,both
+MAN-ENG-006::008,MAN-ENG-006,System,Auth Service,exact
+POL-COMP-001::000,POL-COMP-001,System,Ledger DB,both
+POL-COMP-001::000,POL-COMP-001,System,Data Warehouse,both
+POL-COMP-001::000,POL-COMP-001,System,Audit Log Store,both
+POL-COMP-001::000,POL-COMP-001,System,Kafka Cluster,both
+POL-COMP-001::000,POL-COMP-001,System,Support Desk,both
+POL-COMP-002::000,POL-COMP-002,System,Customer Portal,both
+POL-COMP-002::000,POL-COMP-002,System,Support Desk,both
+POL-COMP-002::001,POL-COMP-002,System,Customer Portal,both
+POL-COMP-002::001,POL-COMP-002,System,Support Desk,both
+POL-COMP-003::000,POL-COMP-003,System,Payment Gateway,both
+POL-COMP-003::000,POL-COMP-003,System,Auth Service,both
+POL-COMP-003::000,POL-COMP-003,System,Ledger DB,both
+POL-COMP-003::000,POL-COMP-003,System,API Gateway,both
+POL-COMP-003::000,POL-COMP-003,System,Monitoring Stack,both
+POL-COMP-004::000,POL-COMP-004,System,Auth Service,both
+POL-COMP-004::000,POL-COMP-004,System,Secrets Vault,both
+POL-COMP-004::000,POL-COMP-004,System,Customer Portal,both
+POL-COMP-004::000,POL-COMP-004,System,API Gateway,both
+POL-COMP-005::000,POL-COMP-005,System,Secrets Vault,both
+POL-COMP-005::000,POL-COMP-005,System,Ledger DB,both
+POL-COMP-005::000,POL-COMP-005,System,Payment Gateway,both
+POL-COMP-006::000,POL-COMP-006,System,API Gateway,both
+POL-COMP-006::000,POL-COMP-006,System,Payment Gateway,both
+POL-COMP-006::000,POL-COMP-006,System,Billing Service,both
+POL-COMP-006::000,POL-COMP-006,System,Kafka Cluster,both
+POL-COMP-006::002,POL-COMP-006,System,API Gateway,exact
+POL-COMP-006::002,POL-COMP-006,System,Payment Gateway,exact
+POL-COMP-007::000,POL-COMP-007,System,Ledger DB,both
+POL-COMP-007::000,POL-COMP-007,System,Kafka Cluster,both
+POL-COMP-007::000,POL-COMP-007,System,Payment Gateway,both
+POL-COMP-007::000,POL-COMP-007,System,Auth Service,both
+POL-COMP-007::001,POL-COMP-007,System,Ledger DB,both
+POL-COMP-007::001,POL-COMP-007,System,Kafka Cluster,both
+POL-COMP-007::001,POL-COMP-007,System,Payment Gateway,both
+POL-COMP-007::001,POL-COMP-007,System,Auth Service,both
+POL-COMP-008::000,POL-COMP-008,System,Payment Gateway,both
+POL-COMP-008::000,POL-COMP-008,System,Billing Service,both
+POL-COMP-008::000,POL-COMP-008,System,Fraud Detection Engine,both
+POL-COMP-008::000,POL-COMP-008,System,Ledger DB,both
+SOP-OPS-007::000,SOP-OPS-007,System,Kafka Cluster,exact
+SOP-OPS-007::001,SOP-OPS-007,System,Kafka Cluster,both
+SOP-OPS-007::002,SOP-OPS-007,System,Kafka Cluster,both
+SOP-OPS-007::002,SOP-OPS-007,Component,Brokers,llm
+SOP-OPS-007::004,SOP-OPS-007,System,Kafka Cluster,both
+SOP-OPS-007::004,SOP-OPS-007,Component,Brokers,llm
+SOP-OPS-007::005,SOP-OPS-007,System,Kafka Cluster,exact
+SOP-OPS-007::007,SOP-OPS-007,System,Kafka Cluster,exact
+SOP-OPS-007::009,SOP-OPS-007,System,Kafka Cluster,both
+SOP-OPS-009::000,SOP-OPS-009,System,Secrets Vault,both
+SOP-OPS-009::001,SOP-OPS-009,System,Secrets Vault,both
+SOP-OPS-009::002,SOP-OPS-009,System,Secrets Vault,both
+SOP-OPS-011::000,SOP-OPS-011,System,API Gateway,both
+SOP-OPS-011::000,SOP-OPS-011,System,Payment Gateway,both
+SOP-OPS-011::001,SOP-OPS-011,System,API Gateway,both
+SOP-OPS-011::001,SOP-OPS-011,System,Payment Gateway,both
+SOP-OPS-011::002,SOP-OPS-011,System,API Gateway,both
+SOP-OPS-011::002,SOP-OPS-011,System,Payment Gateway,both
+SOP-OPS-011::003,SOP-OPS-011,System,Payment Gateway,exact
+SOP-OPS-011::004,SOP-OPS-011,System,API Gateway,exact
+SOP-OPS-011::004,SOP-OPS-011,System,Auth Service,exact
+SOP-OPS-011::004,SOP-OPS-011,System,Payment Gateway,exact
+SOP-OPS-011::006,SOP-OPS-011,System,Data Warehouse,both
+SOP-OPS-011::007,SOP-OPS-011,System,Payment Gateway,exact
+SOP-OPS-014::000,SOP-OPS-014,System,Ledger DB,both
+SOP-OPS-014::000,SOP-OPS-014,System,Payment Gateway,both
+SOP-OPS-014::000,SOP-OPS-014,System,Billing Service,both
+SOP-OPS-014::001,SOP-OPS-014,System,Ledger DB,both
+SOP-OPS-014::002,SOP-OPS-014,System,Ledger DB,both
+SOP-OPS-014::002,SOP-OPS-014,System,Payment Gateway,both
+SOP-OPS-014::002,SOP-OPS-014,System,Billing Service,both
+SOP-OPS-014::002,SOP-OPS-014,Component,primary instance,llm
+SOP-OPS-014::002,SOP-OPS-014,Component,replica instance,llm
+SOP-OPS-014::003,SOP-OPS-014,System,Payment Gateway,both
+SOP-OPS-014::003,SOP-OPS-014,System,Billing Service,both
+SOP-OPS-014::005,SOP-OPS-014,System,Ledger DB,both
+SOP-OPS-014::005,SOP-OPS-014,System,Payment Gateway,both
+SOP-OPS-014::005,SOP-OPS-014,System,Billing Service,both
+SOP-OPS-018::000,SOP-OPS-018,System,API Gateway,both
+SOP-OPS-018::001,SOP-OPS-018,System,API Gateway,both
+SOP-OPS-018::002,SOP-OPS-018,System,API Gateway,both
+SOP-OPS-018::003,SOP-OPS-018,System,API Gateway,both
+SOP-OPS-018::004,SOP-OPS-018,System,API Gateway,both
+SOP-OPS-018::004,SOP-OPS-018,Component,Certificate Chain,llm
+SOP-OPS-018::006,SOP-OPS-018,System,API Gateway,both
+SOP-OPS-018::007,SOP-OPS-018,System,API Gateway,both
+SOP-OPS-018::009,SOP-OPS-018,System,API Gateway,exact
+SOP-OPS-021::000,SOP-OPS-021,System,Monitoring Stack,exact
+SOP-OPS-021::001,SOP-OPS-021,System,Monitoring Stack,both
+SOP-OPS-021::002,SOP-OPS-021,System,Monitoring Stack,both
+SOP-OPS-021::004,SOP-OPS-021,System,Monitoring Stack,both
+SOP-OPS-021::008,SOP-OPS-021,System,Monitoring Stack,both
+SOP-OPS-022::000,SOP-OPS-022,System,Data Warehouse,exact
+SOP-OPS-022::001,SOP-OPS-022,System,Data Warehouse,both
+SOP-OPS-022::001,SOP-OPS-022,System,Kafka Cluster,both
+SOP-OPS-022::001,SOP-OPS-022,System,Reporting Service,both
+SOP-OPS-022::004,SOP-OPS-022,System,Data Warehouse,exact
+SOP-OPS-022::008,SOP-OPS-022,System,Data Warehouse,exact
+SOP-SUP-003::001,SOP-SUP-003,System,Billing Service,exact
+SOP-SUP-003::004,SOP-SUP-003,System,Billing Service,exact
+SOP-SUP-003::006,SOP-SUP-003,System,Billing Service,exact
+SOP-SUP-005::001,SOP-SUP-005,System,Auth Service,exact
+SOP-SUP-005::001,SOP-SUP-005,System,Customer Portal,exact
+SOP-SUP-005::003,SOP-SUP-005,System,Auth Service,both
+SOP-SUP-008::001,SOP-SUP-008,System,Fraud Detection Engine,both
+SOP-SUP-008::001,SOP-SUP-008,System,Billing Service,both
+SOP-SUP-008::003,SOP-SUP-008,System,Fraud Detection Engine,both
+SOP-SUP-008::005,SOP-SUP-008,System,Fraud Detection Engine,exact

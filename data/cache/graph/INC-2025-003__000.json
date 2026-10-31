@@ -1,0 +1,49 @@
+{
+ "chunk_id": "INC-2025-003::000",
+ "prompt_sha256": "0c46516daa01ca07279948aa017861602eaea443bbe4a60045fb237c3b7a45a8",
+ "result": {
+  "entities": [
+   {
+    "name": "Auth Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Secrets Vault",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-003",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-003",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "an incident occurred involving the Auth Service and Secrets Vault resulting in authentication token validation failures."
+   },
+   {
+    "src": "INC-2025-003",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Secrets Vault",
+    "dst_label": "System",
+    "evidence": "an incident occurred involving the Auth Service and Secrets Vault resulting in authentication token validation failures."
+   },
+   {
+    "src": "Secrets Vault",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "The issue arose from a signing-key rotation in the Secrets Vault that was not properly propagated to all Token Issuer replicas."
+   }
+  ]
+ }
+}

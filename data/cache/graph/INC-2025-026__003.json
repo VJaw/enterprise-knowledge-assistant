@@ -1,0 +1,31 @@
+{
+ "chunk_id": "INC-2025-026::003",
+ "prompt_sha256": "0ee77cbf06e90439a5d11459eddf10411aab0985d9e71d3988d895aaf4f953d7",
+ "result": {
+  "entities": [
+   {
+    "name": "INC-2025-026",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Data Warehouse",
+    "dst_label": "System",
+    "evidence": "...schema changes in upstream Kafka topics that may impact downstream processes."
+   },
+   {
+    "src": "Data Warehouse",
+    "src_label": "System",
+    "rel": "AFFECTS",
+    "dst": "INC-2025-026",
+    "dst_label": "Incident",
+    "evidence": "...discuss the incident, its impact, and potential improvements to the incident response process..."
+   }
+  ]
+ }
+}

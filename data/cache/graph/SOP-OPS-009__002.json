@@ -1,0 +1,28 @@
+{
+ "chunk_id": "SOP-OPS-009::002",
+ "prompt_sha256": "cc08d90f3fc4cd3cff3ee424335d14cadda7df1c7de0208e9727900bab072c06",
+ "result": {
+  "entities": [
+   {
+    "name": "Secrets Vault",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "SRE-Operations",
+    "label": "Team",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Secrets Vault",
+    "src_label": "System",
+    "rel": "OWNS",
+    "dst": "SRE-Operations",
+    "dst_label": "Team",
+    "evidence": "\"The owning team must establish a schedule for routine secret rotations.\""
+   }
+  ]
+ }
+}

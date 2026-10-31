@@ -1,0 +1,54 @@
+{
+ "chunk_id": "MAN-ENG-001::010",
+ "prompt_sha256": "06cb7cd739e7aeb5b2aef5a8cc216c45038a85ae27e7f499e7a5e675dce028bf",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-002",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-008",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-001",
+    "dst_label": "Policy",
+    "evidence": "This documentation is essential for ensuring the reliable operation of the Payment Gateway"
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-002",
+    "dst_label": "Policy",
+    "evidence": "This documentation is essential for ensuring the reliable operation of the Payment Gateway"
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-008",
+    "dst_label": "Policy",
+    "evidence": "This documentation is essential for ensuring the reliable operation of the Payment Gateway"
+   }
+  ]
+ }
+}

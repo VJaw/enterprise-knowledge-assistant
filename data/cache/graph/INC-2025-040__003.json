@@ -1,0 +1,41 @@
+{
+ "chunk_id": "INC-2025-040::003",
+ "prompt_sha256": "c7455c54e1e058eae82fdf3f9521753d81e46dde59ef37ff468f0586235dcc91",
+ "result": {
+  "entities": [
+   {
+    "name": "INC-2025-040",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-006",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "Fraud Detection Engine",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Fraud Detection Engine",
+    "src_label": "System",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-006",
+    "dst_label": "Policy",
+    "evidence": "Reinforce adherence to the POL-COMP-006: Change Management Policy during future updates to the Fraud Detection Engine model."
+   },
+   {
+    "src": "INC-2025-040",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Fraud Detection Engine",
+    "dst_label": "System",
+    "evidence": "Conduct a post-incident review meeting to discuss the false-positive surge and gather insights for improving future model deployments."
+   }
+  ]
+ }
+}

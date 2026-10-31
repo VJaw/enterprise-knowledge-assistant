@@ -1,0 +1,23 @@
+{
+ "chunk_id": "SOP-OPS-021::004",
+ "prompt_sha256": "ffd581bfcb95b197286ac78e50dfe96ef056b1ba6d5005dbdc58f38606fa8249",
+ "result": {
+  "entities": [
+   {
+    "name": "Monitoring Stack",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Monitoring Stack",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "incident tracking system",
+    "dst_label": "System",
+    "evidence": "utilizing the Monitoring Stack to identify the root cause."
+   }
+  ]
+ }
+}

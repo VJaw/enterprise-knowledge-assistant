@@ -1,0 +1,106 @@
+{
+ "chunk_id": "MAN-ENG-001::002",
+ "prompt_sha256": "f163af8f04f2417d72c9d3cf26f37d17580a0c691a18f972a3add3c837028a71",
+ "result": {
+  "entities": [
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Auth Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Fraud Detection Engine",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Secrets Vault",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Notification Service",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "The Payment Gateway relies on the following systems: - **Ledger DB**: Stores transaction records."
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "The Payment Gateway relies on the following systems: - **Auth Service**: Manages authentication and authorization."
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Fraud Detection Engine",
+    "dst_label": "System",
+    "evidence": "The Payment Gateway relies on the following systems: - **Fraud Detection Engine**: Analyzes transactions for potential fraud."
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Kafka Cluster",
+    "dst_label": "System",
+    "evidence": "The Payment Gateway relies on the following systems: - **Kafka Cluster**: Facilitates messaging between components."
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "The Payment Gateway relies on the following systems: - **API Gateway**: Governs access to the Payment Gateway APIs."
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Secrets Vault",
+    "dst_label": "System",
+    "evidence": "The Payment Gateway relies on the following systems: - **Secrets Vault**: Manages sensitive credentials and tokens."
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Notification Service",
+    "dst_label": "System",
+    "evidence": "The Payment Gateway relies on the following systems: - **Notification Service**: Sends transaction notifications to customers."
+   }
+  ]
+ }
+}

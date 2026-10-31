@@ -1,0 +1,49 @@
+{
+ "chunk_id": "INC-2025-022::003",
+ "prompt_sha256": "238a46c900a82577a835ee9e55873f8c7b974cf53491d1bfb9ab34865d8f596e",
+ "result": {
+  "entities": [
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-005",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-005",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "Align with relevant documentation, specifically POL-COMP-005: Encryption and Key Management Policy, to ensure compliance and best practices are followed."
+   },
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "Review and revise the current Incident Response Policy (POL-COMP-003) to include specific guidelines for handling incidents related to TLS certificate management."
+   },
+   {
+    "src": "INC-2025-022",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "Expired TLS certificate on API Gateway (incident)"
+   }
+  ]
+ }
+}

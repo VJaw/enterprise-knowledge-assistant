@@ -1,0 +1,67 @@
+{
+ "chunk_id": "POL-COMP-006::000",
+ "prompt_sha256": "369e5d994735babe832ca084896515e6d58d8eed134bf161df6f8554f1b9c840",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-006",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Billing Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-006",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "\"...for managing changes to Acme Corp's systems, including the API Gateway...\""
+   },
+   {
+    "src": "POL-COMP-006",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Payment Gateway",
+    "dst_label": "System",
+    "evidence": "\"...for managing changes to Acme Corp's systems, including the Payment Gateway...\""
+   },
+   {
+    "src": "POL-COMP-006",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Billing Service",
+    "dst_label": "System",
+    "evidence": "\"...for managing changes to Acme Corp's systems, including the Billing Service...\""
+   },
+   {
+    "src": "POL-COMP-006",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Kafka Cluster",
+    "dst_label": "System",
+    "evidence": "\"...for managing changes to Acme Corp's systems, including the Kafka Cluster...\""
+   }
+  ]
+ }
+}

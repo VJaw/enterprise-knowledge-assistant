@@ -1,6 +1,7 @@
 """Index builders (§B6.2, §B6.3): Qdrant `documents` collection + payload indexes, and the BM25 pickle."""
 from __future__ import annotations
 
+import csv
 import pickle
 import uuid
 import warnings
@@ -18,11 +19,25 @@ DOCUMENTS = "documents"
 SEMANTIC_CACHE = "semantic_cache"
 PAYLOAD_INDEXES = ["doc_type", "domain", "sensitivity", "doc_id", "entities"]
 INDEX_DIR = Path("data/indexes")
+MENTIONS_CSV = Path("data/processed/graph/mentions.csv")  # written by ingestion.extract_graph (Phase 4)
 BATCH = 64
 
 
 def point_id(chunk_id: str) -> str:
     return str(uuid.uuid5(uuid.NAMESPACE_URL, chunk_id))
+
+
+def load_chunk_entities(path: Path = MENTIONS_CSV) -> dict[str, list[str]]:
+    """chunk_id -> linked graph entity names (§B8.3 bridging). Empty before the graph is extracted."""
+    if not path.exists():
+        return {}
+    out: dict[str, list[str]] = {}
+    with open(path, newline="") as f:
+        for r in csv.DictReader(f):
+            names = out.setdefault(r["chunk_id"], [])
+            if r["name"] not in names:
+                names.append(r["name"])
+    return out
 
 
 def chunk_payload(c: Chunk) -> dict:
@@ -67,7 +82,11 @@ def write_chunks(chunks: list[Chunk], path: Path) -> None:
             f.write(c.model_dump_json() + "\n")
 
 
-def build_indexes(chunks: list[Chunk], client: QdrantClient, index_dir: Path = INDEX_DIR) -> dict:
+def build_indexes(chunks: list[Chunk], client: QdrantClient, index_dir: Path = INDEX_DIR,
+                  mentions_csv: Path = MENTIONS_CSV) -> dict:
+    entities = load_chunk_entities(mentions_csv)
+    for c in chunks:
+        c.entities = entities.get(c.chunk_id, [])
     n = build_qdrant(chunks, client)
     build_bm25(chunks, index_dir / "bm25.pkl")
     write_chunks(chunks, index_dir / "chunks.jsonl")

@@ -1,0 +1,67 @@
+{
+ "chunk_id": "INC-2025-044::001",
+ "prompt_sha256": "3830692cc8a44806654c15826afe2363455a78347b1ed0c1a07609b1cfdd4117",
+ "result": {
+  "entities": [
+   {
+    "name": "Audit Log Store",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Auth Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Robin Ellis",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "INC-2025-044",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Audit Log Store",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Kafka Cluster",
+    "dst_label": "System",
+    "evidence": "audit events were found to be missing from the Audit Log Store."
+   },
+   {
+    "src": "Auth Service",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Kafka Cluster",
+    "dst_label": "System",
+    "evidence": "the Kafka ACL for the Auth Service had expired."
+   },
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Audit Log Store",
+    "dst_label": "System",
+    "evidence": "the missing audit events were replayed from the Kafka Cluster to the Audit Log Store."
+   },
+   {
+    "src": "INC-2025-044",
+    "src_label": "Incident",
+    "rel": "RESOLVED_BY",
+    "dst": "Robin Ellis",
+    "dst_label": "Person",
+    "evidence": "Incident Commander Robin Ellis confirmed that the ingestion gap was resolved."
+   }
+  ]
+ }
+}

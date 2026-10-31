@@ -1,0 +1,54 @@
+{
+ "chunk_id": "POL-COMP-008::001",
+ "prompt_sha256": "97806a0ad0ba429629e97ecb60ab5fdbb5f888535d81e2bf41ccd75410e56e16",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-008",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-005",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-002",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-008",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "System",
+    "dst_label": "System",
+    "evidence": "All systems handling payment card data must implement necessary security controls, including encryption, access controls, and secure development practices as outlined in the Encryption and Key Management Policy (POL-COMP-005)."
+   },
+   {
+    "src": "POL-COMP-008",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "System",
+    "dst_label": "System",
+    "evidence": "Any suspected or confirmed security incidents involving payment card data must be reported immediately, following the procedures outlined in the Incident Response Policy (POL-COMP-003)."
+   },
+   {
+    "src": "POL-COMP-008",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "System",
+    "dst_label": "System",
+    "evidence": "Employees must adhere to the Acceptable Use Policy (POL-COMP-002) when accessing systems that process payment card data."
+   }
+  ]
+ }
+}

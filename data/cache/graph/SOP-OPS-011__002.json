@@ -1,0 +1,41 @@
+{
+ "chunk_id": "SOP-OPS-011::002",
+ "prompt_sha256": "e8ba6622b832e5ded8e9de4efe4ffd5158f2c7165c6f92b18eaa37bee21022f2",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-006",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-006",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "as defined in POL-COMP-006: Change Management Policy."
+   },
+   {
+    "src": "API Gateway",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Payment Gateway",
+    "dst_label": "System",
+    "evidence": "closely monitor the error rate across the API Gateway and Payment Gateway systems."
+   }
+  ]
+ }
+}

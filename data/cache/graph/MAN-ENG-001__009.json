@@ -1,0 +1,19 @@
+{
+ "chunk_id": "MAN-ENG-001::009",
+ "prompt_sha256": "b54933628830dd5f268ab4dbc3397e2a1028f445f51b37406c9972ad4f51235a",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-007",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": []
+ }
+}

@@ -1,0 +1,36 @@
+{
+ "chunk_id": "SOP-SUP-003::007",
+ "prompt_sha256": "98d6ad54eddcbc28aa34eabdd8327476db2b7889c8aab1dcd2823a64a873d41b",
+ "result": {
+  "entities": [
+   {
+    "name": "Henry Mcconnell",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-008",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Henry Mcconnell",
+    "src_label": "Person",
+    "rel": "MEMBER_OF",
+    "dst": "TCK-00042",
+    "dst_label": "Incident",
+    "evidence": "customer Henry Mcconnell (terri86@hotmail.com, (299) 259-6008) requested a $750 refund 12 days after purchase, so it needed Tier-2 Support Lead approval."
+   },
+   {
+    "src": "POL-COMP-008",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "TCK-00042",
+    "dst_label": "Incident",
+    "evidence": "the agent pasted the card number 4111 1111 1111 1111 and the customer's SSN 709-48-8434 into the ticket notes, which breaches POL-COMP-008; the notes were redacted during review."
+   }
+  ]
+ }
+}

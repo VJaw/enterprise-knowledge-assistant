@@ -1,0 +1,23 @@
+{
+ "chunk_id": "SOP-OPS-021::008",
+ "prompt_sha256": "4fb87d602bbae4ba046c813d25457ae0c06894dddb3d3e61cc257b774bf6c294",
+ "result": {
+  "entities": [
+   {
+    "name": "Monitoring Stack",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Monitoring Stack",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Incident",
+    "dst_label": "Incident",
+    "evidence": "\"the Monitoring Stack should be monitored closely to verify that the incident has been fully resolved\""
+   }
+  ]
+ }
+}

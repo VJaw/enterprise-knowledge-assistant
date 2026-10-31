@@ -1,0 +1,57 @@
+{
+ "chunk_id": "SOP-OPS-014::002",
+ "prompt_sha256": "4a37148ace26a21b6cbd0184a9bb1dd07e7a9689364f29d5b814111b0858c987",
+ "result": {
+  "entities": [
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Billing Service",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Ledger DB",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "primary instance",
+    "dst_label": "Component",
+    "evidence": "The system continuously monitors the health of the Ledger DB primary instance."
+   },
+   {
+    "src": "Ledger DB",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "replica instance",
+    "dst_label": "Component",
+    "evidence": "The system promotes the replica instance to primary status without manual intervention."
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "The Payment Gateway and Billing Service will automatically redirect to the new primary."
+   },
+   {
+    "src": "Billing Service",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "The Payment Gateway and Billing Service will automatically redirect to the new primary."
+   }
+  ]
+ }
+}

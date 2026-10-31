@@ -1,0 +1,24 @@
+{
+ "chunk_id": "MAN-ENG-003::010",
+ "prompt_sha256": "bbf903d85e88ab698fe2929dcee16cea193bfc918289de13a920df4ae1f847d2",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": []
+ }
+}

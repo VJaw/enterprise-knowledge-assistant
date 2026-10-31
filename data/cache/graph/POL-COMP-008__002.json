@@ -1,0 +1,17 @@
+{
+ "chunk_id": "POL-COMP-008::002",
+ "prompt_sha256": "ed54e0601ba0a35cb82d969243829467372cc9275849e16c42d07c10b783c376",
+ "result": {
+  "entities": [],
+  "relations": [
+   {
+    "src": "POL-COMP-008",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "System",
+    "dst_label": "System",
+    "evidence": "Violations of this policy may result in disciplinary action, up to and including termination of employment or contract."
+   }
+  ]
+ }
+}

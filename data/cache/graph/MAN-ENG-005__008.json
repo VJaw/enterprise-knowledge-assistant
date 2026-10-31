@@ -1,0 +1,36 @@
+{
+ "chunk_id": "MAN-ENG-005::008",
+ "prompt_sha256": "14b8613bb1d66fcbd3e73532c4a5dfb487d47ee68ca418b833e47bf03d97957a",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Incident",
+    "dst_label": "Incident",
+    "evidence": "Refer to the Incident Response Policy (POL-COMP-003) for guidelines on managing incidents."
+   },
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "System",
+    "dst_label": "System",
+    "evidence": "ensure compliance with the Data Retention Policy (POL-COMP-001) during recovery processes."
+   }
+  ]
+ }
+}

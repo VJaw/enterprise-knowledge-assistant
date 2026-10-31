@@ -1,0 +1,23 @@
+{
+ "chunk_id": "SOP-SUP-005::007",
+ "prompt_sha256": "3872328fa4a9df6c4b839526b821ba929c75cf0989dd9841f7aa8738c74282d0",
+ "result": {
+  "entities": [
+   {
+    "name": "INC-2025-003",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-003",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Authentication",
+    "dst_label": "System",
+    "evidence": "Review incidents related to authentication failures (e.g., INC-2025-003: Auth token validation failures) for ongoing training and improvement sessions."
+   }
+  ]
+ }
+}

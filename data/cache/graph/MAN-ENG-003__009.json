@@ -1,0 +1,41 @@
+{
+ "chunk_id": "MAN-ENG-003::009",
+ "prompt_sha256": "0157aac7c414dcffd64402d6a882e2ca9319c591486237915c647b8f4cf113e3",
+ "result": {
+  "entities": [
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-001",
+    "dst_label": "Policy",
+    "evidence": "retention policy and assess if the data falls within the retention period outlined in POL-COMP-001: Data Retention Policy."
+   },
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-003",
+    "dst_label": "Policy",
+    "evidence": "refer to POL-COMP-003: Incident Response Policy for procedures on escalation and resolution."
+   }
+  ]
+ }
+}

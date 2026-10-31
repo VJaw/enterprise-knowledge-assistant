@@ -1,0 +1,23 @@
+{
+ "chunk_id": "SOP-OPS-009::000",
+ "prompt_sha256": "bc736ff2040b1b8a5ca8eddbc44c9e2f9b2e889da7dd1fff2ca0a15d6199e819",
+ "result": {
+  "entities": [
+   {
+    "name": "Secrets Vault",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Secrets Vault",
+    "dst_label": "System",
+    "evidence": "the rotation of secrets stored in the Secrets Vault."
+   }
+  ]
+ }
+}

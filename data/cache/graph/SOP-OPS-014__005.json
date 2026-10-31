@@ -1,0 +1,59 @@
+{
+ "chunk_id": "SOP-OPS-014::005",
+ "prompt_sha256": "c4a0dfd5a23df96fd1579c9be90eb83197578bec80711e19a8d6228479617a0e",
+ "result": {
+  "entities": [
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Billing Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Ledger DB",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "health and performance",
+    "dst_label": "Component",
+    "evidence": "Monitoring the health and performance of the new primary Ledger DB instance."
+   },
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "data integrity",
+    "dst_label": "Component",
+    "evidence": "Ensuring that data integrity is maintained as per the Data Retention Policy (POL-COMP-001)."
+   },
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "incident documentation",
+    "dst_label": "Component",
+    "evidence": "Documenting the incident and outcomes in accordance with the Incident Response Policy (POL-COMP-003)."
+   }
+  ]
+ }
+}

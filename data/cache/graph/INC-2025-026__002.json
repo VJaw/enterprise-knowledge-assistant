@@ -1,0 +1,54 @@
+{
+ "chunk_id": "INC-2025-026::002",
+ "prompt_sha256": "b20517e0a1e0f3067dec3b022a2e5977e66e508ba765b55e190f043b5ed0c72c",
+ "result": {
+  "entities": [
+   {
+    "name": "Data Warehouse",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Reporting Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-006",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "Kafka",
+    "label": "Component",
+    "type": "other"
+   }
+  ],
+  "relations": [
+   {
+    "src": "Data Warehouse",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Kafka",
+    "dst_label": "Component",
+    "evidence": "a schema change in an upstream Kafka topic that was not properly communicated to the team responsible for the Data Warehouse nightly load process."
+   },
+   {
+    "src": "Reporting Service",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Data Warehouse",
+    "dst_label": "System",
+    "evidence": "The delay impacted the Reporting Service, which relies on timely and accurate data from the Data Warehouse."
+   },
+   {
+    "src": "POL-COMP-006",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Data Warehouse",
+    "dst_label": "System",
+    "evidence": "As per company policies, particularly POL-COMP-006: Change Management Policy, all changes to upstream systems must be documented and communicated effectively to prevent similar disruptions."
+   }
+  ]
+ }
+}

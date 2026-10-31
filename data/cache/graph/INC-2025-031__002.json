@@ -1,0 +1,54 @@
+{
+ "chunk_id": "INC-2025-031::002",
+ "prompt_sha256": "2ecb96e4707d53ed0fb7b6a32ac286a809d182927726e307f6a49296d7547754",
+ "result": {
+  "entities": [
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Patricia Miller",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "INC-2025-031",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Ledger DB",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "connection pool",
+    "dst_label": "Component",
+    "evidence": "a recent configuration change implemented on the Ledger DB reduced the connection pool from 200 to 50 connections"
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "connection pool",
+    "dst_label": "Component",
+    "evidence": "This drastic reduction resulted in an insufficient number of available connections for the Payment Gateway, leading to connection exhaustion."
+   },
+   {
+    "src": "INC-2025-031",
+    "src_label": "Incident",
+    "rel": "RESOLVED_BY",
+    "dst": "Patricia Miller",
+    "dst_label": "Person",
+    "evidence": "The on-call engineer, Patricia Miller, was reached on their personal phone after the pager escalation failed."
+   }
+  ]
+ }
+}

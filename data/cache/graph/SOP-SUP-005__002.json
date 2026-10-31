@@ -1,0 +1,17 @@
+{
+ "chunk_id": "SOP-SUP-005::002",
+ "prompt_sha256": "48b20e6ce85197a094c11651161539fb24b823e168176b5a06d63273d665f5e5",
+ "result": {
+  "entities": [],
+  "relations": [
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "SOP-SUP-005",
+    "dst_label": "Policy",
+    "evidence": "Document the verification process in accordance with POL-COMP-001: Data Retention Policy."
+   }
+  ]
+ }
+}

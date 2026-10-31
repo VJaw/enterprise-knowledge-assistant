@@ -1,0 +1,34 @@
+{
+ "chunk_id": "MAN-ENG-004::005",
+ "prompt_sha256": "7b96bbf75ffa98f25230e415a595dfa26ac7ff880f2ab92653b6b55dcd2893e1",
+ "result": {
+  "entities": [
+   {
+    "name": "Monitoring Stack",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Prometheus",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "Grafana",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "Alertmanager",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "Loki",
+    "label": "Component",
+    "type": "service"
+   }
+  ],
+  "relations": []
+ }
+}

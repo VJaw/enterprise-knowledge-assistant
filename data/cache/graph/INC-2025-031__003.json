@@ -1,0 +1,17 @@
+{
+ "chunk_id": "INC-2025-031::003",
+ "prompt_sha256": "3bba1e853dc16279eee0c312b813271103024d592421ce2640c3f46e7842d859",
+ "result": {
+  "entities": [],
+  "relations": [
+   {
+    "src": "INC-2025-031",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Payment Gateway",
+    "dst_label": "System",
+    "evidence": "Payment latency spike"
+   }
+  ]
+ }
+}

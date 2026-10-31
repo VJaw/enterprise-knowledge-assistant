@@ -1,0 +1,17 @@
+{
+ "chunk_id": "SOP-OPS-021::000",
+ "prompt_sha256": "cad9a408ff1615116d5721d0632969f5a52cb6cc5e7a6023118b342f40c73ecc",
+ "result": {
+  "entities": [],
+  "relations": [
+   {
+    "src": "Monitoring Stack",
+    "src_label": "System",
+    "rel": "GOVERNS",
+    "dst": "SOP-OPS-021",
+    "dst_label": "Policy",
+    "evidence": "The purpose of this Standard Operating Procedure (SOP) is to outline the escalation process for on-call incidents related to the Monitoring Stack."
+   }
+  ]
+ }
+}

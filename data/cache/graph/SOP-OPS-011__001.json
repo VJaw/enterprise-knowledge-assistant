@@ -1,0 +1,24 @@
+{
+ "chunk_id": "SOP-OPS-011::001",
+ "prompt_sha256": "6eb2817b424aca6365aaa898380700d4564874b0c182710875e0a18fb26eb774",
+ "result": {
+  "entities": [
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Incident Commander",
+    "label": "Person",
+    "type": null
+   }
+  ],
+  "relations": []
+ }
+}

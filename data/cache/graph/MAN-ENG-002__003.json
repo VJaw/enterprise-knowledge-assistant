@@ -1,0 +1,28 @@
+{
+ "chunk_id": "MAN-ENG-002::003",
+ "prompt_sha256": "c8f982e35021c8001b4546451e8a2f53c4f85f5c8601c086348bb929f1d22767",
+ "result": {
+  "entities": [
+   {
+    "name": "Secrets Vault",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Token signing keys",
+    "label": "Component",
+    "type": "other"
+   }
+  ],
+  "relations": [
+   {
+    "src": "Secrets Vault",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Token signing keys",
+    "dst_label": "Component",
+    "evidence": "Token signing keys are sourced from the Secrets Vault"
+   }
+  ]
+ }
+}

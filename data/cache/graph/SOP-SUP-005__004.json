@@ -1,0 +1,17 @@
+{
+ "chunk_id": "SOP-SUP-005::004",
+ "prompt_sha256": "6e1e5bbab556de11ed2e6d9ae141175d1e323b9e8368a2c9ac0311d5b18ddce8",
+ "result": {
+  "entities": [],
+  "relations": [
+   {
+    "src": "POL-COMP-002",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Customer",
+    "dst_label": "System",
+    "evidence": "Ensure that all communications with the customer are conducted in compliance with POL-COMP-002: Acceptable Use Policy."
+   }
+  ]
+ }
+}

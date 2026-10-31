@@ -1,0 +1,80 @@
+{
+ "chunk_id": "POL-COMP-005::001",
+ "prompt_sha256": "d8b907b6ca8421eb211311a3472628b76307fdfb567e33988b02c3e0657d3797",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-005",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-002",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-004",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-008",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-005",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-001",
+    "dst_label": "Policy",
+    "evidence": "this policy must be implemented in conjunction with related documents, specifically POL-COMP-001: Data Retention Policy"
+   },
+   {
+    "src": "POL-COMP-005",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-004",
+    "dst_label": "Policy",
+    "evidence": "this policy must be implemented in conjunction with related documents, specifically POL-COMP-004: Access Control Policy"
+   },
+   {
+    "src": "POL-COMP-005",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-008",
+    "dst_label": "Policy",
+    "evidence": "this policy must be implemented in conjunction with related documents, specifically POL-COMP-008: Payment Card Data Handling Policy"
+   },
+   {
+    "src": "POL-COMP-005",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-002",
+    "dst_label": "Policy",
+    "evidence": "Employees must be familiar with the Acceptable Use Policy (POL-COMP-002) and adhere to the principles outlined therein when handling sensitive data."
+   },
+   {
+    "src": "POL-COMP-005",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-003",
+    "dst_label": "Policy",
+    "evidence": "the on-call engineer must monitor the status of encryption mechanisms and report any anomalies or breaches immediately, following the Incident Response Policy (POL-COMP-003)."
+   }
+  ]
+ }
+}

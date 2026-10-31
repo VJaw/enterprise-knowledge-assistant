@@ -1,0 +1,28 @@
+{
+ "chunk_id": "INC-2025-022::000",
+ "prompt_sha256": "4ecc233194cbe5aa8fab3c84d1c7aa406377b938c98048ac6d4432e0044d6a2c",
+ "result": {
+  "entities": [
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-022",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-022",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "an expired TLS certificate on the API Gateway resulted in 3% of clients experiencing failures in TLS handshakes"
+   }
+  ]
+ }
+}

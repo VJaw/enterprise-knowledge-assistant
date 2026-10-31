@@ -1,0 +1,54 @@
+{
+ "chunk_id": "POL-COMP-005::000",
+ "prompt_sha256": "b47d7537b4ac48abd9aaa7ab35a5d01481a2e6d2e24dd97ec53c812fed09dd86",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-005",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "Secrets Vault",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-005",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Secrets Vault",
+    "dst_label": "System",
+    "evidence": "\"...the company's systems, particularly the Secrets Vault, Ledger DB, and Payment Gateway.\""
+   },
+   {
+    "src": "POL-COMP-005",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "\"...the company's systems, particularly the Secrets Vault, Ledger DB, and Payment Gateway.\""
+   },
+   {
+    "src": "POL-COMP-005",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Payment Gateway",
+    "dst_label": "System",
+    "evidence": "\"...the company's systems, particularly the Secrets Vault, Ledger DB, and Payment Gateway.\""
+   }
+  ]
+ }
+}

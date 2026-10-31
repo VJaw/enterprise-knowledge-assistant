@@ -1,0 +1,17 @@
+{
+ "chunk_id": "SOP-SUP-008::005",
+ "prompt_sha256": "2faceb9da745b0e590466f8b3e680d96c4f015b7d8ee3aeb7159760f24e18aea",
+ "result": {
+  "entities": [],
+  "relations": [
+   {
+    "src": "Fraud Detection Engine",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Fraud Detection Engine risk score",
+    "dst_label": "Component",
+    "evidence": "including the Fraud Detection Engine risk score"
+   }
+  ]
+ }
+}

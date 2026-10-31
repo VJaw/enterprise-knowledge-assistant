@@ -1,0 +1,28 @@
+{
+ "chunk_id": "INC-2025-022::002",
+ "prompt_sha256": "0bfdc41d0dc36b218679ff155abce74b75309ab6faf41f33809ce1de53b68d60",
+ "result": {
+  "entities": [
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-022",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-022",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "resulting in a disruption of service for approximately 3% of clients due to TLS handshake failures."
+   }
+  ]
+ }
+}

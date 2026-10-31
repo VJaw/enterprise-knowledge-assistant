@@ -1,0 +1,28 @@
+{
+ "chunk_id": "MAN-ENG-002::010",
+ "prompt_sha256": "d8acddfe7704deff8bf659b09fc7073b8ab799a688980cb3f808a93b77184f5e",
+ "result": {
+  "entities": [
+   {
+    "name": "Melanie Munoz",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "INC-2025-003",
+    "dst_label": "Incident",
+    "evidence": "a review of incident response procedures should be conducted in accordance with POL-COMP-003: Incident Response Policy"
+   }
+  ]
+ }
+}

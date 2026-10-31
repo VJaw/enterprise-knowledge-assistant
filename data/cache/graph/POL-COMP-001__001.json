@@ -1,0 +1,54 @@
+{
+ "chunk_id": "POL-COMP-001::001",
+ "prompt_sha256": "e65092c2fa6f486f6a1ea05dac567d6c5578d36bbc7687dff4e56cc9d414423e",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-004",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-005",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-007",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-004",
+    "dst_label": "Policy",
+    "evidence": "Access to retained data is governed by the POL-COMP-004: Access Control Policy."
+   },
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-005",
+    "dst_label": "Policy",
+    "evidence": "Secure deletion methods must comply with the standards outlined in the POL-COMP-005: Encryption and Key Management Policy."
+   },
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-007",
+    "dst_label": "Policy",
+    "evidence": "Backups of data must be performed in accordance with the POL-COMP-007: Business Continuity and Disaster Recovery Policy."
+   }
+  ]
+ }
+}

@@ -1,0 +1,49 @@
+{
+ "chunk_id": "INC-2025-003::003",
+ "prompt_sha256": "c9eb6a899716149cc6c5ad3d464350cecbf6d1d5f94161bcbd1a8738702c2422",
+ "result": {
+  "entities": [
+   {
+    "name": "Secrets Vault",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "INC-2025-003",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Secrets Vault",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Token Issuer",
+    "dst_label": "Component",
+    "evidence": "Review and enhance the key propagation mechanism within the Secrets Vault to ensure reliable updates across all Token Issuer replicas."
+   },
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Secrets Vault",
+    "dst_label": "System",
+    "evidence": "referencing POL-COMP-003: Incident Response Policy."
+   },
+   {
+    "src": "INC-2025-003",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Secrets Vault",
+    "dst_label": "System",
+    "evidence": "Review and enhance the key propagation mechanism within the Secrets Vault to ensure reliable updates across all Token Issuer replicas."
+   }
+  ]
+ }
+}

@@ -1,0 +1,46 @@
+{
+ "chunk_id": "INC-2025-031::001",
+ "prompt_sha256": "ebe13591bc60b3bfa0ff48ceaec6d02d9e08c6f930e4aaf93a3fabba897d4e13",
+ "result": {
+  "entities": [
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Patricia Miller",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "INC-2025-031",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "Root cause identified as a configuration change affecting the Ledger DB connection pool."
+   },
+   {
+    "src": "INC-2025-031",
+    "src_label": "Incident",
+    "rel": "RESOLVED_BY",
+    "dst": "Patricia Miller",
+    "dst_label": "Person",
+    "evidence": "Configuration change is rolled back by Patricia Miller (Site Reliability Engineer)."
+   }
+  ]
+ }
+}

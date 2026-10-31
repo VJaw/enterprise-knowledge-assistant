@@ -1,0 +1,25 @@
+{
+ "chunk_id": "SOP-OPS-022::006",
+ "prompt_sha256": "b282f1b53a25ad72e946b4aac50f1ed8ced765671f717e7c351e4414b694a598",
+ "result": {
+  "entities": [],
+  "relations": [
+   {
+    "src": "SOP-OPS-022",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Data Warehouse",
+    "dst_label": "System",
+    "evidence": "initiating an investigation as per the POL-COMP-003: Incident Response Policy."
+   },
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Data Warehouse",
+    "dst_label": "System",
+    "evidence": "initiating an investigation as per the POL-COMP-003: Incident Response Policy."
+   }
+  ]
+ }
+}

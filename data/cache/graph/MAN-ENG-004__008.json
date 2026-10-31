@@ -1,0 +1,41 @@
+{
+ "chunk_id": "MAN-ENG-004::008",
+ "prompt_sha256": "4e80ff1cbbea062a6fddea9ca24b802cc26d70273485c00524f0cba45cea5bdc",
+ "result": {
+  "entities": [
+   {
+    "name": "Monitoring Stack",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Ledger DB primary failure",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "Kafka consumer lag delays fraud scoring",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Monitoring Stack",
+    "src_label": "System",
+    "rel": "AFFECTS",
+    "dst": "Ledger DB primary failure",
+    "dst_label": "Incident",
+    "evidence": "In case of incidents identified via the Monitoring Stack"
+   },
+   {
+    "src": "Monitoring Stack",
+    "src_label": "System",
+    "rel": "AFFECTS",
+    "dst": "Kafka consumer lag delays fraud scoring",
+    "dst_label": "Incident",
+    "evidence": "In case of incidents identified via the Monitoring Stack"
+   }
+  ]
+ }
+}

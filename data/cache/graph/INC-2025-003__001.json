@@ -1,0 +1,41 @@
+{
+ "chunk_id": "INC-2025-003::001",
+ "prompt_sha256": "a8e734a08828fdf63d499bdbb8ffd3f2c201132cda41995c7ec4b7891b02852e",
+ "result": {
+  "entities": [
+   {
+    "name": "INC-2025-003",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "Secrets Vault",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Michelle Ray",
+    "label": "Person",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-003",
+    "src_label": "Incident",
+    "rel": "RESOLVED_BY",
+    "dst": "Michelle Ray",
+    "dst_label": "Person",
+    "evidence": "Michelle Ray resolves the issue by manually propagating the signing key to all Token Issuer replicas."
+   },
+   {
+    "src": "Secrets Vault",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Token Issuer",
+    "dst_label": "Component",
+    "evidence": "Token validation failures begin after signing-key rotation in the Secrets Vault."
+   }
+  ]
+ }
+}

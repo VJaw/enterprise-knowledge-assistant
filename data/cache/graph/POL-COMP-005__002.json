@@ -1,0 +1,36 @@
+{
+ "chunk_id": "POL-COMP-005::002",
+ "prompt_sha256": "fa7305d0258ba59fbb2c04142f0c864134d43326cb0b8485c0baa9d1800b23f0",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-004",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-008",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-005",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-004",
+    "dst_label": "Policy",
+    "evidence": "- POL-COMP-004: Access Control Policy"
+   },
+   {
+    "src": "POL-COMP-005",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-008",
+    "dst_label": "Policy",
+    "evidence": "- POL-COMP-008: Payment Card Data Handling Policy"
+   }
+  ]
+ }
+}

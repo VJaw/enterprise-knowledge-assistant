@@ -1,0 +1,54 @@
+{
+ "chunk_id": "MAN-ENG-005::001",
+ "prompt_sha256": "f3491716e71e5343957a0895de6c2ab06d88d7218176e03992466b872c1e2b50",
+ "result": {
+  "entities": [
+   {
+    "name": "Customer Portal",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Web Frontend",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "BFF",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "Session Manager",
+    "label": "Component",
+    "type": "service"
+   }
+  ],
+  "relations": [
+   {
+    "src": "Customer Portal",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Web Frontend",
+    "dst_label": "Component",
+    "evidence": "comprising the following key components: - **Web Frontend**: The user interface that interacts with customers."
+   },
+   {
+    "src": "Customer Portal",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "BFF",
+    "dst_label": "Component",
+    "evidence": "comprising the following key components: - **BFF (Backend-for-Frontend)**: Acts as an intermediary between the Web Frontend and backend services, optimizing data retrieval and presentation."
+   },
+   {
+    "src": "Customer Portal",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Session Manager",
+    "dst_label": "Component",
+    "evidence": "comprising the following key components: - **Session Manager**: Handles user sessions, including session creation, validation, and expiration."
+   }
+  ]
+ }
+}

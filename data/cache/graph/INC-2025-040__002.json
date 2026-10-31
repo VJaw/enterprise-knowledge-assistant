@@ -1,0 +1,41 @@
+{
+ "chunk_id": "INC-2025-040::002",
+ "prompt_sha256": "453a369c9ff71a0ef286f68bb99254abbacfd2aaf6fa53e57e5a5dce2859faed",
+ "result": {
+  "entities": [
+   {
+    "name": "Fraud Detection Engine",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-006",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "INC-2025-040",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Fraud Detection Engine",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "POL-COMP-006",
+    "dst_label": "Policy",
+    "evidence": "the change management protocols outlined in POL-COMP-006: Change Management Policy were not fully adhered to"
+   },
+   {
+    "src": "INC-2025-040",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Fraud Detection Engine",
+    "dst_label": "System",
+    "evidence": "The spike in false positives led to a significant operational impact, as legitimate transactions were declined, affecting customer experience and potentially jeopardizing revenue."
+   }
+  ]
+ }
+}

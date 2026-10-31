@@ -1,0 +1,41 @@
+{
+ "chunk_id": "SOP-OPS-009::006",
+ "prompt_sha256": "e7892ea9cef4d608e0575089668fa8e5d3978f9bdc535cb4f32acb93b3e92f20",
+ "result": {
+  "entities": [],
+  "relations": [
+   {
+    "src": "POL-COMP-004",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "System",
+    "dst_label": "System",
+    "evidence": "Refer to POL-COMP-004: Access Control Policy for guidelines on managing and controlling access to sensitive information."
+   },
+   {
+    "src": "POL-COMP-002",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "System",
+    "dst_label": "System",
+    "evidence": "Consult POL-COMP-002: Acceptable Use Policy to ensure that all personnel are adhering to the standards for using sensitive data."
+   },
+   {
+    "src": "POL-COMP-005",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "System",
+    "dst_label": "System",
+    "evidence": "Review POL-COMP-005: Encryption and Key Management Policy for best practices related to the management of cryptographic keys."
+   },
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "System",
+    "dst_label": "System",
+    "evidence": "For incident management processes, refer to POL-COMP-003: Incident Response Policy, which outlines steps to take in the event of a security incident."
+   }
+  ]
+ }
+}

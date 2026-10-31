@@ -1,0 +1,36 @@
+{
+ "chunk_id": "INC-2025-036::001",
+ "prompt_sha256": "ee1621c3708557f3b38e0c7e3d14cf2eb601f412a618ce48b3dcb53e2557abef",
+ "result": {
+  "entities": [
+   {
+    "name": "Notification Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Jeremy Roberts",
+    "label": "Person",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Notification Service",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "delays in message deliveries",
+    "dst_label": "Component",
+    "evidence": "Notification Service reports delays in message deliveries."
+   },
+   {
+    "src": "INC-2025-036",
+    "src_label": "Incident",
+    "rel": "RESOLVED_BY",
+    "dst": "Jeremy Roberts",
+    "dst_label": "Person",
+    "evidence": "Incident Manager Jeremy Roberts assumes oversight of resolution efforts."
+   }
+  ]
+ }
+}

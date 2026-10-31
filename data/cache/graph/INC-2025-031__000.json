@@ -1,0 +1,41 @@
+{
+ "chunk_id": "INC-2025-031::000",
+ "prompt_sha256": "fad02d5292f0bd12deb990abff27688b4b9f0e5516bc0bd64ca6230e9d547542",
+ "result": {
+  "entities": [
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-031",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "AFFECTS",
+    "dst": "INC-2025-031",
+    "dst_label": "Incident",
+    "evidence": "a significant latency spike in its Payment Gateway service."
+   },
+   {
+    "src": "Ledger DB",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Payment Gateway",
+    "dst_label": "System",
+    "evidence": "the root cause of the issue was traced to a configuration change that reduced the Ledger DB connection pool."
+   }
+  ]
+ }
+}

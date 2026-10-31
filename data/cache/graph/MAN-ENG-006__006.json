@@ -1,0 +1,72 @@
+{
+ "chunk_id": "MAN-ENG-006::006",
+ "prompt_sha256": "f3429d1853a418b0491a8ddf247dd87841161d49d5844d11b455f3e4612d407a",
+ "result": {
+  "entities": [
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-022",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "INC-2025-031",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "INC-2025-036",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "INC-2025-012",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-022",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "Expired TLS certificate on API Gateway \u2013 immediate action is required to renew the certificate."
+   },
+   {
+    "src": "INC-2025-031",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "System",
+    "dst_label": "System",
+    "evidence": "Payment latency spike \u2013 investigate potential bottlenecks or issues with backend services."
+   },
+   {
+    "src": "INC-2025-036",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "System",
+    "dst_label": "System",
+    "evidence": "Notification delivery backlog \u2013 check the status of notification services and related queues."
+   },
+   {
+    "src": "INC-2025-012",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "Ledger DB primary failure \u2013 assess the database and initiate failover procedures as necessary."
+   }
+  ]
+ }
+}

@@ -1,0 +1,19 @@
+{
+ "chunk_id": "SOP-OPS-007::001",
+ "prompt_sha256": "7529657c4bfafe07b545d9a0838e483fcb7dbc8ec7dd1fec58c085eb4b69fb61",
+ "result": {
+  "entities": [
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "personnel",
+    "label": "Person",
+    "type": null
+   }
+  ],
+  "relations": []
+ }
+}

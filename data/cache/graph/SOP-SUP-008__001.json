@@ -1,0 +1,49 @@
+{
+ "chunk_id": "SOP-SUP-008::001",
+ "prompt_sha256": "784ae54302d849154b9bda1ab9a775f9c356080faf9b499a13a52bce956b9372",
+ "result": {
+  "entities": [
+   {
+    "name": "Fraud Detection Engine",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Billing Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Acme Corp",
+    "label": "Team",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Acme Corp",
+    "src_label": "Team",
+    "rel": "OWNS",
+    "dst": "Fraud Detection Engine",
+    "dst_label": "System",
+    "evidence": "This SOP applies to all chargeback notices received by Acme Corp through any payment platform."
+   },
+   {
+    "src": "Acme Corp",
+    "src_label": "Team",
+    "rel": "OWNS",
+    "dst": "Billing Service",
+    "dst_label": "System",
+    "evidence": "This SOP applies to all chargeback notices received by Acme Corp through any payment platform."
+   },
+   {
+    "src": "Fraud Detection Engine",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Billing Service",
+    "dst_label": "System",
+    "evidence": "It encompasses interactions with the Fraud Detection Engine and the Billing Service."
+   }
+  ]
+ }
+}

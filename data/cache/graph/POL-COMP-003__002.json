@@ -1,0 +1,41 @@
+{
+ "chunk_id": "POL-COMP-003::002",
+ "prompt_sha256": "93717cca581362988ea893c48807015ae5c9a88aafa31348cd003a729da8749c",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "Katherine Shea",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Compliance-Risk",
+    "label": "Team",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Compliance-Risk",
+    "dst_label": "Team",
+    "evidence": "Owning Team: Responsible for managing the specific system affected by the incident and coordinating with the Incident Commander."
+   },
+   {
+    "src": "Katherine Shea",
+    "src_label": "Person",
+    "rel": "MANAGES",
+    "dst": "Compliance-Risk",
+    "dst_label": "Team",
+    "evidence": "Out-of-hours escalation contact for SEV1 security incidents: Katherine Shea, Head of Security Operations."
+   }
+  ]
+ }
+}

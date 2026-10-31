@@ -1,0 +1,19 @@
+{
+ "chunk_id": "MAN-ENG-002::011",
+ "prompt_sha256": "97e85eb8447bcf1af75c71ff3299cc69e68484445f28567bbed8613ba74315d6",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-002",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": []
+ }
+}

@@ -1,0 +1,41 @@
+{
+ "chunk_id": "INC-2025-022::001",
+ "prompt_sha256": "48cfb80f5288c8d2ebb449330f59a3feda9883d0525aba1edc6af0e487f74ed4",
+ "result": {
+  "entities": [
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Cynthia Diaz",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "INC-2025-022",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-022",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "Expired TLS certificate detected on API Gateway."
+   },
+   {
+    "src": "INC-2025-022",
+    "src_label": "Incident",
+    "rel": "RESOLVED_BY",
+    "dst": "Cynthia Diaz",
+    "dst_label": "Person",
+    "evidence": "Cynthia Diaz (Senior SRE) manually renews the expired TLS certificate."
+   }
+  ]
+ }
+}

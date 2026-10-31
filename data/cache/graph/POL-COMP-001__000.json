@@ -1,0 +1,80 @@
+{
+ "chunk_id": "POL-COMP-001::000",
+ "prompt_sha256": "16fa56b5b6bb1e381e7aadd39e8916f6982c41d045e657219f80261a63737663",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Data Warehouse",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Audit Log Store",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Support Desk",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "This policy applies to all data generated, processed, or stored in the following systems: - Ledger DB"
+   },
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Data Warehouse",
+    "dst_label": "System",
+    "evidence": "This policy applies to all data generated, processed, or stored in the following systems: - Data Warehouse"
+   },
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Audit Log Store",
+    "dst_label": "System",
+    "evidence": "This policy applies to all data generated, processed, or stored in the following systems: - Audit Log Store"
+   },
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Kafka Cluster",
+    "dst_label": "System",
+    "evidence": "This policy applies to all data generated, processed, or stored in the following systems: - Kafka Cluster"
+   },
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Support Desk",
+    "dst_label": "System",
+    "evidence": "This policy applies to all data generated, processed, or stored in the following systems: - Support Desk"
+   }
+  ]
+ }
+}

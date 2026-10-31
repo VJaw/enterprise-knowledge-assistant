@@ -1,0 +1,32 @@
+name,type,source_doc_id,chunk_id
+Alertmanager,service,MAN-ENG-004,MAN-ENG-004::000
+BFF,service,MAN-ENG-005,MAN-ENG-005::001
+Brokers,service,MAN-ENG-003,MAN-ENG-003::001
+Certificate Chain,other,SOP-OPS-018,SOP-OPS-018::004
+Checkout API,service,MAN-ENG-001,MAN-ENG-001::001
+Grafana,service,MAN-ENG-004,MAN-ENG-004::000
+KRaft Controllers,service,MAN-ENG-003,MAN-ENG-003::001
+Kafka topic,other,INC-2025-026,INC-2025-026::000
+Loki,service,MAN-ENG-004,MAN-ENG-004::000
+MFA Verifier,service,MAN-ENG-002,MAN-ENG-002::001
+MirrorMaker 2,service,MAN-ENG-003,MAN-ENG-003::001
+OIDC Provider,service,MAN-ENG-002,MAN-ENG-002::001
+Payment Router,service,MAN-ENG-001,MAN-ENG-001::001
+Prometheus,service,MAN-ENG-004,MAN-ENG-004::000
+Rate Limiter,other,MAN-ENG-006,MAN-ENG-006::001
+Route Config,config,MAN-ENG-006,MAN-ENG-006::001
+Schema Registry,service,MAN-ENG-003,MAN-ENG-003::001
+Session Manager,service,MAN-ENG-005,MAN-ENG-005::001
+Session Store (Redis),other,MAN-ENG-002,MAN-ENG-002::001
+Settlement Batch Job,job,MAN-ENG-001,MAN-ENG-001::001
+TLS Terminator,other,MAN-ENG-006,MAN-ENG-006::001
+Token Issuer,other,INC-2025-003,INC-2025-003::003
+Token signing keys,other,MAN-ENG-002,MAN-ENG-002::003
+Tokenization Service,service,MAN-ENG-001,MAN-ENG-001::001
+WAF,other,MAN-ENG-006,MAN-ENG-006::001
+Web Frontend,service,MAN-ENG-005,MAN-ENG-005::001
+broker disk,other,INC-2025-008,INC-2025-008::002
+connection pool,other,INC-2025-031,INC-2025-031::002
+deploy-auth-service.sh,other,MAN-ENG-002,MAN-ENG-002::006
+primary instance,other,SOP-OPS-014,SOP-OPS-014::002
+replica instance,other,SOP-OPS-014,SOP-OPS-014::002

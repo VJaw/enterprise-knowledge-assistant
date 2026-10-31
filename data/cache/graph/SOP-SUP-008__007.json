@@ -1,0 +1,23 @@
+{
+ "chunk_id": "SOP-SUP-008::007",
+ "prompt_sha256": "7b122756a5fc4a8eedf55b889df56babf99d678d041473f6a2b59b74c4cfe883",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "SOP-SUP-008",
+    "dst_label": "Policy",
+    "evidence": "documented in accordance with POL-COMP-003: Incident Response Policy."
+   }
+  ]
+ }
+}

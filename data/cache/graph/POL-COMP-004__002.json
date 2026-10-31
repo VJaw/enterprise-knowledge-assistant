@@ -1,0 +1,23 @@
+{
+ "chunk_id": "POL-COMP-004::002",
+ "prompt_sha256": "3ad5510a9e449ede99298896560afc85cca9bc9b3487f87df415bb078a4ac970",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-004",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-004",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "System",
+    "dst_label": "System",
+    "evidence": "this Access Control Policy."
+   }
+  ]
+ }
+}

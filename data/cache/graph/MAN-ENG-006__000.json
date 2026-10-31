@@ -1,0 +1,14 @@
+{
+ "chunk_id": "MAN-ENG-006::000",
+ "prompt_sha256": "dbbe32b321459a37aa0443098e51f1770e6a96befca8c01727652eeda2048b10",
+ "result": {
+  "entities": [
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": []
+ }
+}

@@ -1,0 +1,36 @@
+{
+ "chunk_id": "INC-2025-008::002",
+ "prompt_sha256": "006c6c648371350bf0174a9de7da799e7edfdc5ba9a7acf3f10c23d9a4870a9a",
+ "result": {
+  "entities": [
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-008",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "broker disk",
+    "dst_label": "Component",
+    "evidence": "The primary cause of the incident was the filling of a broker disk within the Kafka Cluster."
+   },
+   {
+    "src": "INC-2025-008",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "fraud scoring",
+    "dst_label": "System",
+    "evidence": "The delay in fraud scoring during the incident highlighted the need for improved monitoring and incident response protocols."
+   }
+  ]
+ }
+}

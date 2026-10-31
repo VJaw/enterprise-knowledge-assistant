@@ -1,0 +1,28 @@
+{
+ "chunk_id": "POL-COMP-004::001",
+ "prompt_sha256": "225006fa52c6cf6b719a70d98fa9cec48b70ee7c24364a6ea5bb642f55480ad9",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-004",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-004",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "System",
+    "dst_label": "System",
+    "evidence": "Logs should include user identity, timestamp, access type, and any actions performed. The logs must be retained in accordance with the Data Retention Policy (POL-COMP-001) and reviewed regularly for suspicious activity."
+   }
+  ]
+ }
+}

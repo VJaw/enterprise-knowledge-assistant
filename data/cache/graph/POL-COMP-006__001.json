@@ -1,0 +1,33 @@
+{
+ "chunk_id": "POL-COMP-006::001",
+ "prompt_sha256": "6a000575f1d3d052cc5d5dd7047b9b470ec8b8837e04b28d424595d1e121c8d7",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-006",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-002",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-006",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Acme Corp's systems",
+    "dst_label": "System",
+    "evidence": "Exceptions may be granted in extraordinary circumstances, provided they do not compromise the integrity or security of Acme Corp's systems."
+   }
+  ]
+ }
+}

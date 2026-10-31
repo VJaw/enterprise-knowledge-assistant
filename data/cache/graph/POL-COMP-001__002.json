@@ -1,0 +1,23 @@
+{
+ "chunk_id": "POL-COMP-001::002",
+ "prompt_sha256": "7223a6e3c34a8f11956777c29dac91176e6921fd3d0cb0fcd8bb999989fb5ea8",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "System",
+    "dst_label": "System",
+    "evidence": "Enforcement of this policy is the responsibility of the owning teams and the Incident Commander, who must ensure that all individuals comply with the established data retention schedules."
+   }
+  ]
+ }
+}

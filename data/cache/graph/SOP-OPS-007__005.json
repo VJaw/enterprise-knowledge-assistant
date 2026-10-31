@@ -1,0 +1,17 @@
+{
+ "chunk_id": "SOP-OPS-007::005",
+ "prompt_sha256": "c2776200b7165604296ef5f63abd0db2ae039b8f689cf32cdbc63ae6a671d8e9",
+ "result": {
+  "entities": [],
+  "relations": [
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "new broker",
+    "dst_label": "Component",
+    "evidence": "\"Add the new broker to the Kafka Cluster configuration.\""
+   }
+  ]
+ }
+}

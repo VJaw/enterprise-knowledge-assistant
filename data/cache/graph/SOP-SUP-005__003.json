@@ -1,0 +1,23 @@
+{
+ "chunk_id": "SOP-SUP-005::003",
+ "prompt_sha256": "3c430671e89d2d20450039104b5ad5e21d07ee0da79cb0f50e402660621d8457",
+ "result": {
+  "entities": [
+   {
+    "name": "Auth Service",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Auth Service",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "MFA reset link",
+    "dst_label": "Component",
+    "evidence": "generate an MFA reset link through the Auth Service."
+   }
+  ]
+ }
+}

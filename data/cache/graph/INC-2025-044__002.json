@@ -1,0 +1,80 @@
+{
+ "chunk_id": "INC-2025-044::002",
+ "prompt_sha256": "3c81e216924730f8fb4e70dff85f27aaf8c66c9c73d87ec09ac10b7d15c9cc4b",
+ "result": {
+  "entities": [
+   {
+    "name": "Audit Log Store",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Auth Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Kafka",
+    "label": "Component",
+    "type": "other"
+   },
+   {
+    "name": "POL-COMP-004",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-006",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "INC-2025-044",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Auth Service",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Kafka",
+    "dst_label": "Component",
+    "evidence": "the expiration of the Kafka ACL associated with the Auth Service"
+   },
+   {
+    "src": "Audit Log Store",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Kafka",
+    "dst_label": "Component",
+    "evidence": "the successful ingestion of audit events into the Audit Log Store."
+   },
+   {
+    "src": "INC-2025-044",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Audit Log Store",
+    "dst_label": "System",
+    "evidence": "the successful ingestion of audit events into the Audit Log Store."
+   },
+   {
+    "src": "POL-COMP-004",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "The importance of proactive management of access controls is emphasized in POL-COMP-004: Access Control Policy."
+   },
+   {
+    "src": "POL-COMP-006",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "adherence to the guidelines set forth in POL-COMP-006: Change Management Policy."
+   }
+  ]
+ }
+}

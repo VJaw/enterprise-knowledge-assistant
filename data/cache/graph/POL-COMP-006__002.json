@@ -1,0 +1,56 @@
+{
+ "chunk_id": "POL-COMP-006::002",
+ "prompt_sha256": "9e08a5533443c384083b4928a94fbaa0b3bd74a882c2c86dfbede652f09a7ee3",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-004",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "MAN-ENG-001",
+    "label": "Component",
+    "type": "other"
+   },
+   {
+    "name": "MAN-ENG-003",
+    "label": "Component",
+    "type": "other"
+   },
+   {
+    "name": "MAN-ENG-006",
+    "label": "Component",
+    "type": "config"
+   },
+   {
+    "name": "SOP-OPS-011",
+    "label": "Component",
+    "type": "other"
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-006",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-003",
+    "dst_label": "Policy",
+    "evidence": "POL-COMP-003: Incident Response Policy: Defines the process for responding to incidents that may affect system integrity."
+   },
+   {
+    "src": "POL-COMP-006",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-004",
+    "dst_label": "Policy",
+    "evidence": "POL-COMP-004: Access Control Policy: Describes the access control measures in place to protect sensitive data and systems."
+   }
+  ]
+ }
+}

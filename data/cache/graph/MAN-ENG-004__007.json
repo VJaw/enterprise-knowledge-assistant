@@ -1,0 +1,23 @@
+{
+ "chunk_id": "MAN-ENG-004::007",
+ "prompt_sha256": "473f169b401661be668cc6f9877be3370eb3e772efeee6184f5cb61c924bf7a6",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Alertmanagement",
+    "dst_label": "System",
+    "evidence": "follow the protocols defined in **POL-COMP-003: Incident Response Policy**."
+   }
+  ]
+ }
+}

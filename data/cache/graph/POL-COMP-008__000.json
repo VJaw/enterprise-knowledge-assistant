@@ -1,0 +1,91 @@
+{
+ "chunk_id": "POL-COMP-008::000",
+ "prompt_sha256": "97acb5a68c5d512e1d858f1ef3024de2f954b6f3a577636bc6b7e9edc6b83bca",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-008",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Billing Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Fraud Detection Engine",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-008",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Payment Gateway",
+    "dst_label": "System",
+    "evidence": "The systems involved in this policy include the Payment Gateway, Billing Service, Fraud Detection Engine, and Ledger DB."
+   },
+   {
+    "src": "POL-COMP-008",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Billing Service",
+    "dst_label": "System",
+    "evidence": "The systems involved in this policy include the Payment Gateway, Billing Service, Fraud Detection Engine, and Ledger DB."
+   },
+   {
+    "src": "POL-COMP-008",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Fraud Detection Engine",
+    "dst_label": "System",
+    "evidence": "The systems involved in this policy include the Payment Gateway, Billing Service, Fraud Detection Engine, and Ledger DB."
+   },
+   {
+    "src": "POL-COMP-008",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "The systems involved in this policy include the Payment Gateway, Billing Service, Fraud Detection Engine, and Ledger DB."
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Billing Service",
+    "dst_label": "System",
+    "evidence": "Card numbers are tokenized by the Payment Gateway before any other system sees them."
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Fraud Detection Engine",
+    "dst_label": "System",
+    "evidence": "The cardholder data environment includes the Payment Gateway, Billing Service, and Fraud Detection Engine."
+   },
+   {
+    "src": "Billing Service",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Fraud Detection Engine",
+    "dst_label": "System",
+    "evidence": "The cardholder data environment includes the Payment Gateway, Billing Service, and Fraud Detection Engine."
+   }
+  ]
+ }
+}

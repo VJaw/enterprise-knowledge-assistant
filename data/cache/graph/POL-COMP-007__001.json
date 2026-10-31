@@ -1,0 +1,92 @@
+{
+ "chunk_id": "POL-COMP-007::001",
+ "prompt_sha256": "0925597fcbcd6fe224102c37554a3cbdf84a1435cfb5d7e8fb352d9f3a8340ce",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-007",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "INC-2025-012",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-008",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-031",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-003",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "Auth Service",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-007",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "the Ledger DB recovery procedures outlined in SOP-OPS-014: Database Failover must be followed to restore services"
+   },
+   {
+    "src": "POL-COMP-007",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Kafka Cluster",
+    "dst_label": "System",
+    "evidence": "For incidents involving the Kafka Cluster, such as Kafka consumer lag delays fraud scoring (INC-2025-008), the necessary steps from the Kafka Operations Guide (MAN-ENG-003) should be implemented"
+   },
+   {
+    "src": "POL-COMP-007",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Payment Gateway",
+    "dst_label": "System",
+    "evidence": "The procedures for recovery of the Payment Gateway, including handling payment latency spikes (INC-2025-031), will be based on the guidelines provided in the Payment Gateway Runbook (MAN-ENG-001)"
+   },
+   {
+    "src": "POL-COMP-007",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "In case of incidents affecting the Auth Service, such as auth token validation failures (INC-2025-003), recovery actions must adhere to the architecture protocols set forth in the Auth Service Architecture document (MAN-ENG-002)"
+   }
+  ]
+ }
+}

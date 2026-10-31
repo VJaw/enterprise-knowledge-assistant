@@ -1,0 +1,23 @@
+{
+ "chunk_id": "MAN-ENG-003::002",
+ "prompt_sha256": "13a6cffd449628527beb907797717165db6211093417b531ab2c2d3ce8b9ece7",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Kafka Cluster",
+    "dst_label": "System",
+    "evidence": "aligning with the company\u2019s policies on data retention (refer to POL-COMP-001: Data Retention Policy)"
+   }
+  ]
+ }
+}

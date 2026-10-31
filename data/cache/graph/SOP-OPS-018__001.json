@@ -1,0 +1,214 @@
+{
+ "chunk_id": "SOP-OPS-018::001",
+ "prompt_sha256": "898f0e4444ba0e7ce45ede17e81f9c6036de3e3f0a878c632dca23a805cd934b",
+ "result": {
+  "entities": [
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Amanda Dudley",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Angela Cohen",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Anthony Gonzalez",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Christopher Davis",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Christopher Hall",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Craig Ramirez",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Cynthia Diaz",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Danielle Johnson",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Deborah Lynch",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Debra Gardner",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Diana Foster",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Frank Gray",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "George Daniel",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Janet Williams",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Jason Hahn",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Jeffery Wagner",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Jeffrey Lawrence",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Jeremy Johnson",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Jeremy Roberts",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Jill Rhodes",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Joseph Zuniga",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Joshua Walker",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Leslie Adams",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Linda Wolfe",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Lindsay Blair",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Lisa Smith",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Maria Montgomery",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Matthew Moore",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Megan Parsons",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Melanie Munoz",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Michelle Ray",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Mitchell Clark",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Nancy Edwards",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Nicholas Arnold",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Patricia Miller",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Priya Rao",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Robert Johnson",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Robin Ellis",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Susan Rogers",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Veronica Bowman",
+    "label": "Person",
+    "type": null
+   }
+  ],
+  "relations": []
+ }
+}

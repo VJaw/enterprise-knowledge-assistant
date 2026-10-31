@@ -1,0 +1,41 @@
+{
+ "chunk_id": "MAN-ENG-002::009",
+ "prompt_sha256": "0d53a0aafac6fc3cded92cc2c9161de2295067b1cc831acefdfd5b8d2a852bde",
+ "result": {
+  "entities": [],
+  "relations": [
+   {
+    "src": "INC-2025-003",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "**Auth Token Validation Failures**"
+   },
+   {
+    "src": "INC-2025-008",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Kafka Cluster",
+    "dst_label": "System",
+    "evidence": "**Kafka Consumer Lag**"
+   },
+   {
+    "src": "INC-2025-022",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "**Expired TLS Certificate**"
+   },
+   {
+    "src": "INC-2025-040",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Fraud Detection Engine",
+    "dst_label": "System",
+    "evidence": "**Fraud Model Issues**"
+   }
+  ]
+ }
+}

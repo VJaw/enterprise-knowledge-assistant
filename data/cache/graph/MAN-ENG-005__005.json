@@ -1,0 +1,28 @@
+{
+ "chunk_id": "MAN-ENG-005::005",
+ "prompt_sha256": "e8e28d3e7916384f7c78328901b7634d89170ca78fff61a95798459ade8800f4",
+ "result": {
+  "entities": [
+   {
+    "name": "Customer Portal",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-006",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-006",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Customer Portal",
+    "dst_label": "System",
+    "evidence": "Ensure that any changes comply with the Change Management Policy (POL-COMP-006) before deployment."
+   }
+  ]
+ }
+}

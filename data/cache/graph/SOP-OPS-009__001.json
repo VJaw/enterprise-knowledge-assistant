@@ -1,0 +1,23 @@
+{
+ "chunk_id": "SOP-OPS-009::001",
+ "prompt_sha256": "2532f7bce433f5bf80bcb1aa5f984bb62bd315384d34516d90cc0c7bc24f6eaa",
+ "result": {
+  "entities": [
+   {
+    "name": "Secrets Vault",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Secrets Vault",
+    "dst_label": "System",
+    "evidence": "This SOP applies to all personnel involved in the management of secrets within the Secrets Vault."
+   }
+  ]
+ }
+}

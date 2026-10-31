@@ -1,0 +1,67 @@
+{
+ "chunk_id": "MAN-ENG-003::001",
+ "prompt_sha256": "070692b3b852516ab7ecd024cb9cc1d3bfa918d15381d89bdd18732e6396180f",
+ "result": {
+  "entities": [
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Brokers",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "KRaft Controllers",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "Schema Registry",
+    "label": "Component",
+    "type": "service"
+   },
+   {
+    "name": "MirrorMaker 2",
+    "label": "Component",
+    "type": "service"
+   }
+  ],
+  "relations": [
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Brokers",
+    "dst_label": "Component",
+    "evidence": "The Kafka Cluster consists of the following key components: - **6 Brokers**: These are responsible for storing and serving messages."
+   },
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "KRaft Controllers",
+    "dst_label": "Component",
+    "evidence": "The Kafka Cluster consists of the following key components: - **KRaft Controllers**: Manages the metadata and the cluster state."
+   },
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Schema Registry",
+    "dst_label": "Component",
+    "evidence": "The Kafka Cluster consists of the following key components: - **Schema Registry**: Ensures that the data written to topics complies with the defined schemas."
+   },
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "MirrorMaker 2",
+    "dst_label": "Component",
+    "evidence": "The Kafka Cluster consists of the following key components: - **MirrorMaker 2**: Used for replicating topics across different Kafka clusters."
+   }
+  ]
+ }
+}

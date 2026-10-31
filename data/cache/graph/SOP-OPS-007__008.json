@@ -1,0 +1,36 @@
+{
+ "chunk_id": "SOP-OPS-007::008",
+ "prompt_sha256": "2435d715115d7ab0481c5f53a41f8763bc08ea11c352440e19fc1bb2b8461673",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "INC-2025-008",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "INC-2025-008",
+    "dst_label": "Incident",
+    "evidence": "guidelines outlined in POL-COMP-003: Incident Response Policy."
+   },
+   {
+    "src": "INC-2025-008",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Kafka consumer lag delays fraud scoring",
+    "dst_label": "System",
+    "evidence": "INC-2025-008: Kafka consumer lag delays fraud scoring."
+   }
+  ]
+ }
+}

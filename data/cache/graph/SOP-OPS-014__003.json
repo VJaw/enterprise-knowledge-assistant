@@ -1,0 +1,41 @@
+{
+ "chunk_id": "SOP-OPS-014::003",
+ "prompt_sha256": "98c453dc8f181237d9e882db295e7fdd5eddc40c4fb46227780f2a941e5bca1b",
+ "result": {
+  "entities": [
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Billing Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "ledger-db-replica-1",
+    "label": "Component",
+    "type": "database"
+   }
+  ],
+  "relations": [
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Billing Service",
+    "dst_label": "System",
+    "evidence": "\"Put the Payment Gateway and Billing Service into maintenance mode to freeze writes.\""
+   },
+   {
+    "src": "ledger-db-replica-1",
+    "src_label": "Component",
+    "rel": "HAS_COMPONENT",
+    "dst": "ledger-db-replica-1",
+    "dst_label": "Component",
+    "evidence": "\"Run the command `ledgerctl promote --replica ledger-db-replica-1` to promote the designated replica as the new primary.\""
+   }
+  ]
+ }
+}

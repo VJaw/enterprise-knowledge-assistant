@@ -1,0 +1,80 @@
+{
+ "chunk_id": "INC-2025-044::000",
+ "prompt_sha256": "549a5ca25589ec48c499550e2bd71ba37c4fc06fe4c9c9db9e7528c5d1aea48d",
+ "result": {
+  "entities": [
+   {
+    "name": "INC-2025-044",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "Auth Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Audit Log Store",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-004",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-044",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Audit Log Store",
+    "dst_label": "System",
+    "evidence": "the Auth Service audit events not being ingested into the Audit Log Store"
+   },
+   {
+    "src": "INC-2025-044",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "the Auth Service audit events not being ingested into the Audit Log Store"
+   },
+   {
+    "src": "INC-2025-044",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Kafka Cluster",
+    "dst_label": "System",
+    "evidence": "the missing events were successfully replayed from the Kafka Cluster"
+   },
+   {
+    "src": "POL-COMP-004",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "ensuring that all access controls are monitored and updated in accordance with the policies outlined in POL-COMP-004: Access Control Policy"
+   },
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "INC-2025-044",
+    "dst_label": "Incident",
+    "evidence": "adherence to the protocols established in POL-COMP-003: Incident Response Policy"
+   }
+  ]
+ }
+}

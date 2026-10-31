@@ -1,0 +1,19 @@
+{
+ "chunk_id": "MAN-ENG-003::000",
+ "prompt_sha256": "9f367596dcacb6244b93f61aec6b9e19870509abc667c1bcb3a4fee95421b5d7",
+ "result": {
+  "entities": [
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Kafka Operations Guide",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": []
+ }
+}

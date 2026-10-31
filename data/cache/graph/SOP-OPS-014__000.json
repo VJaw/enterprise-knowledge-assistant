@@ -1,0 +1,41 @@
+{
+ "chunk_id": "SOP-OPS-014::000",
+ "prompt_sha256": "4501062ea4806c9fb4e2d9b8ce2fffe0ab3eb03260684d7df1563db95c420d63",
+ "result": {
+  "entities": [
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Billing Service",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Ledger DB",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Payment Gateway",
+    "dst_label": "System",
+    "evidence": "services reliant on the Ledger DB, such as the Payment Gateway"
+   },
+   {
+    "src": "Ledger DB",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Billing Service",
+    "dst_label": "System",
+    "evidence": "services reliant on the Ledger DB, such as the Billing Service"
+   }
+  ]
+ }
+}

@@ -1,0 +1,67 @@
+{
+ "chunk_id": "MAN-ENG-004::006",
+ "prompt_sha256": "7534c6299b3222677efc1d3f8c8f39d1b9812851256fa5fd341ca271bf4c25c7",
+ "result": {
+  "entities": [
+   {
+    "name": "Monitoring Stack",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-031",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "INC-2025-017",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "INC-2025-022",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "INC-2025-044",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Monitoring Stack",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "INC-2025-031",
+    "dst_label": "Incident",
+    "evidence": "The Monitoring Stack is configured to detect and alert on several common issues."
+   },
+   {
+    "src": "Monitoring Stack",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "INC-2025-017",
+    "dst_label": "Incident",
+    "evidence": "The Monitoring Stack is configured to detect and alert on several common issues."
+   },
+   {
+    "src": "Monitoring Stack",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "INC-2025-022",
+    "dst_label": "Incident",
+    "evidence": "The Monitoring Stack is configured to detect and alert on several common issues."
+   },
+   {
+    "src": "Monitoring Stack",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "INC-2025-044",
+    "dst_label": "Incident",
+    "evidence": "The Monitoring Stack is configured to detect and alert on several common issues."
+   }
+  ]
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "chunk_id": "MAN-ENG-001::004",
+ "prompt_sha256": "b61bb271c9863a94ad510a1f5573f4929207c079d7951b45796438104ede53fb",
+ "result": {
+  "entities": [
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "PGW-503: Indicates an upstream Ledger DB timeout."
+   }
+  ]
+ }
+}

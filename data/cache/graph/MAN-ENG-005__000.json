@@ -1,0 +1,14 @@
+{
+ "chunk_id": "MAN-ENG-005::000",
+ "prompt_sha256": "b26e657e2d82c753196a7cb58678c07c7e6f6fddfcaf4a30e9e87b0b36085079",
+ "result": {
+  "entities": [
+   {
+    "name": "Customer Portal",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": []
+ }
+}

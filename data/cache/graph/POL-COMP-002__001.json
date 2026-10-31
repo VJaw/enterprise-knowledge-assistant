@@ -1,0 +1,77 @@
+{
+ "chunk_id": "POL-COMP-002::001",
+ "prompt_sha256": "e77cd6b290d88b985f3d45bdab787433ec4f85c8567be8bb3b321df789030a5e",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-002",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-004",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "Customer Portal",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Support Desk",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "on-call engineer",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Incident Commander",
+    "label": "Person",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-002",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Customer Portal",
+    "dst_label": "System",
+    "evidence": "Users must ensure that access to the Customer Portal and Support Desk systems is limited to authorized personnel only, in accordance with POL-COMP-004: Access Control Policy."
+   },
+   {
+    "src": "POL-COMP-002",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Support Desk",
+    "dst_label": "System",
+    "evidence": "Users must ensure that access to the Customer Portal and Support Desk systems is limited to authorized personnel only, in accordance with POL-COMP-004: Access Control Policy."
+   },
+   {
+    "src": "POL-COMP-002",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-003",
+    "dst_label": "Policy",
+    "evidence": "Any incidents impacting the integrity, availability, or confidentiality of data must be managed according to the procedures outlined in POL-COMP-003: Incident Response Policy."
+   },
+   {
+    "src": "POL-COMP-002",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-004",
+    "dst_label": "Policy",
+    "evidence": "Users must ensure that access to the Customer Portal and Support Desk systems is limited to authorized personnel only, in accordance with POL-COMP-004: Access Control Policy."
+   }
+  ]
+ }
+}

@@ -1,0 +1,28 @@
+{
+ "chunk_id": "MAN-ENG-002::004",
+ "prompt_sha256": "6db2acd189790bda52bceb13f3e62817bdcccd99babc51b8a7e5d5f52a489ec7",
+ "result": {
+  "entities": [
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Audit Log Store",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Audit Log Store",
+    "dst_label": "System",
+    "evidence": "Authentication audit events are published to the Kafka Cluster and stored in the Audit Log Store."
+   }
+  ]
+ }
+}

@@ -1,0 +1,17 @@
+{
+ "chunk_id": "SOP-SUP-005::001",
+ "prompt_sha256": "5dcce28b65546c20aca490172abea3f91571d7bb182d6125844563b20f69c97b",
+ "result": {
+  "entities": [],
+  "relations": [
+   {
+    "src": "Auth Service",
+    "src_label": "System",
+    "rel": "RUNS_ON",
+    "dst": "Customer Portal",
+    "dst_label": "System",
+    "evidence": "This SOP applies to all personnel involved in handling customer requests for MFA resets using the Auth Service and Customer Portal."
+   }
+  ]
+ }
+}

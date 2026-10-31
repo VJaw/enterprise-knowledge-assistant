@@ -1,0 +1,33 @@
+{
+ "chunk_id": "INC-2025-012::000",
+ "prompt_sha256": "ca9a89873e2dd05890ae32ab8a598cde8d563f6af574ae0e3f414ade029a2cee",
+ "result": {
+  "entities": [
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Billing Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-012",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Ledger DB",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Billing Service",
+    "dst_label": "System",
+    "evidence": "service disruption lasted for 34 minutes until the on-call engineer executed the manual promotion process as defined in SOP-OPS-014: Database Failover, restoring service to the Billing Service reliant on the Ledger DB."
+   }
+  ]
+ }
+}

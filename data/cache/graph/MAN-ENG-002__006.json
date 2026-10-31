@@ -1,0 +1,23 @@
+{
+ "chunk_id": "MAN-ENG-002::006",
+ "prompt_sha256": "673e81d50559eb2c3db8e2fa2cd077537d51997b2f97eb049324d1624c542c2f",
+ "result": {
+  "entities": [
+   {
+    "name": "Auth Service",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Auth Service",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "deploy-auth-service.sh",
+    "dst_label": "Component",
+    "evidence": "Executing deployment commands:\n   ```bash\n   ./deploy-auth-service.sh\n   ```"
+   }
+  ]
+ }
+}

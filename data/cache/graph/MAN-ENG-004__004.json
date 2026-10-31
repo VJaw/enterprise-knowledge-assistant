@@ -1,0 +1,52 @@
+{
+ "chunk_id": "MAN-ENG-004::004",
+ "prompt_sha256": "d1b6c918561a120cf0bc9edd4e941bbccdac221d602f930ee7ac984f3ec22397",
+ "result": {
+  "entities": [
+   {
+    "name": "Monitoring Stack",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-006",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Monitoring Stack",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Network connectivity",
+    "dst_label": "Component",
+    "evidence": "The effective functioning of the Monitoring Stack relies on several dependencies, including: - Network connectivity to all monitored services."
+   },
+   {
+    "src": "Monitoring Stack",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Proper configuration of service endpoints",
+    "dst_label": "Component",
+    "evidence": "The effective functioning of the Monitoring Stack relies on several dependencies, including: - Proper configuration of service endpoints to expose metrics."
+   },
+   {
+    "src": "Monitoring Stack",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Availability of storage for metrics and logs",
+    "dst_label": "Component",
+    "evidence": "The effective functioning of the Monitoring Stack relies on several dependencies, including: - Availability of storage for metrics and logs."
+   },
+   {
+    "src": "POL-COMP-006",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Monitoring Stack",
+    "dst_label": "System",
+    "evidence": "It is essential that any changes to service configurations or infrastructure adhere to the guidelines outlined in the POL-COMP-006: Change Management Policy."
+   }
+  ]
+ }
+}

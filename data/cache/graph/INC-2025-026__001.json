@@ -1,0 +1,36 @@
+{
+ "chunk_id": "INC-2025-026::001",
+ "prompt_sha256": "3fab377f61c9e88a11ca7bb3c65551d2f10dbcbb4d86a9ceb69cbdda181a6987",
+ "result": {
+  "entities": [
+   {
+    "name": "Data Warehouse",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Linda Wolfe",
+    "label": "Person",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-026",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Data Warehouse",
+    "dst_label": "System",
+    "evidence": "Scheduled nightly load begins for the Data Warehouse."
+   },
+   {
+    "src": "INC-2025-026",
+    "src_label": "Incident",
+    "rel": "RESOLVED_BY",
+    "dst": "Linda Wolfe",
+    "dst_label": "Person",
+    "evidence": "Linda Wolfe, the on-call engineer, implements a backfill of the missing data per SOP-OPS-022: Data Warehouse Backfill."
+   }
+  ]
+ }
+}

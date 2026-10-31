@@ -1,0 +1,36 @@
+{
+ "chunk_id": "MAN-ENG-001::008",
+ "prompt_sha256": "7ec36292dab56317090cf3700a8112a44c5e1b243622d814d8713816e37f7327",
+ "result": {
+  "entities": [
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Auth Service",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "Ensure that all dependent systems (e.g., Ledger DB, Auth Service) are operational."
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "DEPENDS_ON",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "Ensure that all dependent systems (e.g., Ledger DB, Auth Service) are operational."
+   }
+  ]
+ }
+}

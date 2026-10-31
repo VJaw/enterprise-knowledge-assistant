@@ -21,7 +21,8 @@ data:             ## Phase 2: synthetic Acme corpus
 ingest:           ## Phase 2/3: clean, metadata, SQLite, Qdrant + BM25 indexes
 	$(PY) -m ingestion.run --build-indexes
 
-graph:            ## Phase 4: constraints, CSV backbone, LLM extraction, MENTIONS
+graph:            ## Phase 4: LLM extraction (cached) -> CSVs, then constraints, backbone, extracted, MENTIONS
+	$(PY) -m ingestion.extract_graph
 	$(PY) -m ingestion.load_graph
 
 run:

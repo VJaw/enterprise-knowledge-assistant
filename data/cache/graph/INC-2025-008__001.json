@@ -1,0 +1,41 @@
+{
+ "chunk_id": "INC-2025-008::001",
+ "prompt_sha256": "21a6c456503cd25c7b00a9f5c56cbd59780b11a0def2bf528c5318bea8733167",
+ "result": {
+  "entities": [
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Matthew Moore",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "INC-2025-008",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "AFFECTS",
+    "dst": "INC-2025-008",
+    "dst_label": "Incident",
+    "evidence": "internal communication initiated regarding potential impacts on fraud scoring."
+   },
+   {
+    "src": "INC-2025-008",
+    "src_label": "Incident",
+    "rel": "RESOLVED_BY",
+    "dst": "Matthew Moore",
+    "dst_label": "Person",
+    "evidence": "Matthew Moore identifies the cause as a filled broker disk."
+   }
+  ]
+ }
+}

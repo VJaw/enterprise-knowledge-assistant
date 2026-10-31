@@ -1,0 +1,23 @@
+{
+ "chunk_id": "SOP-OPS-021::006",
+ "prompt_sha256": "60ccef4122104b28e5177d2bcff5a3e2995d85387f11ff34ae15c64ba438c804",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-003",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "INC-2025-003",
+    "dst_label": "Incident",
+    "evidence": "in line with POL-COMP-003: Incident Response Policy."
+   }
+  ]
+ }
+}

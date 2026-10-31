@@ -1,0 +1,28 @@
+{
+ "chunk_id": "INC-2025-012::002",
+ "prompt_sha256": "52d117e2cdf274cc254395db3315214fc5a1db996e47f42a2a28d3ec8f3f5fdc",
+ "result": {
+  "entities": [
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-012",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-012",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "The primary cause of the Ledger DB failure was the crash of its storage controller, which rendered the database inoperable."
+   }
+  ]
+ }
+}

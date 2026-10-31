@@ -1,0 +1,29 @@
+{
+ "chunk_id": "POL-COMP-002::002",
+ "prompt_sha256": "d9a79c4a7d9a4ef310c11583d06e9f668239b50ac23cd3e3c65cae8be45831de",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-002",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-004",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-005",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": []
+ }
+}

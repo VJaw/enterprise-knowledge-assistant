@@ -1,0 +1,33 @@
+{
+ "chunk_id": "INC-2025-012::003",
+ "prompt_sha256": "ff225f3ababcfd450c1cea425b9e39f6d73d346ec3fae5098d8ed7ab4955b4e9",
+ "result": {
+  "entities": [
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-007",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "INC-2025-012",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-012",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "...that led to the Ledger DB crash..."
+   }
+  ]
+ }
+}

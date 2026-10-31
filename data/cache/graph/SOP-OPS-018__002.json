@@ -1,0 +1,28 @@
+{
+ "chunk_id": "SOP-OPS-018::002",
+ "prompt_sha256": "fd9cbf56a77c74140b15dc33e62539968db682fbcd47fc93ca4e9eea991ebec3",
+ "result": {
+  "entities": [
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "SRE-Operations",
+    "label": "Team",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "SRE-Operations",
+    "src_label": "Team",
+    "rel": "OWNS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "the owning team must regularly monitor the expiry dates of TLS certificates associated with the API Gateway."
+   }
+  ]
+ }
+}

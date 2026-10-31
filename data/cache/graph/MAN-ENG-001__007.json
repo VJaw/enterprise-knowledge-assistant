@@ -1,0 +1,72 @@
+{
+ "chunk_id": "MAN-ENG-001::007",
+ "prompt_sha256": "9288178f7cca912a7e647b63463e5750ee44a4f1ef89004ea6a59c8c833ca83e",
+ "result": {
+  "entities": [
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Notification Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-031",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "INC-2025-003",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "INC-2025-022",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "INC-2025-036",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "AFFECTS",
+    "dst": "INC-2025-031",
+    "dst_label": "Incident",
+    "evidence": "Investigate any incidents related to latency, such as **INC-2025-031**."
+   },
+   {
+    "src": "Payment Gateway",
+    "src_label": "System",
+    "rel": "AFFECTS",
+    "dst": "INC-2025-003",
+    "dst_label": "Incident",
+    "evidence": "Address issues related to authentication, referenced in **INC-2025-003**."
+   },
+   {
+    "src": "API Gateway",
+    "src_label": "System",
+    "rel": "AFFECTS",
+    "dst": "INC-2025-022",
+    "dst_label": "Incident",
+    "evidence": "Check for expired certificates as noted in **INC-2025-022**."
+   },
+   {
+    "src": "Notification Service",
+    "src_label": "System",
+    "rel": "AFFECTS",
+    "dst": "INC-2025-036",
+    "dst_label": "Incident",
+    "evidence": "Monitor the Notification Service for backlogs, as described in **INC-2025-036**."
+   }
+  ]
+ }
+}

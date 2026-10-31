@@ -1,0 +1,19 @@
+{
+ "chunk_id": "SOP-OPS-014::006",
+ "prompt_sha256": "905999c95b07a83a368f830d52fa62dd2fe56b96ddf5eebadd3a5740457f39b3",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": []
+ }
+}

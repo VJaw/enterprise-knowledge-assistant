@@ -1,0 +1,54 @@
+{
+ "chunk_id": "MAN-ENG-005::006",
+ "prompt_sha256": "e199cbfb869b3d2d13cb59de389cabf4a98bb8a38c11b73aa4bb9c50f43dc40d",
+ "result": {
+  "entities": [
+   {
+    "name": "Customer Portal",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "INC-2025-017",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "INC-2025-031",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "INC-2025-036",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-017",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Customer Portal",
+    "dst_label": "System",
+    "evidence": "**INC-2025-017**: Customer Portal outage."
+   },
+   {
+    "src": "INC-2025-031",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Customer Portal",
+    "dst_label": "System",
+    "evidence": "**INC-2025-031**: Payment latency spike."
+   },
+   {
+    "src": "INC-2025-036",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Customer Portal",
+    "dst_label": "System",
+    "evidence": "**INC-2025-036**: Notification delivery backlog."
+   }
+  ]
+ }
+}

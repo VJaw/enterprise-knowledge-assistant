@@ -1,0 +1,23 @@
+{
+ "chunk_id": "SOP-OPS-007::002",
+ "prompt_sha256": "9746cd52b18f7b5f2ccd20fbc0c5606649295657b9dc08b3353c5304497ccbfa",
+ "result": {
+  "entities": [
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "brokers",
+    "dst_label": "Component",
+    "evidence": "\"all brokers are functioning normally\""
+   }
+  ]
+ }
+}

@@ -1,0 +1,83 @@
+{
+ "chunk_id": "INC-2025-003::002",
+ "prompt_sha256": "719f3b383caf5079b0ee8d003c06f479bb128f9e3288668c677bdc19039234fa",
+ "result": {
+  "entities": [
+   {
+    "name": "Secrets Vault",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Auth Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-002",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-006",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "INC-2025-003",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-003",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "the need for improved observability in the Auth Service and Secrets Vault systems."
+   },
+   {
+    "src": "INC-2025-003",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Secrets Vault",
+    "dst_label": "System",
+    "evidence": "the need for improved observability in the Auth Service and Secrets Vault systems."
+   },
+   {
+    "src": "POL-COMP-002",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "adhering to established policies, such as POL-COMP-002: Acceptable Use Policy."
+   },
+   {
+    "src": "POL-COMP-006",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "adhering to established policies, such as POL-COMP-006: Change Management Policy."
+   },
+   {
+    "src": "POL-COMP-002",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Secrets Vault",
+    "dst_label": "System",
+    "evidence": "adhering to established policies, such as POL-COMP-002: Acceptable Use Policy."
+   },
+   {
+    "src": "POL-COMP-006",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Secrets Vault",
+    "dst_label": "System",
+    "evidence": "adhering to established policies, such as POL-COMP-006: Change Management Policy."
+   }
+  ]
+ }
+}

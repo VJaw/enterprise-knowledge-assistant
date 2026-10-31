@@ -1,0 +1,41 @@
+{
+ "chunk_id": "SOP-OPS-022::001",
+ "prompt_sha256": "6abbe32342a2000549debc1a31d35855a1e968f93e4b263667260bbdb4baf9fe",
+ "result": {
+  "entities": [
+   {
+    "name": "Data Warehouse",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Reporting Service",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Data Warehouse",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Kafka Cluster",
+    "dst_label": "System",
+    "evidence": "coordination of data ingestion from the Kafka Cluster"
+   },
+   {
+    "src": "Data Warehouse",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Reporting Service",
+    "dst_label": "System",
+    "evidence": "verification of data integrity in the Reporting Service"
+   }
+  ]
+ }
+}

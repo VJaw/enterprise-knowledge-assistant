@@ -1,0 +1,41 @@
+{
+ "chunk_id": "INC-2025-008::003",
+ "prompt_sha256": "260ee9e0e52258cad552f781a3775c091d26f19993bacf3f158158181c1cf54f",
+ "result": {
+  "entities": [
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "INC-2025-008",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "disk space issues",
+    "dst_label": "Component",
+    "evidence": "Review and enhance monitoring thresholds for the Kafka Cluster to ensure timely alerts for disk space issues."
+   },
+   {
+    "src": "INC-2025-008",
+    "src_label": "Incident",
+    "rel": "RESOLVED_BY",
+    "dst": "POL-COMP-003",
+    "dst_label": "Policy",
+    "evidence": "Conduct a post-incident review meeting to discuss lessons learned and update the Incident Response Policy (POL-COMP-003) accordingly."
+   }
+  ]
+ }
+}

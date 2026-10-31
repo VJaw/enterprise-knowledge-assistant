@@ -1,0 +1,67 @@
+{
+ "chunk_id": "POL-COMP-007::000",
+ "prompt_sha256": "0273d0256342e630850daa8adbb87daef1b6c8ad60af233a8900fc1bc78775f5",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-007",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Payment Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Auth Service",
+    "label": "System",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-007",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "This policy applies to all systems critical to Acme Corp's operations, including: - Ledger DB"
+   },
+   {
+    "src": "POL-COMP-007",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Kafka Cluster",
+    "dst_label": "System",
+    "evidence": "This policy applies to all systems critical to Acme Corp's operations, including: - Kafka Cluster"
+   },
+   {
+    "src": "POL-COMP-007",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Payment Gateway",
+    "dst_label": "System",
+    "evidence": "This policy applies to all systems critical to Acme Corp's operations, including: - Payment Gateway"
+   },
+   {
+    "src": "POL-COMP-007",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Auth Service",
+    "dst_label": "System",
+    "evidence": "This policy applies to all systems critical to Acme Corp's operations, including: - Auth Service"
+   }
+  ]
+ }
+}

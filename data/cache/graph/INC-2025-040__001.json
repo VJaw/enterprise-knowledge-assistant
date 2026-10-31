@@ -1,0 +1,41 @@
+{
+ "chunk_id": "INC-2025-040::001",
+ "prompt_sha256": "7748206cdc077a3bc1a3595021c6a45ba92fde2f3a9448a5958caeebebf5ffba",
+ "result": {
+  "entities": [
+   {
+    "name": "Fraud Detection Engine",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Jill Rhodes",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "INC-2025-040",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Fraud Detection Engine",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Fraud Detection Engine",
+    "dst_label": "System",
+    "evidence": "New fraud model version deployed to the Fraud Detection Engine."
+   },
+   {
+    "src": "INC-2025-040",
+    "src_label": "Incident",
+    "rel": "RESOLVED_BY",
+    "dst": "Jill Rhodes",
+    "dst_label": "Person",
+    "evidence": "Incident resolved by Jill Rhodes (Software Engineer)."
+   }
+  ]
+ }
+}

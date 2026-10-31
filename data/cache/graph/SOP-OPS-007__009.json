@@ -1,0 +1,28 @@
+{
+ "chunk_id": "SOP-OPS-007::009",
+ "prompt_sha256": "60c40c34b2e671e4784a9f515319f65b813053a0980d0b8956f4b2a1e1aef25d",
+ "result": {
+  "entities": [
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-001",
+    "dst_label": "Policy",
+    "evidence": "as per POL-COMP-001: Data Retention Policy."
+   }
+  ]
+ }
+}

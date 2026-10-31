@@ -1,0 +1,36 @@
+{
+ "chunk_id": "SOP-OPS-021::005",
+ "prompt_sha256": "4fb237ac206e4346834673a491015981728e345d2da813d5172b2154daa03365",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-002",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "INC-2025-003",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-003",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "stakeholders",
+    "dst_label": "System",
+    "evidence": "the Incident Commander will provide regular updates to affected stakeholders."
+   },
+   {
+    "src": "POL-COMP-002",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "stakeholders",
+    "dst_label": "System",
+    "evidence": "all communications adhere to POL-COMP-002: Acceptable Use Policy to maintain professionalism and clarity."
+   }
+  ]
+ }
+}

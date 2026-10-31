@@ -1,0 +1,41 @@
+{
+ "chunk_id": "MAN-ENG-006::008",
+ "prompt_sha256": "635c82d3a1c19daf81759867fa7e39d3935992031c3f07b452a29b520a2c65bf",
+ "result": {
+  "entities": [
+   {
+    "name": "API Gateway",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-004",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "Understand the retention requirements for logs and data processed by the API Gateway."
+   },
+   {
+    "src": "POL-COMP-004",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "API Gateway",
+    "dst_label": "System",
+    "evidence": "Ensure that access to the API Gateway is compliant with internal access control measures."
+   }
+  ]
+ }
+}

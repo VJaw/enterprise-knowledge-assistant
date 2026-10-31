@@ -1,0 +1,49 @@
+{
+ "chunk_id": "INC-2025-012::001",
+ "prompt_sha256": "720b6367010270be39572b3b2f92379bc835129bb0402308e61104ad188c82ef",
+ "result": {
+  "entities": [
+   {
+    "name": "Ledger DB",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Jeffrey Lawrence",
+    "label": "Person",
+    "type": null
+   },
+   {
+    "name": "Incident",
+    "label": "Incident",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Ledger DB",
+    "src_label": "System",
+    "rel": "HAS_COMPONENT",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "Ledger DB primary crashed after a storage controller failure."
+   },
+   {
+    "src": "INC-2025-012",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Ledger DB",
+    "dst_label": "System",
+    "evidence": "Initial alert triggered for Ledger DB downtime."
+   },
+   {
+    "src": "Jeffrey Lawrence",
+    "src_label": "Person",
+    "rel": "MANAGES",
+    "dst": "Incident",
+    "dst_label": "Incident",
+    "evidence": "Manual promotion executed by Jeffrey Lawrence as per SOP-OPS-014: Database Failover."
+   }
+  ]
+ }
+}

@@ -1,0 +1,19 @@
+{
+ "chunk_id": "MAN-ENG-002::000",
+ "prompt_sha256": "29cb7c248624c80b800d0a24076935b860229c12bdf30e3c7bab53c791efb824",
+ "result": {
+  "entities": [
+   {
+    "name": "Auth Service",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "Auth Service",
+    "label": "Component",
+    "type": "service"
+   }
+  ],
+  "relations": []
+ }
+}

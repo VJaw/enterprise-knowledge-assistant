@@ -1,0 +1,23 @@
+{
+ "chunk_id": "SOP-OPS-022::002",
+ "prompt_sha256": "526c6aa89465f91087a7aa3561fdf752e0a00c5566fb0f00c2a3847e61697334",
+ "result": {
+  "entities": [
+   {
+    "name": "POL-COMP-001",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "POL-COMP-001",
+    "src_label": "Policy",
+    "rel": "GOVERNS",
+    "dst": "Data Warehouse",
+    "dst_label": "System",
+    "evidence": "ensure that the data to be backfilled complies with the guidelines set forth in the POL-COMP-001: Data Retention Policy."
+   }
+  ]
+ }
+}

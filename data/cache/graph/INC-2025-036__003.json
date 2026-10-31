@@ -1,0 +1,28 @@
+{
+ "chunk_id": "INC-2025-036::003",
+ "prompt_sha256": "511854296d04cfe5dcd4d7d1ecda48ce284576853ef1663a2e91f07a5e907e6f",
+ "result": {
+  "entities": [
+   {
+    "name": "INC-2025-036",
+    "label": "Incident",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-003",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "INC-2025-036",
+    "src_label": "Incident",
+    "rel": "RESOLVED_BY",
+    "dst": "POL-COMP-003",
+    "dst_label": "Policy",
+    "evidence": "Update the Incident Response Policy (POL-COMP-003) to include specific protocols for handling third-party service issues."
+   }
+  ]
+ }
+}

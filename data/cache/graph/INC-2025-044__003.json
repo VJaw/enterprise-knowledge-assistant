@@ -1,0 +1,41 @@
+{
+ "chunk_id": "INC-2025-044::003",
+ "prompt_sha256": "e94277f71bb79f0a203c0c2496a49a331ea2202688728b6990dbafe7f27fb68f",
+ "result": {
+  "entities": [
+   {
+    "name": "Kafka Cluster",
+    "label": "System",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-004",
+    "label": "Policy",
+    "type": null
+   },
+   {
+    "name": "POL-COMP-006",
+    "label": "Policy",
+    "type": null
+   }
+  ],
+  "relations": [
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-004",
+    "dst_label": "Policy",
+    "evidence": "review of current access controls for all services interacting with the Kafka Cluster to ensure compliance with POL-COMP-004: Access Control Policy."
+   },
+   {
+    "src": "Kafka Cluster",
+    "src_label": "System",
+    "rel": "GOVERNS",
+    "dst": "POL-COMP-006",
+    "dst_label": "Policy",
+    "evidence": "in alignment with POL-COMP-006: Change Management Policy."
+   }
+  ]
+ }
+}

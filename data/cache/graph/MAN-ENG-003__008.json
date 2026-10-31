@@ -1,0 +1,17 @@
+{
+ "chunk_id": "MAN-ENG-003::008",
+ "prompt_sha256": "9f5dcbf870edf907786a7e24f27fb3dd6b59841c0aa8f8e2f60e7bc76f01b711",
+ "result": {
+  "entities": [],
+  "relations": [
+   {
+    "src": "INC-2025-008",
+    "src_label": "Incident",
+    "rel": "AFFECTS",
+    "dst": "Kafka Cluster",
+    "dst_label": "System",
+    "evidence": "refer to INC-2025-008: Kafka consumer lag delays fraud scoring"
+   }
+  ]
+ }
+}
