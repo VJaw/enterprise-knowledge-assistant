@@ -65,7 +65,7 @@ Read capstonespec.md in full. Execute Phase <N> only.
 | 6 | Golden set & baseline evaluation (**M2**) | ✅ | 2026-10-30 | `11bb331` | 30-row golden set (verified by 6 tests), RAGAS A vs D, multi-hop context recall 0.000 → 0.875, Promptfoo 6/10, 94 tests; D-018, D-019. Router-filter fix `d124faf` (D-020): Promptfoo 8/10, 104 tests |
 | 7 | LangGraph agent & tools | ✅ | 2026-10-31 | `1c4ec3e` | 8-node agent, 5 tools + 13 read-only MCP tools, SQLite sessions; §B9.4 answered correctly 6/6 but the full sql→graph→kb tool order showed in 1 of 3 runs, accepted by the user (D-022); RAGAS D all 4 metrics up, structured 5/5 answered; Promptfoo 8/10; 187 tests; D-021 |
 | 8 | Guardrails (**M3**) | ✅ | 2026-10-31 | `6648ab1` | NeMo native (3 `LLMRails`, 11 custom actions), Presidio + LLM Guard; injection blocked, PII masked (no raw email in trace), poisoned doc stripped; overhead p50 157 ms, 0/30 false blocks; Promptfoo 9/10; 261 tests; D-023, D-024, D-025 |
-| 9 | API hardening, cache & observability | ✅ | 2026-10-31 | `<phase-9>` | /chat, /sessions, /ingest, /health (degraded graph), /metrics, §B11.3 errors, 30/min rate limit; semantic cache hit 66 ms (0.92 + specifics guard: 0/10 false hits, 7/10 paraphrases); 5/5 traces complete, no PII; 6 screenshots; 294 tests; D-026 |
+| 9 | API hardening, cache & observability | ✅ | 2026-10-31 | `bf32645` | /chat, /sessions, /ingest, /health (degraded graph), /metrics, §B11.3 errors, 30/min rate limit; semantic cache hit 66 ms (0.92 + specifics guard: 0/10 false hits, 7/10 paraphrases); 5/5 traces complete, no PII; 6 screenshots; 294 tests; D-026 |
 | 10 | Full evaluation | ⬜ | | | |
 | 11 | Performance & load testing | ⬜ | | | |
 | 12 | Deploy & documentation (**M4**) | ⬜ | | | |
@@ -305,7 +305,7 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done (gate passed) · ⚠️ 
   - Run `python scripts/bench_guardrails.py` against the API to re-measure overhead (≈ $0.15 per run).
   - Spend this phase ≈ $0.5: 2 benchmark runs ≈ $0.3, 3 Promptfoo runs ≈ $0.1, gate and smoke runs < $0.1.
 
-**Phase 9 — API hardening, semantic cache & observability (2026-10-31, commit `<phase-9>`)**
+**Phase 9 — API hardening, semantic cache & observability (2026-10-31, commit `bf32645`)**
 - Built:
   - `app/cache/semantic_cache.py` `SemanticCache` (Qdrant `semantic_cache`; payload `response_json, created_at, model, corpus_version, filters_hash, query`; point id = uuid5 of version + filters + key, so a repeated question overwrites its entry). `write_refusal()` is the §B12.1/§B17 write rule. `corpus_version` lives in `data/indexes/corpus_version` and is bumped by every `build_indexes` (so `make ingest` invalidates too).
   - `app/pipeline.py`: lookup after the input rails, a hit goes to the output rails with its stored grounding and is appended to the session; the write runs after the output rails. The agent runs under one `agent` span. Cache errors are logged and never fail a turn.
