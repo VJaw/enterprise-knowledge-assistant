@@ -34,6 +34,16 @@ RETURN s.name AS system
 ORDER BY s.name
 """
 
+# Team seed -> manager, head count and owned systems (the agent's `query_graph(team, ...)`, D-021)
+TEAM = """
+MATCH (t:Team {name: $name})
+OPTIONAL MATCH (m:Person)-[:MANAGES]->(t)
+OPTIONAL MATCH (p:Person)-[:MEMBER_OF]->(t)
+OPTIONAL MATCH (t)-[:OWNS]->(s:System)
+RETURN t.name AS team, m.name AS manager, count(DISTINCT p) AS members, collect(DISTINCT s.name) AS systems,
+       'teams.csv, employees.csv, system_owners.csv' AS source
+"""
+
 BLAST_RADIUS = """
 MATCH p = (down:System {name: $name})<-[:DEPENDS_ON*1..%d]-(up:System)
 WITH up, min(length(p)) AS hops
@@ -65,6 +75,13 @@ RETURN coalesce(n.name, n.doc_id) AS name, labels(n)[0] AS label, hops,
        [x IN nodes(path) | coalesce(x.name, x.doc_id)] AS via
 ORDER BY hops, label, name
 LIMIT $limit
+"""
+
+# A key from the SQL tables (SYS-002, TEAM-01, EMP-12345, PRD-...) -> the node's name and label
+BY_KEY = """
+MATCH (n) WHERE n.system_id = $id OR n.team_id = $id OR n.emp_id = $id OR n.product_id = $id
+RETURN n.name AS name, labels(n)[0] AS label
+LIMIT 1
 """
 
 # §B8.1 entity linking via the `entity_names` full-text index
@@ -105,6 +122,14 @@ async def policies_for(client: Neo4jClient, name: str) -> list[dict]:
 async def neighbourhood(client: Neo4jClient, name: str, depth: int = 2,
                         limit: int = NEIGHBOURHOOD_LIMIT) -> list[dict]:
     return await client.read(NEIGHBOURHOOD % _depth(depth), name=name, limit=limit)
+
+
+async def team(client: Neo4jClient, name: str) -> list[dict]:
+    return await client.read(TEAM, name=name)
+
+
+async def by_key(client: Neo4jClient, key: str) -> list[dict]:
+    return await client.read(BY_KEY, id=key)
 
 
 async def doc_systems(client: Neo4jClient, doc_id: str) -> list[str]:

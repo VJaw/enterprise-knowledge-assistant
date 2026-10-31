@@ -18,6 +18,7 @@ from typing import Literal
 
 from langchain_core.messages import HumanMessage, SystemMessage
 from pydantic import BaseModel, Field
+from rapidfuzz import fuzz
 
 from app.observability.langfuse import llm_callbacks
 
@@ -72,7 +73,8 @@ INC-2025-031) in the question. Use the canonical spelling from this list when on
 "in incident reports").
 - rewritten_query: the question rewritten to be self-contained, resolving pronouns and references from the \
 conversation. Keep IDs, commands and names verbatim. Don't answer it.
-- sub_questions: for multi_hop only, the 2-3 simpler questions to chain; otherwise []."""
+- sub_questions: for multi_hop only, the 2-4 simpler questions to chain, covering every part of the \
+question (including any part about what a document says); otherwise []."""
 
 
 def load_known_entities(tables: Path = TABLES) -> list[str]:
@@ -120,6 +122,26 @@ def explicit_filters(message: str, doc_type: str | None, domain: str | None,
     return out
 
 
+ENTITY_MATCH = 85
+GENERIC_WORDS = {"service", "system", "team", "cluster", "engine", "gateway", "portal", "platform", "data"}
+
+
+def grounded_entities(entities: list[str], text: str) -> list[str]:
+    """Keep the router's entities that the conversation actually mentions (D-021). The model also returns
+    names it associates with the topic (a team for "failover SOP"), which become wrong graph seeds. An entity
+    is kept when it fuzzily occurs in the text (`ledger database` -> Ledger DB) or its distinctive first word
+    does (`Kafka` -> Kafka Cluster)."""
+    low = text.lower()
+    words = set(re.findall(r"[\w-]+", low))
+    out = []
+    for e in entities:
+        first = re.split(r"[\s-]+", e.lower())[0]
+        if (fuzz.partial_ratio(e.lower(), low) >= ENTITY_MATCH
+                or (len(first) >= 4 and first not in GENERIC_WORDS and first in words)):
+            out.append(e)
+    return out
+
+
 def format_history(history: list[tuple[str, str]]) -> str:
     turns = history[-HISTORY_TURNS:]
     return "\n".join(f"User: {u}\nAssistant: {a}" for u, a in turns)
@@ -145,6 +167,8 @@ class Router:
             return QueryPlan.fallback(message)
         # Checked against the user's message, not rewritten_query: the rewrite can add words of its own.
         filters = explicit_filters(message, out.doc_type, out.domain, self.filter_pairs)
-        return QueryPlan(intent=out.intent, complexity=out.complexity, entities=out.entities, filters=filters,
+        # Entities may come from the history too: a follow-up's "that team" resolves to a name said earlier.
+        entities = grounded_entities(out.entities, f"{format_history(history or [])}\n{message}")
+        return QueryPlan(intent=out.intent, complexity=out.complexity, entities=entities, filters=filters,
                          rewritten_query=out.rewritten_query.strip() or message,
                          sub_questions=out.sub_questions)

@@ -21,6 +21,22 @@ class Reranker(Protocol):
     def rerank(self, query: str, chunks: list[RetrievedChunk], top_k: int) -> list[RetrievedChunk]: ...
 
 
+class ToolResult(BaseModel):
+    """One executed tool call, as reported in `ChatResponse.tool_calls` (§B11.2)."""
+    name: str
+    args: dict
+    duration_ms: int
+    status: Literal["ok", "error", "blocked"]
+    output: str = ""  # truncated, for the trace
+
+
+class GroundingResult(BaseModel):
+    score: float | None  # supported claims / claims; None when the check was skipped
+    grounded: bool
+    unsupported_claims: list[str] = Field(default_factory=list)
+    skipped: str | None = None  # why the judge didn't run (chit_chat, abstained, judge_error)
+
+
 class GuardResult(BaseModel):
     allowed: bool
     text: str

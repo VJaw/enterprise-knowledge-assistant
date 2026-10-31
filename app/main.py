@@ -1,7 +1,7 @@
 """FastAPI entrypoint: app factory, lifespan-managed clients, routers."""
 import asyncio
 import logging
-from contextlib import asynccontextmanager
+from contextlib import AsyncExitStack, asynccontextmanager
 
 import httpx
 from fastapi import FastAPI
@@ -9,9 +9,12 @@ from langchain_openai import ChatOpenAI
 from openai import AsyncOpenAI
 from qdrant_client import QdrantClient
 
+from app.agent.graph import build_graph, open_checkpointer
+from app.agent.nodes import AgentNodes
 from app.api import chat, health
 from app.config import get_settings
 from app.graph.neo4j_client import Neo4jClient
+from app.llm.router import ModelRouter
 from app.observability.langfuse import init_langfuse
 from app.retrieval.bm25 import BM25Retriever
 from app.retrieval.dense import COLLECTION, DenseRetriever
@@ -20,6 +23,8 @@ from app.retrieval.graph import GraphRetriever
 from app.retrieval.hybrid import HybridRetriever
 from app.retrieval.rerank import CrossEncoderReranker, get_cross_encoder
 from app.retrieval.router import Router, load_filter_pairs, load_known_entities
+from app.tools import build_tools
+from app.tools.mcp import MCPTools, server_config
 
 log = logging.getLogger("uvicorn.error")
 
@@ -77,17 +82,35 @@ async def lifespan(app: FastAPI):
     await asyncio.to_thread(ensure_index, app.state.qdrant)
     app.state.graph_available = await ensure_graph(app.state.graph)
     dense = DenseRetriever(app.state.qdrant)
+    graph_retriever = GraphRetriever(app.state.graph, dense)
     app.state.retriever = HybridRetriever(
-        dense, BM25Retriever(), GraphRetriever(app.state.graph, dense), CrossEncoderReranker(),
+        dense, BM25Retriever(), graph_retriever, CrossEncoderReranker(),
         use_bm25=s.use_bm25, use_graph=s.use_graph, use_rerank=s.use_rerank,
         graph_available=lambda: app.state.graph_available)
     app.state.llm = ChatOpenAI(model=s.model_fast, temperature=0, api_key=_secret(s.openai_api_key),
                                timeout=30, max_retries=2)
     app.state.router = Router(app.state.llm, load_known_entities(), load_filter_pairs())
-    app.state.sessions = {}
+
+    # §B4.3: MCP sessions and the compiled agent graph. The exit stack closes them in reverse order.
+    stack = AsyncExitStack()
+    tools = build_tools(s, app.state.retriever, graph_retriever)
+    app.state.mcp = None
+    if s.use_mcp:
+        app.state.mcp = MCPTools(server_config(s))
+        stack.push_async_callback(app.state.mcp.close)
+        tools += await app.state.mcp.start()
+    checkpointer = await stack.enter_async_context(open_checkpointer(s.sessions_db))
+    app.state.models = ModelRouter.from_settings(s)
+    app.state.tools = tools
+    app.state.agent = build_graph(
+        AgentNodes(router=app.state.router, retriever=app.state.retriever, models=app.state.models,
+                   tools=tools, judge=app.state.llm, max_steps=s.agent_max_steps),
+        checkpointer)
+    log.warning("agent tools: %s", ", ".join(t.name for t in tools))
     try:
         yield
     finally:
+        await stack.aclose()
         await app.state.http.aclose()
         await app.state.graph.close()
         await app.state.openai.close()

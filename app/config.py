@@ -28,6 +28,13 @@ class Settings(BaseSettings):
     # --- Storage ---
     qdrant_path: str = "./data/qdrant"
     sqlite_path: str = "./data/acme.db"
+    sessions_db: str = "./data/sessions.db"  # LangGraph checkpointer (§B9.2)
+    raw_dir: str = "./data/raw"  # filesystem MCP server root
+
+    # --- MCP servers (§B9.3); pinned so a new release can't break startup (D-021) ---
+    use_mcp: bool = True
+    mcp_sqlite_package: str = "mcp-server-sqlite==2025.4.25"
+    mcp_filesystem_package: str = "@modelcontextprotocol/server-filesystem@2.1.0"
 
     # --- Behaviour ---
     cache_sim_threshold: float = 0.92

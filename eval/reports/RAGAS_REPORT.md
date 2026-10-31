@@ -19,7 +19,7 @@ as is are handled as follows (D-018):
 
 <!-- BEGIN GENERATED (run_ragas.py) -->
 
-_Generated 2026-10-30 by `eval/ragas/run_ragas.py` from `ragas_A.json`, `ragas_D.json`. Golden set: 30 rows (`eval/datasets/golden.jsonl`). Evaluator `gpt-4o-mini`; answer relevancy embeddings `text-embedding-3-small`. Generator `gpt-4o-mini`._
+_Generated 2026-10-31 by `eval/ragas/run_ragas.py` from `ragas_A.json`, `ragas_D.json`. Golden set: 30 rows (`eval/datasets/golden.jsonl`). Evaluator `gpt-4o-mini`; answer relevancy embeddings `text-embedding-3-small`. Generator `gpt-4o-mini`._
 
 ### Overall
 
@@ -27,7 +27,7 @@ _Generated 2026-10-30 by `eval/ragas/run_ragas.py` from `ragas_A.json`, `ragas_D
 |---|---|---|---|---|---|---|---|---|
 | *Target (§B14.2)* | *≥ 0.85* | *≥ 0.85* | *≥ 0.75* | *≥ 0.80* | | | | |
 | A: baseline (dense) | 0.890 | 0.458 | 0.481 | 0.438 | 1.000 | 0.481 | 1952 ms | $0.0052 |
-| D: full (+ rerank) | 0.795 | 0.681 | 0.741 | 0.698 | 1.000 | 0.185 | 3102 ms | $0.0056 |
+| D: full (+ rerank) | 0.849 | 0.841 | 0.968 | 0.907 | 1.000 | 0.000 | 4671 ms | $0.1587 |
 
 ### By query type
 
@@ -35,10 +35,10 @@ Each cell lists the configs in order (A / D). Context metrics and answer relevan
 
 | Query type | n | Faithfulness | Answer relevancy | Context precision | Context recall | Abstained |
 |---|---|---|---|---|---|---|
-| factual | 10 | 0.867 / 0.792 | 0.803 / 0.867 | 0.900 / 0.900 | 0.783 / 0.783 | 0.100 / 0.000 |
-| multi_hop | 8 | n/a / 0.688 | 0.000 / 0.660 | 0.000 / 0.875 | 0.000 / 0.875 | 1.000 / 0.125 |
-| structured | 5 | 0.667 / 0.875 | 0.178 / 0.200 | 0.000 / 0.000 | 0.000 / 0.000 | 0.800 / 0.800 |
-| faq | 4 | 1.000 / 1.000 | 0.860 / 0.864 | 1.000 / 1.000 | 1.000 / 1.000 | 0.000 / 0.000 |
+| factual | 10 | 0.867 / 0.940 | 0.803 / 0.852 | 0.900 / 1.000 | 0.783 / 0.850 | 0.100 / 0.000 |
+| multi_hop | 8 | n/a / 0.878 | 0.000 / 0.698 | 0.000 / 0.891 | 0.000 / 0.875 | 1.000 / 0.000 |
+| structured | 5 | 0.667 / 0.500 | 0.178 / 0.963 | 0.000 / 1.000 | 0.000 / 1.000 | 0.800 / 0.000 |
+| faq | 4 | 1.000 / 1.000 | 0.860 / 0.948 | 1.000 / 1.000 | 1.000 / 1.000 | 0.000 / 0.000 |
 | unanswerable | 3 | n/a / n/a | n/a / n/a | n/a / n/a | n/a / n/a | 1.000 / 1.000 |
 
 **Gate (Phase 6): D ≥ A on multi-hop context recall: 0.875 vs 0.000 ✅**
@@ -51,31 +51,31 @@ F = faithfulness, AR = answer relevancy, CP = context precision, CR = context re
 |---|---|---|---|---|
 | 1 | factual | How long are audit logs in the Audit Log Store retained, and can th… | 1.000 / 0.881 / 1.000 / 1.000 (1) | 1.000 / 0.881 / 1.000 / 1.000 (1) |
 | 2 | factual | What are the recovery time and recovery point objectives for the Le… | 1.000 / 0.840 / 1.000 / 1.000 (2) | 1.000 / 0.840 / 1.000 / 1.000 (2) |
-| 3 | factual | How long does break-glass privileged access last, and where is it i… | 1.000 / 0.916 / 1.000 / 0.667 (1) | 0.000 / 0.916 / 0.000 / 0.000 (1) |
+| 3 | factual | How long does break-glass privileged access last, and where is it i… | 1.000 / 0.916 / 1.000 / 0.667 (1) | 1.000 / 0.916 / 1.000 / 0.667 (2) |
 | 4 | factual | At what consumer lag should the Kafka Cluster alert fire? | 0.500 / 0.924 / 1.000 / 0.500 (2) | 1.000 / 0.924 / 1.000 / 0.500 (2) |
-| 5 | factual | What are the steps for manual promotion during a Ledger DB failover? | 1.000 / 1.000 / 1.000 / 1.000 (1) | 1.000 / 1.000 / 1.000 / 1.000 (1) |
-| 6 | factual | How quickly must an emergency secret rotation happen, and how long … | 1.000 / 0.727 / 1.000 / 0.667 (1) | 0.667 / 0.747 / 1.000 / 0.667 (1) |
-| 7 | factual | How far ahead of expiry must API Gateway TLS certificates be renewed? | 1.000 / 0.894 / 1.000 / 1.000 (1) | 1.000 / 0.886 / 1.000 / 1.000 (2) |
-| 8 | factual | Who has to approve a refund of more than $5,000? | 0.500 / 0.965 / 1.000 / 1.000 (1) | 0.500 / 0.861 / 1.000 / 1.000 (1) |
-| 9 | factual | How quickly must we respond to a chargeback notice, and when does a… | – / 0.000 / 0.000 / 0.000 (0) ✋ | 1.000 / 0.727 / 1.000 / 0.667 (2) |
-| 10 | factual | What caused the payment latency spike in INC-2025-031, and how long… | 0.800 / 0.884 / 1.000 / 1.000 (2) | 0.750 / 0.884 / 1.000 / 1.000 (2) |
-| 11 | multi_hop | Who manages the team that owns the system covered by SOP-OPS-014 (D… | – / 0.000 / 0.000 / 0.000 (0) ✋ | 0.667 / 0.732 / 1.000 / 1.000 (1) |
-| 12 | multi_hop | Which team owns the system that SOP-OPS-009 (Secrets Rotation) cove… | – / 0.000 / 0.000 / 0.000 (0) ✋ | 0.667 / 0.000 / 1.000 / 1.000 (1) ✋ |
-| 13 | multi_hop | Who is the manager of the team that owns the system handled by SOP-… | – / 0.000 / 0.000 / 0.000 (0) ✋ | 1.000 / 0.794 / 1.000 / 1.000 (1) |
-| 14 | multi_hop | Who manages the team that owns the system covered by SOP-SUP-003 (R… | – / 0.000 / 0.000 / 0.000 (0) ✋ | 0.667 / 0.780 / 1.000 / 1.000 (1) |
-| 15 | multi_hop | SOP-SUP-008 (Chargeback Handling) requires a risk score from one of… | – / 0.000 / 0.000 / 0.000 (0) ✋ | 0.667 / 0.453 / 1.000 / 1.000 (1) |
-| 16 | multi_hop | Which teams own the systems Payment Gateway depends on? | – / 0.000 / 0.000 / 0.000 (0) ✋ | 1.000 / 0.974 / 0.000 / 1.000 (7) |
-| 17 | multi_hop | Which team owns the system affected by INC-2025-022 (the expired TL… | – / 0.000 / 0.000 / 0.000 (0) ✋ | 0.500 / 0.550 / 1.000 / 1.000 (1) |
-| 18 | multi_hop | Which policies govern the systems affected by incident INC-2025-012? | – / 0.000 / 0.000 / 0.000 (0) ✋ | 0.333 / 0.993 / 1.000 / 0.000 (1) |
-| 19 | structured | How many SEV1 tickets are there in total? | 0.667 / 0.888 / 0.000 / 0.000 (2) | – / 0.000 / 0.000 / 0.000 (0) ✋ |
-| 20 | structured | How many support tickets currently have the status 'open'? | – / 0.000 / 0.000 / 0.000 (0) ✋ | – / 0.000 / 0.000 / 0.000 (0) ✋ |
-| 21 | structured | Which system has the most SEV1 tickets, and how many does it have? | – / 0.000 / 0.000 / 0.000 (0) ✋ | – / 0.000 / 0.000 / 0.000 (0) ✋ |
-| 22 | structured | How many transactions were recorded in the EMEA region? | – / 0.000 / 0.000 / 0.000 (0) ✋ | – / 0.000 / 0.000 / 0.000 (0) ✋ |
-| 23 | structured | How many employees are on the Data-Platform team? | – / 0.000 / 0.000 / 0.000 (0) ✋ | 0.875 / 1.000 / 0.000 / 0.000 (7) |
-| 24 | faq | What is the session timeout for the Customer Portal? | 1.000 / 0.786 / 1.000 / 1.000 (3) | 1.000 / 0.786 / 1.000 / 1.000 (3) |
-| 25 | faq | Which currencies does Acme Pay support? | 1.000 / 0.991 / 1.000 / 1.000 (4) | 1.000 / 0.991 / 1.000 / 1.000 (4) |
-| 26 | faq | How long does it take for a refund to reach my bank account? | 1.000 / 0.708 / 1.000 / 1.000 (4) | 1.000 / 0.722 / 1.000 / 1.000 (4) |
-| 27 | faq | Does Acme store my full card number? | 1.000 / 0.956 / 1.000 / 1.000 (5) | 1.000 / 0.956 / 1.000 / 1.000 (5) |
+| 5 | factual | What are the steps for manual promotion during a Ledger DB failover? | 1.000 / 1.000 / 1.000 / 1.000 (1) | 0.900 / 1.000 / 1.000 / 1.000 (1) |
+| 6 | factual | How quickly must an emergency secret rotation happen, and how long … | 1.000 / 0.727 / 1.000 / 0.667 (1) | 1.000 / 0.667 / 1.000 / 0.667 (1) |
+| 7 | factual | How far ahead of expiry must API Gateway TLS certificates be renewed? | 1.000 / 0.894 / 1.000 / 1.000 (1) | 1.000 / 0.894 / 1.000 / 1.000 (1) |
+| 8 | factual | Who has to approve a refund of more than $5,000? | 0.500 / 0.965 / 1.000 / 1.000 (1) | 0.500 / 0.798 / 1.000 / 1.000 (1) |
+| 9 | factual | How quickly must we respond to a chargeback notice, and when does a… | – / 0.000 / 0.000 / 0.000 (0) ✋ | 1.000 / 0.715 / 1.000 / 0.667 (2) |
+| 10 | factual | What caused the payment latency spike in INC-2025-031, and how long… | 0.800 / 0.884 / 1.000 / 1.000 (2) | 1.000 / 0.884 / 1.000 / 1.000 (2) |
+| 11 | multi_hop | Who manages the team that owns the system covered by SOP-OPS-014 (D… | – / 0.000 / 0.000 / 0.000 (0) ✋ | 0.857 / 0.827 / 1.000 / 1.000 (3) |
+| 12 | multi_hop | Which team owns the system that SOP-OPS-009 (Secrets Rotation) cove… | – / 0.000 / 0.000 / 0.000 (0) ✋ | 0.667 / 0.606 / 0.500 / 1.000 (3) |
+| 13 | multi_hop | Who is the manager of the team that owns the system handled by SOP-… | – / 0.000 / 0.000 / 0.000 (0) ✋ | 1.000 / 0.692 / 1.000 / 1.000 (1) |
+| 14 | multi_hop | Who manages the team that owns the system covered by SOP-SUP-003 (R… | – / 0.000 / 0.000 / 0.000 (0) ✋ | 0.500 / 0.475 / 1.000 / 1.000 (2) |
+| 15 | multi_hop | SOP-SUP-008 (Chargeback Handling) requires a risk score from one of… | – / 0.000 / 0.000 / 0.000 (0) ✋ | 1.000 / 0.579 / 1.000 / 1.000 (2) |
+| 16 | multi_hop | Which teams own the systems Payment Gateway depends on? | – / 0.000 / 0.000 / 0.000 (0) ✋ | 1.000 / 0.880 / 0.625 / 1.000 (8) |
+| 17 | multi_hop | Which team owns the system affected by INC-2025-022 (the expired TL… | – / 0.000 / 0.000 / 0.000 (0) ✋ | 1.000 / 0.627 / 1.000 / 1.000 (2) |
+| 18 | multi_hop | Which policies govern the systems affected by incident INC-2025-012? | – / 0.000 / 0.000 / 0.000 (0) ✋ | 1.000 / 0.896 / 1.000 / 0.000 (2) |
+| 19 | structured | How many SEV1 tickets are there in total? | 0.667 / 0.888 / 0.000 / 0.000 (2) | 0.000 / 0.984 / 1.000 / 1.000 (1) |
+| 20 | structured | How many support tickets currently have the status 'open'? | – / 0.000 / 0.000 / 0.000 (0) ✋ | 0.500 / 0.933 / 1.000 / 1.000 (1) |
+| 21 | structured | Which system has the most SEV1 tickets, and how many does it have? | – / 0.000 / 0.000 / 0.000 (0) ✋ | 1.000 / 0.968 / 1.000 / 1.000 (1) |
+| 22 | structured | How many transactions were recorded in the EMEA region? | – / 0.000 / 0.000 / 0.000 (0) ✋ | 0.000 / 1.000 / 1.000 / 1.000 (1) |
+| 23 | structured | How many employees are on the Data-Platform team? | – / 0.000 / 0.000 / 0.000 (0) ✋ | 1.000 / 0.929 / 1.000 / 1.000 (1) |
+| 24 | faq | What is the session timeout for the Customer Portal? | 1.000 / 0.786 / 1.000 / 1.000 (3) | 1.000 / 1.000 / 1.000 / 1.000 (3) |
+| 25 | faq | Which currencies does Acme Pay support? | 1.000 / 0.991 / 1.000 / 1.000 (4) | 1.000 / 0.969 / 1.000 / 1.000 (3) |
+| 26 | faq | How long does it take for a refund to reach my bank account? | 1.000 / 0.708 / 1.000 / 1.000 (4) | 1.000 / 0.866 / 1.000 / 1.000 (3) |
+| 27 | faq | Does Acme store my full card number? | 1.000 / 0.956 / 1.000 / 1.000 (5) | 1.000 / 0.956 / 1.000 / 1.000 (4) |
 | 28 | unanswerable | What is Acme's parental leave policy? | – / – / – / – (0) ✋ | – / – / – / – (0) ✋ |
 | 29 | unanswerable | What is the daily per-diem limit for business travel expenses? | – / – / – / – (0) ✋ | – / – / – / – (0) ✋ |
 | 30 | unanswerable | Which Kubernetes version does the Payment Gateway run on? | – / – / – / – (0) ✋ | – / – / – / – (0) ✋ |

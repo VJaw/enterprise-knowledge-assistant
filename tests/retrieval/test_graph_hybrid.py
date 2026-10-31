@@ -8,7 +8,14 @@ from app.core.types import RetrievedChunk
 from app.retrieval import graph as G
 from app.retrieval.graph import GraphResult, GraphRetriever, GraphUnavailable, anchor_filter, cues, pick_seed
 from app.retrieval.hybrid import HybridRetriever
-from app.retrieval.router import QueryPlan, Router, _RouterOutput, explicit_filters, load_filter_pairs
+from app.retrieval.router import (
+    QueryPlan,
+    Router,
+    _RouterOutput,
+    explicit_filters,
+    grounded_entities,
+    load_filter_pairs,
+)
 
 LINKS = {
     "Payment Gateway": [{"name": "Payment Gateway", "label": "System", "score": 3.39},
@@ -17,6 +24,7 @@ LINKS = {
               {"name": "Kafka Cluster", "label": "System", "score": 1.7}],
     "customer logs": [{"name": "Customer-Support", "label": "Team", "score": 1.7}],
     "Priya Rao": [{"name": "Priya Rao", "label": "Person", "score": 3.86}],
+    "Data-Platform": [{"name": "Data-Platform", "label": "Team", "score": 3.5}],
 }
 
 
@@ -49,6 +57,9 @@ class FakeNeo4j:
         if "<-[o:OWNS]-" in cypher:
             return [{"system": params["name"], "team": "Payments-Core", "manager": "Priya Rao",
                      "source": "system_owners.csv"}]
+        if "(t:Team {name: $name})" in cypher:
+            return [{"team": "Data-Platform", "manager": "Anthony Gonzalez", "members": 7,
+                     "systems": ["Ledger DB", "Data Warehouse"], "source": "teams.csv, employees.csv"}]
         if "MENTIONS]->(s:System)" in cypher:
             return [{"system": "Ledger DB"}]
         if "seed.doc_id" in cypher:
@@ -131,6 +142,17 @@ async def test_incidents_bridge_doc_ids_and_doc_seed_owners():
         "Who manages the team that owns the system in sop-ops-014?", [])
     assert [s.name for s in res.seeds] == ["SOP-OPS-014"]
     assert res.facts[0].text == "Payments-Core team OWNS Ledger DB; manager: Priya Rao"
+
+
+async def test_team_seed_with_a_manager_cue_uses_the_team_template():
+    # Follow-up "and who manages that team?" rewritten to name the team: the neighbourhood's first 10 paths
+    # don't reach the MANAGES edge, the team template does (D-021).
+    res = await GraphRetriever(FakeNeo4j(), FakeDense()).retrieve("Who manages the Data-Platform team?",
+                                                                  ["Data-Platform"])
+    assert [f.text for f in res.facts] == [
+        "Anthony Gonzalez MANAGES Data-Platform team; Data-Platform has 7 members and OWNS Data Warehouse, "
+        "Ledger DB"]
+    assert res.facts[0].metadata["template"] == "team"
 
 
 async def test_generic_neighbourhood_and_no_seed():
@@ -333,3 +355,28 @@ def test_load_filter_pairs():
 async def test_router_falls_back_on_error():
     plan = await Router(FakeStructuredLLM(error=TimeoutError())).plan("What is RTO?")
     assert plan == QueryPlan.fallback("What is RTO?") and plan.intent == "factual"
+
+
+@pytest.mark.parametrize(("entities", "text", "kept"), [
+    # §B9.4: the model added teams the question never names (D-021)
+    (["SRE-Operations", "Support Desk"],
+     "Which team owns the system that caused the most SEV-1 tickets last quarter, and what does their "
+     "failover SOP say about manual promotion?", []),
+    (["Kafka Cluster"], "Which incidents involved Kafka?", ["Kafka Cluster"]),
+    (["Ledger DB"], "what is the ledger database RTO?", ["Ledger DB"]),
+    (["Fraud Detection Engine"], "chargebacks and the fraud engine", ["Fraud Detection Engine"]),
+    (["Data-Platform"], "User: who owns Ledger DB?\nAssistant: The Data-Platform team [G1].\nand who manages "
+                        "that team?", ["Data-Platform"]),
+    (["SOP-OPS-014", "Payments-Core"], "steps in SOP-OPS-014", ["SOP-OPS-014"]),
+])
+def test_grounded_entities(entities, text, kept):
+    assert grounded_entities(entities, text) == kept
+
+
+async def test_router_drops_entities_the_conversation_never_mentions():
+    out = _RouterOutput(intent="multi_hop", complexity="complex", entities=["Ledger DB", "SRE-Operations"],
+                        doc_type=None, domain=None, rewritten_query="Who owns the Ledger DB?",
+                        sub_questions=[])
+    plan = await Router(FakeStructuredLLM(out)).plan("who owns it?",
+                                                     [("Tell me about the Ledger DB", "OK [1].")])
+    assert plan.entities == ["Ledger DB"]

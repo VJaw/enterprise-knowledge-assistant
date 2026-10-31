@@ -1,74 +1,34 @@
-"""POST /chat with a fake router, hybrid retriever and LLM; no network."""
+"""POST /chat over the real agent graph with a fake router, retriever, models and judge; no network."""
 import httpx
 import pytest
 from langchain_core.messages import AIMessage
 
+from app.api.chat import usage_summary
 from app.config import Settings
-from app.core.types import RetrievedChunk
 from app.main import app
 from app.retrieval.context import build_citations, cited_ids, format_context
-from app.retrieval.hybrid import HybridResult
-from app.retrieval.router import QueryPlan
-
-CHUNKS = [
-    RetrievedChunk(chunk_id="FAQ-030::000", doc_id="FAQ-030", text="Q: Logs?\nA: 13 months.", score=0.9,
-                   source_type="document",
-                   metadata={"title": "Log retention FAQ", "doc_type": "faq", "domain": "support",
-                             "section": "Data", "page": None, "version": "1.0"}),
-    RetrievedChunk(chunk_id="POL-COMP-001::000", doc_id="POL-COMP-001", text="Logs are kept 13 months.",
-                   score=0.8, source_type="document",
-                   metadata={"title": "Data Retention Policy", "doc_type": "policy", "domain": "compliance",
-                             "section": "3. Policy Statements > 3.1 Data Retention Periods", "page": 1,
-                             "version": "3.0"}),
-]
-
-
-FACTS = [RetrievedChunk(chunk_id="graph:1", doc_id="graph",
-                        text="Data-Platform team OWNS Ledger DB; manager: Anthony Gonzalez", score=1.0,
-                        source_type="graph",
-                        metadata={"source": "system_owners.csv", "template": "owners"})]
-
-
-class FakeRouter:
-    def __init__(self):
-        self.calls = []
-
-    async def plan(self, message, history=None):
-        self.calls.append((message, list(history or [])))
-        return QueryPlan.fallback(message)
-
-
-class FakeRetriever:
-    def __init__(self, flags=None):
-        self.calls = []
-        self.flags = flags or []
-
-    async def search(self, plan, filters, k):
-        self.calls.append((plan.rewritten_query, filters, k))
-        if filters and "owner" in filters:
-            raise ValueError("unsupported filter keys: ['owner']")
-        return HybridResult(chunks=CHUNKS, facts=FACTS, flags=self.flags)
-
-
-class FakeLLM:
-    def __init__(self, answer):
-        self.answer = answer
-        self.messages = None
-
-    async def ainvoke(self, messages, config=None):
-        self.messages = messages
-        return AIMessage(content=self.answer,
-                         usage_metadata={"input_tokens": 1000, "output_tokens": 100, "total_tokens": 1100})
+from tests.fakes import (
+    CHUNKS,
+    FACTS,
+    FakeJudge,
+    FakeRetriever,
+    FakeRouter,
+    Script,
+    artifact_tool,
+    build_agent,
+    tool_call,
+)
 
 
 @pytest.fixture
 def state():
-    app.state.settings = Settings(_env_file=None)
-    app.state.retriever = FakeRetriever()
-    app.state.router = FakeRouter()
-    app.state.sessions = {}
-    app.state.llm = FakeLLM("Customer logs are retained for 13 months [2][1].")
-    return app.state
+    s = app.state
+    s.settings = Settings(_env_file=None)
+    s.router, s.retriever, s.script = FakeRouter(), FakeRetriever(), Script(
+        default="Customer logs are retained for 13 months [2][1].")
+    s.judge = FakeJudge([("Customer logs are retained for 13 months", True)])
+    s.agent = build_agent(s.script, router=s.router, retriever=s.retriever, judge=s.judge)
+    return s
 
 
 async def post(body):
@@ -80,26 +40,27 @@ async def test_chat_returns_cited_answer(state):
     r = await post({"message": "What is the retention period for customer logs?"})
     assert r.status_code == 200
     body = r.json()
-    assert body["answer"].startswith("Customer logs are retained for 13 months")
+    assert body["answer"] == "Customer logs are retained for 13 months [2][1]."
     assert [c["doc_id"] for c in body["citations"]] == ["POL-COMP-001", "FAQ-030"]  # order of first use
     pol = body["citations"][0]
     assert pol["id"] == "2" and pol["page"] == 1 and pol["source_type"] == "document"
     assert pol["snippet"] == "Logs are kept 13 months."
     assert body["model_used"] == "gpt-4o-mini" and body["cache_hit"] is False
-    assert body["tool_calls"] == [] and body["guardrail_flags"] == [] and body["grounding_score"] is None
-    assert body["usage"] == {"prompt_tokens": 1000, "completion_tokens": 100, "est_cost_usd": 0.00021}
+    assert body["tool_calls"] == [] and body["guardrail_flags"] == [] and body["grounding_score"] == 1.0
+    assert body["usage"]["agent_steps"] == 1 and set(body["usage"]) >= {"prompt_tokens", "est_cost_usd"}
     assert body["session_id"] and isinstance(body["trace_id"], str)
     assert state.retriever.calls == [("What is the retention period for customer logs?", None, 6)]
 
 
-async def test_chat_prompt_contains_numbered_context(state):
-    await post({"message": "logs?", "session_id": "s1"})
-    system, human = state.llm.messages
-    assert "[n]" not in system.content and "I don't know" in system.content and "[G1]" in system.content
-    assert human.content.startswith("Context:\n[1] (FAQ-030")
-    assert '[2] (POL-COMP-001 "Data Retention Policy", § "3. Policy Statements' in human.content
-    assert "[G1] Data-Platform team OWNS Ledger DB; manager: Anthony Gonzalez  (graph: system_owners.csv)" \
-        in human.content
+async def test_chat_reports_tool_calls(state):
+    search = AIMessage(content="", tool_calls=[tool_call("search_knowledge_base", {"query": "x"})])
+    state.script.replies = [search, "Logs: 13 months [2]."]
+    state.agent = build_agent(state.script, router=state.router, retriever=state.retriever, judge=state.judge,
+                              tools=[artifact_tool("search_knowledge_base")])
+    body = (await post({"message": "logs?"})).json()
+    [call] = body["tool_calls"]
+    assert (call["name"], call["args"], call["status"]) == ("search_knowledge_base", {"query": "x"}, "ok")
+    assert isinstance(call["duration_ms"], int) and body["usage"]["agent_steps"] == 2
 
 
 async def test_chat_keeps_session_id(state):
@@ -113,8 +74,8 @@ async def test_chat_validation_and_bad_filters(state):
 
 
 async def test_chat_graph_citations_and_flags(state):
-    state.retriever = FakeRetriever(flags=["graph_unavailable"])
-    state.llm = FakeLLM("Ledger DB is owned by Data-Platform, managed by Anthony Gonzalez [G1][2].")
+    state.retriever.flags = ["graph_unavailable"]
+    state.script.default = "Ledger DB is owned by Data-Platform, managed by Anthony Gonzalez [G1][2]."
     body = (await post({"message": "Who owns the Ledger DB?"})).json()
     assert [c["source_type"] for c in body["citations"]] == ["graph", "document"]
     g = body["citations"][0]
@@ -131,8 +92,17 @@ async def test_chat_passes_session_history_to_router(state):
     assert state.router.calls[0][1] == []
 
 
+def test_usage_summary_prices_each_model():
+    u = usage_summary({"gpt-4o-mini-2024-07-18": {"input_tokens": 1000, "output_tokens": 100},
+                       "gpt-4o-2024-08-06": {"input_tokens": 1000, "output_tokens": 100}}, steps=3)
+    assert u["prompt_tokens"] == 2000 and u["completion_tokens"] == 200 and u["agent_steps"] == 3
+    assert u["est_cost_usd"] == round(0.00021 + 0.0035, 6)
+    assert u["by_model"]["gpt-4o-2024-08-06"] == {"prompt_tokens": 1000, "completion_tokens": 100}
+
+
 def test_citation_helpers_ignore_out_of_range_ids():
-    assert cited_ids("a [1] b [3, 1] c [2] d [G2][G1, 2]") == ["1", "3", "2", "G2", "G1"]
+    assert cited_ids("a [1] b [3, 1] c [2] d [G2][G1, 2] [SQL1] [WEB2]") == \
+        ["1", "3", "2", "G2", "G1", "SQL1", "WEB2"]
     assert [c.id for c in build_citations("x [1] y [7] z [G1] [G4]", CHUNKS, FACTS)] == ["1", "G1"]
     assert "p.1" in format_context(CHUNKS)
     assert format_context(CHUNKS, FACTS).endswith("(graph: system_owners.csv)")

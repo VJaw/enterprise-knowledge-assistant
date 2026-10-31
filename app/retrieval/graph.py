@@ -119,7 +119,7 @@ class GraphRetriever:
                 seeds.append(s)
         return seeds
 
-    async def _system_facts(self, seed: str, wanted: set[str]) -> tuple[list, list[str], list[str]]:
+    async def system_facts(self, seed: str, wanted: set[str]) -> tuple[list, list[str], list[str]]:
         """Facts for one System seed (templates run concurrently), plus bridged system names and doc ids."""
         queries = {
             "owners": lambda: T.owners(self.graph, seed),
@@ -153,7 +153,17 @@ class GraphRetriever:
             docs.append(r["doc_id"])
         return facts, names, docs
 
-    async def _neighbourhood_facts(self, seed: str) -> tuple[list, list[str], list[str]]:
+    async def team_facts(self, team: str) -> tuple[list, list[str], list[str]]:
+        """A Team seed asked about ownership/management: its manager, head count and owned systems (D-021)."""
+        facts, names = [], []
+        for r in await T.team(self.graph, team):
+            systems = sorted(r["systems"])
+            facts.append((f"{r['manager']} MANAGES {r['team']} team; {r['team']} has {r['members']} members "
+                          f"and OWNS {', '.join(systems) or 'no systems'}", r["source"], "team"))
+            names += systems
+        return facts, names, []
+
+    async def neighbourhood_facts(self, seed: str) -> tuple[list, list[str], list[str]]:
         rows = await T.neighbourhood(self.graph, seed, depth=2)
         docs = [r["name"] for r in rows if r["name"] and DOC_ID.fullmatch(str(r["name"]))]
         return [(path_text(r), "neo4j neighbourhood", "neighbourhood") for r in rows], [], docs
@@ -169,14 +179,17 @@ class GraphRetriever:
                 if wanted & {"owners", "dependencies"}:
                     systems = await T.doc_systems(self.graph, s.name)
                 names += systems
-                jobs += ([self._system_facts(x, wanted) for x in systems]
-                         or [self._neighbourhood_facts(s.name)])
+                jobs += ([self.system_facts(x, wanted) for x in systems]
+                         or [self.neighbourhood_facts(s.name)])
             elif s.label == "System" and wanted:
                 names.append(s.name)
-                jobs.append(self._system_facts(s.name, wanted))
+                jobs.append(self.system_facts(s.name, wanted))
+            elif s.label == "Team" and "owners" in wanted:
+                names.append(s.name)
+                jobs.append(self.team_facts(s.name))
             else:
                 names.append(s.name)
-                jobs.append(self._neighbourhood_facts(s.name))
+                jobs.append(self.neighbourhood_facts(s.name))
         facts = []
         for f, n, d in await asyncio.gather(*jobs):
             facts += f
