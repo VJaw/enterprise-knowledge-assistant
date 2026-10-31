@@ -43,7 +43,7 @@ class DenseRetriever:
         self.embed = embed
         self.collection = collection
 
-    def _search(self, query: str, flt: Filter | None, k: int) -> list[RetrievedChunk]:
+    def search(self, query: str, flt: Filter | None, k: int) -> list[RetrievedChunk]:
         res = self.client.query_points(self.collection, query=self.embed(query), query_filter=flt, limit=k,
                                        with_payload=True)
         return [to_chunk(p) for p in res.points]
@@ -52,7 +52,7 @@ class DenseRetriever:
     async def retrieve(self, query: str, filters: dict | None = None, k: int = 5) -> list[RetrievedChunk]:
         flt = build_filter(filters)
         # Embedding + embedded Qdrant are CPU-bound and synchronous: keep them off the event loop.
-        chunks = await asyncio.to_thread(self._search, query, flt, k)
+        chunks = await asyncio.to_thread(self.search, query, flt, k)
         update_span(
             output=[{"chunk_id": c.chunk_id, "score": round(c.score, 4)} for c in chunks],
             metadata={"k": k, "filters": filters, "top_score": chunks[0].score if chunks else None},

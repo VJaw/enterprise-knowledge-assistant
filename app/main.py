@@ -13,8 +13,13 @@ from app.api import chat, health
 from app.config import get_settings
 from app.graph.neo4j_client import Neo4jClient
 from app.observability.langfuse import init_langfuse
+from app.retrieval.bm25 import BM25Retriever
 from app.retrieval.dense import COLLECTION, DenseRetriever
 from app.retrieval.embeddings import get_embedder
+from app.retrieval.graph import GraphRetriever
+from app.retrieval.hybrid import HybridRetriever
+from app.retrieval.rerank import CrossEncoderReranker, get_cross_encoder
+from app.retrieval.router import Router, load_known_entities
 
 log = logging.getLogger("uvicorn.error")
 
@@ -66,12 +71,20 @@ async def lifespan(app: FastAPI):
     app.state.http = httpx.AsyncClient(timeout=10)
 
     await asyncio.to_thread(get_embedder)  # load weights once, before the first request
+    if s.use_rerank:  # one forward pass too: the first predict() is ~2x slower than steady state
+        await asyncio.to_thread(lambda: get_cross_encoder().predict([("warm up", "warm up")]))
     app.state.qdrant = QdrantClient(path=s.qdrant_path)
     await asyncio.to_thread(ensure_index, app.state.qdrant)
     app.state.graph_available = await ensure_graph(app.state.graph)
-    app.state.retriever = DenseRetriever(app.state.qdrant)
+    dense = DenseRetriever(app.state.qdrant)
+    app.state.retriever = HybridRetriever(
+        dense, BM25Retriever(), GraphRetriever(app.state.graph, dense), CrossEncoderReranker(),
+        use_bm25=s.use_bm25, use_graph=s.use_graph, use_rerank=s.use_rerank,
+        graph_available=lambda: app.state.graph_available)
     app.state.llm = ChatOpenAI(model=s.model_fast, temperature=0, api_key=_secret(s.openai_api_key),
                                timeout=30, max_retries=2)
+    app.state.router = Router(app.state.llm, load_known_entities())
+    app.state.sessions = {}
     try:
         yield
     finally:

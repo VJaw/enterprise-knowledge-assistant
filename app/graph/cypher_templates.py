@@ -21,8 +21,17 @@ DEPENDENCIES = """
 MATCH p = (s:System {name: $name})-[:DEPENDS_ON*1..%d]->(d:System)
 WITH d, min(length(p)) AS hops
 OPTIONAL MATCH (t:Team)-[:OWNS]->(d)
-RETURN d.name AS system, d.tier AS tier, hops, t.name AS owner_team, 'system_dependencies.csv' AS source
+OPTIONAL MATCH (m:Person)-[:MANAGES]->(t)
+RETURN d.name AS system, d.tier AS tier, hops, t.name AS owner_team, m.name AS manager,
+       'system_dependencies.csv' AS source
 ORDER BY hops, d.tier, d.name
+"""
+
+# Document seed -> the systems it mentions (bridges "the system in SOP-OPS-014" to the System templates)
+DOC_SYSTEMS = """
+MATCH (d:Document {doc_id: $doc_id})-[:MENTIONS]->(s:System)
+RETURN s.name AS system
+ORDER BY s.name
 """
 
 BLAST_RADIUS = """
@@ -52,6 +61,7 @@ WHERE n <> seed
 WITH n, min(length(p)) AS hops, head(collect(p)) AS path
 RETURN coalesce(n.name, n.doc_id) AS name, labels(n)[0] AS label, hops,
        [r IN relationships(path) | type(r)] AS rels,
+       [r IN relationships(path) | coalesce(startNode(r).name, startNode(r).doc_id)] AS rel_from,
        [x IN nodes(path) | coalesce(x.name, x.doc_id)] AS via
 ORDER BY hops, label, name
 LIMIT $limit
@@ -95,6 +105,10 @@ async def policies_for(client: Neo4jClient, name: str) -> list[dict]:
 async def neighbourhood(client: Neo4jClient, name: str, depth: int = 2,
                         limit: int = NEIGHBOURHOOD_LIMIT) -> list[dict]:
     return await client.read(NEIGHBOURHOOD % _depth(depth), name=name, limit=limit)
+
+
+async def doc_systems(client: Neo4jClient, doc_id: str) -> list[str]:
+    return [r["system"] for r in await client.read(DOC_SYSTEMS, doc_id=doc_id)]
 
 
 async def link_entity(client: Neo4jClient, text: str, limit: int = 5) -> list[dict]:

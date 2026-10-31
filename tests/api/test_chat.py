@@ -1,12 +1,14 @@
-"""POST /chat skeleton with a fake retriever and LLM; no network."""
+"""POST /chat with a fake router, hybrid retriever and LLM; no network."""
 import httpx
 import pytest
 from langchain_core.messages import AIMessage
 
-from app.api.chat import build_citations, cited_ids, format_context
 from app.config import Settings
 from app.core.types import RetrievedChunk
 from app.main import app
+from app.retrieval.context import build_citations, cited_ids, format_context
+from app.retrieval.hybrid import HybridResult
+from app.retrieval.router import QueryPlan
 
 CHUNKS = [
     RetrievedChunk(chunk_id="FAQ-030::000", doc_id="FAQ-030", text="Q: Logs?\nA: 13 months.", score=0.9,
@@ -21,15 +23,31 @@ CHUNKS = [
 ]
 
 
-class FakeRetriever:
+FACTS = [RetrievedChunk(chunk_id="graph:1", doc_id="graph",
+                        text="Data-Platform team OWNS Ledger DB; manager: Anthony Gonzalez", score=1.0,
+                        source_type="graph",
+                        metadata={"source": "system_owners.csv", "template": "owners"})]
+
+
+class FakeRouter:
     def __init__(self):
         self.calls = []
 
-    async def retrieve(self, query, filters, k):
-        self.calls.append((query, filters, k))
+    async def plan(self, message, history=None):
+        self.calls.append((message, list(history or [])))
+        return QueryPlan.fallback(message)
+
+
+class FakeRetriever:
+    def __init__(self, flags=None):
+        self.calls = []
+        self.flags = flags or []
+
+    async def search(self, plan, filters, k):
+        self.calls.append((plan.rewritten_query, filters, k))
         if filters and "owner" in filters:
             raise ValueError("unsupported filter keys: ['owner']")
-        return CHUNKS
+        return HybridResult(chunks=CHUNKS, facts=FACTS, flags=self.flags)
 
 
 class FakeLLM:
@@ -47,6 +65,8 @@ class FakeLLM:
 def state():
     app.state.settings = Settings(_env_file=None)
     app.state.retriever = FakeRetriever()
+    app.state.router = FakeRouter()
+    app.state.sessions = {}
     app.state.llm = FakeLLM("Customer logs are retained for 13 months [2][1].")
     return app.state
 
@@ -69,15 +89,17 @@ async def test_chat_returns_cited_answer(state):
     assert body["tool_calls"] == [] and body["guardrail_flags"] == [] and body["grounding_score"] is None
     assert body["usage"] == {"prompt_tokens": 1000, "completion_tokens": 100, "est_cost_usd": 0.00021}
     assert body["session_id"] and isinstance(body["trace_id"], str)
-    assert state.retriever.calls == [("What is the retention period for customer logs?", None, 5)]
+    assert state.retriever.calls == [("What is the retention period for customer logs?", None, 6)]
 
 
 async def test_chat_prompt_contains_numbered_context(state):
     await post({"message": "logs?", "session_id": "s1"})
     system, human = state.llm.messages
-    assert "[n]" not in system.content and "I don't know" in system.content
+    assert "[n]" not in system.content and "I don't know" in system.content and "[G1]" in system.content
     assert human.content.startswith("Context:\n[1] (FAQ-030")
     assert '[2] (POL-COMP-001 "Data Retention Policy", § "3. Policy Statements' in human.content
+    assert "[G1] Data-Platform team OWNS Ledger DB; manager: Anthony Gonzalez  (graph: system_owners.csv)" \
+        in human.content
 
 
 async def test_chat_keeps_session_id(state):
@@ -90,7 +112,27 @@ async def test_chat_validation_and_bad_filters(state):
     assert (await post({"message": "q", "filters": {"owner": "TEAM-01"}})).status_code == 422
 
 
+async def test_chat_graph_citations_and_flags(state):
+    state.retriever = FakeRetriever(flags=["graph_unavailable"])
+    state.llm = FakeLLM("Ledger DB is owned by Data-Platform, managed by Anthony Gonzalez [G1][2].")
+    body = (await post({"message": "Who owns the Ledger DB?"})).json()
+    assert [c["source_type"] for c in body["citations"]] == ["graph", "document"]
+    g = body["citations"][0]
+    assert g["id"] == "G1" and g["doc_id"] is None and g["title"] == "graph: system_owners.csv"
+    assert g["snippet"].startswith("Data-Platform team OWNS Ledger DB")
+    assert body["guardrail_flags"] == ["graph_unavailable"]
+
+
+async def test_chat_passes_session_history_to_router(state):
+    await post({"message": "Tell me about the Ledger DB", "session_id": "s9"})
+    await post({"message": "who owns it?", "session_id": "s9"})
+    assert state.router.calls[1] == ("who owns it?", [("Tell me about the Ledger DB",
+                                                       "Customer logs are retained for 13 months [2][1].")])
+    assert state.router.calls[0][1] == []
+
+
 def test_citation_helpers_ignore_out_of_range_ids():
-    assert cited_ids("a [1] b [3, 1] c [2]") == [1, 3, 2]
-    assert [c.id for c in build_citations("x [1] y [7]", CHUNKS)] == ["1"]
+    assert cited_ids("a [1] b [3, 1] c [2] d [G2][G1, 2]") == ["1", "3", "2", "G2", "G1"]
+    assert [c.id for c in build_citations("x [1] y [7] z [G1] [G4]", CHUNKS, FACTS)] == ["1", "G1"]
     assert "p.1" in format_context(CHUNKS)
+    assert format_context(CHUNKS, FACTS).endswith("(graph: system_owners.csv)")

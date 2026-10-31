@@ -4,7 +4,7 @@ from __future__ import annotations
 import asyncio
 import logging
 
-from neo4j import AsyncDriver, AsyncGraphDatabase, unit_of_work
+from neo4j import AsyncDriver, AsyncGraphDatabase, NotificationDisabledClassification, unit_of_work
 
 log = logging.getLogger(__name__)
 
@@ -13,7 +13,10 @@ QUERY_TIMEOUT_S = 3.0  # §B12.3
 
 class Neo4jClient:
     def __init__(self, uri: str, user: str, password: str | None, timeout: float = QUERY_TIMEOUT_S):
-        self.driver: AsyncDriver = AsyncGraphDatabase.driver(uri, auth=(user, password))
+        # Aura flags `db.index.fulltext.queryNodes` as deprecated on every entity-linking call: mute it.
+        self.driver: AsyncDriver = AsyncGraphDatabase.driver(
+            uri, auth=(user, password),
+            notifications_disabled_classifications=[NotificationDisabledClassification.DEPRECATION])
         self.timeout = timeout
 
     async def connect(self, retries: int = 3, backoff: float = 1.0) -> bool:
