@@ -43,6 +43,7 @@ class Settings(BaseSettings):
     admin_token: SecretStr = SecretStr("change-me")
     rate_limit: str = "30/minute"  # /chat, per session (or client IP without one), §B11.3
     graph_retry_seconds: int = 60  # Aura reconnect probe, §B12.3
+    use_ui: bool = True  # Gradio chat UI at /ui (D-030)
 
     # --- Feature flags (ablations, §B14.2) ---
     use_bm25: bool = True

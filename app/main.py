@@ -183,7 +183,7 @@ MCP tools), NeMo Guardrails, a Qdrant semantic cache and Langfuse tracing. See c
 
 app = FastAPI(
     title="Enterprise Knowledge Assistant",
-    version="0.9.0",
+    version="1.1.0",
     description=DESCRIPTION,
     lifespan=lifespan,
     openapi_tags=[
@@ -215,3 +215,8 @@ app.include_router(chat.router)
 app.include_router(sessions.router)
 app.include_router(admin.router)
 app.include_router(health.router)
+
+if get_settings().use_ui:
+    from app.ui.gradio_app import mount  # imported only when on: gradio is a heavy import
+
+    app = mount(app)

@@ -8,6 +8,7 @@ slowapi
 sse-starlette
 httpx
 tenacity
+gradio  # chat UI mounted at /ui (A5 D-030)
 # LLM + orchestration
 openai
 langchain

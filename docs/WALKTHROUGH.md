@@ -2,7 +2,7 @@
 
 The eight points of the final presentation, in order (`capstonespec.md` D2). Each section gives the talking points, the numbers and where the evidence lives. Section numbers like §B8 refer to [`capstonespec.md`](../capstonespec.md), and D-0nn entries are in its Decision Log (A5).
 
-Repository: <https://github.com/VJaw/enterprise-knowledge-assistant> · Demo: the production image run locally (`docker run --rm -p 7860:7860 --env-file .env eka`, then `http://localhost:7860/docs`). It isn't hosted on Hugging Face because Docker Spaces now need a PRO subscription (§8).
+Repository: <https://github.com/VJaw/enterprise-knowledge-assistant> · Demo: run it locally (`make run`, or `docker run --rm -p 7860:7860 --env-file .env eka`) and open the chat UI at `http://localhost:7860/ui`. It shows each answer with its citations, tool calls, guardrail flags, model, latency, cost and Langfuse trace link (README, "Run it locally"). It isn't hosted on Hugging Face because Docker Spaces now need a PRO subscription (§8).
 
 ---
 
@@ -37,7 +37,7 @@ One FastAPI process (one Uvicorn worker, async) in one Docker image built for a 
 
 | Layer | Choice |
 |---|---|
-| API | FastAPI + Uvicorn, slowapi rate limit, Prometheus `/metrics` |
+| API + UI | FastAPI + Uvicorn, slowapi rate limit, Prometheus `/metrics`; Gradio chat UI at `/ui` (calls `/chat` in-process, D-030) |
 | Orchestration | LangGraph `StateGraph` + `AsyncSqliteSaver` sessions |
 | LLMs | OpenAI gpt-4o-mini (default) and gpt-4o (complex / multi-hop) |
 | Embeddings, re-ranker | `BAAI/bge-small-en-v1.5`, `BAAI/bge-reranker-base` (local, CPU) |
