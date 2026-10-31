@@ -66,7 +66,7 @@ Read capstonespec.md in full. Execute Phase <N> only.
 | 7 | LangGraph agent & tools | ✅ | 2026-10-31 | `1c4ec3e` | 8-node agent, 5 tools + 13 read-only MCP tools, SQLite sessions; §B9.4 answered correctly 6/6 but the full sql→graph→kb tool order showed in 1 of 3 runs, accepted by the user (D-022); RAGAS D all 4 metrics up, structured 5/5 answered; Promptfoo 8/10; 187 tests; D-021 |
 | 8 | Guardrails (**M3**) | ✅ | 2026-10-31 | `6648ab1` | NeMo native (3 `LLMRails`, 11 custom actions), Presidio + LLM Guard; injection blocked, PII masked (no raw email in trace), poisoned doc stripped; overhead p50 157 ms, 0/30 false blocks; Promptfoo 9/10; 261 tests; D-023, D-024, D-025 |
 | 9 | API hardening, cache & observability | ✅ | 2026-10-31 | `bf32645` | /chat, /sessions, /ingest, /health (degraded graph), /metrics, §B11.3 errors, 30/min rate limit; semantic cache hit 66 ms (0.92 + specifics guard: 0/10 false hits, 7/10 paraphrases); 5/5 traces complete, no PII; 6 screenshots; 294 tests; D-026 |
-| 10 | Full evaluation | ✅ | 2026-10-31 | see A4 | Promptfoo 33/34 (97%); RAGAS A–D, D 0.919 / 0.803 / 0.975 / 0.932 (answer relevancy gap explained); safety 50/50 handled, 0/15 false positives; 4 defects fixed; 298 tests; D-027 |
+| 10 | Full evaluation | ✅ | 2026-10-31 | `4037813` | Promptfoo 33/34 (97%); RAGAS A–D, D 0.919 / 0.803 / 0.975 / 0.932 (answer relevancy gap explained); safety 50/50 handled, 0/15 false positives; 4 defects fixed; 298 tests; D-027 |
 | 11 | Performance & load testing | ⬜ | | | |
 | 12 | Deploy & documentation (**M4**) | ⬜ | | | |
 
@@ -362,7 +362,7 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done (gate passed) · ⚠️ 
   - Delete `data/sessions.db` to reset sessions. The cache lives in `data/qdrant` (`semantic_cache`); `make ingest` empties it by bumping the version.
   - Spend this phase ≈ $0.10 (gate and trace runs).
 
-**Phase 10 — Full evaluation (2026-10-31, commit: see A3)**
+**Phase 10 — Full evaluation (2026-10-31, commit `4037813`)**
 - Built:
   - `eval/api_server.py`: starts and stops a private API process (shared by the three harnesses). `run_ragas.py` now uses it.
   - Promptfoo: `eval/promptfoo/promptfooconfig.yaml` grown to **34 cases** in the §B14.1 counts (8 factual, 6 multi-hop, 4 SQL, 2 web, 3 unanswerable, 4 injection, 3 PII, 2 toxic, 2 latency/cache). `eval/promptfoo/run_promptfoo.py` empties the `semantic_cache` collection, serves the API on :7860 with the cache on and `RATE_LIMIT=1000/minute`, runs `npx promptfoo@latest eval` (0.125.1) and stops the API. `make eval` now runs it, so stop `make run` first.
