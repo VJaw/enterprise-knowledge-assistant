@@ -67,7 +67,7 @@ Read capstonespec.md in full. Execute Phase <N> only.
 | 8 | Guardrails (**M3**) | ✅ | 2026-10-31 | `6648ab1` | NeMo native (3 `LLMRails`, 11 custom actions), Presidio + LLM Guard; injection blocked, PII masked (no raw email in trace), poisoned doc stripped; overhead p50 157 ms, 0/30 false blocks; Promptfoo 9/10; 261 tests; D-023, D-024, D-025 |
 | 9 | API hardening, cache & observability | ✅ | 2026-10-31 | `bf32645` | /chat, /sessions, /ingest, /health (degraded graph), /metrics, §B11.3 errors, 30/min rate limit; semantic cache hit 66 ms (0.92 + specifics guard: 0/10 false hits, 7/10 paraphrases); 5/5 traces complete, no PII; 6 screenshots; 294 tests; D-026 |
 | 10 | Full evaluation | ✅ | 2026-10-31 | `4037813` | Promptfoo 33/34 (97%); RAGAS A–D, D 0.919 / 0.803 / 0.975 / 0.932 (answer relevancy gap explained); safety 50/50 handled, 0/15 false positives; 4 defects fixed; 298 tests; D-027 |
-| 11 | Performance & load testing | ✅ | 2026-10-31 | see A4 | Simple p95 5.2 → 3.2 s (p50 4.1 → 2.6 s; 3 s SLO missed by ≤ 178 ms, mitigations documented), agentic p95 ≤ 11.7 s, cache hit 71 ms; cache hit rate 66%, 46× p50; ramp 1.87 req/s (3.28 at 10 users), 0 errors; soak +9.9% RSS; Promptfoo 34/34; 301 tests; D-028 |
+| 11 | Performance & load testing | ✅ | 2026-10-31 | `66a63da` | Simple p95 5.2 → 3.2 s (p50 4.1 → 2.6 s; 3 s SLO missed by ≤ 178 ms, mitigations documented), agentic p95 ≤ 11.7 s, cache hit 71 ms; cache hit rate 66%, 46× p50; ramp 1.87 req/s (3.28 at 10 users), 0 errors; soak +9.9% RSS; Promptfoo 34/34; 301 tests; D-028 |
 | 12 | Deploy & documentation (**M4**) | ⬜ | | | |
 
 Legend: ⬜ not started · 🟡 in progress · ✅ done (gate passed) · ⚠️ done with known gaps (see A4)
@@ -408,7 +408,7 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done (gate passed) · ⚠️ 
   - Phase 11 latency targets: the FAQ case breaks down as router (~1–1.6 s) + agent + groundedness judge (~1 s) + re-rank (~1 s CPU). Cache hits are 63–73 ms locally.
   - Spend this phase ≈ $2.5 (8 RAGAS config runs ≈ $1.7 plus judging, 5 Promptfoo runs ≈ $0.5, 2 safety runs ≈ $0.2, diagnostics).
 
-**Phase 11 — Performance & load testing (2026-10-31, commit: see A3)**
+**Phase 11 — Performance & load testing (2026-10-31, commit `66a63da`)**
 - Built:
   - `scripts/bench_latency.py`: own API (cache on, `RATE_LIMIT=1000/minute`, emptied cache), 10 sequential questions per intent type from `loadtest/queries.py` `BENCH` (simple, multi_hop, structured, analytical, external, chit_chat), then a cache-hit replay of the simple ones. Per-stage times come from Langfuse `/api/public/v2/observations` (with 429 back-off); rows are saved before the stage fetch. `--report-only`, `--stages-only`. Output `eval/reports/latency_<tag>.json`.
   - `loadtest/locustfile.py`: `SimpleUser` / `ComplexUser` / `RepeatUser` (5:2:3) and `CacheMixUser` (70% repeated/paraphrased); fresh `session_id` per request; one JSONL row per request via `LOAD_LOG`. Imports only `loadtest/queries.py` (no app imports, gevent).
