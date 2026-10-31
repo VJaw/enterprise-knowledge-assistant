@@ -12,7 +12,7 @@ from opentelemetry import trace as otel_trace
 from app.config import Settings
 
 __all__ = ["init_langfuse", "llm_callbacks", "current_trace_id", "update_span", "get_client", "observe",
-           "propagate_attributes"]
+           "propagate_attributes", "set_trace_tags"]
 
 
 def _secret(v) -> str | None:
@@ -38,3 +38,13 @@ def update_span(**kwargs) -> None:
     """Update the current span; a no-op (without the SDK's error log) when nothing is being traced."""
     if otel_trace.get_current_span().is_recording():
         get_client().update_current_span(**kwargs)
+
+
+def set_trace_tags(span, tags: list[str]) -> None:
+    """Trace tags known only at the end of a request (`intent:*`, `cache:*`, ...). `propagate_attributes` sets
+    tags on spans opened inside it; this writes the same trace attribute on an already-open span."""
+    from langfuse._client.attributes import LangfuseOtelSpanAttributes
+
+    otel_span = getattr(span, "_otel_span", None)
+    if otel_span is not None and otel_span.is_recording():
+        otel_span.set_attribute(LangfuseOtelSpanAttributes.TRACE_TAGS, list(dict.fromkeys(tags)))

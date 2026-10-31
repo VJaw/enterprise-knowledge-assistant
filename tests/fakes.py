@@ -10,6 +10,7 @@ from app.agent.graph import build_graph
 from app.agent.nodes import AgentNodes
 from app.core.types import RetrievedChunk
 from app.llm.router import ModelRouter
+from app.retrieval.dense import FilterError
 from app.retrieval.hybrid import HybridResult
 from app.retrieval.router import QueryPlan
 
@@ -96,7 +97,7 @@ class FakeRetriever:
     async def search(self, plan, filters, k):
         self.calls.append((plan.rewritten_query, filters, k))
         if filters and "owner" in filters:
-            raise ValueError("unsupported filter keys: ['owner']")
+            raise FilterError("unsupported filter keys: ['owner']")
         return HybridResult(chunks=self.chunks, facts=self.facts, flags=list(self.flags))
 
 

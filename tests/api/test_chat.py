@@ -1,39 +1,10 @@
 """POST /chat over the real agent graph with a fake router, retriever, models and judge; no network."""
-import httpx
-import pytest
 from langchain_core.messages import AIMessage
 
 from app.api.chat import usage_summary
-from app.config import Settings
-from app.main import app
 from app.retrieval.context import build_citations, cited_ids, format_context
-from tests.fakes import (
-    CHUNKS,
-    FACTS,
-    FakeJudge,
-    FakeRetriever,
-    FakeRouter,
-    Script,
-    artifact_tool,
-    build_agent,
-    tool_call,
-)
-
-
-@pytest.fixture
-def state():
-    s = app.state
-    s.settings = Settings(_env_file=None)
-    s.router, s.retriever, s.script = FakeRouter(), FakeRetriever(), Script(
-        default="Customer logs are retained for 13 months [2][1].")
-    s.judge = FakeJudge([("Customer logs are retained for 13 months", True)])
-    s.agent = build_agent(s.script, router=s.router, retriever=s.retriever, judge=s.judge)
-    return s
-
-
-async def post(body):
-    async with httpx.AsyncClient(transport=httpx.ASGITransport(app=app), base_url="http://t") as c:
-        return await c.post("/chat", json=body)
+from tests.api.conftest import post
+from tests.fakes import CHUNKS, FACTS, artifact_tool, build_agent, tool_call
 
 
 async def test_chat_returns_cited_answer(state):
@@ -70,7 +41,9 @@ async def test_chat_keeps_session_id(state):
 async def test_chat_validation_and_bad_filters(state):
     assert (await post({"message": ""})).status_code == 422
     assert (await post({"message": "x" * 2001})).status_code == 422
-    assert (await post({"message": "q", "filters": {"owner": "TEAM-01"}})).status_code == 422
+    r = await post({"message": "q", "filters": {"owner": "TEAM-01"}})
+    assert r.status_code == 422 and r.json()["error"]["code"] == "VALIDATION_ERROR"
+    assert "owner" in r.json()["error"]["message"] and "trace_id" in r.json()["error"]
 
 
 async def test_chat_graph_citations_and_flags(state):
@@ -97,7 +70,8 @@ def test_usage_summary_prices_each_model():
                        "gpt-4o-2024-08-06": {"input_tokens": 1000, "output_tokens": 100}}, steps=3)
     assert u["prompt_tokens"] == 2000 and u["completion_tokens"] == 200 and u["agent_steps"] == 3
     assert u["est_cost_usd"] == round(0.00021 + 0.0035, 6)
-    assert u["by_model"]["gpt-4o-2024-08-06"] == {"prompt_tokens": 1000, "completion_tokens": 100}
+    assert u["by_model"]["gpt-4o-2024-08-06"] == {"prompt_tokens": 1000, "completion_tokens": 100,
+                                                  "est_cost_usd": 0.0035}
 
 
 def test_citation_helpers_ignore_out_of_range_ids():

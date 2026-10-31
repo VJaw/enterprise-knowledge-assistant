@@ -41,6 +41,8 @@ class Settings(BaseSettings):
     cache_ttl_seconds: int = 86400
     agent_max_steps: int = 5
     admin_token: SecretStr = SecretStr("change-me")
+    rate_limit: str = "30/minute"  # /chat, per session (or client IP without one), §B11.3
+    graph_retry_seconds: int = 60  # Aura reconnect probe, §B12.3
 
     # --- Feature flags (ablations, §B14.2) ---
     use_bm25: bool = True

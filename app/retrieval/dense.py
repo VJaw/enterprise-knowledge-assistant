@@ -15,12 +15,16 @@ COLLECTION = "documents"
 FILTERABLE = {"doc_type", "domain", "sensitivity", "doc_id", "entities"}
 
 
+class FilterError(ValueError):
+    """A request filter the index can't apply; the API answers 422 VALIDATION_ERROR."""
+
+
 def build_filter(filters: dict | None) -> Filter | None:
     if not filters:
         return None
     unknown = set(filters) - FILTERABLE
     if unknown:
-        raise ValueError(f"unsupported filter keys: {sorted(unknown)}; allowed: {sorted(FILTERABLE)}")
+        raise FilterError(f"unsupported filter keys: {sorted(unknown)}; allowed: {sorted(FILTERABLE)}")
 
     def match(v):
         return MatchAny(any=list(v)) if isinstance(v, list | tuple) else MatchValue(value=v)

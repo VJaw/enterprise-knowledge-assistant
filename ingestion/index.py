@@ -11,6 +11,7 @@ from qdrant_client import QdrantClient
 from qdrant_client.models import Distance, PayloadSchemaType, PointStruct, VectorParams
 from rank_bm25 import BM25Okapi
 
+from app.cache.semantic_cache import bump_corpus_version
 from app.retrieval.bm25 import tokenize
 from app.retrieval.embeddings import DIM, embed_passages
 from ingestion.chunk import Chunk, index_text
@@ -54,7 +55,7 @@ def build_qdrant(chunks: list[Chunk], client: QdrantClient) -> int:
         warnings.simplefilter("ignore", UserWarning)
         for field in PAYLOAD_INDEXES:
             client.create_payload_index(DOCUMENTS, field, PayloadSchemaType.KEYWORD)
-    if not client.collection_exists(SEMANTIC_CACHE):  # filled from Phase 9 (§B12.1)
+    if not client.collection_exists(SEMANTIC_CACHE):  # app/cache/semantic_cache.py (§B12.1)
         client.create_collection(SEMANTIC_CACHE,
                                  vectors_config=VectorParams(size=DIM, distance=Distance.COSINE))
 
@@ -90,4 +91,5 @@ def build_indexes(chunks: list[Chunk], client: QdrantClient, index_dir: Path = I
     n = build_qdrant(chunks, client)
     build_bm25(chunks, index_dir / "bm25.pkl")
     write_chunks(chunks, index_dir / "chunks.jsonl")
-    return {"qdrant_points": n, "bm25_docs": len(chunks)}
+    version = bump_corpus_version(index_dir / "corpus_version")  # invalidates the semantic cache (§B12.1)
+    return {"qdrant_points": n, "bm25_docs": len(chunks), "corpus_version": version}
