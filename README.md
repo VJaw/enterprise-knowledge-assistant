@@ -159,6 +159,24 @@ curl -s -X POST http://localhost:7860/chat -H 'Content-Type: application/json' \
 
 Send the same `session_id` for follow-ups; `GET /sessions/demo-1` returns the masked history. All endpoints can also be tried interactively at `/docs`.
 
+### Langfuse usage during demos
+
+Every question is traced to Langfuse Cloud and counts toward your Langfuse plan's monthly events. Approximate events per question: blocked ~3, cache hit ~13, normal answer ~30, multi-step agent question ~45. A 20–30 question demo is therefore about 600–1,000 events. Check your allowance under **Settings → Billing / Usage** in Langfuse.
+
+To trace less, or nothing, set one of the Langfuse SDK's switches when you start the app:
+
+| Variable | Effect |
+|---|---|
+| `LANGFUSE_TRACING_ENABLED=false` | No traces sent at all |
+| `LANGFUSE_SAMPLE_RATE=0.2` | Trace about 1 in 5 requests (any value 0–1) |
+
+```bash
+LANGFUSE_TRACING_ENABLED=false make run                                        # from source
+docker run --rm -p 7860:7860 --env-file .env -e LANGFUSE_TRACING_ENABLED=false eka   # Docker
+```
+
+Put them on the command line, not in `.env`. The app reads `.env` into its own settings but doesn't export it to the environment, where the Langfuse SDK looks; `docker run --env-file` is the exception. With tracing off, everything else works the same (answers, citations, tools, guardrails, cache), but the UI's trace link won't lead to a trace. Leave tracing on when you want to show the traces.
+
 ### Troubleshooting
 
 | Symptom | Fix |
