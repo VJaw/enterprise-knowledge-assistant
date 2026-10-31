@@ -2,7 +2,7 @@
 
 The eight points of the final presentation, in order (`capstonespec.md` D2). Each section gives the talking points, the numbers and where the evidence lives. Section numbers like §B8 refer to [`capstonespec.md`](../capstonespec.md), and D-0nn entries are in its Decision Log (A5).
 
-Live demo: <https://vijayapj-enterprise-knowledge-assistant.hf.space/docs> · Repository: <https://github.com/VJaw/enterprise-knowledge-assistant>
+Repository: <https://github.com/VJaw/enterprise-knowledge-assistant> · Demo: the production image run locally (`docker run --rm -p 7860:7860 --env-file .env eka`, then `http://localhost:7860/docs`). It isn't hosted on Hugging Face because Docker Spaces now need a PRO subscription (§8).
 
 ---
 
@@ -25,7 +25,7 @@ Stakeholders (§B2.1): engineering wants accurate technical answers with citatio
 
 ## 2. System architecture
 
-One FastAPI process (one Uvicorn worker, async) in one Docker image on a Hugging Face Space. The request path (§B3.2):
+One FastAPI process (one Uvicorn worker, async) in one Docker image built for a Hugging Face Docker Space. The request path (§B3.2):
 
 1. **Input rails**: injection heuristics + LLM Guard DeBERTa, LLM Guard toxicity, Presidio PII masking (reversible `<TYPE_n>` placeholders), a topic policy, and the NeMo `self check input` LLM.
 2. **Semantic cache** (Qdrant), keyed on the masked message. A hit skips straight to the output rails.
@@ -151,9 +151,20 @@ What the traces and the load tests showed ([`PERFORMANCE_REPORT.md`](../eval/rep
 - **Throughput**: 1.87 req/s over a 1 → 10 user ramp, 0/455 errors; a 5-minute soak grew memory by +9.9% with 0 errors.
 - **SLOs** (local): cache < 300 ms ✅, agentic < 12 s ✅, simple < 3 s missed by ≤ 178 ms at p95, with mitigations documented.
 
-**Live Space** (free CPU tier, measured at deploy): see the table below.
+**Production container smoke test** (Phase 12). The image was run locally with `.env` standing in for the Space secrets: Docker Desktop on Apple Silicon, linux/arm64, CPU only, 10 cores. Startup took about 18 s, and `/health` was all `ok` with 13 MCP tools bound and 7 write tools dropped. The app ran as uid 1000, and memory reached 6.0 GB after the run.
 
-<!-- live-space-results -->
+| Case | Model | Tools | Citations | Latency | Result |
+|---|---|---|---|---|---|
+| Factual: log retention | gpt-4o-mini | (initial retrieval) | `[1]`, `[4]` | 8.1 s | 13 months, grounding 1.0 |
+| Multi-hop: Payment Gateway dependency owners | gpt-4o | (graph retrieval) | `[1]`, `[G1]`–`[G7]` | 8.4 s | all 7 owners, grounding 1.0 |
+| Structured: Ledger DB SEV1 tickets | gpt-4o-mini | `sql_query` | `[SQL1]` | 6.9 s | 5 |
+| Analytical: §B9.4 | gpt-4o | `sql_query` → `query_graph` → `search_knowledge_base` | `[SQL1]`, `[G1]`, `[2]` | 12.7 s | Ledger DB → Data-Platform / Anthony Gonzalez → SOP-OPS-014 |
+| External: latest OpenSSL CVE | gpt-4o-mini | `web_search` | `[WEB1]`, `[WEB3]` | 12.2 s | answered |
+| Attack: ignore instructions | guardrails | none | none | 14 ms | blocked |
+| Attack: poisoned-doc password | guardrails | none | none | 12 ms | blocked, no leak |
+| Cache hit (repeat of the factual question) | cache | none | | 115–181 ms | hit |
+
+Without the laptop GPU, uncached answers are about 2–3× slower than the native numbers above, because the cross-encoder and the LLM Guard models run on CPU. A 2-vCPU Space would be slower again, which makes the documented mitigations (local NLI judge, skipping the router on simple turns, streaming) the first work for a hosted deployment.
 
 ## 8. Challenges and improvements
 
@@ -165,14 +176,14 @@ Challenges, and how they were resolved (from the Decision Log, A5, and the Hando
 - **Guardrail false positives vs latency**: the DeBERTa injection model was demoted from blocker to escalation trigger. Self-check speculation and memoisation kept the overhead at 157 ms (D-023, D-024).
 - **Cache correctness**: a pure similarity threshold can't separate SEV1/SEV2, so the cache also requires matching specifics (D-026).
 - **Simple-query SLO**: the 3 s target is just out of reach with three LLM calls in series. The remaining options trade away a safety control, so they're documented, not applied.
-- **Deployment**: binary files (PDFs, PNGs) are rejected by the Space's git server without LFS/Xet, so the Space is published from a clean snapshot with the Hub API (D-029).
+- **Deployment**: Hugging Face now requires a PRO subscription for Docker Spaces, even on free CPU hardware, so there is no hosted demo (D-029). The image is verified locally, and `scripts/deploy_space.py` creates the Space, sets its secrets and uploads a clean snapshot through the Hub API. It uses the API rather than `git push` because the Space's git server rejects binary files without LFS/Xet.
 
 Known gaps:
 
 - Agentic answers sometimes skip a redundant tool step (D-022).
 - Answer relevancy is 0.803 against the 0.85 target.
 - One golden row (incident → system → policy) needs a graph-retrieval template.
-- The public demo has no authentication beyond a per-session rate limit. The OpenAI hard spending limit is the backstop.
+- No hosted demo (above). If it is hosted publicly, `/chat` has no authentication beyond a per-session rate limit, so the OpenAI hard spending limit is the backstop.
 
 Improvements (§B18.3):
 

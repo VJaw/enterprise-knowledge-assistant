@@ -68,7 +68,7 @@ Read capstonespec.md in full. Execute Phase <N> only.
 | 9 | API hardening, cache & observability | ✅ | 2026-10-31 | `bf32645` | /chat, /sessions, /ingest, /health (degraded graph), /metrics, §B11.3 errors, 30/min rate limit; semantic cache hit 66 ms (0.92 + specifics guard: 0/10 false hits, 7/10 paraphrases); 5/5 traces complete, no PII; 6 screenshots; 294 tests; D-026 |
 | 10 | Full evaluation | ✅ | 2026-10-31 | `4037813` | Promptfoo 33/34 (97%); RAGAS A–D, D 0.919 / 0.803 / 0.975 / 0.932 (answer relevancy gap explained); safety 50/50 handled, 0/15 false positives; 4 defects fixed; 298 tests; D-027 |
 | 11 | Performance & load testing | ✅ | 2026-10-31 | `66a63da` | Simple p95 5.2 → 3.2 s (p50 4.1 → 2.6 s; 3 s SLO missed by ≤ 178 ms, mitigations documented), agentic p95 ≤ 11.7 s, cache hit 71 ms; cache hit rate 66%, 46× p50; ramp 1.87 req/s (3.28 at 10 users), 0 errors; soak +9.9% RSS; Promptfoo 34/34; 301 tests; D-028 |
-| 12 | Deploy & documentation (**M4**) | ⬜ | | | |
+| 12 | Deploy & documentation (**M4**) | ⚠️ | 2026-10-31 | `708bce2`, see A4 | No HF Space: Docker Spaces need PRO (402), user chose not to deploy; production image verified locally (`/health` ok, smoke 7/7, cache hit 115–181 ms); README + WALKTHROUGH; public GitHub repo; D1 10/11; 301 tests; D-029 |
 
 Legend: ⬜ not started · 🟡 in progress · ✅ done (gate passed) · ⚠️ done with known gaps (see A4)
 
@@ -448,6 +448,48 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done (gate passed) · ⚠️ 
   - Stop `make run` before `bench_latency.py`, `run_load.py` or `make eval` (Qdrant lock).
   - Spend this phase ≈ $5 in total: about $2.5 for the final measurements (benchmarks $0.87, load $1.47, Promptfoo) plus the first "after" attempt that ran out of credit.
 
+**Phase 12 — Deploy & documentation (2026-10-31, commits `708bce2` + final docs commit, tag `v1.0`) ⚠️**
+- Repo: **<https://github.com/VJaw/enterprise-knowledge-assistant>** (public, `main` + tag `v1.0`). Live URL: **none** (see below).
+- Built:
+  - `Dockerfile` final: only the header comment changed. It already met step 1: Node + `uv`, all models baked in, Qdrant/BM25/SQLite built at image build time, uid 1000, port 7860, no graph in the image.
+  - `README.md` rewritten:
+    - HF front-matter (`title`, `sdk: docker`, `app_port: 7860`);
+    - overview, Mermaid architecture diagram, example questions;
+    - quickstart (venv and container);
+    - Space deploy steps, API table, headline results;
+    - links to every D1 deliverable and the repo layout.
+  - `docs/WALKTHROUGH.md`: the 8 D2 walkthrough points, with numbers and links to the evidence.
+  - `scripts/deploy_space.py` (`create` / `secrets` / `push` / `status`), and `make deploy` now runs `push` (D-029).
+  - Public GitHub repo created with `gh`, `main` pushed.
+- **Deploy blocked:** `create_repo(..., repo_type="space", space_sdk="docker")` returned **402 Payment Required**: "hosting Gradio and Docker Spaces on free cpu-basic requires a PRO subscription". The user chose to finish **without deploying to Hugging Face**, so step 3 (Space + secrets), step 4 (push) and step 5 against a Space URL were not done, and the gate's first item fails → ⚠️.
+- **Substitute evidence: the production image run locally.** `docker build -t eka .` succeeded: 10 GB, linux/arm64, the first build since Phase 3. `docker run --env-file .env -p 7861:7860 eka` results:
+  - Startup ≈ 18 s, uid 1000.
+  - MCP inside the container: `MCP tools bound: …` (13), `MCP write tools dropped: …` (7). This closes the Phase 7/8 open item.
+  - `/health` → `{"status":"ok", openai, qdrant, sqlite, models, graph, langfuse, tavily, mcp all "ok"}`.
+  - Step-5 smoke test, **7/7** (traces in Langfuse):
+
+    | Case | Model | Tools | Latency | Trace |
+    |---|---|---|---|---|
+    | factual (retention) | gpt-4o-mini | none | 8.1 s | `35be71d977efca478f621d9d7e59a2b0` |
+    | multi-hop (PG owners) | gpt-4o | none | 8.4 s | `adfff720989b2b6f6ce9ad1d651fbcaa` |
+    | structured (Ledger DB SEV1 = 5) | gpt-4o-mini | `sql_query` | 6.9 s | `6751a19bd88218c1487f0464c008f2b2` |
+    | analytical (§B9.4, full 3-tool order) | gpt-4o | `sql_query` → `query_graph` → `search_knowledge_base` | 12.7 s | `742bb57503e274daf0d56c69a6ab3e86` |
+    | external (OpenSSL CVE) | gpt-4o-mini | `web_search` | 12.2 s | `45fafd5647ca9e305028905ce43053e2` |
+    | injection | blocked | none | 14 ms | `f5db356d3f85d4fdb4345458b8a0c899` |
+    | poisoned-doc password | blocked | none | 12 ms | `35467a8ae4d48561106bfe2a62fc4f7c` |
+
+    Every answered case has grounding 1.0, and no poisoned-doc string appears in any response.
+  - Cache hit: 115–181 ms. Memory: 3.4 GB after startup, 6.0 GB after the smoke test (Docker VM limit 7.7 GB; an HF CPU Space has 16 GB).
+- Secrets: no `.env` value appears in any commit of the history (checked value by value before the repo went public); `.env` was never committed.
+- `pytest -q` **301 passed**, `ruff check .` clean.
+- Deviations (also in A5): D-029.
+- Known issues / TODO:
+  - **No live demo.** To deploy later: get HF PRO (or a paid-hardware Space), set a random `ADMIN_TOKEN` in `.env` (it is still `change-me`; the user approved generating one, but it wasn't needed without a Space), then `python scripts/deploy_space.py create && … secrets && … push`, and run the step-5 smoke test (`/health`, 5 intents, 2 attacks) against `https://vijayapj-enterprise-knowledge-assistant.hf.space`. The README's deploy section has the same steps.
+  - The container is CPU-only, so uncached answers take 2–3× the native-Mac times (simple ≈ 8 s against the 3 s SLO). A 2-vCPU Space would be slower still. Phase 11's mitigations (NLI judge, router skip, streaming) are the first work for hosting.
+  - Tavily's `/usage` endpoint sometimes takes > 8 s (measured 0.6–5.1 s, plus timeouts), so `/health` sometimes shows `tavily: error: TimeoutError` and `status: degraded` (HTTP 200) while web search works.
+  - A public deployment has no auth on `/chat` beyond the per-session rate limit.
+- Notes: the project is complete apart from hosting. If the Space is created later, update this entry, A3 and D1 with the live URL and the smoke-test results.
+
 ## A5. Decision Log
 
 | # | Date | Phase | Decision | Reason | Spec sections affected |
@@ -480,6 +522,7 @@ Legend: ⬜ not started · 🟡 in progress · ✅ done (gate passed) · ⚠️ 
 | D-026 | 2026-10-31 | 9 | Semantic cache, API and tracing details: (1) the cache key is the masked, normalised message for a first turn and the router's `rewritten_query` when writing a follow-up. The lookup runs before the router, so it is skipped when the session has history and the message refers back to it (pronoun / "and …" regex). (2) A hit also needs the same **specifics** as the cached question (tokens containing digits, and the target of "depends on / relies on"); the threshold stays 0.92. (3) A hit skips the LLM `self check input` (the local input rails still run, and a DeBERTa-suspected message still gets the self-check first) and reuses the stored grounding result, so the groundedness backstop and the output self-check don't call the LLM. The other output rails run as usual, and the exchange is appended to the session. (4) `corpus_version` is a counter file in `data/indexes/`, bumped by every index build; `/ingest` also purges older entries. (5) The rate limit uses slowapi's `Limiter` storage from inside `/chat` (key = session id, or client IP without one), not the decorator. (6) `/health` body is `{status, openai, qdrant, sqlite, models, graph, langfuse, tavily, mcp}`; the `neo4j` key became `graph`; 503 only for a critical failure. (7) `/metrics` is a small in-process Prometheus text registry. (8) Error codes added to §B11.3: `UNAUTHORIZED` 401, `NOT_FOUND` 404, `CONFLICT` 409. (9) Trace layout: the router, retrieval and groundedness judge nest under one `agent` span (they are agent-graph nodes), not at the trace root or under `guardrails.output`. Trace tags are written on the root span at the end of the request; `user_id` is a hash of the client IP. (10) The graph watchdog also *disables* graph retrieval when a probe of a live connection fails. (11) `/chat/stream` not built (D5 cut 1) | (1) Running the router (≈ 1 s) in front of the cache would break the < 300 ms hit target. (2) Measured: at 0.92, SEV1 vs SEV2 (0.962), INC-2025-012 vs -017 (0.924) and inverted dependency questions (0.953) would hit; SEV1/SEV2 scores above real paraphrases, so no threshold works (A4). (3) The self-check (0.6–1 s) and the judge (≈ 1 s) would each break the target. The cached answer passed both, and the judge's verdict was for this exact text and these sources; the Phase 8 handoff note had suggested re-running the backstop. (4) `make ingest` runs without the API, so the version must live with the indexes. (5) slowapi's key function is synchronous and can't read the JSON body that holds `session_id`. (6) §B4.3 names `graph: "degraded"`; Langfuse, Tavily or MCP outages don't stop answers. (7) Avoids a new dependency and a relock for ~100 lines. (8) `/ingest` and `/sessions` need them. (9) The agent graph owns those steps; one `agent` span keeps their timings together. Tags such as `intent:*` are known only after routing. (10) Otherwise a mid-session Aura outage costs every request a failed graph branch (3 s budget) until a restart | B11.1, B11.3, B12.1, B12.3, B13.1, B4.3 |
 | D-027 | 2026-10-31 | 10 | Evaluation harness and the fixes it led to: (1) each harness (`run_ragas.py`, `run_promptfoo.py`, `run_safety.py`) starts its own API via `eval/api_server.py`. `make eval` no longer expects a running API; it empties `semantic_cache` first and runs with the cache on (the cache case needs it). (2) The RAGAS ablation flags switch retrieval components only; agent tools (`query_graph`, `sql_query`) stay in every config. (3) RAGAS results reach Langfuse by replaying saved results through `dataset.run_experiment` (dataset `eka-golden`), not by linking the API traces as dataset-run items. (4) The safety prompts are hand-written and tagged with the Promptfoo red-team plugin they are modelled on, instead of being generated by Promptfoo. Outcomes: deterministic leak checks first, then blocked, then a gpt-4o-mini judge; hand reviews in `eval/safety/reviews.json` may overturn a judge verdict (never a leak), pinned to the answer hash. (5) `web_search` refuses queries naming Acme, a document id or a directory system/team/product. (6) `Router.plan` uses the user's message instead of a rewrite that names an entity `grounded_entities` dropped, and removes such sub-questions. (7) `PIIMasker` adds a US_SSN shape recogniser (`\d{3}-\d{2}-\d{4}`, 0.6). (8) SQL citation snippets are `SQL: <query>` + the result | (1) Results come from a known configuration, and repeat runs would otherwise answer from the cache. (2) That is what §B14.2's flags control. Removing tools would need a new flag, and Phase 6 already measured the no-agent case. (3) SDK v5 has no dataset-run-item call for an existing trace; replaying avoids extra /chat cost, and each item keeps the API `trace_id`. (4) Red-team generation needs Promptfoo's remote generator or extra LLM spend; hand-written prompts give exact category counts and known leak markers. (5) The prompt rule alone let gpt-4o-mini answer an internal question from an unrelated web page (Promptfoo run 1). (6) The router invented `SRE-Operations` for an SOP-OPS-009 question and the agent answered with the wrong manager (Promptfoo run 2). (7) Presidio's `UsSsnRecognizer` rejects "invalid" SSNs such as 123-45-6789, which then reached OpenAI and Langfuse unmasked (safety run 1, NFR-5). (8) "17" alone doesn't say what was counted; RAGAS faithfulness scored those rows 0, and users couldn't check the number | B14.1, B14.2, B14.3, B8.1, B9.3, B10.2, B10.4, B11.2 |
 | D-028 | 2026-10-31 | 11 | Latency optimisations: (1) **speculative retrieval prefetch**: on a first turn (no history), the agent's `classify` node starts dense + BM25 search and the cross-encoder re-rank on the user's PII-masked message (not the router's rewrite) with the request's filters, as an asyncio task alongside the router LLM call. `retrieve` uses it when the merged filters equal the request's (the router added none), else cancels it and searches as before; the graph branch still uses the router's entities and starts after the router. Chit-chat, router errors and follow-up turns cancel or skip it. (2) **Re-rank the fused top 20** instead of §B8.4's 30 (`TOP_N = 20`) | (1) §B8.2 runs retrieval only after the router (~0.8–1.2 s), so the simple path paid router + retrieval (~1 s) in series. The raw first-turn message is close to the rewrite, and the re-ranker orders the final top 6 anyway. Measured: simple-path retrieval the request waits for p50 986 → 247 ms; simple p50 4.1 → 2.6 s; Promptfoo 34/34 (no answer-quality case regressed). Follow-ups need the rewrite, so they don't prefetch. (2) Full-pipeline R@5 / MRR / nDCG are identical at 20 and 30 (0.990 / 0.967 / 0.947) and re-rank time drops 28% (796 → 576 ms p50); listed as option 1 in the Phase 5 handoff | B8.2, B8.4, B9.1 |
+| D-029 | 2026-10-31 | 12 | **No Hugging Face Space.** Phase 12 is finished without hosting, by the user's decision; the production image is verified locally instead. If a Space is created later, it is published with `scripts/deploy_space.py push`, which uploads a `git archive HEAD` snapshot through the Hub API (`upload_folder`), instead of `git remote add hf …; git push hf main`. `make deploy` runs it | HF answered `create_repo` with 402: Docker Spaces on free cpu-basic now require a PRO subscription, which the spec (§B3.3 "free public hosting", §B4.1 "Free CPU Space") assumed wasn't needed. The Space's git server rejects binary files not stored with LFS/Xet (8 policy PDFs, 9 PNGs in history); the Hub API stores them with Xet and sends only committed files from HEAD | Phase 12 steps 3–5, B3.3, B4.1, B4.2, D1 |
 
 ---
 
@@ -2280,13 +2323,13 @@ curl ... | jq '.cache_hit, .latency_ms'   # 2nd call: true, < 300
 
 ### Exit Gate
 
-- [ ] The Space URL is live and `/health` is green
-- [ ] Every item in D1 is ticked
+- [ ] The Space URL is live and `/health` is green (**not met**: Hugging Face refused to create the Space, `402 Payment Required`, because Docker Spaces now need PRO; the user chose not to deploy, D-029. Substitute evidence: the production image run locally, `/health` all `ok`, smoke test 7/7, see A4)
+- [ ] Every item in D1 is ticked (10 of 11; the live demo is the gap)
 
 ### Handoff checklist
 
-- [ ] Commit `docs(phase-12): deploy + final docs (M4)` and tag `v1.0`
-- [ ] A3 fully ✅. A4 final entry with the live URL and repo URL
+- [x] Commit `docs(phase-12): deploy + final docs (M4)` and tag `v1.0`
+- [ ] A3 fully ✅ (Phase 12 is ⚠️). [x] A4 final entry with the repo URL (no live URL)
 
 ---
 
@@ -2296,17 +2339,17 @@ curl ... | jq '.cache_hit, .latency_ms'   # 2nd call: true, < 300
 
 | Deliverable (from brief) | Location | Produced in | ✓ |
 |---|---|---|---|
-| GitHub repository link | Public repo | 1, 12 | ☐ |
-| Documentation: overview, architecture, solution approach, stepwise solution | `README.md`, `capstonespec.md`, `docs/WALKTHROUGH.md` | 12 | ☐ |
-| Hybrid RAG implementation | `app/retrieval/`, `app/graph/`, `ingestion/` | 3–5 | ☐ |
-| LangGraph agent workflow | `app/agent/`, `docs/agent_graph.md` | 7 | ☐ |
-| Guardrails implementation | `app/guardrails/` | 8 | ☐ |
-| Langfuse tracing screenshots | `docs/screenshots/` | 9 | ☐ |
-| Promptfoo test suite (30+) | `eval/promptfoo/`, `eval/reports/PROMPTFOO_REPORT.md` | 6, 10 | ☐ |
-| RAGAS evaluation report | `eval/reports/RAGAS_REPORT.md` | 6, 10 | ☐ |
-| Safety scorecard | `eval/reports/SAFETY_SCORECARD.md` | 10 | ☐ |
-| Performance report | `eval/reports/PERFORMANCE_REPORT.md` | 11 | ☐ |
-| Live demo | HF Space URL | 12 | ☐ |
+| GitHub repository link | Public repo: <https://github.com/VJaw/enterprise-knowledge-assistant> | 1, 12 | ☑ |
+| Documentation: overview, architecture, solution approach, stepwise solution | `README.md`, `capstonespec.md`, `docs/WALKTHROUGH.md` | 12 | ☑ |
+| Hybrid RAG implementation | `app/retrieval/`, `app/graph/`, `ingestion/` | 3–5 | ☑ |
+| LangGraph agent workflow | `app/agent/`, `docs/agent_graph.md` | 7 | ☑ |
+| Guardrails implementation | `app/guardrails/` | 8 | ☑ |
+| Langfuse tracing screenshots | `docs/screenshots/` | 9 | ☑ |
+| Promptfoo test suite (30+) | `eval/promptfoo/`, `eval/reports/PROMPTFOO_REPORT.md` | 6, 10 | ☑ |
+| RAGAS evaluation report | `eval/reports/RAGAS_REPORT.md` | 6, 10 | ☑ |
+| Safety scorecard | `eval/reports/SAFETY_SCORECARD.md` | 10 | ☑ |
+| Performance report | `eval/reports/PERFORMANCE_REPORT.md` | 11 | ☑ |
+| Live demo | HF Space URL | 12 | ☐ not hosted (D-029); production image runs locally, `scripts/deploy_space.py` ready |
 
 ## D2. Brief → Spec Mapping
 

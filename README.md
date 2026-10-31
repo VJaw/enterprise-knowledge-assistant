@@ -13,17 +13,16 @@ A production-shaped GenAI assistant for the fictional **Acme Corp**. It answers 
 - **NeMo Guardrails** with Presidio PII masking, LLM Guard injection/toxicity scanners, an LLM self-check, a groundedness judge and citation enforcement.
 - **FastAPI** with sessions, a Qdrant semantic cache, rate limiting and a uniform error model.
 - **Langfuse** tracing of every hop, plus a Promptfoo suite, RAGAS ablation, safety scorecard and load tests.
-- It ships as **one Docker image** on Hugging Face Spaces, with the graph hosted in Neo4j Aura.
+- It ships as **one Docker image** built for Hugging Face Spaces, with the graph hosted in Neo4j Aura.
 
 | | |
 |---|---|
-| **Live demo** | <https://vijayapj-enterprise-knowledge-assistant.hf.space> (Swagger UI at [`/docs`](https://vijayapj-enterprise-knowledge-assistant.hf.space/docs), health at [`/health`](https://vijayapj-enterprise-knowledge-assistant.hf.space/health)) |
-| **Space** | <https://huggingface.co/spaces/VijayaPJ/enterprise-knowledge-assistant> |
 | **Repository** | <https://github.com/VJaw/enterprise-knowledge-assistant> |
+| **Live demo** | Not hosted. Hugging Face now requires a PRO subscription for Docker Spaces, so the demo runs from the same Docker image locally ([Run it locally](#run-it-locally)). The image is Space-ready: see [Deploy to a Space](#deploy-to-a-hugging-face-space) |
 | **Build spec** (architecture, decisions, phase log) | [`capstonespec.md`](capstonespec.md) |
 | **Walkthrough** (the 8 presentation points) | [`docs/WALKTHROUGH.md`](docs/WALKTHROUGH.md) |
 
-> The demo runs on a free CPU Space and the Neo4j Aura Free instance pauses when idle. If `/health` shows `"graph": "degraded"`, the assistant still answers from dense + BM25 retrieval. The first request after the Space wakes up takes longer while the models warm up.
+> The Neo4j Aura Free instance pauses when idle; resume it from the Aura console before a demo. If `/health` shows `"graph": "degraded"`, the assistant still answers from dense + BM25 retrieval.
 
 ## Architecture
 
@@ -64,14 +63,16 @@ flowchart LR
     API -.trace.-> LF[("Langfuse")]
 ```
 
-Deployment: one Uvicorn worker in a Docker Space (port 7860). Qdrant runs embedded, and SQLite holds the structured data and session checkpoints. The embedding, re-ranker, guardrail and spaCy models and the Qdrant/BM25/SQLite indexes are all baked into the image at build time. The knowledge graph lives in Neo4j Aura over TLS, and OpenAI, Tavily and Langfuse are the other external services. See [`capstonespec.md` §B3–§B4](capstonespec.md#b3-high-level-architecture), the agent graph in [`docs/agent_graph.md`](docs/agent_graph.md), and the Aura graph screenshot in [`docs/screenshots/graph.png`](docs/screenshots/graph.png).
+Deployment: one Uvicorn worker in one container on port 7860, the shape of a Docker Space. Qdrant runs embedded, and SQLite holds the structured data and session checkpoints. The embedding, re-ranker, guardrail and spaCy models and the Qdrant/BM25/SQLite indexes are all baked into the image at build time. The knowledge graph lives in Neo4j Aura over TLS, and OpenAI, Tavily and Langfuse are the other external services. See [`capstonespec.md` §B3–§B4](capstonespec.md#b3-high-level-architecture), the agent graph in [`docs/agent_graph.md`](docs/agent_graph.md), and the Aura graph screenshot in [`docs/screenshots/graph.png`](docs/screenshots/graph.png).
 
 ## Try it
 
+With the container running (below):
+
 ```bash
-SPACE=https://vijayapj-enterprise-knowledge-assistant.hf.space
-curl -s $SPACE/health
-curl -s -X POST $SPACE/chat -H 'Content-Type: application/json' \
+BASE=http://localhost:7860
+curl -s $BASE/health
+curl -s -X POST $BASE/chat -H 'Content-Type: application/json' \
   -d '{"message": "Which teams own the systems Payment Gateway depends on?"}' | jq '{answer, citations: [.citations[].doc_id], tool_calls: [.tool_calls[].name], model_used, latency_ms}'
 ```
 
@@ -100,12 +101,24 @@ make ingest              # SQLite + Qdrant + BM25 indexes, graph reload from the
 make run                 # http://localhost:7860/docs
 ```
 
-Or the container (as deployed):
+Or the production container (models, indexes and MCP servers baked in; `.env` stands in for the Space secrets):
 
 ```bash
 docker build -t eka .
-docker run --rm -p 7860:7860 --env-file .env eka
+docker run --rm -p 7860:7860 --env-file .env eka     # ready in ~20 s; open http://localhost:7860/docs
 ```
+
+### Deploy to a Hugging Face Space
+
+The README front-matter (`sdk: docker`, `app_port: 7860`) makes this repo a Docker Space. Docker Spaces need a Hugging Face PRO account (or paid hardware). With `HF_TOKEN` (write) in `.env`:
+
+```bash
+python scripts/deploy_space.py create     # public Docker Space VijayaPJ/enterprise-knowledge-assistant
+python scripts/deploy_space.py secrets    # OPENAI/NEO4J/LANGFUSE/TAVILY keys + ADMIN_TOKEN (set a random one first)
+python scripts/deploy_space.py push       # uploads git HEAD; HF builds the image (make deploy does the same)
+```
+
+`push` uploads through the Hub API rather than `git push`, because the Space's git server rejects binary files (PDFs, PNGs) that aren't stored with LFS/Xet.
 
 Other targets: `make test` (301 tests), `make data` (regenerate the synthetic corpus from the committed LLM cache, no API calls), `make graph` (graph extraction from cache + load), `make eval` / `make ragas CONFIG=D` / `make safety` (each starts its own API, so stop `make run` first), `make load`.
 
@@ -132,7 +145,7 @@ Full schemas: `/docs` (OpenAPI) and [`capstonespec.md` §B11](capstonespec.md#b1
 | Performance | Cache hit p95 71 ms, simple p50 2.6 s / p95 3.2 s, agentic p95 ≤ 11.7 s, 46× cache speed-up, 0 errors at 10 users | [`PERFORMANCE_REPORT.md`](eval/reports/PERFORMANCE_REPORT.md) |
 | Observability | Langfuse traces, dashboard and scores | [`docs/screenshots/`](docs/screenshots/) |
 
-All local measurements are from an Apple Silicon laptop; the free HF CPU Space is slower (see the walkthrough, §7).
+The evaluation and performance numbers come from the API running natively on an Apple Silicon laptop. The CPU-only container is slower (walkthrough §7).
 
 ## Deliverables
 
@@ -148,7 +161,7 @@ All local measurements are from an Apple Silicon laptop; the free HF CPU Space i
 | RAGAS evaluation report | [`eval/reports/RAGAS_REPORT.md`](eval/reports/RAGAS_REPORT.md) |
 | Safety scorecard | [`eval/reports/SAFETY_SCORECARD.md`](eval/reports/SAFETY_SCORECARD.md) |
 | Performance report | [`eval/reports/PERFORMANCE_REPORT.md`](eval/reports/PERFORMANCE_REPORT.md) |
-| Live demo | <https://huggingface.co/spaces/VijayaPJ/enterprise-knowledge-assistant> |
+| Live demo | Not hosted (HF Docker Spaces need PRO); the production image runs locally with `docker run` (above) |
 
 ## Repository layout
 
