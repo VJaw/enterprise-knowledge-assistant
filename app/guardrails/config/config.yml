@@ -1,0 +1,25 @@
+# NeMo Guardrails (§B10.3). NeMo wraps the pipeline: app/pipeline.py runs the input rails before the agent and
+# the output rails after it. The custom actions live in app/guardrails/actions.py and are registered by
+# app/guardrails/rails.py, which also splits `self check input` into its own LLMRails so it can run alongside
+# the agent (D-023). PII masking is a custom reversible action, not NeMo's built-in sensitive_data_detection.
+models:
+  - type: main
+    engine: openai
+    model: gpt-4o-mini
+
+rails:
+  input:
+    flows:
+      - llm guard injection scan       # L2: heuristics + LLM Guard PromptInjection (DeBERTa)
+      - llm guard toxicity scan input  # L2: LLM Guard Toxicity on the user's message
+      - mask sensitive data on input   # L3: Presidio, reversible placeholders
+      - check topic policy             # L4: legal advice, HR decisions about people, credential requests
+      - self check input               # L2: NeMo self check (gpt-4o-mini), on the masked message
+  output:
+    flows:
+      - check groundedness             # L5: backstop when the agent didn't judge the answer (cache hits)
+      - enforce citations              # L6
+      - mask sensitive data on output  # L7
+      - llm guard toxicity scan        # L8: LLM Guard Toxicity + banned topics
+      - check output policy            # L8: no secret values
+      - self check output              # L8: NeMo self check, only when nothing else vouched for the answer

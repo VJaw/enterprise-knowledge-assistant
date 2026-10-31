@@ -1,6 +1,7 @@
 """FastAPI entrypoint: app factory, lifespan-managed clients, routers."""
 import asyncio
 import logging
+import time
 from contextlib import AsyncExitStack, asynccontextmanager
 
 import httpx
@@ -14,8 +15,9 @@ from app.agent.nodes import AgentNodes
 from app.api import chat, health
 from app.config import get_settings
 from app.graph.neo4j_client import Neo4jClient
+from app.guardrails.rails import build_guardrails
 from app.llm.router import ModelRouter
-from app.observability.langfuse import init_langfuse
+from app.observability.langfuse import init_langfuse, llm_callbacks
 from app.retrieval.bm25 import BM25Retriever
 from app.retrieval.dense import COLLECTION, DenseRetriever
 from app.retrieval.embeddings import get_embedder
@@ -65,6 +67,15 @@ async def ensure_graph(graph: Neo4jClient) -> bool:
     return True
 
 
+async def prefill_guard_memo() -> None:
+    """Scan every indexed passage once (injection strip + PII analysis) so retrieved passages hit the memo."""
+    from app.guardrails.actions import prefill_corpus
+
+    t0 = time.perf_counter()
+    n = await asyncio.to_thread(prefill_corpus)
+    log.warning("guardrails: pre-scanned %s passages in %.1f s", n, time.perf_counter() - t0)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     s = get_settings()
@@ -91,6 +102,16 @@ async def lifespan(app: FastAPI):
                                timeout=30, max_retries=2)
     app.state.router = Router(app.state.llm, load_known_entities(), load_filter_pairs())
 
+    # §B4.3 / §B10: NeMo LLMRails + the guard models (Presidio/spaCy, LLM Guard), warmed up once. The
+    # self-check model is a separate client so its generations are traced (callback bound at construction).
+    app.state.guardrails = None
+    if s.use_guardrails:
+        guard_llm = ChatOpenAI(model=s.model_fast, temperature=0, api_key=_secret(s.openai_api_key),
+                               timeout=30, max_retries=2, callbacks=llm_callbacks(), name="nemo.self_check")
+        app.state.guardrails = await build_guardrails(guard_llm, judge=app.state.llm)
+        # In the background: startup doesn't wait for it.
+        app.state.guard_prefill = asyncio.create_task(prefill_guard_memo())
+
     # §B4.3: MCP sessions and the compiled agent graph. The exit stack closes them in reverse order.
     stack = AsyncExitStack()
     tools = build_tools(s, app.state.retriever, graph_retriever)
@@ -104,7 +125,7 @@ async def lifespan(app: FastAPI):
     app.state.tools = tools
     app.state.agent = build_graph(
         AgentNodes(router=app.state.router, retriever=app.state.retriever, models=app.state.models,
-                   tools=tools, judge=app.state.llm, max_steps=s.agent_max_steps),
+                   tools=tools, judge=app.state.llm, max_steps=s.agent_max_steps, guard=app.state.guardrails),
         checkpointer)
     log.warning("agent tools: %s", ", ".join(t.name for t in tools))
     try:

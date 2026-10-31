@@ -3,6 +3,8 @@
 data/indexes/
 data/qdrant/
 *.db
+*.db-shm
+*.db-wal
 __pycache__/
 .promptfoo/
 .pytest_cache/

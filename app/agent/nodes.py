@@ -8,9 +8,12 @@ finalize.
   `tool.<name>`.
 - synthesize: only calls the LLM when the agent stopped at the step bound, or to regenerate after a failed
   grounding check; otherwise it passes the agent's reply through.
-- grounding_check: gpt-4o-mini judge, grounded if >= 90% of claims are supported (§B10.2). Phase 8 replaces it
-  with the full guardrail action.
-- safe_fallback: drops the unsupported sentences and adds a disclaimer."""
+- grounding_check: the `groundedness_check` guardrail action (gpt-4o-mini judge, grounded if >= 90% of claims
+  are supported, §B10.2 L5).
+- safe_fallback: drops the unsupported sentences and adds a disclaimer.
+
+With guardrails on, retrieved passages and every tool output go through the untrusted-content scan (§B10.2
+L2b + L7: injected instructions stripped, PII masked) before the LLM sees them."""
 from __future__ import annotations
 
 import asyncio
@@ -18,45 +21,35 @@ import hashlib
 import re
 import time
 from pathlib import Path
+from typing import Protocol
 
 from langchain_core.messages import AIMessage, AnyMessage, HumanMessage, SystemMessage, ToolMessage
 from langchain_core.tools import BaseTool
-from pydantic import BaseModel
-from rapidfuzz import fuzz
 
-from app.agent.prompts import (
-    AGENT_PROMPT,
-    CHAT_PROMPT,
-    IDK,
-    JUDGE_PROMPT,
-    REGENERATE,
-    SYNTH_PROMPT,
-)
+from app.agent.prompts import AGENT_PROMPT, CHAT_PROMPT, IDK, REGENERATE, SYNTH_PROMPT
 from app.agent.state import AgentState
-from app.core.types import GroundingResult, RetrievedChunk, ToolResult
+from app.core.types import RetrievedChunk, ToolResult
+from app.guardrails.actions import DISCLAIMER, Judgement, groundedness_check, is_abstention, safe_fallback
 from app.llm.router import ModelRouter
-from app.observability.langfuse import get_client, llm_callbacks
-from app.retrieval.context import CITE, format_items, label
+from app.observability.langfuse import get_client
+from app.retrieval.context import format_items, label
 from app.retrieval.rerank import TOP_K
 from app.retrieval.router import HISTORY_TURNS
 from app.tools.common import mask_contacts, truncate
 
-GROUNDED_MIN = 0.9  # §B10.2
 HISTORY_CHARS = 600
-UNSUPPORTED_MATCH = 75
-DISCLAIMER = ("Note: parts of this answer could not be verified against the sources and were removed. "
-              "Please check the cited sources.")
 MCP_PREFIXES = ("sqlite_", "filesystem_")
 FILE_DOC_ID = re.compile(r"[A-Z]+-[A-Z]+-\d{3}|INC-\d{4}-\d{3}", re.I)
 
 
-class Claim(BaseModel):
-    claim: str
-    supported: bool
+__all__ = ["AgentNodes", "DISCLAIMER", "is_abstention"]
 
 
-class Judgement(BaseModel):
-    claims: list[Claim]
+class Guard(Protocol):
+    """The untrusted-content scan (app/guardrails/rails.py `Guardrails`)."""
+    async def scan_chunks(self, chunks: list[RetrievedChunk], name: str) -> list[RetrievedChunk]: ...
+    async def scan_text(self, text: str, source: str) -> str: ...
+    async def prescan_output(self, text: str) -> None: ...
 
 
 def text_of(content) -> str:
@@ -79,10 +72,6 @@ def history_pairs(messages: list[AnyMessage]) -> list[tuple[str, str]]:
     return pairs[-HISTORY_TURNS:]
 
 
-def is_abstention(answer: str) -> bool:
-    return answer.strip().rstrip(".") == IDK.rstrip(".")
-
-
 def mcp_artifact(name: str, args: dict, content: str) -> list[RetrievedChunk] | None:
     """MCP read results become citable sources like their native counterparts."""
     if name == "sqlite_read_query":
@@ -99,22 +88,10 @@ def mcp_artifact(name: str, args: dict, content: str) -> list[RetrievedChunk] | 
     return None
 
 
-def drop_unsupported(answer: str, unsupported: list[str]) -> str:
-    """Remove the sentences that carry an unsupported claim; keep the rest of the layout."""
-    kept_lines = []
-    for line in answer.splitlines():
-        sentences = re.split(r"(?<=[.!?])\s+", line)
-        keep = [s for s in sentences
-                if not any(fuzz.partial_ratio(c.lower(), CITE.sub("", s).lower()) >= UNSUPPORTED_MATCH
-                           for c in unsupported)]
-        if any(s.strip() for s in keep):
-            kept_lines.append(" ".join(keep))
-    return "\n".join(kept_lines).strip()
-
-
 class AgentNodes:
     def __init__(self, *, router, retriever, models: ModelRouter, tools: list[BaseTool], judge=None,
-                 max_steps: int = 5):
+                 max_steps: int = 5, guard: Guard | None = None):
+        self.guard = guard
         self.router = router
         self.retriever = retriever
         self.models = models
@@ -153,7 +130,9 @@ class AgentNodes:
 
     async def retrieve(self, state: AgentState) -> dict:
         res = await self.retriever.search(state["plan"], state.get("filters"), k=TOP_K)
-        contexts, _ = label([], [*res.chunks, *res.facts])
+        chunks = res.chunks if self.guard is None else await self.guard.scan_chunks(res.chunks,
+                                                                                    "untrusted.retrieved")
+        contexts, _ = label([], [*chunks, *res.facts])
         return {"contexts": contexts, "flags": [*state.get("flags", []), *res.flags]}
 
     async def agent(self, state: AgentState) -> dict:
@@ -187,6 +166,11 @@ class AgentNodes:
                 content = mask_contacts(truncate(content))
                 artifact = None if content.startswith("error") else mcp_artifact(name, args, content)
             status = "error" if content.startswith("error") else "ok"
+            if self.guard is not None and status == "ok":  # L2b + L7 before the LLM sees the output
+                if isinstance(artifact, list) and artifact and isinstance(artifact[0], RetrievedChunk):
+                    artifact = await self.guard.scan_chunks(artifact, f"untrusted.{name}")
+                else:
+                    content = await self.guard.scan_text(content, "web" if name == "web_search" else name)
             span.update(output=truncate(content, 2000), level="WARNING" if status == "error" else "DEFAULT")
         return content, artifact, status, int((time.perf_counter() - t0) * 1000)
 
@@ -241,29 +225,20 @@ class AgentNodes:
                 "flags": flags}
 
     async def grounding_check(self, state: AgentState) -> dict:
-        draft, plan = state.get("draft_answer") or "", state.get("plan")
-        if plan is not None and plan.intent == "chit_chat":
-            return {"grounding": GroundingResult(score=None, grounded=True, skipped="chit_chat")}
-        if not draft or is_abstention(draft):
-            return {"grounding": GroundingResult(score=None, grounded=True, skipped="abstained")}
-        if self.judge is None:
-            return {"grounding": GroundingResult(score=None, grounded=True, skipped="no_judge")}
-        sources = format_items(state.get("contexts") or []) or "(no sources)"
-        try:
-            verdict: Judgement = await self.judge.ainvoke(
-                [SystemMessage(JUDGE_PROMPT), HumanMessage(f"Sources:\n{sources}\n\nAnswer:\n{draft}")],
-                config={"callbacks": llm_callbacks(), "run_name": "grounding_judge"})
-        except Exception:  # noqa: BLE001 - a judge outage must not fail the answer
-            return {"grounding": GroundingResult(score=None, grounded=True, skipped="judge_error"),
-                    "flags": [*state.get("flags", []), "grounding_check_failed"]}
-        claims = verdict.claims
-        score = sum(c.supported for c in claims) / len(claims) if claims else 1.0
-        return {"grounding": GroundingResult(score=round(score, 3), grounded=score >= GROUNDED_MIN,
-                                             unsupported_claims=[c.claim for c in claims if not c.supported])}
+        plan, draft = state.get("plan"), state.get("draft_answer") or ""
+        judged = groundedness_check(self.judge, draft, state.get("contexts") or [],
+                                    plan.intent if plan else None)
+        if self.guard is None:
+            result, flags = await judged
+        else:  # the output rails' toxicity / topic scan, hidden behind the judge's LLM call
+            (result, flags), _ = await asyncio.gather(judged, self.guard.prescan_output(draft))
+        out = {"grounding": result}
+        if flags:
+            out["flags"] = [*state.get("flags", []), *flags]
+        return out
 
     async def safe_fallback(self, state: AgentState) -> dict:
-        kept = drop_unsupported(state.get("draft_answer") or "", state["grounding"].unsupported_claims)
-        answer = f"{kept}\n\n{DISCLAIMER}" if CITE.search(kept) else IDK
+        answer = safe_fallback(state.get("draft_answer") or "", state["grounding"].unsupported_claims)
         return {"draft_answer": answer, "flags": [*state.get("flags", []), "ungrounded_fallback"]}
 
     async def finalize(self, state: AgentState) -> dict:

@@ -1,0 +1,915 @@
+{
+  "n": 30,
+  "false_positives": [],
+  "injection_suspected": 4,
+  "stages_ms": {
+    "input": {
+      "n": 30,
+      "p50": 107.0,
+      "p95": 375.0,
+      "mean": 138.2
+    },
+    "llm_guard_injection": {
+      "n": 30,
+      "p50": 47.0,
+      "p95": 101.0,
+      "mean": 68.7
+    },
+    "llm_guard_toxicity_input": {
+      "n": 30,
+      "p50": 40.0,
+      "p95": 42.0,
+      "mean": 40.8
+    },
+    "presidio_mask": {
+      "n": 30,
+      "p50": 5.0,
+      "p95": 7.0,
+      "mean": 5.2
+    },
+    "self_check_before_agent": {
+      "n": 4,
+      "p50": 871.0,
+      "p95": 1096.0,
+      "mean": 796.0
+    },
+    "untrusted": {
+      "n": 29,
+      "p50": 0.0,
+      "p95": 13.0,
+      "mean": 52.9
+    },
+    "self_check_input": {
+      "n": 30,
+      "p50": 619.0,
+      "p95": 1025.0,
+      "mean": 658.1
+    },
+    "self_check_wait": {
+      "n": 26,
+      "p50": 0.0,
+      "p95": 0.0,
+      "mean": 0.0
+    },
+    "output": {
+      "n": 30,
+      "p50": 46.0,
+      "p95": 237.0,
+      "mean": 64.8
+    },
+    "citations_enforce": {
+      "n": 28,
+      "p50": 0.0,
+      "p95": 0.0,
+      "mean": 0.0
+    },
+    "presidio_output": {
+      "n": 30,
+      "p50": 10.0,
+      "p95": 28.0,
+      "mean": 12.4
+    },
+    "llm_guard_output": {
+      "n": 30,
+      "p50": 1.0,
+      "p95": 186.0,
+      "mean": 19.3
+    },
+    "prescan": {
+      "n": 30,
+      "p50": 229.0,
+      "p95": 302.0,
+      "mean": 234.8
+    },
+    "groundedness": {
+      "n": 28,
+      "p50": 964.0,
+      "p95": 2105.0,
+      "mean": 1085.5
+    },
+    "guardrails": {
+      "n": 30,
+      "p50": 157.0,
+      "p95": 1258.0,
+      "mean": 360.4
+    },
+    "agent": {
+      "n": 30,
+      "p50": 5035.0,
+      "p95": 7285.0,
+      "mean": 5037.2
+    },
+    "total": {
+      "n": 30,
+      "p50": 5245.0,
+      "p95": 7765.0,
+      "mean": 5347.2
+    }
+  },
+  "rows": [
+    {
+      "question": "How long are audit logs in the Audit Log Store retained, and can they be changed?",
+      "query_type": "factual",
+      "flags": [
+        "pii_masked_context"
+      ],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 603.0,
+        "llm_guard_toxicity_input": 69.0,
+        "presidio_mask": 6.0,
+        "topic_policy": 0.0,
+        "input": 692.0,
+        "self_check_input": 1025.0,
+        "untrusted": 1.0,
+        "prescan": 244.0,
+        "groundedness": 1037.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 6.0,
+        "llm_guard_output": 0.0,
+        "output_policy": 0.0,
+        "output": 30.0,
+        "agent": 5035.0,
+        "guardrails": 723.0,
+        "total": 5759.0
+      }
+    },
+    {
+      "question": "What are the recovery time and recovery point objectives for the Ledger DB?",
+      "query_type": "factual",
+      "flags": [],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 55.0,
+        "llm_guard_toxicity_input": 40.0,
+        "presidio_mask": 5.0,
+        "topic_policy": 0.0,
+        "input": 115.0,
+        "self_check_input": 543.0,
+        "untrusted": 1.0,
+        "prescan": 228.0,
+        "groundedness": 964.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 10.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 45.0,
+        "agent": 4792.0,
+        "guardrails": 161.0,
+        "total": 4954.0
+      }
+    },
+    {
+      "question": "How long does break-glass privileged access last, and where is it issued from?",
+      "query_type": "factual",
+      "flags": [
+        "injection_suspected"
+      ],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 47.0,
+        "llm_guard_toxicity_input": 39.0,
+        "presidio_mask": 6.0,
+        "topic_policy": 0.0,
+        "input": 106.0,
+        "self_check_input": 871.0,
+        "self_check_before_agent": 871.0,
+        "untrusted": 0.0,
+        "prescan": 216.0,
+        "groundedness": 777.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 9.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 42.0,
+        "agent": 4076.0,
+        "guardrails": 1020.0,
+        "total": 5096.0
+      }
+    },
+    {
+      "question": "At what consumer lag should the Kafka Cluster alert fire?",
+      "query_type": "factual",
+      "flags": [],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 51.0,
+        "llm_guard_toxicity_input": 40.0,
+        "presidio_mask": 5.0,
+        "topic_policy": 0.0,
+        "input": 110.0,
+        "self_check_input": 535.0,
+        "untrusted": 0.0,
+        "prescan": 225.0,
+        "groundedness": 894.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 9.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 44.0,
+        "agent": 4134.0,
+        "guardrails": 155.0,
+        "total": 4289.0
+      }
+    },
+    {
+      "question": "What are the steps for manual promotion during a Ledger DB failover?",
+      "query_type": "factual",
+      "flags": [
+        "uncited_claims_removed"
+      ],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 54.0,
+        "llm_guard_toxicity_input": 40.0,
+        "presidio_mask": 5.0,
+        "topic_policy": 0.0,
+        "input": 114.0,
+        "self_check_input": 525.0,
+        "untrusted": 0.0,
+        "prescan": 282.0,
+        "groundedness": 2105.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 1.0,
+        "presidio_output": 12.0,
+        "llm_guard_output": 209.0,
+        "output_policy": 0.0,
+        "output": 252.0,
+        "agent": 6364.0,
+        "guardrails": 366.0,
+        "total": 6732.0
+      }
+    },
+    {
+      "question": "How quickly must an emergency secret rotation happen, and how long do the old and new keys overlap?",
+      "query_type": "factual",
+      "flags": [
+        "injection_suspected"
+      ],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 40.0,
+        "llm_guard_toxicity_input": 39.0,
+        "presidio_mask": 5.0,
+        "topic_policy": 0.0,
+        "input": 97.0,
+        "self_check_input": 622.0,
+        "self_check_before_agent": 622.0,
+        "untrusted": 0.0,
+        "prescan": 231.0,
+        "groundedness": 1129.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 13.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 48.0,
+        "agent": 5686.0,
+        "guardrails": 767.0,
+        "total": 6454.0
+      }
+    },
+    {
+      "question": "How far ahead of expiry must API Gateway TLS certificates be renewed?",
+      "query_type": "factual",
+      "flags": [],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 40.0,
+        "llm_guard_toxicity_input": 39.0,
+        "presidio_mask": 6.0,
+        "topic_policy": 0.0,
+        "input": 99.0,
+        "self_check_input": 818.0,
+        "untrusted": 0.0,
+        "prescan": 223.0,
+        "groundedness": 726.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 9.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 45.0,
+        "agent": 4167.0,
+        "guardrails": 145.0,
+        "total": 4312.0
+      }
+    },
+    {
+      "question": "Who has to approve a refund of more than $5,000?",
+      "query_type": "factual",
+      "flags": [],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 38.0,
+        "llm_guard_toxicity_input": 40.0,
+        "presidio_mask": 5.0,
+        "topic_policy": 0.0,
+        "input": 98.0,
+        "self_check_input": 531.0,
+        "untrusted": 0.0,
+        "prescan": 223.0,
+        "groundedness": 847.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 9.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 46.0,
+        "agent": 3532.0,
+        "guardrails": 144.0,
+        "total": 3677.0
+      }
+    },
+    {
+      "question": "How quickly must we respond to a chargeback notice, and when does a fraud analyst need to review the dispute?",
+      "query_type": "factual",
+      "flags": [],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 47.0,
+        "llm_guard_toxicity_input": 40.0,
+        "presidio_mask": 6.0,
+        "topic_policy": 0.0,
+        "input": 108.0,
+        "self_check_input": 590.0,
+        "untrusted": 0.0,
+        "prescan": 238.0,
+        "groundedness": 891.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 12.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 48.0,
+        "agent": 4001.0,
+        "guardrails": 156.0,
+        "total": 4158.0
+      }
+    },
+    {
+      "question": "What caused the payment latency spike in INC-2025-031, and how long did it last?",
+      "query_type": "factual",
+      "flags": [
+        "pii_masked_context"
+      ],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 41.0,
+        "llm_guard_toxicity_input": 40.0,
+        "presidio_mask": 7.0,
+        "topic_policy": 0.0,
+        "input": 102.0,
+        "self_check_input": 620.0,
+        "untrusted": 0.0,
+        "prescan": 234.0,
+        "groundedness": 1175.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 17.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 52.0,
+        "agent": 5091.0,
+        "guardrails": 154.0,
+        "total": 5245.0
+      }
+    },
+    {
+      "question": "Who manages the team that owns the system covered by SOP-OPS-014 (Database Failover)?",
+      "query_type": "multi_hop",
+      "flags": [],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 45.0,
+        "llm_guard_toxicity_input": 40.0,
+        "presidio_mask": 6.0,
+        "topic_policy": 0.0,
+        "input": 106.0,
+        "self_check_input": 619.0,
+        "untrusted": 0.0,
+        "prescan": 302.0,
+        "groundedness": 1360.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 28.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 55.0,
+        "agent": 5756.0,
+        "guardrails": 162.0,
+        "total": 5918.0
+      }
+    },
+    {
+      "question": "Which team owns the system that SOP-OPS-009 (Secrets Rotation) covers, and who manages that team?",
+      "query_type": "multi_hop",
+      "flags": [
+        "injection_suspected"
+      ],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 49.0,
+        "llm_guard_toxicity_input": 40.0,
+        "presidio_mask": 6.0,
+        "topic_policy": 0.0,
+        "input": 110.0,
+        "self_check_input": 1096.0,
+        "self_check_before_agent": 1096.0,
+        "untrusted": 0.0,
+        "prescan": 233.0,
+        "groundedness": 1427.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 16.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 52.0,
+        "agent": 6652.0,
+        "guardrails": 1258.0,
+        "total": 7911.0
+      }
+    },
+    {
+      "question": "Who is the manager of the team that owns the system handled by SOP-OPS-022 (Data Warehouse Backfill)?",
+      "query_type": "multi_hop",
+      "flags": [
+        "pii_masked_context"
+      ],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 98.0,
+        "llm_guard_toxicity_input": 39.0,
+        "presidio_mask": 6.0,
+        "topic_policy": 0.0,
+        "input": 156.0,
+        "self_check_input": 609.0,
+        "untrusted": 0.0,
+        "prescan": 236.0,
+        "groundedness": 877.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 11.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 47.0,
+        "agent": 4292.0,
+        "guardrails": 204.0,
+        "total": 4495.0
+      }
+    },
+    {
+      "question": "Who manages the team that owns the system covered by SOP-SUP-003 (Refund Escalation)?",
+      "query_type": "multi_hop",
+      "flags": [
+        "pii_masked_context"
+      ],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 40.0,
+        "llm_guard_toxicity_input": 42.0,
+        "presidio_mask": 6.0,
+        "topic_policy": 0.0,
+        "input": 102.0,
+        "self_check_input": 585.0,
+        "untrusted": 0.0,
+        "prescan": 218.0,
+        "groundedness": 939.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 14.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 49.0,
+        "agent": 4102.0,
+        "guardrails": 152.0,
+        "total": 4254.0
+      }
+    },
+    {
+      "question": "SOP-SUP-008 (Chargeback Handling) requires a risk score from one of our systems. Which team owns that system, and who manages the team?",
+      "query_type": "multi_hop",
+      "flags": [],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 54.0,
+        "llm_guard_toxicity_input": 39.0,
+        "presidio_mask": 7.0,
+        "topic_policy": 0.0,
+        "input": 116.0,
+        "self_check_input": 520.0,
+        "untrusted": 0.0,
+        "prescan": 252.0,
+        "groundedness": 1188.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 16.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 51.0,
+        "agent": 4902.0,
+        "guardrails": 167.0,
+        "total": 5069.0
+      }
+    },
+    {
+      "question": "Which teams own the systems Payment Gateway depends on?",
+      "query_type": "multi_hop",
+      "flags": [],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 53.0,
+        "llm_guard_toxicity_input": 40.0,
+        "presidio_mask": 5.0,
+        "topic_policy": 0.0,
+        "input": 112.0,
+        "self_check_input": 640.0,
+        "untrusted": 0.0,
+        "prescan": 273.0,
+        "groundedness": 1978.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 35.0,
+        "llm_guard_output": 0.0,
+        "output_policy": 0.0,
+        "output": 67.0,
+        "agent": 5986.0,
+        "guardrails": 179.0,
+        "total": 6166.0
+      }
+    },
+    {
+      "question": "Which team owns the system affected by INC-2025-022 (the expired TLS certificate), and who manages that team?",
+      "query_type": "multi_hop",
+      "flags": [],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 91.0,
+        "llm_guard_toxicity_input": 40.0,
+        "presidio_mask": 6.0,
+        "topic_policy": 0.0,
+        "input": 152.0,
+        "self_check_input": 727.0,
+        "untrusted": 0.0,
+        "prescan": 246.0,
+        "groundedness": 1071.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 14.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 47.0,
+        "agent": 5182.0,
+        "guardrails": 199.0,
+        "total": 5382.0
+      }
+    },
+    {
+      "question": "Which policies govern the systems affected by incident INC-2025-012?",
+      "query_type": "multi_hop",
+      "flags": [
+        "regenerated_ungrounded",
+        "uncited_claims_removed"
+      ],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 41.0,
+        "llm_guard_toxicity_input": 40.0,
+        "presidio_mask": 5.0,
+        "topic_policy": 0.0,
+        "input": 100.0,
+        "self_check_input": 729.0,
+        "untrusted": 0.0,
+        "prescan": 483.0,
+        "groundedness": 2288.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 13.0,
+        "llm_guard_output": 160.0,
+        "output_policy": 0.0,
+        "output": 209.0,
+        "agent": 7454.0,
+        "guardrails": 309.0,
+        "total": 7765.0
+      }
+    },
+    {
+      "question": "How many SEV1 tickets are there in total?",
+      "query_type": "structured",
+      "flags": [],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 41.0,
+        "llm_guard_toxicity_input": 42.0,
+        "presidio_mask": 4.0,
+        "topic_policy": 0.0,
+        "input": 100.0,
+        "self_check_input": 612.0,
+        "untrusted": 7.0,
+        "prescan": 228.0,
+        "groundedness": 716.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 7.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 44.0,
+        "agent": 5122.0,
+        "guardrails": 151.0,
+        "total": 5267.0
+      }
+    },
+    {
+      "question": "How many support tickets currently have the status 'open'?",
+      "query_type": "structured",
+      "flags": [
+        "router_filters_relaxed"
+      ],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 49.0,
+        "llm_guard_toxicity_input": 39.0,
+        "presidio_mask": 5.0,
+        "topic_policy": 0.0,
+        "input": 107.0,
+        "self_check_input": 544.0,
+        "untrusted": 6.0,
+        "prescan": 225.0,
+        "groundedness": 915.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 8.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 44.0,
+        "agent": 5304.0,
+        "guardrails": 157.0,
+        "total": 5456.0
+      }
+    },
+    {
+      "question": "Which system has the most SEV1 tickets, and how many does it have?",
+      "query_type": "structured",
+      "flags": [
+        "uncited_claims_removed"
+      ],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 45.0,
+        "llm_guard_toxicity_input": 40.0,
+        "presidio_mask": 5.0,
+        "topic_policy": 0.0,
+        "input": 107.0,
+        "self_check_input": 679.0,
+        "untrusted": 13.0,
+        "prescan": 228.0,
+        "groundedness": 1239.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 21.0,
+        "llm_guard_output": 186.0,
+        "output_policy": 0.0,
+        "output": 237.0,
+        "agent": 6109.0,
+        "guardrails": 356.0,
+        "total": 6454.0
+      }
+    },
+    {
+      "question": "How many transactions were recorded in the EMEA region?",
+      "query_type": "structured",
+      "flags": [],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 31.0,
+        "llm_guard_toxicity_input": 39.0,
+        "presidio_mask": 4.0,
+        "topic_policy": 0.0,
+        "input": 88.0,
+        "self_check_input": 607.0,
+        "untrusted": 4.0,
+        "prescan": 235.0,
+        "groundedness": 712.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 7.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 42.0,
+        "agent": 5248.0,
+        "guardrails": 133.0,
+        "total": 5377.0
+      }
+    },
+    {
+      "question": "How many employees are on the Data-Platform team?",
+      "query_type": "structured",
+      "flags": [],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 44.0,
+        "llm_guard_toxicity_input": 41.0,
+        "presidio_mask": 5.0,
+        "topic_policy": 0.0,
+        "input": 104.0,
+        "self_check_input": 572.0,
+        "prescan": 201.0,
+        "groundedness": 693.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 8.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 44.0,
+        "agent": 4218.0,
+        "guardrails": 148.0,
+        "total": 4367.0
+      }
+    },
+    {
+      "question": "What is the session timeout for the Customer Portal?",
+      "query_type": "faq",
+      "flags": [],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 41.0,
+        "llm_guard_toxicity_input": 40.0,
+        "presidio_mask": 5.0,
+        "topic_policy": 0.0,
+        "input": 102.0,
+        "self_check_input": 619.0,
+        "untrusted": 0.0,
+        "prescan": 227.0,
+        "groundedness": 815.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 10.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 46.0,
+        "agent": 3552.0,
+        "guardrails": 148.0,
+        "total": 3700.0
+      }
+    },
+    {
+      "question": "Which currencies does Acme Pay support?",
+      "query_type": "faq",
+      "flags": [],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 48.0,
+        "llm_guard_toxicity_input": 40.0,
+        "presidio_mask": 4.0,
+        "topic_policy": 0.0,
+        "input": 107.0,
+        "self_check_input": 692.0,
+        "untrusted": 0.0,
+        "prescan": 232.0,
+        "groundedness": 754.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 10.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 44.0,
+        "agent": 3649.0,
+        "guardrails": 152.0,
+        "total": 3802.0
+      }
+    },
+    {
+      "question": "How long does it take for a refund to reach my bank account?",
+      "query_type": "faq",
+      "flags": [],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 34.0,
+        "llm_guard_toxicity_input": 40.0,
+        "presidio_mask": 5.0,
+        "topic_policy": 0.0,
+        "input": 96.0,
+        "self_check_input": 571.0,
+        "untrusted": 0.0,
+        "prescan": 237.0,
+        "groundedness": 987.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 14.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 50.0,
+        "agent": 3770.0,
+        "guardrails": 146.0,
+        "total": 3916.0
+      }
+    },
+    {
+      "question": "Does Acme store my full card number?",
+      "query_type": "faq",
+      "flags": [
+        "injection_suspected"
+      ],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 50.0,
+        "llm_guard_toxicity_input": 41.0,
+        "presidio_mask": 4.0,
+        "topic_policy": 0.0,
+        "input": 375.0,
+        "self_check_input": 595.0,
+        "self_check_before_agent": 595.0,
+        "untrusted": 0.0,
+        "prescan": 229.0,
+        "groundedness": 793.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 12.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 46.0,
+        "agent": 3974.0,
+        "guardrails": 1016.0,
+        "total": 4990.0
+      }
+    },
+    {
+      "question": "What is Acme's parental leave policy?",
+      "query_type": "unanswerable",
+      "flags": [
+        "pii_masked_context"
+      ],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 51.0,
+        "llm_guard_toxicity_input": 39.0,
+        "presidio_mask": 4.0,
+        "topic_policy": 0.0,
+        "input": 109.0,
+        "self_check_input": 714.0,
+        "untrusted": 4.0,
+        "prescan": 213.0,
+        "self_check_wait": 0.0,
+        "presidio_output": 4.0,
+        "llm_guard_output": 0.0,
+        "output_policy": 0.0,
+        "output": 28.0,
+        "agent": 6066.0,
+        "guardrails": 141.0,
+        "total": 6204.0
+      }
+    },
+    {
+      "question": "What is the daily per-diem limit for business travel expenses?",
+      "query_type": "unanswerable",
+      "flags": [],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 40.0,
+        "llm_guard_toxicity_input": 39.0,
+        "presidio_mask": 5.0,
+        "topic_policy": 0.0,
+        "input": 98.0,
+        "self_check_input": 650.0,
+        "untrusted": 0.0,
+        "prescan": 1.0,
+        "self_check_wait": 0.0,
+        "presidio_output": 7.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 44.0,
+        "agent": 5615.0,
+        "guardrails": 142.0,
+        "total": 5757.0
+      }
+    },
+    {
+      "question": "Which Kubernetes version does the Payment Gateway run on?",
+      "query_type": "unanswerable",
+      "flags": [
+        "pii_masked_context"
+      ],
+      "blocked": false,
+      "timings": {
+        "llm_guard_injection": 101.0,
+        "llm_guard_toxicity_input": 39.0,
+        "presidio_mask": 4.0,
+        "topic_policy": 0.0,
+        "input": 158.0,
+        "self_check_input": 684.0,
+        "untrusted": 1497.0,
+        "prescan": 202.0,
+        "groundedness": 1097.0,
+        "self_check_wait": 0.0,
+        "citations_enforce": 0.0,
+        "presidio_output": 10.0,
+        "llm_guard_output": 1.0,
+        "output_policy": 0.0,
+        "output": 47.0,
+        "agent": 7285.0,
+        "guardrails": 1702.0,
+        "total": 7491.0
+      }
+    }
+  ]
+}

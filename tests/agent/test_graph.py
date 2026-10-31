@@ -3,9 +3,10 @@ retry, sessions."""
 from langchain_core.messages import AIMessage, ToolMessage
 
 from app.agent.graph import open_checkpointer, run_config, turn_input
-from app.agent.nodes import DISCLAIMER, drop_unsupported
+from app.agent.nodes import DISCLAIMER
 from app.agent.prompts import IDK
 from app.core.types import RetrievedChunk
+from app.guardrails.actions import drop_unsupported
 from app.retrieval.context import citations_for
 from tests.fakes import (
     CHUNKS,

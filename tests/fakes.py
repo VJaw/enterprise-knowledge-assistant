@@ -137,8 +137,8 @@ def artifact_tool(name: str, items: list[RetrievedChunk] | None = None,
 
 
 def build_agent(script: Script, *, router=None, retriever=None, tools=(), judge=None, max_steps=5,
-                checkpointer=None):
+                checkpointer=None, guard=None):
     nodes = AgentNodes(router=router or FakeRouter(), retriever=retriever or FakeRetriever(),
                        models=fake_models(script), tools=list(tools), judge=judge or FakeJudge(),
-                       max_steps=max_steps)
+                       max_steps=max_steps, guard=guard)
     return build_graph(nodes, checkpointer or MemorySaver())

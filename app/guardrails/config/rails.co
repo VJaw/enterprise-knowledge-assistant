@@ -1,0 +1,79 @@
+# Colang 1.0 flows for the rails in config.yml. Actions: app/guardrails/actions.py (registered in rails.py).
+
+define flow llm guard injection scan
+  $injection = execute llm_guard_injection(text=$user_message)
+  if $injection["block"]
+    bot refuse injection
+    stop
+
+define flow llm guard toxicity scan input
+  $toxicity = execute llm_guard_toxicity_input(text=$user_message)
+  if $toxicity["block"]
+    bot refuse toxic input
+    stop
+
+define flow mask sensitive data on input
+  $user_message = execute mask_pii_input(text=$user_message)
+
+define flow check topic policy
+  $topic = execute check_topic_policy(text=$user_message)
+  if $topic["category"] == "legal_advice"
+    bot refuse legal advice
+    stop
+  if $topic["category"] == "hr_decision"
+    bot refuse hr decision
+    stop
+  if $topic["category"] == "credential_request"
+    bot refuse credential request
+    stop
+
+define flow check groundedness
+  $bot_message = execute groundedness_backstop(answer=$bot_message)
+
+define flow enforce citations
+  $bot_message = execute enforce_citations(answer=$bot_message)
+
+define flow mask sensitive data on output
+  $bot_message = execute mask_pii_output(text=$bot_message)
+
+define flow llm guard toxicity scan
+  $toxicity = execute llm_guard_toxicity_output(text=$bot_message)
+  if $toxicity["block"]
+    bot refuse unsafe output
+    stop
+
+define flow check output policy
+  $policy = execute check_output_policy(text=$bot_message)
+  if $policy["block"]
+    bot refuse unsafe output
+    stop
+
+# Overrides the library flow of the same name: the LLM check runs only when needs_output_self_check says so.
+define flow self check output
+  $needed = execute needs_output_self_check
+  if $needed
+    $response = execute self_check_output
+    if $response.is_blocked
+      bot refuse unsafe output
+      stop
+
+define bot refuse injection
+  "I can't follow instructions that try to override my configuration. Please rephrase your question."
+
+define bot refuse toxic input
+  "I can't help with that request. Please keep questions respectful and about Acme's work."
+
+define bot refuse legal advice
+  "I can't give legal advice. Please contact Acme's Legal team; I can help you find the relevant Acme policy."
+
+define bot refuse hr decision
+  "I can't make or recommend HR decisions about individual people. Please speak to your manager or HR."
+
+define bot refuse credential request
+  "I can't share passwords, keys or other credentials. Please use the approved access request process."
+
+define bot refuse unsafe output
+  "I can't provide that answer because it didn't pass Acme's safety checks. Please rephrase your question."
+
+define bot refuse to respond
+  "I can't help with that request. I can answer questions about Acme's policies, systems, procedures, incidents and data."
